@@ -1,0 +1,53 @@
+// Maven Central publishing: gradle stages a local maven repo, the release
+// workflow zips it and uploads the bundle to the Central Portal API.
+apply plugin: 'signing'
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = 'ScrapeBadger Kotlin SDK'
+                description = 'Official Kotlin SDK for ScrapeBadger - unified web scraping API'
+                url = 'https://github.com/scrape-badger/scrapebadger-kotlin'
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'scrapebadger'
+                        name = 'ScrapeBadger'
+                        email = 'support@scrapebadger.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/scrape-badger/scrapebadger-kotlin.git'
+                    developerConnection = 'scm:git:ssh://github.com/scrape-badger/scrapebadger-kotlin.git'
+                    url = 'https://github.com/scrape-badger/scrapebadger-kotlin'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = 'staging'
+            url = layout.buildDirectory.dir('staging-repo')
+        }
+    }
+}
+
+signing {
+    def signingKey = System.getenv('MAVEN_GPG_PRIVATE_KEY')
+    if (signingKey) {
+        useInMemoryPgpKeys(signingKey, System.getenv('MAVEN_GPG_PASSPHRASE'))
+        sign publishing.publications.maven
+    }
+}

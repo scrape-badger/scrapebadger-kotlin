@@ -22,7 +22,6 @@ docs/FilterRuleResponse.md
 docs/FilterRuleUpdate.md
 docs/FilterRuleValidateRequest.md
 docs/FilterRuleValidateResponse.md
-docs/GeminiApi.md
 docs/GoogleApi.md
 docs/HTTPValidationError.md
 docs/IdealistaApi.md
@@ -31,7 +30,6 @@ docs/InstagramApi.md
 docs/LeboncoinApi.md
 docs/LinkedInApi.md
 docs/LoopNetApi.md
-docs/PerplexityApi.md
 docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md
 docs/RealtorApi.md
 docs/RedditApi.md
@@ -75,7 +73,6 @@ src/main/kotlin/com/scrapebadger/client/apis/DepopApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/DuckDuckGoApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/EBayApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/FacebookApi.kt
-src/main/kotlin/com/scrapebadger/client/apis/GeminiApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GoogleApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/IdealistaApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ImmobiliareApi.kt
@@ -83,7 +80,6 @@ src/main/kotlin/com/scrapebadger/client/apis/InstagramApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/LeboncoinApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/LinkedInApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/LoopNetApi.kt
-src/main/kotlin/com/scrapebadger/client/apis/PerplexityApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/RealtorApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/RedditApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/RedfinApi.kt
@@ -151,7 +147,6 @@ src/test/kotlin/com/scrapebadger/client/apis/DepopApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/DuckDuckGoApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/EBayApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/FacebookApiTest.kt
-src/test/kotlin/com/scrapebadger/client/apis/GeminiApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GoogleApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/IdealistaApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ImmobiliareApiTest.kt
@@ -159,7 +154,6 @@ src/test/kotlin/com/scrapebadger/client/apis/InstagramApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/LeboncoinApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/LinkedInApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/LoopNetApiTest.kt
-src/test/kotlin/com/scrapebadger/client/apis/PerplexityApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/RealtorApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/RedditApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/RedfinApiTest.kt
