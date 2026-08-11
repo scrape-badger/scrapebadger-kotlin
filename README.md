@@ -1,6 +1,14 @@
-# ScrapeBadger Kotlin SDK
+<p align="center">
+  <img src="https://scrapebadger.com/logo-dark.png" alt="ScrapeBadger" width="400">
+</p>
 
-[![version](https://img.shields.io/maven-central/v/com.scrapebadger/scrapebadger-kotlin)](https://central.sonatype.com/artifact/com.scrapebadger/scrapebadger-kotlin) [![CI](https://img.shields.io/github/actions/workflow/status/scrape-badger/scrapebadger-kotlin/ci.yml?label=CI)](https://github.com/scrape-badger/scrapebadger-kotlin/actions) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+<h1 align="center">ScrapeBadger Kotlin SDK</h1>
+
+<p align="center">
+  <a href="https://central.sonatype.com/artifact/com.scrapebadger/scrapebadger-kotlin"><img src="https://img.shields.io/maven-central/v/com.scrapebadger/scrapebadger-kotlin" alt="version"></a>
+  <a href="https://github.com/scrape-badger/scrapebadger-kotlin/actions"><img src="https://img.shields.io/github/actions/workflow/status/scrape-badger/scrapebadger-kotlin/ci.yml?label=CI" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license"></a>
+</p>
 
 Official **Kotlin** SDK for [ScrapeBadger](https://scrapebadger.com) — one API key for
 30+ scraping APIs: Twitter/X, Reddit, Facebook, Instagram, TikTok, YouTube, Amazon, eBay,
