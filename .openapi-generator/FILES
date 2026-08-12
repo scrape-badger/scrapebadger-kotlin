@@ -5,6 +5,7 @@ docs/AccountApi.md
 docs/AccountInfo.md
 docs/AmazonApi.md
 docs/ApartmentsApi.md
+docs/AppStoreApi.md
 docs/BaiduApi.md
 docs/BillingLogListResponse.md
 docs/BillingLogResponse.md
@@ -24,6 +25,7 @@ docs/FilterRuleValidateRequest.md
 docs/FilterRuleValidateResponse.md
 docs/GeminiApi.md
 docs/GoogleApi.md
+docs/GooglePlayApi.md
 docs/HTTPValidationError.md
 docs/IdealistaApi.md
 docs/ImmobiliareApi.md
@@ -68,6 +70,7 @@ settings.gradle
 src/main/kotlin/com/scrapebadger/client/apis/AccountApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/AmazonApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ApartmentsApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/AppStoreApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BaiduApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BingApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ChatGPTApi.kt
@@ -77,6 +80,7 @@ src/main/kotlin/com/scrapebadger/client/apis/EBayApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/FacebookApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GeminiApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GoogleApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/GooglePlayApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/IdealistaApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ImmobiliareApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/InstagramApi.kt
@@ -144,6 +148,7 @@ src/main/kotlin/com/scrapebadger/client/models/WebhookTestResponse.kt
 src/test/kotlin/com/scrapebadger/client/apis/AccountApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/AmazonApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ApartmentsApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/AppStoreApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BaiduApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BingApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ChatGPTApiTest.kt
@@ -153,6 +158,7 @@ src/test/kotlin/com/scrapebadger/client/apis/EBayApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/FacebookApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GeminiApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GoogleApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/GooglePlayApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/IdealistaApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ImmobiliareApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/InstagramApiTest.kt

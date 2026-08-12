@@ -120,6 +120,13 @@ All URIs are relative to *https://scrapebadger.com*
 | *ApartmentsApi* | [**apartmentsGetPropertyDetailBySlugId**](docs/ApartmentsApi.md#apartmentsgetpropertydetailbyslugid) | **GET** /v1/apartments/properties/{slug}/{property_id} | Get property detail by slug + id |
 | *ApartmentsApi* | [**apartmentsGetPropertyDetailByUrl**](docs/ApartmentsApi.md#apartmentsgetpropertydetailbyurl) | **GET** /v1/apartments/property | Get property detail by URL |
 | *ApartmentsApi* | [**apartmentsSearchRentalListings**](docs/ApartmentsApi.md#apartmentssearchrentallistings) | **GET** /v1/apartments/search | Search rental listings |
+| *AppStoreApi* | [**appStoreGetAppDetail**](docs/AppStoreApi.md#appstoregetappdetail) | **GET** /v1/app-store/apps/{app_id} | Get app detail |
+| *AppStoreApi* | [**appStoreGetAppReviews**](docs/AppStoreApi.md#appstoregetappreviews) | **GET** /v1/app-store/apps/{app_id}/reviews | Get app reviews |
+| *AppStoreApi* | [**appStoreGetDeveloperApps**](docs/AppStoreApi.md#appstoregetdeveloperapps) | **GET** /v1/app-store/developers/{artist_id} | Get developer apps |
+| *AppStoreApi* | [**appStoreListGenres**](docs/AppStoreApi.md#appstorelistgenres) | **GET** /v1/app-store/genres | List genres |
+| *AppStoreApi* | [**appStoreListMarkets**](docs/AppStoreApi.md#appstorelistmarkets) | **GET** /v1/app-store/markets | List markets |
+| *AppStoreApi* | [**appStoreSearchApps**](docs/AppStoreApi.md#appstoresearchapps) | **GET** /v1/app-store/search | Search apps |
+| *AppStoreApi* | [**appStoreTopCharts**](docs/AppStoreApi.md#appstoretopcharts) | **GET** /v1/app-store/charts | Top charts |
 | *BaiduApi* | [**baiduBaiduImageSearch**](docs/BaiduApi.md#baidubaiduimagesearch) | **GET** /v1/baidu/images | Baidu image search |
 | *BaiduApi* | [**baiduBaiduNewsSearch**](docs/BaiduApi.md#baidubaidunewssearch) | **GET** /v1/baidu/news | Baidu news search |
 | *BaiduApi* | [**baiduBaiduScraperHealthCheck**](docs/BaiduApi.md#baidubaiduscraperhealthcheck) | **GET** /v1/baidu/health | Baidu scraper health check |
@@ -237,6 +244,16 @@ All URIs are relative to *https://scrapebadger.com*
 | *GoogleApi* | [**googleTrendingNews**](docs/GoogleApi.md#googletrendingnews) | **GET** /v1/google/news/trending | Trending news |
 | *GoogleApi* | [**googleTrendingSearches**](docs/GoogleApi.md#googletrendingsearches) | **GET** /v1/google/trends/trending | Trending searches |
 | *GoogleApi* | [**googleTrendsTopicAutocomplete**](docs/GoogleApi.md#googletrendstopicautocomplete) | **GET** /v1/google/trends/autocomplete | Trends topic autocomplete |
+| *GooglePlayApi* | [**googlePlayBrowseACategory**](docs/GooglePlayApi.md#googleplaybrowseacategory) | **GET** /v1/google-play/categories/{category_id} | Browse a category |
+| *GooglePlayApi* | [**googlePlayGetAppDetail**](docs/GooglePlayApi.md#googleplaygetappdetail) | **GET** /v1/google-play/apps/{app_id} | Get app detail |
+| *GooglePlayApi* | [**googlePlayGetAppPermissions**](docs/GooglePlayApi.md#googleplaygetapppermissions) | **GET** /v1/google-play/apps/{app_id}/permissions | Get app permissions |
+| *GooglePlayApi* | [**googlePlayGetAppReviews**](docs/GooglePlayApi.md#googleplaygetappreviews) | **GET** /v1/google-play/apps/{app_id}/reviews | Get app reviews |
+| *GooglePlayApi* | [**googlePlayGetDeveloperApps**](docs/GooglePlayApi.md#googleplaygetdeveloperapps) | **GET** /v1/google-play/developers/{developer} | Get developer apps |
+| *GooglePlayApi* | [**googlePlayGetSimilarApps**](docs/GooglePlayApi.md#googleplaygetsimilarapps) | **GET** /v1/google-play/apps/{app_id}/similar | Get similar apps |
+| *GooglePlayApi* | [**googlePlayListCategories**](docs/GooglePlayApi.md#googleplaylistcategories) | **GET** /v1/google-play/categories | List categories |
+| *GooglePlayApi* | [**googlePlayListMarkets**](docs/GooglePlayApi.md#googleplaylistmarkets) | **GET** /v1/google-play/markets | List markets |
+| *GooglePlayApi* | [**googlePlaySearchApps**](docs/GooglePlayApi.md#googleplaysearchapps) | **GET** /v1/google-play/search | Search apps |
+| *GooglePlayApi* | [**googlePlayTopCharts**](docs/GooglePlayApi.md#googleplaytopcharts) | **GET** /v1/google-play/collections/{collection} | Top charts |
 | *IdealistaApi* | [**idealistaAgencyByPhone**](docs/IdealistaApi.md#idealistaagencybyphone) | **GET** /v1/idealista/agency/by-phone/{phone} | Agency by phone |
 | *IdealistaApi* | [**idealistaAgencyProfileListings**](docs/IdealistaApi.md#idealistaagencyprofilelistings) | **GET** /v1/idealista/agency/{short_name} | Agency profile + listings |
 | *IdealistaApi* | [**idealistaGetListingEngagementStats**](docs/IdealistaApi.md#idealistagetlistingengagementstats) | **GET** /v1/idealista/properties/{property_code}/stats | Get listing engagement stats |
