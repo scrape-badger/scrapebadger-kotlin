@@ -18,7 +18,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 <a id="googlePlayBrowseACategory"></a>
 # **googlePlayBrowseACategory**
-> kotlin.Any googlePlayBrowseACategory(categoryId, country, lang)
+> kotlin.Any googlePlayBrowseACategory(categoryId, country, lang, num)
 
 Browse a category
 
@@ -34,8 +34,9 @@ val apiInstance = GooglePlayApi()
 val categoryId : kotlin.String = categoryId_example // kotlin.String | Play category id, e.g. 'GAME_PUZZLE' or 'SOCIAL'
 val country : kotlin.String = country_example // kotlin.String | Play storefront country (gl), ISO 3166-1 alpha-2, e.g. 'US'
 val lang : kotlin.String = lang_example // kotlin.String | Play content language (hl), e.g. 'en' or 'pt-BR'
+val num : kotlin.Int = 56 // kotlin.Int | Max apps; follows each rail's 'see more' continuation above the ~40-120 the page renders directly
 try {
-    val result : kotlin.Any = apiInstance.googlePlayBrowseACategory(categoryId, country, lang)
+    val result : kotlin.Any = apiInstance.googlePlayBrowseACategory(categoryId, country, lang, num)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GooglePlayApi#googlePlayBrowseACategory")
@@ -49,9 +50,10 @@ try {
 ### Parameters
 | **categoryId** | **kotlin.String**| Play category id, e.g. &#39;GAME_PUZZLE&#39; or &#39;SOCIAL&#39; | |
 | **country** | **kotlin.String**| Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; | [optional] [default to &quot;US&quot;] |
+| **lang** | **kotlin.String**| Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; | [optional] [default to &quot;en&quot;] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **lang** | **kotlin.String**| Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; | [optional] [default to &quot;en&quot;] |
+| **num** | **kotlin.Int**| Max apps; follows each rail&#39;s &#39;see more&#39; continuation above the ~40-120 the page renders directly | [optional] [default to 100] |
 
 ### Return type
 
@@ -234,7 +236,7 @@ Configure ApiKeyAuth:
 
 <a id="googlePlayGetDeveloperApps"></a>
 # **googlePlayGetDeveloperApps**
-> kotlin.Any googlePlayGetDeveloperApps(developer, country, lang)
+> kotlin.Any googlePlayGetDeveloperApps(developer, country, lang, num)
 
 Get developer apps
 
@@ -250,8 +252,9 @@ val apiInstance = GooglePlayApi()
 val developer : kotlin.String = developer_example // kotlin.String | Developer name or numeric id
 val country : kotlin.String = country_example // kotlin.String | Play storefront country (gl), ISO 3166-1 alpha-2, e.g. 'US'
 val lang : kotlin.String = lang_example // kotlin.String | Play content language (hl), e.g. 'en' or 'pt-BR'
+val num : kotlin.Int = 56 // kotlin.Int | Max apps; follows rail continuations above the page's directly-rendered slice
 try {
-    val result : kotlin.Any = apiInstance.googlePlayGetDeveloperApps(developer, country, lang)
+    val result : kotlin.Any = apiInstance.googlePlayGetDeveloperApps(developer, country, lang, num)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GooglePlayApi#googlePlayGetDeveloperApps")
@@ -265,9 +268,10 @@ try {
 ### Parameters
 | **developer** | **kotlin.String**| Developer name or numeric id | |
 | **country** | **kotlin.String**| Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; | [optional] [default to &quot;US&quot;] |
+| **lang** | **kotlin.String**| Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; | [optional] [default to &quot;en&quot;] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **lang** | **kotlin.String**| Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; | [optional] [default to &quot;en&quot;] |
+| **num** | **kotlin.Int**| Max apps; follows rail continuations above the page&#39;s directly-rendered slice | [optional] [default to 100] |
 
 ### Return type
 

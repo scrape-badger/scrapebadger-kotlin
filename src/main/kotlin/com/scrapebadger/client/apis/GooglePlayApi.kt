@@ -51,6 +51,7 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param categoryId Play category id, e.g. &#39;GAME_PUZZLE&#39; or &#39;SOCIAL&#39;
      * @param country Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; (optional, default to "US")
      * @param lang Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; (optional, default to "en")
+     * @param num Max apps; follows each rail&#39;s &#39;see more&#39; continuation above the ~40-120 the page renders directly (optional, default to 100)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -60,8 +61,8 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun googlePlayBrowseACategory(categoryId: kotlin.String, country: kotlin.String? = "US", lang: kotlin.String? = "en") : kotlin.Any {
-        val localVarResponse = googlePlayBrowseACategoryWithHttpInfo(categoryId = categoryId, country = country, lang = lang)
+    fun googlePlayBrowseACategory(categoryId: kotlin.String, country: kotlin.String? = "US", lang: kotlin.String? = "en", num: kotlin.Int? = 100) : kotlin.Any {
+        val localVarResponse = googlePlayBrowseACategoryWithHttpInfo(categoryId = categoryId, country = country, lang = lang, num = num)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -84,14 +85,15 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param categoryId Play category id, e.g. &#39;GAME_PUZZLE&#39; or &#39;SOCIAL&#39;
      * @param country Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; (optional, default to "US")
      * @param lang Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; (optional, default to "en")
+     * @param num Max apps; follows each rail&#39;s &#39;see more&#39; continuation above the ~40-120 the page renders directly (optional, default to 100)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun googlePlayBrowseACategoryWithHttpInfo(categoryId: kotlin.String, country: kotlin.String?, lang: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = googlePlayBrowseACategoryRequestConfig(categoryId = categoryId, country = country, lang = lang)
+    fun googlePlayBrowseACategoryWithHttpInfo(categoryId: kotlin.String, country: kotlin.String?, lang: kotlin.String?, num: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googlePlayBrowseACategoryRequestConfig(categoryId = categoryId, country = country, lang = lang, num = num)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -104,9 +106,10 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param categoryId Play category id, e.g. &#39;GAME_PUZZLE&#39; or &#39;SOCIAL&#39;
      * @param country Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; (optional, default to "US")
      * @param lang Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; (optional, default to "en")
+     * @param num Max apps; follows each rail&#39;s &#39;see more&#39; continuation above the ~40-120 the page renders directly (optional, default to 100)
      * @return RequestConfig
      */
-    fun googlePlayBrowseACategoryRequestConfig(categoryId: kotlin.String, country: kotlin.String?, lang: kotlin.String?) : RequestConfig<Unit> {
+    fun googlePlayBrowseACategoryRequestConfig(categoryId: kotlin.String, country: kotlin.String?, lang: kotlin.String?, num: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -115,6 +118,9 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
                 }
                 if (lang != null) {
                     put("lang", listOf(lang.toString()))
+                }
+                if (num != null) {
+                    put("num", listOf(num.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -403,6 +409,7 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param developer Developer name or numeric id
      * @param country Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; (optional, default to "US")
      * @param lang Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; (optional, default to "en")
+     * @param num Max apps; follows rail continuations above the page&#39;s directly-rendered slice (optional, default to 100)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -412,8 +419,8 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun googlePlayGetDeveloperApps(developer: kotlin.String, country: kotlin.String? = "US", lang: kotlin.String? = "en") : kotlin.Any {
-        val localVarResponse = googlePlayGetDeveloperAppsWithHttpInfo(developer = developer, country = country, lang = lang)
+    fun googlePlayGetDeveloperApps(developer: kotlin.String, country: kotlin.String? = "US", lang: kotlin.String? = "en", num: kotlin.Int? = 100) : kotlin.Any {
+        val localVarResponse = googlePlayGetDeveloperAppsWithHttpInfo(developer = developer, country = country, lang = lang, num = num)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -436,14 +443,15 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param developer Developer name or numeric id
      * @param country Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; (optional, default to "US")
      * @param lang Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; (optional, default to "en")
+     * @param num Max apps; follows rail continuations above the page&#39;s directly-rendered slice (optional, default to 100)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun googlePlayGetDeveloperAppsWithHttpInfo(developer: kotlin.String, country: kotlin.String?, lang: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = googlePlayGetDeveloperAppsRequestConfig(developer = developer, country = country, lang = lang)
+    fun googlePlayGetDeveloperAppsWithHttpInfo(developer: kotlin.String, country: kotlin.String?, lang: kotlin.String?, num: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googlePlayGetDeveloperAppsRequestConfig(developer = developer, country = country, lang = lang, num = num)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -456,9 +464,10 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param developer Developer name or numeric id
      * @param country Play storefront country (gl), ISO 3166-1 alpha-2, e.g. &#39;US&#39; (optional, default to "US")
      * @param lang Play content language (hl), e.g. &#39;en&#39; or &#39;pt-BR&#39; (optional, default to "en")
+     * @param num Max apps; follows rail continuations above the page&#39;s directly-rendered slice (optional, default to 100)
      * @return RequestConfig
      */
-    fun googlePlayGetDeveloperAppsRequestConfig(developer: kotlin.String, country: kotlin.String?, lang: kotlin.String?) : RequestConfig<Unit> {
+    fun googlePlayGetDeveloperAppsRequestConfig(developer: kotlin.String, country: kotlin.String?, lang: kotlin.String?, num: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -467,6 +476,9 @@ class GooglePlayApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
                 }
                 if (lang != null) {
                     put("lang", listOf(lang.toString()))
+                }
+                if (num != null) {
+                    put("num", listOf(num.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

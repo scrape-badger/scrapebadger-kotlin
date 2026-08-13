@@ -32,7 +32,8 @@ class GooglePlayApiTest : ShouldSpec() {
             //val categoryId : kotlin.String = categoryId_example // kotlin.String | Play category id, e.g. 'GAME_PUZZLE' or 'SOCIAL'
             //val country : kotlin.String = country_example // kotlin.String | Play storefront country (gl), ISO 3166-1 alpha-2, e.g. 'US'
             //val lang : kotlin.String = lang_example // kotlin.String | Play content language (hl), e.g. 'en' or 'pt-BR'
-            //val result : kotlin.Any = apiInstance.googlePlayBrowseACategory(categoryId, country, lang)
+            //val num : kotlin.Int = 56 // kotlin.Int | Max apps; follows each rail's 'see more' continuation above the ~40-120 the page renders directly
+            //val result : kotlin.Any = apiInstance.googlePlayBrowseACategory(categoryId, country, lang, num)
             //result shouldBe ("TODO")
         }
 
@@ -74,7 +75,8 @@ class GooglePlayApiTest : ShouldSpec() {
             //val developer : kotlin.String = developer_example // kotlin.String | Developer name or numeric id
             //val country : kotlin.String = country_example // kotlin.String | Play storefront country (gl), ISO 3166-1 alpha-2, e.g. 'US'
             //val lang : kotlin.String = lang_example // kotlin.String | Play content language (hl), e.g. 'en' or 'pt-BR'
-            //val result : kotlin.Any = apiInstance.googlePlayGetDeveloperApps(developer, country, lang)
+            //val num : kotlin.Int = 56 // kotlin.Int | Max apps; follows rail continuations above the page's directly-rendered slice
+            //val result : kotlin.Any = apiInstance.googlePlayGetDeveloperApps(developer, country, lang, num)
             //result shouldBe ("TODO")
         }
 
