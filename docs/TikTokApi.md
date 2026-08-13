@@ -17,6 +17,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**tiktokGetOembedMetadata**](TikTokApi.md#tiktokGetOembedMetadata) | **GET** /v1/tiktok/oembed | Get oEmbed metadata |
 | [**tiktokGetRelatedVideos**](TikTokApi.md#tiktokGetRelatedVideos) | **GET** /v1/tiktok/videos/{video_id}/related | Get related videos |
 | [**tiktokGetReposts**](TikTokApi.md#tiktokGetReposts) | **GET** /v1/tiktok/users/{username}/reposts | Get reposts |
+| [**tiktokGetTiktokAdDetail**](TikTokApi.md#tiktokGetTiktokAdDetail) | **GET** /v1/tiktok/ads/{ad_id} | Get TikTok ad detail |
 | [**tiktokGetTranscript**](TikTokApi.md#tiktokGetTranscript) | **GET** /v1/tiktok/videos/{video_id}/transcript | Get transcript |
 | [**tiktokGetUserProfile**](TikTokApi.md#tiktokGetUserProfile) | **GET** /v1/tiktok/users/{username} | Get user profile |
 | [**tiktokGetUserVideos**](TikTokApi.md#tiktokGetUserVideos) | **GET** /v1/tiktok/users/{username}/videos | Get user videos |
@@ -26,6 +27,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**tiktokListRegions**](TikTokApi.md#tiktokListRegions) | **GET** /v1/tiktok/regions | List regions |
 | [**tiktokSearchHashtags**](TikTokApi.md#tiktokSearchHashtags) | **GET** /v1/tiktok/search/hashtags | Search hashtags |
 | [**tiktokSearchTheTiktokAdLibrary**](TikTokApi.md#tiktokSearchTheTiktokAdLibrary) | **GET** /v1/tiktok/ads/search | Search the TikTok Ad Library |
+| [**tiktokSearchTiktokAdvertisers**](TikTokApi.md#tiktokSearchTiktokAdvertisers) | **GET** /v1/tiktok/ads/advertisers | Search TikTok advertisers |
 | [**tiktokSearchUsers**](TikTokApi.md#tiktokSearchUsers) | **GET** /v1/tiktok/search/users | Search users |
 | [**tiktokSearchVideos**](TikTokApi.md#tiktokSearchVideos) | **GET** /v1/tiktok/search/videos | Search videos |
 | [**tiktokTrendingHashtags**](TikTokApi.md#tiktokTrendingHashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags |
@@ -728,6 +730,57 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a id="tiktokGetTiktokAdDetail"></a>
+# **tiktokGetTiktokAdDetail**
+> kotlin.Any tiktokGetTiktokAdDetail(adId, region)
+
+Get TikTok ad detail
+
+Get a single ad&#39;s advertiser, creatives, and targeting/impression breakdown.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val adId : kotlin.String = adId_example // kotlin.String | 
+val region : kotlin.String = region_example // kotlin.String | EU region code (the Ad Library is EU-only)
+try {
+    val result : kotlin.Any = apiInstance.tiktokGetTiktokAdDetail(adId, region)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokGetTiktokAdDetail")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokGetTiktokAdDetail")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **adId** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **region** | **kotlin.String**| EU region code (the Ad Library is EU-only) | [optional] [default to &quot;DE&quot;] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a id="tiktokGetTranscript"></a>
 # **tiktokGetTranscript**
 > kotlin.Any tiktokGetTranscript(videoId, region)
@@ -1177,6 +1230,59 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokSearchTiktokAdvertisers"></a>
+# **tiktokSearchTiktokAdvertisers**
+> kotlin.Any tiktokSearchTiktokAdvertisers(query, region, count)
+
+Search TikTok advertisers
+
+Look up TikTok advertiser business ids by name (feeds ads/search?advertiser_id&#x3D;).
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val query : kotlin.String = query_example // kotlin.String | Advertiser name (or partial) to look up
+val region : kotlin.String = region_example // kotlin.String | EU region code (the Ad Library is EU-only)
+val count : kotlin.Int = 56 // kotlin.Int | 
+try {
+    val result : kotlin.Any = apiInstance.tiktokSearchTiktokAdvertisers(query, region, count)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokSearchTiktokAdvertisers")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokSearchTiktokAdvertisers")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **query** | **kotlin.String**| Advertiser name (or partial) to look up | |
+| **region** | **kotlin.String**| EU region code (the Ad Library is EU-only) | [optional] [default to &quot;DE&quot;] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **count** | **kotlin.Int**|  | [optional] [default to 10] |
 
 ### Return type
 

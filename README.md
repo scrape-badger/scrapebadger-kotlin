@@ -383,6 +383,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *TikTokApi* | [**tiktokGetOembedMetadata**](docs/TikTokApi.md#tiktokgetoembedmetadata) | **GET** /v1/tiktok/oembed | Get oEmbed metadata |
 | *TikTokApi* | [**tiktokGetRelatedVideos**](docs/TikTokApi.md#tiktokgetrelatedvideos) | **GET** /v1/tiktok/videos/{video_id}/related | Get related videos |
 | *TikTokApi* | [**tiktokGetReposts**](docs/TikTokApi.md#tiktokgetreposts) | **GET** /v1/tiktok/users/{username}/reposts | Get reposts |
+| *TikTokApi* | [**tiktokGetTiktokAdDetail**](docs/TikTokApi.md#tiktokgettiktokaddetail) | **GET** /v1/tiktok/ads/{ad_id} | Get TikTok ad detail |
 | *TikTokApi* | [**tiktokGetTranscript**](docs/TikTokApi.md#tiktokgettranscript) | **GET** /v1/tiktok/videos/{video_id}/transcript | Get transcript |
 | *TikTokApi* | [**tiktokGetUserProfile**](docs/TikTokApi.md#tiktokgetuserprofile) | **GET** /v1/tiktok/users/{username} | Get user profile |
 | *TikTokApi* | [**tiktokGetUserVideos**](docs/TikTokApi.md#tiktokgetuservideos) | **GET** /v1/tiktok/users/{username}/videos | Get user videos |
@@ -392,6 +393,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *TikTokApi* | [**tiktokListRegions**](docs/TikTokApi.md#tiktoklistregions) | **GET** /v1/tiktok/regions | List regions |
 | *TikTokApi* | [**tiktokSearchHashtags**](docs/TikTokApi.md#tiktoksearchhashtags) | **GET** /v1/tiktok/search/hashtags | Search hashtags |
 | *TikTokApi* | [**tiktokSearchTheTiktokAdLibrary**](docs/TikTokApi.md#tiktoksearchthetiktokadlibrary) | **GET** /v1/tiktok/ads/search | Search the TikTok Ad Library |
+| *TikTokApi* | [**tiktokSearchTiktokAdvertisers**](docs/TikTokApi.md#tiktoksearchtiktokadvertisers) | **GET** /v1/tiktok/ads/advertisers | Search TikTok advertisers |
 | *TikTokApi* | [**tiktokSearchUsers**](docs/TikTokApi.md#tiktoksearchusers) | **GET** /v1/tiktok/search/users | Search users |
 | *TikTokApi* | [**tiktokSearchVideos**](docs/TikTokApi.md#tiktoksearchvideos) | **GET** /v1/tiktok/search/videos | Search videos |
 | *TikTokApi* | [**tiktokTrendingHashtags**](docs/TikTokApi.md#tiktoktrendinghashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags |

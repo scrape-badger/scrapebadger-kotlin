@@ -159,6 +159,15 @@ class TikTokApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test tiktokGetTiktokAdDetail
+        should("test tiktokGetTiktokAdDetail") {
+            // uncomment below to test tiktokGetTiktokAdDetail
+            //val adId : kotlin.String = adId_example // kotlin.String | 
+            //val region : kotlin.String = region_example // kotlin.String | EU region code (the Ad Library is EU-only)
+            //val result : kotlin.Any = apiInstance.tiktokGetTiktokAdDetail(adId, region)
+            //result shouldBe ("TODO")
+        }
+
         // to test tiktokGetTranscript
         should("test tiktokGetTranscript") {
             // uncomment below to test tiktokGetTranscript
@@ -242,6 +251,16 @@ class TikTokApiTest : ShouldSpec() {
             //val searchId : kotlin.String = searchId_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
             //val result : kotlin.Any = apiInstance.tiktokSearchTheTiktokAdLibrary(query, advertiserId, region, days, sort, offset, searchId, count)
+            //result shouldBe ("TODO")
+        }
+
+        // to test tiktokSearchTiktokAdvertisers
+        should("test tiktokSearchTiktokAdvertisers") {
+            // uncomment below to test tiktokSearchTiktokAdvertisers
+            //val query : kotlin.String = query_example // kotlin.String | Advertiser name (or partial) to look up
+            //val region : kotlin.String = region_example // kotlin.String | EU region code (the Ad Library is EU-only)
+            //val count : kotlin.Int = 56 // kotlin.Int | 
+            //val result : kotlin.Any = apiInstance.tiktokSearchTiktokAdvertisers(query, region, count)
             //result shouldBe ("TODO")
         }
 

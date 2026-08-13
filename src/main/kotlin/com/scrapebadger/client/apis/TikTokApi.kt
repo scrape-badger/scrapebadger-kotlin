@@ -1184,6 +1184,85 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
+     * Get TikTok ad detail
+     * Get a single ad&#39;s advertiser, creatives, and targeting/impression breakdown.
+     * @param adId 
+     * @param region EU region code (the Ad Library is EU-only) (optional, default to "DE")
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun tiktokGetTiktokAdDetail(adId: kotlin.String, region: kotlin.String? = "DE") : kotlin.Any {
+        val localVarResponse = tiktokGetTiktokAdDetailWithHttpInfo(adId = adId, region = region)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get TikTok ad detail
+     * Get a single ad&#39;s advertiser, creatives, and targeting/impression breakdown.
+     * @param adId 
+     * @param region EU region code (the Ad Library is EU-only) (optional, default to "DE")
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun tiktokGetTiktokAdDetailWithHttpInfo(adId: kotlin.String, region: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokGetTiktokAdDetailRequestConfig(adId = adId, region = region)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation tiktokGetTiktokAdDetail
+     *
+     * @param adId 
+     * @param region EU region code (the Ad Library is EU-only) (optional, default to "DE")
+     * @return RequestConfig
+     */
+    fun tiktokGetTiktokAdDetailRequestConfig(adId: kotlin.String, region: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tiktok/ads/{ad_id}".replace("{"+"ad_id"+"}", encodeURIComponent(adId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Get transcript
      * Get subtitle/caption tracks for a TikTok video.
      * @param videoId 
@@ -1924,6 +2003,92 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/tiktok/ads/search",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * Search TikTok advertisers
+     * Look up TikTok advertiser business ids by name (feeds ads/search?advertiser_id&#x3D;).
+     * @param query Advertiser name (or partial) to look up
+     * @param region EU region code (the Ad Library is EU-only) (optional, default to "DE")
+     * @param count  (optional, default to 10)
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun tiktokSearchTiktokAdvertisers(query: kotlin.String, region: kotlin.String? = "DE", count: kotlin.Int? = 10) : kotlin.Any {
+        val localVarResponse = tiktokSearchTiktokAdvertisersWithHttpInfo(query = query, region = region, count = count)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Search TikTok advertisers
+     * Look up TikTok advertiser business ids by name (feeds ads/search?advertiser_id&#x3D;).
+     * @param query Advertiser name (or partial) to look up
+     * @param region EU region code (the Ad Library is EU-only) (optional, default to "DE")
+     * @param count  (optional, default to 10)
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun tiktokSearchTiktokAdvertisersWithHttpInfo(query: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokSearchTiktokAdvertisersRequestConfig(query = query, region = region, count = count)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation tiktokSearchTiktokAdvertisers
+     *
+     * @param query Advertiser name (or partial) to look up
+     * @param region EU region code (the Ad Library is EU-only) (optional, default to "DE")
+     * @param count  (optional, default to 10)
+     * @return RequestConfig
+     */
+    fun tiktokSearchTiktokAdvertisersRequestConfig(query: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("query", listOf(query.toString()))
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+                if (count != null) {
+                    put("count", listOf(count.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tiktok/ads/advertisers",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,
