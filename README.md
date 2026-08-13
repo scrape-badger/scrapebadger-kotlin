@@ -99,6 +99,14 @@ All URIs are relative to *https://scrapebadger.com*
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
 | *AccountApi* | [**accountGetAccountInfo**](docs/AccountApi.md#accountgetaccountinfo) | **GET** /v1/account/me | Get account info |
+| *AirbnbApi* | [**airbnbAirbnbScraperHealthCheck**](docs/AirbnbApi.md#airbnbairbnbscraperhealthcheck) | **GET** /v1/airbnb/health | Airbnb scraper health check |
+| *AirbnbApi* | [**airbnbAirbnbScraperHealthCheckHead**](docs/AirbnbApi.md#airbnbairbnbscraperhealthcheckhead) | **HEAD** /v1/airbnb/health | Airbnb scraper health check |
+| *AirbnbApi* | [**airbnbGetAvailabilityCalendar**](docs/AirbnbApi.md#airbnbgetavailabilitycalendar) | **GET** /v1/airbnb/listings/{room_id}/calendar | Get availability calendar |
+| *AirbnbApi* | [**airbnbGetExperienceDetail**](docs/AirbnbApi.md#airbnbgetexperiencedetail) | **GET** /v1/airbnb/experiences/{experience_id} | Get experience detail |
+| *AirbnbApi* | [**airbnbGetListingDetail**](docs/AirbnbApi.md#airbnbgetlistingdetail) | **GET** /v1/airbnb/listings/{room_id} | Get listing detail |
+| *AirbnbApi* | [**airbnbGetListingReviews**](docs/AirbnbApi.md#airbnbgetlistingreviews) | **GET** /v1/airbnb/listings/{room_id}/reviews | Get listing reviews |
+| *AirbnbApi* | [**airbnbSearchExperiences**](docs/AirbnbApi.md#airbnbsearchexperiences) | **GET** /v1/airbnb/experiences | Search experiences |
+| *AirbnbApi* | [**airbnbSearchStays**](docs/AirbnbApi.md#airbnbsearchstays) | **GET** /v1/airbnb/search | Search stays |
 | *AmazonApi* | [**amazonAmazonScraperHealthCheck**](docs/AmazonApi.md#amazonamazonscraperhealthcheck) | **GET** /v1/amazon/health | Amazon scraper health check |
 | *AmazonApi* | [**amazonAmazonScraperHealthCheckHead**](docs/AmazonApi.md#amazonamazonscraperhealthcheckhead) | **HEAD** /v1/amazon/health | Amazon scraper health check |
 | *AmazonApi* | [**amazonBestsellersByCategory**](docs/AmazonApi.md#amazonbestsellersbycategory) | **GET** /v1/amazon/bestsellers | Bestsellers by category |

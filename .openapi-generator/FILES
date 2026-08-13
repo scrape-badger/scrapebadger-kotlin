@@ -3,6 +3,7 @@ README.md
 build.gradle
 docs/AccountApi.md
 docs/AccountInfo.md
+docs/AirbnbApi.md
 docs/AmazonApi.md
 docs/ApartmentsApi.md
 docs/AppStoreApi.md
@@ -68,6 +69,7 @@ gradlew
 gradlew.bat
 settings.gradle
 src/main/kotlin/com/scrapebadger/client/apis/AccountApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/AirbnbApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/AmazonApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ApartmentsApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/AppStoreApi.kt
@@ -146,6 +148,7 @@ src/main/kotlin/com/scrapebadger/client/models/WebhookResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookTestRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookTestResponse.kt
 src/test/kotlin/com/scrapebadger/client/apis/AccountApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/AirbnbApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/AmazonApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ApartmentsApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/AppStoreApiTest.kt
