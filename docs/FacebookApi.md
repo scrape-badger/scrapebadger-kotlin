@@ -6,6 +6,7 @@ All URIs are relative to *https://scrapebadger.com*
 | ------------- | ------------- | ------------- |
 | [**facebookBrowseAMarketplaceCategory**](FacebookApi.md#facebookBrowseAMarketplaceCategory) | **GET** /v1/facebook/marketplace/category/{category} | Browse a Marketplace category |
 | [**facebookGetAMarketplaceItem**](FacebookApi.md#facebookGetAMarketplaceItem) | **GET** /v1/facebook/marketplace/item/{item_id} | Get a Marketplace item |
+| [**facebookGetAdvertiserPageInfo**](FacebookApi.md#facebookGetAdvertiserPageInfo) | **GET** /v1/facebook/ads/pages/{page_id} | Get advertiser page info |
 | [**facebookGetAnAd**](FacebookApi.md#facebookGetAnAd) | **GET** /v1/facebook/ads/{ad_archive_id} | Get an ad |
 | [**facebookGetGroupDetail**](FacebookApi.md#facebookGetGroupDetail) | **GET** /v1/facebook/groups/{group_id} | Get group detail |
 | [**facebookGetGroupPosts**](FacebookApi.md#facebookGetGroupPosts) | **GET** /v1/facebook/groups/{group_id}/posts | Get group posts |
@@ -17,6 +18,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**facebookGetProfilePosts**](FacebookApi.md#facebookGetProfilePosts) | **GET** /v1/facebook/profiles/{identifier}/posts | Get profile posts |
 | [**facebookListCategories**](FacebookApi.md#facebookListCategories) | **GET** /v1/facebook/marketplace/categories | List categories |
 | [**facebookListLocations**](FacebookApi.md#facebookListLocations) | **GET** /v1/facebook/marketplace/locations | List locations |
+| [**facebookSearchAdvertiserPages**](FacebookApi.md#facebookSearchAdvertiserPages) | **GET** /v1/facebook/ads/pages/search | Search advertiser pages |
 | [**facebookSearchEvents**](FacebookApi.md#facebookSearchEvents) | **GET** /v1/facebook/search/events | Search events |
 | [**facebookSearchEverything**](FacebookApi.md#facebookSearchEverything) | **GET** /v1/facebook/search | Search everything |
 | [**facebookSearchGroups**](FacebookApi.md#facebookSearchGroups) | **GET** /v1/facebook/search/groups | Search groups |
@@ -136,13 +138,64 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a id="facebookGetAdvertiserPageInfo"></a>
+# **facebookGetAdvertiserPageInfo**
+> kotlin.Any facebookGetAdvertiserPageInfo(pageId, country)
+
+Get advertiser page info
+
+Get advertiser page info: category, followers, page transparency (creation date, name history, managing organization, admin-account locations), related pages, and ad spend (for political/issue advertisers).
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = FacebookApi()
+val pageId : kotlin.String = pageId_example // kotlin.String | 
+val country : kotlin.String = country_example // kotlin.String | 
+try {
+    val result : kotlin.Any = apiInstance.facebookGetAdvertiserPageInfo(pageId, country)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling FacebookApi#facebookGetAdvertiserPageInfo")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling FacebookApi#facebookGetAdvertiserPageInfo")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **pageId** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **country** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a id="facebookGetAnAd"></a>
 # **facebookGetAnAd**
-> kotlin.Any facebookGetAnAd(adArchiveId)
+> kotlin.Any facebookGetAnAd(adArchiveId, country)
 
 Get an ad
 
-Get a single Ad Library ad by its archive id.
+Get a single Ad Library ad by its archive id. For EU/UK-targeted ads the response also includes transparency insights (payer/beneficiary, total EU reach, and age/gender/country reach breakdowns).
 
 ### Example
 ```kotlin
@@ -152,8 +205,9 @@ Get a single Ad Library ad by its archive id.
 
 val apiInstance = FacebookApi()
 val adArchiveId : kotlin.String = adArchiveId_example // kotlin.String | 
+val country : kotlin.String = country_example // kotlin.String | ISO country code (an EU code returns EU transparency)
 try {
-    val result : kotlin.Any = apiInstance.facebookGetAnAd(adArchiveId)
+    val result : kotlin.Any = apiInstance.facebookGetAnAd(adArchiveId, country)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookGetAnAd")
@@ -165,9 +219,10 @@ try {
 ```
 
 ### Parameters
+| **adArchiveId** | **kotlin.String**|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **adArchiveId** | **kotlin.String**|  | |
+| **country** | **kotlin.String**| ISO country code (an EU code returns EU transparency) | [optional] [default to &quot;US&quot;] |
 
 ### Return type
 
@@ -662,6 +717,57 @@ try {
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="facebookSearchAdvertiserPages"></a>
+# **facebookSearchAdvertiserPages**
+> kotlin.Any facebookSearchAdvertiserPages(query, country)
+
+Search advertiser pages
+
+Search advertiser Pages in the Ad Library — returns page ids, categories, likes/followers, verification and Instagram handles.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = FacebookApi()
+val query : kotlin.String = query_example // kotlin.String | Advertiser name or keyword
+val country : kotlin.String = country_example // kotlin.String | 
+try {
+    val result : kotlin.Any = apiInstance.facebookSearchAdvertiserPages(query, country)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling FacebookApi#facebookSearchAdvertiserPages")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling FacebookApi#facebookSearchAdvertiserPages")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **query** | **kotlin.String**| Advertiser name or keyword | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **country** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
 
 ### Return type
 

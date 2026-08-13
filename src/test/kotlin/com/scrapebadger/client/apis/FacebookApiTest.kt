@@ -47,11 +47,21 @@ class FacebookApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test facebookGetAdvertiserPageInfo
+        should("test facebookGetAdvertiserPageInfo") {
+            // uncomment below to test facebookGetAdvertiserPageInfo
+            //val pageId : kotlin.String = pageId_example // kotlin.String | 
+            //val country : kotlin.String = country_example // kotlin.String | 
+            //val result : kotlin.Any = apiInstance.facebookGetAdvertiserPageInfo(pageId, country)
+            //result shouldBe ("TODO")
+        }
+
         // to test facebookGetAnAd
         should("test facebookGetAnAd") {
             // uncomment below to test facebookGetAnAd
             //val adArchiveId : kotlin.String = adArchiveId_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookGetAnAd(adArchiveId)
+            //val country : kotlin.String = country_example // kotlin.String | ISO country code (an EU code returns EU transparency)
+            //val result : kotlin.Any = apiInstance.facebookGetAnAd(adArchiveId, country)
             //result shouldBe ("TODO")
         }
 
@@ -135,6 +145,15 @@ class FacebookApiTest : ShouldSpec() {
         should("test facebookListLocations") {
             // uncomment below to test facebookListLocations
             //val result : kotlin.Any = apiInstance.facebookListLocations()
+            //result shouldBe ("TODO")
+        }
+
+        // to test facebookSearchAdvertiserPages
+        should("test facebookSearchAdvertiserPages") {
+            // uncomment below to test facebookSearchAdvertiserPages
+            //val query : kotlin.String = query_example // kotlin.String | Advertiser name or keyword
+            //val country : kotlin.String = country_example // kotlin.String | 
+            //val result : kotlin.Any = apiInstance.facebookSearchAdvertiserPages(query, country)
             //result shouldBe ("TODO")
         }
 

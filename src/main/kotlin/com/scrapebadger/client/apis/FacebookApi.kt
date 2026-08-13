@@ -220,9 +220,10 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     }
 
     /**
-     * Get an ad
-     * Get a single Ad Library ad by its archive id.
-     * @param adArchiveId 
+     * Get advertiser page info
+     * Get advertiser page info: category, followers, page transparency (creation date, name history, managing organization, admin-account locations), related pages, and ad spend (for political/issue advertisers).
+     * @param pageId 
+     * @param country  (optional, default to "US")
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -232,8 +233,87 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookGetAnAd(adArchiveId: kotlin.String) : kotlin.Any {
-        val localVarResponse = facebookGetAnAdWithHttpInfo(adArchiveId = adArchiveId)
+    fun facebookGetAdvertiserPageInfo(pageId: kotlin.String, country: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = facebookGetAdvertiserPageInfoWithHttpInfo(pageId = pageId, country = country)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get advertiser page info
+     * Get advertiser page info: category, followers, page transparency (creation date, name history, managing organization, admin-account locations), related pages, and ad spend (for political/issue advertisers).
+     * @param pageId 
+     * @param country  (optional, default to "US")
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun facebookGetAdvertiserPageInfoWithHttpInfo(pageId: kotlin.String, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookGetAdvertiserPageInfoRequestConfig(pageId = pageId, country = country)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation facebookGetAdvertiserPageInfo
+     *
+     * @param pageId 
+     * @param country  (optional, default to "US")
+     * @return RequestConfig
+     */
+    fun facebookGetAdvertiserPageInfoRequestConfig(pageId: kotlin.String, country: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (country != null) {
+                    put("country", listOf(country.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/facebook/ads/pages/{page_id}".replace("{"+"page_id"+"}", encodeURIComponent(pageId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * Get an ad
+     * Get a single Ad Library ad by its archive id. For EU/UK-targeted ads the response also includes transparency insights (payer/beneficiary, total EU reach, and age/gender/country reach breakdowns).
+     * @param adArchiveId 
+     * @param country ISO country code (an EU code returns EU transparency) (optional, default to "US")
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun facebookGetAnAd(adArchiveId: kotlin.String, country: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = facebookGetAnAdWithHttpInfo(adArchiveId = adArchiveId, country = country)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -252,16 +332,17 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Get an ad
-     * Get a single Ad Library ad by its archive id.
+     * Get a single Ad Library ad by its archive id. For EU/UK-targeted ads the response also includes transparency insights (payer/beneficiary, total EU reach, and age/gender/country reach breakdowns).
      * @param adArchiveId 
+     * @param country ISO country code (an EU code returns EU transparency) (optional, default to "US")
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookGetAnAdWithHttpInfo(adArchiveId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookGetAnAdRequestConfig(adArchiveId = adArchiveId)
+    fun facebookGetAnAdWithHttpInfo(adArchiveId: kotlin.String, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookGetAnAdRequestConfig(adArchiveId = adArchiveId, country = country)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -272,11 +353,17 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * To obtain the request config of the operation facebookGetAnAd
      *
      * @param adArchiveId 
+     * @param country ISO country code (an EU code returns EU transparency) (optional, default to "US")
      * @return RequestConfig
      */
-    fun facebookGetAnAdRequestConfig(adArchiveId: kotlin.String) : RequestConfig<Unit> {
+    fun facebookGetAnAdRequestConfig(adArchiveId: kotlin.String, country: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (country != null) {
+                    put("country", listOf(country.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -1025,6 +1112,86 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/facebook/marketplace/locations",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * Search advertiser pages
+     * Search advertiser Pages in the Ad Library — returns page ids, categories, likes/followers, verification and Instagram handles.
+     * @param query Advertiser name or keyword
+     * @param country  (optional, default to "US")
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun facebookSearchAdvertiserPages(query: kotlin.String, country: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = facebookSearchAdvertiserPagesWithHttpInfo(query = query, country = country)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Search advertiser pages
+     * Search advertiser Pages in the Ad Library — returns page ids, categories, likes/followers, verification and Instagram handles.
+     * @param query Advertiser name or keyword
+     * @param country  (optional, default to "US")
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun facebookSearchAdvertiserPagesWithHttpInfo(query: kotlin.String, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookSearchAdvertiserPagesRequestConfig(query = query, country = country)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation facebookSearchAdvertiserPages
+     *
+     * @param query Advertiser name or keyword
+     * @param country  (optional, default to "US")
+     * @return RequestConfig
+     */
+    fun facebookSearchAdvertiserPagesRequestConfig(query: kotlin.String, country: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("query", listOf(query.toString()))
+                if (country != null) {
+                    put("country", listOf(country.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/facebook/ads/pages/search",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,

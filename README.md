@@ -187,6 +187,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *EBayApi* | [**ebaySearchListings**](docs/EBayApi.md#ebaysearchlistings) | **GET** /v1/ebay/search | Search listings |
 | *FacebookApi* | [**facebookBrowseAMarketplaceCategory**](docs/FacebookApi.md#facebookbrowseamarketplacecategory) | **GET** /v1/facebook/marketplace/category/{category} | Browse a Marketplace category |
 | *FacebookApi* | [**facebookGetAMarketplaceItem**](docs/FacebookApi.md#facebookgetamarketplaceitem) | **GET** /v1/facebook/marketplace/item/{item_id} | Get a Marketplace item |
+| *FacebookApi* | [**facebookGetAdvertiserPageInfo**](docs/FacebookApi.md#facebookgetadvertiserpageinfo) | **GET** /v1/facebook/ads/pages/{page_id} | Get advertiser page info |
 | *FacebookApi* | [**facebookGetAnAd**](docs/FacebookApi.md#facebookgetanad) | **GET** /v1/facebook/ads/{ad_archive_id} | Get an ad |
 | *FacebookApi* | [**facebookGetGroupDetail**](docs/FacebookApi.md#facebookgetgroupdetail) | **GET** /v1/facebook/groups/{group_id} | Get group detail |
 | *FacebookApi* | [**facebookGetGroupPosts**](docs/FacebookApi.md#facebookgetgroupposts) | **GET** /v1/facebook/groups/{group_id}/posts | Get group posts |
@@ -198,6 +199,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *FacebookApi* | [**facebookGetProfilePosts**](docs/FacebookApi.md#facebookgetprofileposts) | **GET** /v1/facebook/profiles/{identifier}/posts | Get profile posts |
 | *FacebookApi* | [**facebookListCategories**](docs/FacebookApi.md#facebooklistcategories) | **GET** /v1/facebook/marketplace/categories | List categories |
 | *FacebookApi* | [**facebookListLocations**](docs/FacebookApi.md#facebooklistlocations) | **GET** /v1/facebook/marketplace/locations | List locations |
+| *FacebookApi* | [**facebookSearchAdvertiserPages**](docs/FacebookApi.md#facebooksearchadvertiserpages) | **GET** /v1/facebook/ads/pages/search | Search advertiser pages |
 | *FacebookApi* | [**facebookSearchEvents**](docs/FacebookApi.md#facebooksearchevents) | **GET** /v1/facebook/search/events | Search events |
 | *FacebookApi* | [**facebookSearchEverything**](docs/FacebookApi.md#facebooksearcheverything) | **GET** /v1/facebook/search | Search everything |
 | *FacebookApi* | [**facebookSearchGroups**](docs/FacebookApi.md#facebooksearchgroups) | **GET** /v1/facebook/search/groups | Search groups |
