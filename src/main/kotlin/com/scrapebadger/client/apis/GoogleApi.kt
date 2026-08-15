@@ -469,9 +469,9 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Get place reviews
      * 
      * @param dataId Maps data ID
-     * @param sortBy  (optional, default to "qualityScore")
+     * @param sortBy qualityScore | newestFirst | ratingHigh | ratingLow (optional, default to "qualityScore")
      * @param hl  (optional, default to "en")
-     * @param nextPageToken  (optional)
+     * @param nextPageToken Cursor from the previous response&#39;s pagination.next; omit for page 1. (optional)
      * @param results  (optional, default to 10)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -504,9 +504,9 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Get place reviews
      * 
      * @param dataId Maps data ID
-     * @param sortBy  (optional, default to "qualityScore")
+     * @param sortBy qualityScore | newestFirst | ratingHigh | ratingLow (optional, default to "qualityScore")
      * @param hl  (optional, default to "en")
-     * @param nextPageToken  (optional)
+     * @param nextPageToken Cursor from the previous response&#39;s pagination.next; omit for page 1. (optional)
      * @param results  (optional, default to 10)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -526,9 +526,9 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation googleGetPlaceReviews
      *
      * @param dataId Maps data ID
-     * @param sortBy  (optional, default to "qualityScore")
+     * @param sortBy qualityScore | newestFirst | ratingHigh | ratingLow (optional, default to "qualityScore")
      * @param hl  (optional, default to "en")
-     * @param nextPageToken  (optional)
+     * @param nextPageToken Cursor from the previous response&#39;s pagination.next; omit for page 1. (optional)
      * @param results  (optional, default to 10)
      * @return RequestConfig
      */

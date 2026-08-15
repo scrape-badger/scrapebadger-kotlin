@@ -314,9 +314,9 @@ Get place reviews
 
 val apiInstance = GoogleApi()
 val dataId : kotlin.String = dataId_example // kotlin.String | Maps data ID
-val sortBy : kotlin.String = sortBy_example // kotlin.String | 
+val sortBy : kotlin.String = sortBy_example // kotlin.String | qualityScore | newestFirst | ratingHigh | ratingLow
 val hl : kotlin.String = hl_example // kotlin.String | 
-val nextPageToken : kotlin.String = nextPageToken_example // kotlin.String | 
+val nextPageToken : kotlin.String = nextPageToken_example // kotlin.String | Cursor from the previous response's pagination.next; omit for page 1.
 val results : kotlin.Int = 56 // kotlin.Int | 
 try {
     val result : kotlin.Any = apiInstance.googleGetPlaceReviews(dataId, sortBy, hl, nextPageToken, results)
@@ -332,9 +332,9 @@ try {
 
 ### Parameters
 | **dataId** | **kotlin.String**| Maps data ID | |
-| **sortBy** | **kotlin.String**|  | [optional] [default to &quot;qualityScore&quot;] |
+| **sortBy** | **kotlin.String**| qualityScore | newestFirst | ratingHigh | ratingLow | [optional] [default to &quot;qualityScore&quot;] |
 | **hl** | **kotlin.String**|  | [optional] [default to &quot;en&quot;] |
-| **nextPageToken** | **kotlin.String**|  | [optional] |
+| **nextPageToken** | **kotlin.String**| Cursor from the previous response&#39;s pagination.next; omit for page 1. | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **results** | **kotlin.Int**|  | [optional] [default to 10] |
