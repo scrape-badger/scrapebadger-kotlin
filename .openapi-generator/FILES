@@ -11,6 +11,7 @@ docs/BaiduApi.md
 docs/BillingLogListResponse.md
 docs/BillingLogResponse.md
 docs/BingApi.md
+docs/BookingApi.md
 docs/ChatGPTApi.md
 docs/DepopApi.md
 docs/DuckDuckGoApi.md
@@ -75,6 +76,7 @@ src/main/kotlin/com/scrapebadger/client/apis/ApartmentsApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/AppStoreApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BaiduApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BingApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/BookingApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ChatGPTApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/DepopApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/DuckDuckGoApi.kt
@@ -154,6 +156,7 @@ src/test/kotlin/com/scrapebadger/client/apis/ApartmentsApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/AppStoreApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BaiduApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BingApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/BookingApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ChatGPTApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/DepopApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/DuckDuckGoApiTest.kt
