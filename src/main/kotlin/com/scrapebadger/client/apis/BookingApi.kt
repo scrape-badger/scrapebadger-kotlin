@@ -388,6 +388,120 @@ class BookingApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * Get room types and live rates
+     * Every room type at one property with every rate bookable on it for the given dates — price, price before discount, price per night, discounts and badges — plus per-room facilities, bed layouts, occupancy and photos. /search returns only the cheapest rate per property; this returns the whole table.
+     * @param countryCode Two-letter country code, e.g. &#39;it&#39;
+     * @param slug Booking page name, e.g. &#39;hotel-artemide&#39;
+     * @param checkin Check-in date YYYY-MM-DD
+     * @param checkout Check-out date YYYY-MM-DD
+     * @param adults  (optional, default to 2)
+     * @param children Comma-separated children ages, e.g. &#39;4,9&#39; (optional)
+     * @param rooms  (optional, default to 1)
+     * @param currency ISO currency, e.g. EUR, USD, GBP (optional)
+     * @param language Locale, e.g. en-us, fr, de (optional)
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun bookingGetRoomTypesAndLiveRates(countryCode: kotlin.String, slug: kotlin.String, checkin: kotlin.String, checkout: kotlin.String, adults: kotlin.Int? = 2, children: kotlin.String? = null, rooms: kotlin.Int? = 1, currency: kotlin.String? = null, language: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = bookingGetRoomTypesAndLiveRatesWithHttpInfo(countryCode = countryCode, slug = slug, checkin = checkin, checkout = checkout, adults = adults, children = children, rooms = rooms, currency = currency, language = language)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get room types and live rates
+     * Every room type at one property with every rate bookable on it for the given dates — price, price before discount, price per night, discounts and badges — plus per-room facilities, bed layouts, occupancy and photos. /search returns only the cheapest rate per property; this returns the whole table.
+     * @param countryCode Two-letter country code, e.g. &#39;it&#39;
+     * @param slug Booking page name, e.g. &#39;hotel-artemide&#39;
+     * @param checkin Check-in date YYYY-MM-DD
+     * @param checkout Check-out date YYYY-MM-DD
+     * @param adults  (optional, default to 2)
+     * @param children Comma-separated children ages, e.g. &#39;4,9&#39; (optional)
+     * @param rooms  (optional, default to 1)
+     * @param currency ISO currency, e.g. EUR, USD, GBP (optional)
+     * @param language Locale, e.g. en-us, fr, de (optional)
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun bookingGetRoomTypesAndLiveRatesWithHttpInfo(countryCode: kotlin.String, slug: kotlin.String, checkin: kotlin.String, checkout: kotlin.String, adults: kotlin.Int?, children: kotlin.String?, rooms: kotlin.Int?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = bookingGetRoomTypesAndLiveRatesRequestConfig(countryCode = countryCode, slug = slug, checkin = checkin, checkout = checkout, adults = adults, children = children, rooms = rooms, currency = currency, language = language)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation bookingGetRoomTypesAndLiveRates
+     *
+     * @param countryCode Two-letter country code, e.g. &#39;it&#39;
+     * @param slug Booking page name, e.g. &#39;hotel-artemide&#39;
+     * @param checkin Check-in date YYYY-MM-DD
+     * @param checkout Check-out date YYYY-MM-DD
+     * @param adults  (optional, default to 2)
+     * @param children Comma-separated children ages, e.g. &#39;4,9&#39; (optional)
+     * @param rooms  (optional, default to 1)
+     * @param currency ISO currency, e.g. EUR, USD, GBP (optional)
+     * @param language Locale, e.g. en-us, fr, de (optional)
+     * @return RequestConfig
+     */
+    fun bookingGetRoomTypesAndLiveRatesRequestConfig(countryCode: kotlin.String, slug: kotlin.String, checkin: kotlin.String, checkout: kotlin.String, adults: kotlin.Int?, children: kotlin.String?, rooms: kotlin.Int?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("checkin", listOf(checkin.toString()))
+                put("checkout", listOf(checkout.toString()))
+                if (adults != null) {
+                    put("adults", listOf(adults.toString()))
+                }
+                if (children != null) {
+                    put("children", listOf(children.toString()))
+                }
+                if (rooms != null) {
+                    put("rooms", listOf(rooms.toString()))
+                }
+                if (currency != null) {
+                    put("currency", listOf(currency.toString()))
+                }
+                if (language != null) {
+                    put("language", listOf(language.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/booking/properties/{country_code}/{slug}/rooms".replace("{"+"country_code"+"}", encodeURIComponent(countryCode.toString())).replace("{"+"slug"+"}", encodeURIComponent(slug.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Search destinations
      * Resolve a place name to Booking&#39;s &#x60;dest_id&#x60;/&#x60;dest_type&#x60;, with coordinates and country — feed the pair back into /search for an exact match.
      * @param query Free-text place, e.g. &#39;amsterd&#39;

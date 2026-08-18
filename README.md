@@ -153,6 +153,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *BookingApi* | [**bookingBookingScraperHealthCheckHead**](docs/BookingApi.md#bookingbookingscraperhealthcheckhead) | **HEAD** /v1/booking/health | Booking scraper health check |
 | *BookingApi* | [**bookingGetPropertyDetail**](docs/BookingApi.md#bookinggetpropertydetail) | **GET** /v1/booking/properties/{country_code}/{slug} | Get property detail |
 | *BookingApi* | [**bookingGetPropertyReviews**](docs/BookingApi.md#bookinggetpropertyreviews) | **GET** /v1/booking/properties/{country_code}/{slug}/reviews | Get property reviews |
+| *BookingApi* | [**bookingGetRoomTypesAndLiveRates**](docs/BookingApi.md#bookinggetroomtypesandliverates) | **GET** /v1/booking/properties/{country_code}/{slug}/rooms | Get room types and live rates |
 | *BookingApi* | [**bookingSearchDestinations**](docs/BookingApi.md#bookingsearchdestinations) | **GET** /v1/booking/destinations | Search destinations |
 | *BookingApi* | [**bookingSearchProperties**](docs/BookingApi.md#bookingsearchproperties) | **GET** /v1/booking/search | Search properties |
 | *ChatGPTApi* | [**chatgptAskChatgptAQuestion**](docs/ChatGPTApi.md#chatgptaskchatgptaquestion) | **GET** /v1/chatgpt/ask | Ask ChatGPT a question |

@@ -67,6 +67,22 @@ class BookingApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test bookingGetRoomTypesAndLiveRates
+        should("test bookingGetRoomTypesAndLiveRates") {
+            // uncomment below to test bookingGetRoomTypesAndLiveRates
+            //val countryCode : kotlin.String = countryCode_example // kotlin.String | Two-letter country code, e.g. 'it'
+            //val slug : kotlin.String = slug_example // kotlin.String | Booking page name, e.g. 'hotel-artemide'
+            //val checkin : kotlin.String = checkin_example // kotlin.String | Check-in date YYYY-MM-DD
+            //val checkout : kotlin.String = checkout_example // kotlin.String | Check-out date YYYY-MM-DD
+            //val adults : kotlin.Int = 56 // kotlin.Int | 
+            //val children : kotlin.String = children_example // kotlin.String | Comma-separated children ages, e.g. '4,9'
+            //val rooms : kotlin.Int = 56 // kotlin.Int | 
+            //val currency : kotlin.String = currency_example // kotlin.String | ISO currency, e.g. EUR, USD, GBP
+            //val language : kotlin.String = language_example // kotlin.String | Locale, e.g. en-us, fr, de
+            //val result : kotlin.Any = apiInstance.bookingGetRoomTypesAndLiveRates(countryCode, slug, checkin, checkout, adults, children, rooms, currency, language)
+            //result shouldBe ("TODO")
+        }
+
         // to test bookingSearchDestinations
         should("test bookingSearchDestinations") {
             // uncomment below to test bookingSearchDestinations

@@ -8,6 +8,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**bookingBookingScraperHealthCheckHead**](BookingApi.md#bookingBookingScraperHealthCheckHead) | **HEAD** /v1/booking/health | Booking scraper health check |
 | [**bookingGetPropertyDetail**](BookingApi.md#bookingGetPropertyDetail) | **GET** /v1/booking/properties/{country_code}/{slug} | Get property detail |
 | [**bookingGetPropertyReviews**](BookingApi.md#bookingGetPropertyReviews) | **GET** /v1/booking/properties/{country_code}/{slug}/reviews | Get property reviews |
+| [**bookingGetRoomTypesAndLiveRates**](BookingApi.md#bookingGetRoomTypesAndLiveRates) | **GET** /v1/booking/properties/{country_code}/{slug}/rooms | Get room types and live rates |
 | [**bookingSearchDestinations**](BookingApi.md#bookingSearchDestinations) | **GET** /v1/booking/destinations | Search destinations |
 | [**bookingSearchProperties**](BookingApi.md#bookingSearchProperties) | **GET** /v1/booking/search | Search properties |
 
@@ -207,6 +208,71 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **language** | **kotlin.String**| Locale for labels, e.g. en-us | [optional] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="bookingGetRoomTypesAndLiveRates"></a>
+# **bookingGetRoomTypesAndLiveRates**
+> kotlin.Any bookingGetRoomTypesAndLiveRates(countryCode, slug, checkin, checkout, adults, children, rooms, currency, language)
+
+Get room types and live rates
+
+Every room type at one property with every rate bookable on it for the given dates — price, price before discount, price per night, discounts and badges — plus per-room facilities, bed layouts, occupancy and photos. /search returns only the cheapest rate per property; this returns the whole table.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = BookingApi()
+val countryCode : kotlin.String = countryCode_example // kotlin.String | Two-letter country code, e.g. 'it'
+val slug : kotlin.String = slug_example // kotlin.String | Booking page name, e.g. 'hotel-artemide'
+val checkin : kotlin.String = checkin_example // kotlin.String | Check-in date YYYY-MM-DD
+val checkout : kotlin.String = checkout_example // kotlin.String | Check-out date YYYY-MM-DD
+val adults : kotlin.Int = 56 // kotlin.Int | 
+val children : kotlin.String = children_example // kotlin.String | Comma-separated children ages, e.g. '4,9'
+val rooms : kotlin.Int = 56 // kotlin.Int | 
+val currency : kotlin.String = currency_example // kotlin.String | ISO currency, e.g. EUR, USD, GBP
+val language : kotlin.String = language_example // kotlin.String | Locale, e.g. en-us, fr, de
+try {
+    val result : kotlin.Any = apiInstance.bookingGetRoomTypesAndLiveRates(countryCode, slug, checkin, checkout, adults, children, rooms, currency, language)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling BookingApi#bookingGetRoomTypesAndLiveRates")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling BookingApi#bookingGetRoomTypesAndLiveRates")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **countryCode** | **kotlin.String**| Two-letter country code, e.g. &#39;it&#39; | |
+| **slug** | **kotlin.String**| Booking page name, e.g. &#39;hotel-artemide&#39; | |
+| **checkin** | **kotlin.String**| Check-in date YYYY-MM-DD | |
+| **checkout** | **kotlin.String**| Check-out date YYYY-MM-DD | |
+| **adults** | **kotlin.Int**|  | [optional] [default to 2] |
+| **children** | **kotlin.String**| Comma-separated children ages, e.g. &#39;4,9&#39; | [optional] |
+| **rooms** | **kotlin.Int**|  | [optional] [default to 1] |
+| **currency** | **kotlin.String**| ISO currency, e.g. EUR, USD, GBP | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **language** | **kotlin.String**| Locale, e.g. en-us, fr, de | [optional] |
 
 ### Return type
 
