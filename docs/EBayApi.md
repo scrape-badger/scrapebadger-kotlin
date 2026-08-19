@@ -5,7 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**ebayBrowseACategory**](EBayApi.md#ebayBrowseACategory) | **GET** /v1/ebay/categories/{category_id}/items | Browse a category |
-| [**ebayCompletedSoldListings**](EBayApi.md#ebayCompletedSoldListings) | **GET** /v1/ebay/completed | Completed / sold listings |
+| [**ebayCompletedSoldListingsDeprecated**](EBayApi.md#ebayCompletedSoldListingsDeprecated) | **GET** /v1/ebay/completed | Completed / sold listings (deprecated) |
 | [**ebayEbayScraperHealthCheck**](EBayApi.md#ebayEbayScraperHealthCheck) | **GET** /v1/ebay/health | eBay scraper health check |
 | [**ebayEbayScraperHealthCheckHead**](EBayApi.md#ebayEbayScraperHealthCheckHead) | **HEAD** /v1/ebay/health | eBay scraper health check |
 | [**ebayGetItemDetail**](EBayApi.md#ebayGetItemDetail) | **GET** /v1/ebay/items/{item_id} | Get item detail |
@@ -80,13 +80,13 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="ebayCompletedSoldListings"></a>
-# **ebayCompletedSoldListings**
-> kotlin.Any ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
+<a id="ebayCompletedSoldListingsDeprecated"></a>
+# **ebayCompletedSoldListingsDeprecated**
+> kotlin.Any ebayCompletedSoldListingsDeprecated(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
 
-Completed / sold listings
+Completed / sold listings (deprecated)
 
-Search completed/sold listings — eBay&#39;s sold-price history.
+Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
 
 ### Example
 ```kotlin
@@ -105,13 +105,13 @@ val condition : kotlin.String = condition_example // kotlin.String | new|open_bo
 val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 try {
-    val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
+    val result : kotlin.Any = apiInstance.ebayCompletedSoldListingsDeprecated(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling EBayApi#ebayCompletedSoldListings")
+    println("4xx response calling EBayApi#ebayCompletedSoldListingsDeprecated")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling EBayApi#ebayCompletedSoldListings")
+    println("5xx response calling EBayApi#ebayCompletedSoldListingsDeprecated")
     e.printStackTrace()
 }
 ```

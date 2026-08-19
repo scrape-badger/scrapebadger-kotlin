@@ -40,9 +40,9 @@ class EBayApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
-        // to test ebayCompletedSoldListings
-        should("test ebayCompletedSoldListings") {
-            // uncomment below to test ebayCompletedSoldListings
+        // to test ebayCompletedSoldListingsDeprecated
+        should("test ebayCompletedSoldListingsDeprecated") {
+            // uncomment below to test ebayCompletedSoldListingsDeprecated
             //val query : kotlin.String = query_example // kotlin.String | Search keywords
             //val domain : kotlin.String = domain_example // kotlin.String | 
             //val categoryId : kotlin.String = categoryId_example // kotlin.String | 
@@ -52,7 +52,7 @@ class EBayApiTest : ShouldSpec() {
             //val condition : kotlin.String = condition_example // kotlin.String | new|open_box|refurbished|used|for_parts
             //val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
             //val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
-            //val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
+            //val result : kotlin.Any = apiInstance.ebayCompletedSoldListingsDeprecated(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
             //result shouldBe ("TODO")
         }
 

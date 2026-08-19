@@ -155,8 +155,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     }
 
     /**
-     * Completed / sold listings
-     * Search completed/sold listings — eBay&#39;s sold-price history.
+     * Completed / sold listings (deprecated)
+     * Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
      * @param query Search keywords
      * @param domain  (optional, default to "com")
      * @param categoryId  (optional)
@@ -175,8 +175,10 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayCompletedSoldListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null) : kotlin.Any {
-        val localVarResponse = ebayCompletedSoldListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice)
+    @Deprecated(message = "This operation is deprecated.")
+    fun ebayCompletedSoldListingsDeprecated(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null) : kotlin.Any {
+        @Suppress("DEPRECATION")
+        val localVarResponse = ebayCompletedSoldListingsDeprecatedWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -194,8 +196,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     }
 
     /**
-     * Completed / sold listings
-     * Search completed/sold listings — eBay&#39;s sold-price history.
+     * Completed / sold listings (deprecated)
+     * Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
      * @param query Search keywords
      * @param domain  (optional, default to "com")
      * @param categoryId  (optional)
@@ -211,8 +213,10 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayCompletedSoldListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayCompletedSoldListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice)
+    @Deprecated(message = "This operation is deprecated.")
+    fun ebayCompletedSoldListingsDeprecatedWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : ApiResponse<kotlin.Any?> {
+        @Suppress("DEPRECATION")
+        val localVariableConfig = ebayCompletedSoldListingsDeprecatedRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -220,7 +224,7 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     }
 
     /**
-     * To obtain the request config of the operation ebayCompletedSoldListings
+     * To obtain the request config of the operation ebayCompletedSoldListingsDeprecated
      *
      * @param query Search keywords
      * @param domain  (optional, default to "com")
@@ -233,7 +237,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @return RequestConfig
      */
-    fun ebayCompletedSoldListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : RequestConfig<Unit> {
+    @Deprecated(message = "This operation is deprecated.")
+    fun ebayCompletedSoldListingsDeprecatedRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
