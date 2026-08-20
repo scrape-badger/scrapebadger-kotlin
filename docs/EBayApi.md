@@ -5,7 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**ebayBrowseACategory**](EBayApi.md#ebayBrowseACategory) | **GET** /v1/ebay/categories/{category_id}/items | Browse a category |
-| [**ebayCompletedSoldListingsDeprecated**](EBayApi.md#ebayCompletedSoldListingsDeprecated) | **GET** /v1/ebay/completed | Completed / sold listings (deprecated) |
+| [**ebayCompletedSoldListings**](EBayApi.md#ebayCompletedSoldListings) | **GET** /v1/ebay/completed | Completed / sold listings |
 | [**ebayEbayScraperHealthCheck**](EBayApi.md#ebayEbayScraperHealthCheck) | **GET** /v1/ebay/health | eBay scraper health check |
 | [**ebayEbayScraperHealthCheckHead**](EBayApi.md#ebayEbayScraperHealthCheckHead) | **HEAD** /v1/ebay/health | eBay scraper health check |
 | [**ebayGetItemDetail**](EBayApi.md#ebayGetItemDetail) | **GET** /v1/ebay/items/{item_id} | Get item detail |
@@ -80,13 +80,13 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="ebayCompletedSoldListingsDeprecated"></a>
-# **ebayCompletedSoldListingsDeprecated**
-> kotlin.Any ebayCompletedSoldListingsDeprecated(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
+<a id="ebayCompletedSoldListings"></a>
+# **ebayCompletedSoldListings**
+> kotlin.Any ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
 
-Completed / sold listings (deprecated)
+Completed / sold listings
 
-Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
+Search completed/sold listings — eBay&#39;s sold-price history.
 
 ### Example
 ```kotlin
@@ -96,32 +96,32 @@ Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
 
 val apiInstance = EBayApi()
 val query : kotlin.String = query_example // kotlin.String | Search keywords
-val domain : kotlin.String = domain_example // kotlin.String | 
-val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+val domain : kotlin.String = domain_example // kotlin.String | Marketplace domain (com, co.uk, de …)
+val categoryId : kotlin.String = categoryId_example // kotlin.String | Restrict to a category id
 val page : kotlin.Int = 56 // kotlin.Int | 
-val perPage : kotlin.Int = 56 // kotlin.Int | 
+val perPage : kotlin.Int = 56 // kotlin.Int | 60, 120 or 240
 val sortBy : kotlin.String = sortBy_example // kotlin.String | best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low
 val condition : kotlin.String = condition_example // kotlin.String | new|open_box|refurbished|used|for_parts
 val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 try {
-    val result : kotlin.Any = apiInstance.ebayCompletedSoldListingsDeprecated(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
+    val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling EBayApi#ebayCompletedSoldListingsDeprecated")
+    println("4xx response calling EBayApi#ebayCompletedSoldListings")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling EBayApi#ebayCompletedSoldListingsDeprecated")
+    println("5xx response calling EBayApi#ebayCompletedSoldListings")
     e.printStackTrace()
 }
 ```
 
 ### Parameters
 | **query** | **kotlin.String**| Search keywords | |
-| **domain** | **kotlin.String**|  | [optional] [default to &quot;com&quot;] |
-| **categoryId** | **kotlin.String**|  | [optional] |
+| **domain** | **kotlin.String**| Marketplace domain (com, co.uk, de …) | [optional] [default to &quot;com&quot;] |
+| **categoryId** | **kotlin.String**| Restrict to a category id | [optional] |
 | **page** | **kotlin.Int**|  | [optional] [default to 1] |
-| **perPage** | **kotlin.Int**|  | [optional] |
+| **perPage** | **kotlin.Int**| 60, 120 or 240 | [optional] |
 | **sortBy** | **kotlin.String**| best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low | [optional] [default to &quot;best_match&quot;] |
 | **condition** | **kotlin.String**| new|open_box|refurbished|used|for_parts | [optional] |
 | **minPrice** | **java.math.BigDecimal**|  | [optional] |

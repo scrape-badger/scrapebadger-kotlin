@@ -180,7 +180,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *DuckDuckGoApi* | [**duckduckgoVideoSearch**](docs/DuckDuckGoApi.md#duckduckgovideosearch) | **GET** /v1/duckduckgo/videos | Video search |
 | *DuckDuckGoApi* | [**duckduckgoWebSearch**](docs/DuckDuckGoApi.md#duckduckgowebsearch) | **GET** /v1/duckduckgo/search | Web search |
 | *EBayApi* | [**ebayBrowseACategory**](docs/EBayApi.md#ebaybrowseacategory) | **GET** /v1/ebay/categories/{category_id}/items | Browse a category |
-| *EBayApi* | [**ebayCompletedSoldListingsDeprecated**](docs/EBayApi.md#ebaycompletedsoldlistingsdeprecated) | **GET** /v1/ebay/completed | Completed / sold listings (deprecated) |
+| *EBayApi* | [**ebayCompletedSoldListings**](docs/EBayApi.md#ebaycompletedsoldlistings) | **GET** /v1/ebay/completed | Completed / sold listings |
 | *EBayApi* | [**ebayEbayScraperHealthCheck**](docs/EBayApi.md#ebayebayscraperhealthcheck) | **GET** /v1/ebay/health | eBay scraper health check |
 | *EBayApi* | [**ebayEbayScraperHealthCheckHead**](docs/EBayApi.md#ebayebayscraperhealthcheckhead) | **HEAD** /v1/ebay/health | eBay scraper health check |
 | *EBayApi* | [**ebayGetItemDetail**](docs/EBayApi.md#ebaygetitemdetail) | **GET** /v1/ebay/items/{item_id} | Get item detail |
