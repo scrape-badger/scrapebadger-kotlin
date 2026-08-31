@@ -49,10 +49,11 @@ class EBayApiTest : ShouldSpec() {
             //val page : kotlin.Int = 56 // kotlin.Int | 
             //val perPage : kotlin.Int = 56 // kotlin.Int | 60, 120 or 240
             //val sortBy : kotlin.String = sortBy_example // kotlin.String | best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low
-            //val condition : kotlin.String = condition_example // kotlin.String | new|open_box|refurbished|used|for_parts
+            //val condition : kotlin.String = condition_example // kotlin.String | new|open_box|refurbished|used|for_parts|graded|ungraded
             //val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
             //val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
-            //val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice)
+            //val location : kotlin.String = location_example // kotlin.String | domestic|worldwide
+            //val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location)
             //result shouldBe ("TODO")
         }
 
@@ -152,12 +153,13 @@ class EBayApiTest : ShouldSpec() {
             //val page : kotlin.Int = 56 // kotlin.Int | 
             //val perPage : kotlin.Int = 56 // kotlin.Int | 60, 120 or 240
             //val sortBy : kotlin.String = sortBy_example // kotlin.String | best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low
-            //val condition : kotlin.String = condition_example // kotlin.String | new|open_box|refurbished|used|for_parts
+            //val condition : kotlin.String = condition_example // kotlin.String | new|open_box|refurbished|used|for_parts|graded|ungraded
             //val buyingFormat : kotlin.String = buyingFormat_example // kotlin.String | auction|buy_it_now|best_offer
             //val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
             //val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
             //val freeShipping : kotlin.Boolean = true // kotlin.Boolean | 
-            //val result : kotlin.Any = apiInstance.ebaySearchListings(query, domain, categoryId, page, perPage, sortBy, condition, buyingFormat, minPrice, maxPrice, freeShipping)
+            //val location : kotlin.String = location_example // kotlin.String | domestic|worldwide
+            //val result : kotlin.Any = apiInstance.ebaySearchListings(query, domain, categoryId, page, perPage, sortBy, condition, buyingFormat, minPrice, maxPrice, freeShipping, location)
             //result shouldBe ("TODO")
         }
 
