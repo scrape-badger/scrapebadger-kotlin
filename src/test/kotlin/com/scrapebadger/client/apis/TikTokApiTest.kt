@@ -264,6 +264,14 @@ class TikTokApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test tiktokSearchTiktokShopProducts
+        should("test tiktokSearchTiktokShopProducts") {
+            // uncomment below to test tiktokSearchTiktokShopProducts
+            //val q : kotlin.String = q_example // kotlin.String | Keyword, e.g. 'wireless earbuds'
+            //val result : kotlin.Any = apiInstance.tiktokSearchTiktokShopProducts(q)
+            //result shouldBe ("TODO")
+        }
+
         // to test tiktokSearchUsers
         should("test tiktokSearchUsers") {
             // uncomment below to test tiktokSearchUsers
@@ -283,6 +291,37 @@ class TikTokApiTest : ShouldSpec() {
             //val count : kotlin.Int = 56 // kotlin.Int | 
             //val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
             //val result : kotlin.Any = apiInstance.tiktokSearchVideos(query, region, count, cursor)
+            //result shouldBe ("TODO")
+        }
+
+        // to test tiktokTiktokShopBestSellers
+        should("test tiktokTiktokShopBestSellers") {
+            // uncomment below to test tiktokTiktokShopBestSellers
+            //val count : kotlin.Int = 56 // kotlin.Int | Max products to return
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopBestSellers(count)
+            //result shouldBe ("TODO")
+        }
+
+        // to test tiktokTiktokShopCategorySubcategoriesTopProducts
+        should("test tiktokTiktokShopCategorySubcategoriesTopProducts") {
+            // uncomment below to test tiktokTiktokShopCategorySubcategoriesTopProducts
+            //val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId)
+            //result shouldBe ("TODO")
+        }
+
+        // to test tiktokTiktokShopProductDetail
+        should("test tiktokTiktokShopProductDetail") {
+            // uncomment below to test tiktokTiktokShopProductDetail
+            //val productId : kotlin.String = productId_example // kotlin.String | 
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopProductDetail(productId)
+            //result shouldBe ("TODO")
+        }
+
+        // to test tiktokTiktokShopRootCategories
+        should("test tiktokTiktokShopRootCategories") {
+            // uncomment below to test tiktokTiktokShopRootCategories
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopRootCategories()
             //result shouldBe ("TODO")
         }
 

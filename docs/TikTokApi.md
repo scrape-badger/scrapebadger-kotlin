@@ -28,8 +28,13 @@ All URIs are relative to *https://scrapebadger.com*
 | [**tiktokSearchHashtags**](TikTokApi.md#tiktokSearchHashtags) | **GET** /v1/tiktok/search/hashtags | Search hashtags |
 | [**tiktokSearchTheTiktokAdLibrary**](TikTokApi.md#tiktokSearchTheTiktokAdLibrary) | **GET** /v1/tiktok/ads/search | Search the TikTok Ad Library |
 | [**tiktokSearchTiktokAdvertisers**](TikTokApi.md#tiktokSearchTiktokAdvertisers) | **GET** /v1/tiktok/ads/advertisers | Search TikTok advertisers |
+| [**tiktokSearchTiktokShopProducts**](TikTokApi.md#tiktokSearchTiktokShopProducts) | **GET** /v1/tiktok/shop/search | Search TikTok Shop products |
 | [**tiktokSearchUsers**](TikTokApi.md#tiktokSearchUsers) | **GET** /v1/tiktok/search/users | Search users |
 | [**tiktokSearchVideos**](TikTokApi.md#tiktokSearchVideos) | **GET** /v1/tiktok/search/videos | Search videos |
+| [**tiktokTiktokShopBestSellers**](TikTokApi.md#tiktokTiktokShopBestSellers) | **GET** /v1/tiktok/shop/ranking | TikTok Shop best sellers |
+| [**tiktokTiktokShopCategorySubcategoriesTopProducts**](TikTokApi.md#tiktokTiktokShopCategorySubcategoriesTopProducts) | **GET** /v1/tiktok/shop/categories/{category_id} | TikTok Shop category: subcategories + top products |
+| [**tiktokTiktokShopProductDetail**](TikTokApi.md#tiktokTiktokShopProductDetail) | **GET** /v1/tiktok/shop/products/{product_id} | TikTok Shop product detail |
+| [**tiktokTiktokShopRootCategories**](TikTokApi.md#tiktokTiktokShopRootCategories) | **GET** /v1/tiktok/shop/categories | TikTok Shop root categories |
 | [**tiktokTrendingHashtags**](TikTokApi.md#tiktokTrendingHashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags |
 | [**tiktokTrendingSongs**](TikTokApi.md#tiktokTrendingSongs) | **GET** /v1/tiktok/trending/songs | Trending songs |
 | [**tiktokTrendingVideos**](TikTokApi.md#tiktokTrendingVideos) | **GET** /v1/tiktok/trending/videos | Trending videos |
@@ -1300,6 +1305,55 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a id="tiktokSearchTiktokShopProducts"></a>
+# **tiktokSearchTiktokShopProducts**
+> kotlin.Any tiktokSearchTiktokShopProducts(q)
+
+Search TikTok Shop products
+
+Keyword search over TikTok Shop products (US): products with their bound video, matching shops, related searches and categories.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val q : kotlin.String = q_example // kotlin.String | Keyword, e.g. 'wireless earbuds'
+try {
+    val result : kotlin.Any = apiInstance.tiktokSearchTiktokShopProducts(q)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokSearchTiktokShopProducts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokSearchTiktokShopProducts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **q** | **kotlin.String**| Keyword, e.g. &#39;wireless earbuds&#39; | |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a id="tiktokSearchUsers"></a>
 # **tiktokSearchUsers**
 > kotlin.Any tiktokSearchUsers(query, region, count, cursor)
@@ -1393,6 +1447,199 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **cursor** | **kotlin.String**| Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor | [optional] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokTiktokShopBestSellers"></a>
+# **tiktokTiktokShopBestSellers**
+> kotlin.Any tiktokTiktokShopBestSellers(count)
+
+TikTok Shop best sellers
+
+TikTok Shop&#39;s own ranking of the best-selling products of the past 30 days (US).
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val count : kotlin.Int = 56 // kotlin.Int | Max products to return
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopBestSellers(count)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopBestSellers")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopBestSellers")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **count** | **kotlin.Int**| Max products to return | [optional] [default to 20] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokTiktokShopCategorySubcategoriesTopProducts"></a>
+# **tiktokTiktokShopCategorySubcategoriesTopProducts**
+> kotlin.Any tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId)
+
+TikTok Shop category: subcategories + top products
+
+A category&#39;s subcategories and its top products as TikTok Shop ranks them (US).
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopCategorySubcategoriesTopProducts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopCategorySubcategoriesTopProducts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **categoryId** | **kotlin.String**|  | |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokTiktokShopProductDetail"></a>
+# **tiktokTiktokShopProductDetail**
+> kotlin.Any tiktokTiktokShopProductDetail(productId)
+
+TikTok Shop product detail
+
+Full TikTok Shop product page (US): description, images, price, SKUs with stock, reviews, shop and TikTok&#39;s AI summary.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val productId : kotlin.String = productId_example // kotlin.String | 
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopProductDetail(productId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopProductDetail")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopProductDetail")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **productId** | **kotlin.String**|  | |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokTiktokShopRootCategories"></a>
+# **tiktokTiktokShopRootCategories**
+> kotlin.Any tiktokTiktokShopRootCategories()
+
+TikTok Shop root categories
+
+Top-level TikTok Shop categories (US). Drill down with /shop/categories/{category_id}.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopRootCategories()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopRootCategories")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopRootCategories")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
 
 ### Return type
 
