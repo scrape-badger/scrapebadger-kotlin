@@ -67,7 +67,8 @@ class AmazonApiTest : ShouldSpec() {
             //val asin : kotlin.String = asin_example // kotlin.String | 
             //val domain : kotlin.String = domain_example // kotlin.String | 
             //val zip : kotlin.String = zip_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.amazonGetAllSellerOffersBuybox(asin, domain, zip)
+            //val page : kotlin.Int = 56 // kotlin.Int | Offer page, 10 rows each
+            //val result : kotlin.Any = apiInstance.amazonGetAllSellerOffersBuybox(asin, domain, zip, page)
             //result shouldBe ("TODO")
         }
 

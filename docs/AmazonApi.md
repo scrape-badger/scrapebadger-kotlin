@@ -224,7 +224,7 @@ Configure ApiKeyAuth:
 
 <a id="amazonGetAllSellerOffersBuybox"></a>
 # **amazonGetAllSellerOffersBuybox**
-> kotlin.Any amazonGetAllSellerOffersBuybox(asin, domain, zip)
+> kotlin.Any amazonGetAllSellerOffersBuybox(asin, domain, zip, page)
 
 Get all seller offers (buybox)
 
@@ -240,8 +240,9 @@ val apiInstance = AmazonApi()
 val asin : kotlin.String = asin_example // kotlin.String | 
 val domain : kotlin.String = domain_example // kotlin.String | 
 val zip : kotlin.String = zip_example // kotlin.String | 
+val page : kotlin.Int = 56 // kotlin.Int | Offer page, 10 rows each
 try {
-    val result : kotlin.Any = apiInstance.amazonGetAllSellerOffersBuybox(asin, domain, zip)
+    val result : kotlin.Any = apiInstance.amazonGetAllSellerOffersBuybox(asin, domain, zip, page)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling AmazonApi#amazonGetAllSellerOffersBuybox")
@@ -255,9 +256,10 @@ try {
 ### Parameters
 | **asin** | **kotlin.String**|  | |
 | **domain** | **kotlin.String**|  | [optional] [default to &quot;com&quot;] |
+| **zip** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **zip** | **kotlin.String**|  | [optional] |
+| **page** | **kotlin.Int**| Offer page, 10 rows each | [optional] [default to 1] |
 
 ### Return type
 

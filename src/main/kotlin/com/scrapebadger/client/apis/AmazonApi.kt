@@ -367,6 +367,7 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param asin 
      * @param domain  (optional, default to "com")
      * @param zip  (optional)
+     * @param page Offer page, 10 rows each (optional, default to 1)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -376,8 +377,8 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun amazonGetAllSellerOffersBuybox(asin: kotlin.String, domain: kotlin.String? = "com", zip: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = amazonGetAllSellerOffersBuyboxWithHttpInfo(asin = asin, domain = domain, zip = zip)
+    fun amazonGetAllSellerOffersBuybox(asin: kotlin.String, domain: kotlin.String? = "com", zip: kotlin.String? = null, page: kotlin.Int? = 1) : kotlin.Any {
+        val localVarResponse = amazonGetAllSellerOffersBuyboxWithHttpInfo(asin = asin, domain = domain, zip = zip, page = page)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -400,14 +401,15 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param asin 
      * @param domain  (optional, default to "com")
      * @param zip  (optional)
+     * @param page Offer page, 10 rows each (optional, default to 1)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun amazonGetAllSellerOffersBuyboxWithHttpInfo(asin: kotlin.String, domain: kotlin.String?, zip: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = amazonGetAllSellerOffersBuyboxRequestConfig(asin = asin, domain = domain, zip = zip)
+    fun amazonGetAllSellerOffersBuyboxWithHttpInfo(asin: kotlin.String, domain: kotlin.String?, zip: kotlin.String?, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = amazonGetAllSellerOffersBuyboxRequestConfig(asin = asin, domain = domain, zip = zip, page = page)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -420,9 +422,10 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param asin 
      * @param domain  (optional, default to "com")
      * @param zip  (optional)
+     * @param page Offer page, 10 rows each (optional, default to 1)
      * @return RequestConfig
      */
-    fun amazonGetAllSellerOffersBuyboxRequestConfig(asin: kotlin.String, domain: kotlin.String?, zip: kotlin.String?) : RequestConfig<Unit> {
+    fun amazonGetAllSellerOffersBuyboxRequestConfig(asin: kotlin.String, domain: kotlin.String?, zip: kotlin.String?, page: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -431,6 +434,9 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (zip != null) {
                     put("zip", listOf(zip.toString()))
+                }
+                if (page != null) {
+                    put("page", listOf(page.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
