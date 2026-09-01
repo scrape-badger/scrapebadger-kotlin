@@ -461,7 +461,7 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
 
     /**
      * Take a screenshot
-     * Take a screenshot of a URL. (Phase 2 — patchright engine)
+     * Take a screenshot of a URL. (browser engine)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -491,7 +491,7 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
 
     /**
      * Take a screenshot
-     * Take a screenshot of a URL. (Phase 2 — patchright engine)
+     * Take a screenshot of a URL. (browser engine)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
