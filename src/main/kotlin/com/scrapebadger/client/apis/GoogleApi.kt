@@ -2304,10 +2304,12 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Multi-seller offers by barcode
-     * Resolve a barcode to a product via Google web search, then return its Google Shopping seller offers (source + price per merchant).
-     * @param barcode Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14
+     * Google Shopping seller offers (source + price + link per merchant) for a product identified either by &#x60;&#x60;barcode&#x60;&#x60; (resolved via Google web search) or by its Google Shopping &#x60;&#x60;catalog_id&#x60;&#x60; (read straight off Google&#39;s product page, all seller pages fetched in parallel).
+     * @param barcode Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 (optional)
+     * @param catalogId Google Shopping catalogid (the &#x60;catalog_id&#x60; on /shopping/search tiles, or &#x60;prds&#x3D;catalogid:&lt;id&gt;&#x60; in a Google Shopping URL). Alternative to &#x60;barcode&#x60;; exactly one of the two is required (optional)
      * @param gl Country code (ISO 3166 alpha-2) (optional)
      * @param hl Language code (optional, default to "en")
+     * @param domain Google domain (optional, default to "google.com")
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2317,8 +2319,8 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun googleMultiSellerOffersByBarcode(barcode: kotlin.String, gl: kotlin.String? = null, hl: kotlin.String? = "en") : kotlin.Any {
-        val localVarResponse = googleMultiSellerOffersByBarcodeWithHttpInfo(barcode = barcode, gl = gl, hl = hl)
+    fun googleMultiSellerOffersByBarcode(barcode: kotlin.String? = null, catalogId: kotlin.String? = null, gl: kotlin.String? = null, hl: kotlin.String? = "en", domain: kotlin.String? = "google.com") : kotlin.Any {
+        val localVarResponse = googleMultiSellerOffersByBarcodeWithHttpInfo(barcode = barcode, catalogId = catalogId, gl = gl, hl = hl, domain = domain)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2337,18 +2339,20 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Multi-seller offers by barcode
-     * Resolve a barcode to a product via Google web search, then return its Google Shopping seller offers (source + price per merchant).
-     * @param barcode Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14
+     * Google Shopping seller offers (source + price + link per merchant) for a product identified either by &#x60;&#x60;barcode&#x60;&#x60; (resolved via Google web search) or by its Google Shopping &#x60;&#x60;catalog_id&#x60;&#x60; (read straight off Google&#39;s product page, all seller pages fetched in parallel).
+     * @param barcode Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 (optional)
+     * @param catalogId Google Shopping catalogid (the &#x60;catalog_id&#x60; on /shopping/search tiles, or &#x60;prds&#x3D;catalogid:&lt;id&gt;&#x60; in a Google Shopping URL). Alternative to &#x60;barcode&#x60;; exactly one of the two is required (optional)
      * @param gl Country code (ISO 3166 alpha-2) (optional)
      * @param hl Language code (optional, default to "en")
+     * @param domain Google domain (optional, default to "google.com")
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun googleMultiSellerOffersByBarcodeWithHttpInfo(barcode: kotlin.String, gl: kotlin.String?, hl: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = googleMultiSellerOffersByBarcodeRequestConfig(barcode = barcode, gl = gl, hl = hl)
+    fun googleMultiSellerOffersByBarcodeWithHttpInfo(barcode: kotlin.String?, catalogId: kotlin.String?, gl: kotlin.String?, hl: kotlin.String?, domain: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googleMultiSellerOffersByBarcodeRequestConfig(barcode = barcode, catalogId = catalogId, gl = gl, hl = hl, domain = domain)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2358,21 +2362,31 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     /**
      * To obtain the request config of the operation googleMultiSellerOffersByBarcode
      *
-     * @param barcode Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14
+     * @param barcode Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 (optional)
+     * @param catalogId Google Shopping catalogid (the &#x60;catalog_id&#x60; on /shopping/search tiles, or &#x60;prds&#x3D;catalogid:&lt;id&gt;&#x60; in a Google Shopping URL). Alternative to &#x60;barcode&#x60;; exactly one of the two is required (optional)
      * @param gl Country code (ISO 3166 alpha-2) (optional)
      * @param hl Language code (optional, default to "en")
+     * @param domain Google domain (optional, default to "google.com")
      * @return RequestConfig
      */
-    fun googleMultiSellerOffersByBarcodeRequestConfig(barcode: kotlin.String, gl: kotlin.String?, hl: kotlin.String?) : RequestConfig<Unit> {
+    fun googleMultiSellerOffersByBarcodeRequestConfig(barcode: kotlin.String?, catalogId: kotlin.String?, gl: kotlin.String?, hl: kotlin.String?, domain: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
-                put("barcode", listOf(barcode.toString()))
+                if (barcode != null) {
+                    put("barcode", listOf(barcode.toString()))
+                }
+                if (catalogId != null) {
+                    put("catalog_id", listOf(catalogId.toString()))
+                }
                 if (gl != null) {
                     put("gl", listOf(gl.toString()))
                 }
                 if (hl != null) {
                     put("hl", listOf(hl.toString()))
+                }
+                if (domain != null) {
+                    put("domain", listOf(domain.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

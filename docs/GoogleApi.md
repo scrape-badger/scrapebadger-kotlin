@@ -1311,11 +1311,11 @@ Configure ApiKeyAuth:
 
 <a id="googleMultiSellerOffersByBarcode"></a>
 # **googleMultiSellerOffersByBarcode**
-> kotlin.Any googleMultiSellerOffersByBarcode(barcode, gl, hl)
+> kotlin.Any googleMultiSellerOffersByBarcode(barcode, catalogId, gl, hl, domain)
 
 Multi-seller offers by barcode
 
-Resolve a barcode to a product via Google web search, then return its Google Shopping seller offers (source + price per merchant).
+Google Shopping seller offers (source + price + link per merchant) for a product identified either by &#x60;&#x60;barcode&#x60;&#x60; (resolved via Google web search) or by its Google Shopping &#x60;&#x60;catalog_id&#x60;&#x60; (read straight off Google&#39;s product page, all seller pages fetched in parallel).
 
 ### Example
 ```kotlin
@@ -1325,10 +1325,12 @@ Resolve a barcode to a product via Google web search, then return its Google Sho
 
 val apiInstance = GoogleApi()
 val barcode : kotlin.String = barcode_example // kotlin.String | Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14
+val catalogId : kotlin.String = catalogId_example // kotlin.String | Google Shopping catalogid (the `catalog_id` on /shopping/search tiles, or `prds=catalogid:<id>` in a Google Shopping URL). Alternative to `barcode`; exactly one of the two is required
 val gl : kotlin.String = gl_example // kotlin.String | Country code (ISO 3166 alpha-2)
 val hl : kotlin.String = hl_example // kotlin.String | Language code
+val domain : kotlin.String = domain_example // kotlin.String | Google domain
 try {
-    val result : kotlin.Any = apiInstance.googleMultiSellerOffersByBarcode(barcode, gl, hl)
+    val result : kotlin.Any = apiInstance.googleMultiSellerOffersByBarcode(barcode, catalogId, gl, hl, domain)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GoogleApi#googleMultiSellerOffersByBarcode")
@@ -1340,11 +1342,13 @@ try {
 ```
 
 ### Parameters
-| **barcode** | **kotlin.String**| Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 | |
+| **barcode** | **kotlin.String**| Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 | [optional] |
+| **catalogId** | **kotlin.String**| Google Shopping catalogid (the &#x60;catalog_id&#x60; on /shopping/search tiles, or &#x60;prds&#x3D;catalogid:&lt;id&gt;&#x60; in a Google Shopping URL). Alternative to &#x60;barcode&#x60;; exactly one of the two is required | [optional] |
 | **gl** | **kotlin.String**| Country code (ISO 3166 alpha-2) | [optional] |
+| **hl** | **kotlin.String**| Language code | [optional] [default to &quot;en&quot;] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **hl** | **kotlin.String**| Language code | [optional] [default to &quot;en&quot;] |
+| **domain** | **kotlin.String**| Google domain | [optional] [default to &quot;google.com&quot;] |
 
 ### Return type
 

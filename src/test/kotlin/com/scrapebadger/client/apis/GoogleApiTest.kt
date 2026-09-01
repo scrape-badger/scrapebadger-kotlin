@@ -307,9 +307,11 @@ class GoogleApiTest : ShouldSpec() {
         should("test googleMultiSellerOffersByBarcode") {
             // uncomment below to test googleMultiSellerOffersByBarcode
             //val barcode : kotlin.String = barcode_example // kotlin.String | Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14
+            //val catalogId : kotlin.String = catalogId_example // kotlin.String | Google Shopping catalogid (the `catalog_id` on /shopping/search tiles, or `prds=catalogid:<id>` in a Google Shopping URL). Alternative to `barcode`; exactly one of the two is required
             //val gl : kotlin.String = gl_example // kotlin.String | Country code (ISO 3166 alpha-2)
             //val hl : kotlin.String = hl_example // kotlin.String | Language code
-            //val result : kotlin.Any = apiInstance.googleMultiSellerOffersByBarcode(barcode, gl, hl)
+            //val domain : kotlin.String = domain_example // kotlin.String | Google domain
+            //val result : kotlin.Any = apiInstance.googleMultiSellerOffersByBarcode(barcode, catalogId, gl, hl, domain)
             //result shouldBe ("TODO")
         }
 
