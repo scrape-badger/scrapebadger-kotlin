@@ -47,7 +47,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * About this account
-     * Country, join date and former usernames.
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview. Country, join date and former usernames.
      * @param username 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -78,7 +78,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * About this account
-     * Country, join date and former usernames.
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview. Country, join date and former usernames.
      * @param username 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -118,7 +118,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Blended top search
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param query 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -149,7 +149,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Blended top search
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param query 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -192,7 +192,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get active stories
-     * Active stories (account pool only).
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview. Active stories (account pool only).
      * @param username 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -223,7 +223,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get active stories
-     * Active stories (account pool only).
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview. Active stories (account pool only).
      * @param username 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -263,7 +263,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get audio track
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param audioId 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -294,7 +294,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get audio track
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param audioId 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -419,7 +419,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get followers
-     * Followers list, paginated (account pool).
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview. Followers list, paginated (account pool).
      * @param username 
      * @param amount  (optional, default to 50)
      * @param cursor  (optional)
@@ -453,7 +453,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get followers
-     * Followers list, paginated (account pool).
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview. Followers list, paginated (account pool).
      * @param username 
      * @param amount  (optional, default to 50)
      * @param cursor  (optional)
@@ -510,7 +510,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get following
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @param amount  (optional, default to 50)
      * @param cursor  (optional)
@@ -543,7 +543,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get following
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @param amount  (optional, default to 50)
      * @param cursor  (optional)
@@ -595,7 +595,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get hashtag info
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param tag 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -626,7 +626,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get hashtag info
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param tag 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -666,7 +666,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get highlights
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -697,7 +697,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get highlights
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -737,7 +737,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get likers
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param code 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -768,7 +768,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get likers
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param code 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -808,7 +808,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get location
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param locationPk 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -839,7 +839,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get location
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param locationPk 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -1021,7 +1021,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get tagged posts
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1054,7 +1054,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get tagged posts
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1191,7 +1191,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get user reels
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1224,7 +1224,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Get user reels
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1412,7 +1412,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Recent hashtag posts
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param tag 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1445,7 +1445,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Recent hashtag posts
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param tag 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1497,7 +1497,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Related profiles
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -1528,7 +1528,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Related profiles
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param username 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -1568,7 +1568,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Search hashtags
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param query 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -1599,7 +1599,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Search hashtags
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param query 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -1642,7 +1642,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Search users
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param query 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -1673,7 +1673,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Search users
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param query 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -1716,7 +1716,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Top hashtag posts
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param tag 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
@@ -1749,7 +1749,7 @@ class InstagramApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
 
     /**
      * Top hashtag posts
-     * 
+     * **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns &#x60;503 temporarily_unavailable&#x60; (not billed, &#x60;Retry-After&#x60; set) — see https://docs.scrapebadger.com/instagram/overview.
      * @param tag 
      * @param amount  (optional, default to 20)
      * @param cursor  (optional)
