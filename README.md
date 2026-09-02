@@ -416,8 +416,11 @@ All URIs are relative to *https://scrapebadger.com*
 | *TikTokApi* | [**tiktokSearchVideos**](docs/TikTokApi.md#tiktoksearchvideos) | **GET** /v1/tiktok/search/videos | Search videos |
 | *TikTokApi* | [**tiktokTiktokShopBestSellers**](docs/TikTokApi.md#tiktoktiktokshopbestsellers) | **GET** /v1/tiktok/shop/ranking | TikTok Shop best sellers |
 | *TikTokApi* | [**tiktokTiktokShopCategorySubcategoriesTopProducts**](docs/TikTokApi.md#tiktoktiktokshopcategorysubcategoriestopproducts) | **GET** /v1/tiktok/shop/categories/{category_id} | TikTok Shop category: subcategories + top products |
+| *TikTokApi* | [**tiktokTiktokShopDealsFeed**](docs/TikTokApi.md#tiktoktiktokshopdealsfeed) | **GET** /v1/tiktok/shop/deals/{deal} | TikTok Shop deals feed |
 | *TikTokApi* | [**tiktokTiktokShopProductDetail**](docs/TikTokApi.md#tiktoktiktokshopproductdetail) | **GET** /v1/tiktok/shop/products/{product_id} | TikTok Shop product detail |
+| *TikTokApi* | [**tiktokTiktokShopProductReviews**](docs/TikTokApi.md#tiktoktiktokshopproductreviews) | **GET** /v1/tiktok/shop/products/{product_id}/reviews | TikTok Shop product reviews |
 | *TikTokApi* | [**tiktokTiktokShopRootCategories**](docs/TikTokApi.md#tiktoktiktokshoprootcategories) | **GET** /v1/tiktok/shop/categories | TikTok Shop root categories |
+| *TikTokApi* | [**tiktokTiktokShopStoreProducts**](docs/TikTokApi.md#tiktoktiktokshopstoreproducts) | **GET** /v1/tiktok/shop/stores/{seller_id} | TikTok Shop store + products |
 | *TikTokApi* | [**tiktokTrendingHashtags**](docs/TikTokApi.md#tiktoktrendinghashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags |
 | *TikTokApi* | [**tiktokTrendingSongs**](docs/TikTokApi.md#tiktoktrendingsongs) | **GET** /v1/tiktok/trending/songs | Trending songs |
 | *TikTokApi* | [**tiktokTrendingVideos**](docs/TikTokApi.md#tiktoktrendingvideos) | **GET** /v1/tiktok/trending/videos | Trending videos |

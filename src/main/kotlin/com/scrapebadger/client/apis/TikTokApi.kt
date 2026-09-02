@@ -2098,8 +2098,10 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Search TikTok Shop products
-     * Keyword search over TikTok Shop products (US): products with their bound video, matching shops, related searches and categories.
+     * Keyword search over TikTok Shop products: 30 per page with offset pagination (US); the first page also carries matching shops and related searches.
      * @param q Keyword, e.g. &#39;wireless earbuds&#39;
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param offset Pass back next_offset for the next page (US) (optional, default to 0)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2109,8 +2111,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokSearchTiktokShopProducts(q: kotlin.String) : kotlin.Any {
-        val localVarResponse = tiktokSearchTiktokShopProductsWithHttpInfo(q = q)
+    fun tiktokSearchTiktokShopProducts(q: kotlin.String, region: kotlin.String? = "US", offset: kotlin.Int? = 0) : kotlin.Any {
+        val localVarResponse = tiktokSearchTiktokShopProductsWithHttpInfo(q = q, region = region, offset = offset)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2129,16 +2131,18 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Search TikTok Shop products
-     * Keyword search over TikTok Shop products (US): products with their bound video, matching shops, related searches and categories.
+     * Keyword search over TikTok Shop products: 30 per page with offset pagination (US); the first page also carries matching shops and related searches.
      * @param q Keyword, e.g. &#39;wireless earbuds&#39;
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param offset Pass back next_offset for the next page (US) (optional, default to 0)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokSearchTiktokShopProductsWithHttpInfo(q: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokSearchTiktokShopProductsRequestConfig(q = q)
+    fun tiktokSearchTiktokShopProductsWithHttpInfo(q: kotlin.String, region: kotlin.String?, offset: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokSearchTiktokShopProductsRequestConfig(q = q, region = region, offset = offset)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2149,13 +2153,21 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation tiktokSearchTiktokShopProducts
      *
      * @param q Keyword, e.g. &#39;wireless earbuds&#39;
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param offset Pass back next_offset for the next page (US) (optional, default to 0)
      * @return RequestConfig
      */
-    fun tiktokSearchTiktokShopProductsRequestConfig(q: kotlin.String) : RequestConfig<Unit> {
+    fun tiktokSearchTiktokShopProductsRequestConfig(q: kotlin.String, region: kotlin.String?, offset: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 put("q", listOf(q.toString()))
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+                if (offset != null) {
+                    put("offset", listOf(offset.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
@@ -2356,7 +2368,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * TikTok Shop best sellers
-     * TikTok Shop&#39;s own ranking of the best-selling products of the past 30 days (US).
+     * TikTok Shop&#39;s own ranking of the best-selling products of the past 30 days (US only).
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @param count Max products to return (optional, default to 20)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -2367,8 +2380,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokTiktokShopBestSellers(count: kotlin.Int? = 20) : kotlin.Any {
-        val localVarResponse = tiktokTiktokShopBestSellersWithHttpInfo(count = count)
+    fun tiktokTiktokShopBestSellers(region: kotlin.String? = "US", count: kotlin.Int? = 20) : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopBestSellersWithHttpInfo(region = region, count = count)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2387,7 +2400,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * TikTok Shop best sellers
-     * TikTok Shop&#39;s own ranking of the best-selling products of the past 30 days (US).
+     * TikTok Shop&#39;s own ranking of the best-selling products of the past 30 days (US only).
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @param count Max products to return (optional, default to 20)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -2395,8 +2409,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokTiktokShopBestSellersWithHttpInfo(count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokTiktokShopBestSellersRequestConfig(count = count)
+    fun tiktokTiktokShopBestSellersWithHttpInfo(region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopBestSellersRequestConfig(region = region, count = count)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2406,13 +2420,17 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     /**
      * To obtain the request config of the operation tiktokTiktokShopBestSellers
      *
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @param count Max products to return (optional, default to 20)
      * @return RequestConfig
      */
-    fun tiktokTiktokShopBestSellersRequestConfig(count: kotlin.Int?) : RequestConfig<Unit> {
+    fun tiktokTiktokShopBestSellersRequestConfig(region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
                 if (count != null) {
                     put("count", listOf(count.toString()))
                 }
@@ -2432,8 +2450,9 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * TikTok Shop category: subcategories + top products
-     * A category&#39;s subcategories and its top products as TikTok Shop ranks them (US).
+     * A category&#39;s subcategories and its top products as TikTok Shop ranks them.
      * @param categoryId 
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2443,8 +2462,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId: kotlin.String) : kotlin.Any {
-        val localVarResponse = tiktokTiktokShopCategorySubcategoriesTopProductsWithHttpInfo(categoryId = categoryId)
+    fun tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId: kotlin.String, region: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopCategorySubcategoriesTopProductsWithHttpInfo(categoryId = categoryId, region = region)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2463,16 +2482,17 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * TikTok Shop category: subcategories + top products
-     * A category&#39;s subcategories and its top products as TikTok Shop ranks them (US).
+     * A category&#39;s subcategories and its top products as TikTok Shop ranks them.
      * @param categoryId 
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokTiktokShopCategorySubcategoriesTopProductsWithHttpInfo(categoryId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokTiktokShopCategorySubcategoriesTopProductsRequestConfig(categoryId = categoryId)
+    fun tiktokTiktokShopCategorySubcategoriesTopProductsWithHttpInfo(categoryId: kotlin.String, region: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopCategorySubcategoriesTopProductsRequestConfig(categoryId = categoryId, region = region)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2483,11 +2503,17 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation tiktokTiktokShopCategorySubcategoriesTopProducts
      *
      * @param categoryId 
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return RequestConfig
      */
-    fun tiktokTiktokShopCategorySubcategoriesTopProductsRequestConfig(categoryId: kotlin.String) : RequestConfig<Unit> {
+    fun tiktokTiktokShopCategorySubcategoriesTopProductsRequestConfig(categoryId: kotlin.String, region: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -2502,9 +2528,10 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * TikTok Shop product detail
-     * Full TikTok Shop product page (US): description, images, price, SKUs with stock, reviews, shop and TikTok&#39;s AI summary.
-     * @param productId 
+     * TikTok Shop deals feed
+     * A curated storefront feed: recommended-for-you, or premium-offers (US only).
+     * @param deal 
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2514,8 +2541,87 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokTiktokShopProductDetail(productId: kotlin.String) : kotlin.Any {
-        val localVarResponse = tiktokTiktokShopProductDetailWithHttpInfo(productId = productId)
+    fun tiktokTiktokShopDealsFeed(deal: kotlin.String, region: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopDealsFeedWithHttpInfo(deal = deal, region = region)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * TikTok Shop deals feed
+     * A curated storefront feed: recommended-for-you, or premium-offers (US only).
+     * @param deal 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun tiktokTiktokShopDealsFeedWithHttpInfo(deal: kotlin.String, region: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopDealsFeedRequestConfig(deal = deal, region = region)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation tiktokTiktokShopDealsFeed
+     *
+     * @param deal 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @return RequestConfig
+     */
+    fun tiktokTiktokShopDealsFeedRequestConfig(deal: kotlin.String, region: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tiktok/shop/deals/{deal}".replace("{"+"deal"+"}", encodeURIComponent(deal.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * TikTok Shop product detail
+     * Full TikTok Shop product page: description, images, price, SKUs with stock, first reviews, shop and TikTok&#39;s AI summary.
+     * @param productId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun tiktokTiktokShopProductDetail(productId: kotlin.String, region: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopProductDetailWithHttpInfo(productId = productId, region = region)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2534,16 +2640,17 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * TikTok Shop product detail
-     * Full TikTok Shop product page (US): description, images, price, SKUs with stock, reviews, shop and TikTok&#39;s AI summary.
+     * Full TikTok Shop product page: description, images, price, SKUs with stock, first reviews, shop and TikTok&#39;s AI summary.
      * @param productId 
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokTiktokShopProductDetailWithHttpInfo(productId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokTiktokShopProductDetailRequestConfig(productId = productId)
+    fun tiktokTiktokShopProductDetailWithHttpInfo(productId: kotlin.String, region: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopProductDetailRequestConfig(productId = productId, region = region)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2554,11 +2661,17 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation tiktokTiktokShopProductDetail
      *
      * @param productId 
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return RequestConfig
      */
-    fun tiktokTiktokShopProductDetailRequestConfig(productId: kotlin.String) : RequestConfig<Unit> {
+    fun tiktokTiktokShopProductDetailRequestConfig(productId: kotlin.String, region: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -2573,8 +2686,16 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * TikTok Shop root categories
-     * Top-level TikTok Shop categories (US). Drill down with /shop/categories/{category_id}.
+     * TikTok Shop product reviews
+     * Paginated product reviews with the rating breakdown (US).
+     * @param productId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param page  (optional, default to 1)
+     * @param count  (optional, default to 20)
+     * @param sort recommended | recent (optional, default to "recommended")
+     * @param rating Only this star rating (optional)
+     * @param withMedia Only reviews with photos/videos (optional, default to false)
+     * @param verified Only verified purchases (optional, default to false)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2584,8 +2705,116 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokTiktokShopRootCategories() : kotlin.Any {
-        val localVarResponse = tiktokTiktokShopRootCategoriesWithHttpInfo()
+    fun tiktokTiktokShopProductReviews(productId: kotlin.String, region: kotlin.String? = "US", page: kotlin.Int? = 1, count: kotlin.Int? = 20, sort: kotlin.String? = "recommended", rating: kotlin.Int? = null, withMedia: kotlin.Boolean? = false, verified: kotlin.Boolean? = false) : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopProductReviewsWithHttpInfo(productId = productId, region = region, page = page, count = count, sort = sort, rating = rating, withMedia = withMedia, verified = verified)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * TikTok Shop product reviews
+     * Paginated product reviews with the rating breakdown (US).
+     * @param productId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param page  (optional, default to 1)
+     * @param count  (optional, default to 20)
+     * @param sort recommended | recent (optional, default to "recommended")
+     * @param rating Only this star rating (optional)
+     * @param withMedia Only reviews with photos/videos (optional, default to false)
+     * @param verified Only verified purchases (optional, default to false)
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun tiktokTiktokShopProductReviewsWithHttpInfo(productId: kotlin.String, region: kotlin.String?, page: kotlin.Int?, count: kotlin.Int?, sort: kotlin.String?, rating: kotlin.Int?, withMedia: kotlin.Boolean?, verified: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopProductReviewsRequestConfig(productId = productId, region = region, page = page, count = count, sort = sort, rating = rating, withMedia = withMedia, verified = verified)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation tiktokTiktokShopProductReviews
+     *
+     * @param productId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param page  (optional, default to 1)
+     * @param count  (optional, default to 20)
+     * @param sort recommended | recent (optional, default to "recommended")
+     * @param rating Only this star rating (optional)
+     * @param withMedia Only reviews with photos/videos (optional, default to false)
+     * @param verified Only verified purchases (optional, default to false)
+     * @return RequestConfig
+     */
+    fun tiktokTiktokShopProductReviewsRequestConfig(productId: kotlin.String, region: kotlin.String?, page: kotlin.Int?, count: kotlin.Int?, sort: kotlin.String?, rating: kotlin.Int?, withMedia: kotlin.Boolean?, verified: kotlin.Boolean?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+                if (page != null) {
+                    put("page", listOf(page.toString()))
+                }
+                if (count != null) {
+                    put("count", listOf(count.toString()))
+                }
+                if (sort != null) {
+                    put("sort", listOf(sort.toString()))
+                }
+                if (rating != null) {
+                    put("rating", listOf(rating.toString()))
+                }
+                if (withMedia != null) {
+                    put("with_media", listOf(withMedia.toString()))
+                }
+                if (verified != null) {
+                    put("verified", listOf(verified.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tiktok/shop/products/{product_id}/reviews".replace("{"+"product_id"+"}", encodeURIComponent(productId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * TikTok Shop root categories
+     * Top-level TikTok Shop categories of a market. Drill down with /shop/categories/{id}.
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun tiktokTiktokShopRootCategories(region: kotlin.String? = "US") : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopRootCategoriesWithHttpInfo(region = region)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2604,15 +2833,16 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * TikTok Shop root categories
-     * Top-level TikTok Shop categories (US). Drill down with /shop/categories/{category_id}.
+     * Top-level TikTok Shop categories of a market. Drill down with /shop/categories/{id}.
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokTiktokShopRootCategoriesWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokTiktokShopRootCategoriesRequestConfig()
+    fun tiktokTiktokShopRootCategoriesWithHttpInfo(region: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopRootCategoriesRequestConfig(region = region)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2622,17 +2852,114 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     /**
      * To obtain the request config of the operation tiktokTiktokShopRootCategories
      *
+     * @param region Market: US, GB, ID (optional, default to "US")
      * @return RequestConfig
      */
-    fun tiktokTiktokShopRootCategoriesRequestConfig() : RequestConfig<Unit> {
+    fun tiktokTiktokShopRootCategoriesRequestConfig(region: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/tiktok/shop/categories",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * TikTok Shop store + products
+     * A store&#39;s stats and its cursor-paginated product catalogue (US).
+     * @param sellerId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param cursor Pass back next_cursor for the next page (optional, default to "")
+     * @param count  (optional, default to 20)
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun tiktokTiktokShopStoreProducts(sellerId: kotlin.String, region: kotlin.String? = "US", cursor: kotlin.String? = "", count: kotlin.Int? = 20) : kotlin.Any {
+        val localVarResponse = tiktokTiktokShopStoreProductsWithHttpInfo(sellerId = sellerId, region = region, cursor = cursor, count = count)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * TikTok Shop store + products
+     * A store&#39;s stats and its cursor-paginated product catalogue (US).
+     * @param sellerId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param cursor Pass back next_cursor for the next page (optional, default to "")
+     * @param count  (optional, default to 20)
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun tiktokTiktokShopStoreProductsWithHttpInfo(sellerId: kotlin.String, region: kotlin.String?, cursor: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokTiktokShopStoreProductsRequestConfig(sellerId = sellerId, region = region, cursor = cursor, count = count)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation tiktokTiktokShopStoreProducts
+     *
+     * @param sellerId 
+     * @param region Market: US, GB, ID (optional, default to "US")
+     * @param cursor Pass back next_cursor for the next page (optional, default to "")
+     * @param count  (optional, default to 20)
+     * @return RequestConfig
+     */
+    fun tiktokTiktokShopStoreProductsRequestConfig(sellerId: kotlin.String, region: kotlin.String?, cursor: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (region != null) {
+                    put("region", listOf(region.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
+                }
+                if (count != null) {
+                    put("count", listOf(count.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tiktok/shop/stores/{seller_id}".replace("{"+"seller_id"+"}", encodeURIComponent(sellerId.toString())),
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,
