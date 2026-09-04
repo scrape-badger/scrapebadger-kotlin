@@ -14,7 +14,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 <a id="geminiAskGeminiAQuestion"></a>
 # **geminiAskGeminiAQuestion**
-> kotlin.Any geminiAskGeminiAQuestion(prompt, country, webSearch)
+> kotlin.Any geminiAskGeminiAQuestion(prompt, country, webSearch, imageUrl)
 
 Ask Gemini a question
 
@@ -30,8 +30,9 @@ val apiInstance = GeminiApi()
 val prompt : kotlin.String = prompt_example // kotlin.String | The prompt to send to Gemini (max 4096 characters).
 val country : kotlin.String = country_example // kotlin.String | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'.
 val webSearch : kotlin.String = webSearch_example // kotlin.String | auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). `web_search_triggered` in the response always reports what actually happened.
+val imageUrl : kotlin.String = imageUrl_example // kotlin.String | Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts `image_base64`. Exactly one of the two.
 try {
-    val result : kotlin.Any = apiInstance.geminiAskGeminiAQuestion(prompt, country, webSearch)
+    val result : kotlin.Any = apiInstance.geminiAskGeminiAQuestion(prompt, country, webSearch, imageUrl)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GeminiApi#geminiAskGeminiAQuestion")
@@ -45,9 +46,10 @@ try {
 ### Parameters
 | **prompt** | **kotlin.String**| The prompt to send to Gemini (max 4096 characters). | |
 | **country** | **kotlin.String**| ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. | [optional] |
+| **webSearch** | **kotlin.String**| auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. | [optional] [default to &quot;auto&quot;] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **webSearch** | **kotlin.String**| auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. | [optional] [default to &quot;auto&quot;] |
+| **imageUrl** | **kotlin.String**| Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. | [optional] |
 
 ### Return type
 

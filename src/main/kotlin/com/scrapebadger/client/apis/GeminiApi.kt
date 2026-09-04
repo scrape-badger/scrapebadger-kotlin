@@ -51,6 +51,7 @@ class GeminiApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param prompt The prompt to send to Gemini (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
      * @param webSearch auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. (optional, default to "auto")
+     * @param imageUrl Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -60,8 +61,8 @@ class GeminiApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun geminiAskGeminiAQuestion(prompt: kotlin.String, country: kotlin.String? = null, webSearch: kotlin.String? = "auto") : kotlin.Any {
-        val localVarResponse = geminiAskGeminiAQuestionWithHttpInfo(prompt = prompt, country = country, webSearch = webSearch)
+    fun geminiAskGeminiAQuestion(prompt: kotlin.String, country: kotlin.String? = null, webSearch: kotlin.String? = "auto", imageUrl: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = geminiAskGeminiAQuestionWithHttpInfo(prompt = prompt, country = country, webSearch = webSearch, imageUrl = imageUrl)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -84,14 +85,15 @@ class GeminiApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param prompt The prompt to send to Gemini (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
      * @param webSearch auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. (optional, default to "auto")
+     * @param imageUrl Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun geminiAskGeminiAQuestionWithHttpInfo(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = geminiAskGeminiAQuestionRequestConfig(prompt = prompt, country = country, webSearch = webSearch)
+    fun geminiAskGeminiAQuestionWithHttpInfo(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?, imageUrl: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = geminiAskGeminiAQuestionRequestConfig(prompt = prompt, country = country, webSearch = webSearch, imageUrl = imageUrl)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -104,9 +106,10 @@ class GeminiApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param prompt The prompt to send to Gemini (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
      * @param webSearch auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. (optional, default to "auto")
+     * @param imageUrl Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. (optional)
      * @return RequestConfig
      */
-    fun geminiAskGeminiAQuestionRequestConfig(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?) : RequestConfig<Unit> {
+    fun geminiAskGeminiAQuestionRequestConfig(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?, imageUrl: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -116,6 +119,9 @@ class GeminiApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (webSearch != null) {
                     put("web_search", listOf(webSearch.toString()))
+                }
+                if (imageUrl != null) {
+                    put("image_url", listOf(imageUrl.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

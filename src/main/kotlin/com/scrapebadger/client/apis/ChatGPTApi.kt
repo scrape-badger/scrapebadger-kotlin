@@ -51,6 +51,7 @@ class ChatGPTApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * @param prompt The prompt to send to ChatGPT (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
      * @param webSearch auto (let ChatGPT decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. (optional, default to "auto")
+     * @param imageUrl Public http(s) URL of an image to attach to the prompt. ChatGPT reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -60,8 +61,8 @@ class ChatGPTApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun chatgptAskChatgptAQuestion(prompt: kotlin.String, country: kotlin.String? = null, webSearch: kotlin.String? = "auto") : kotlin.Any {
-        val localVarResponse = chatgptAskChatgptAQuestionWithHttpInfo(prompt = prompt, country = country, webSearch = webSearch)
+    fun chatgptAskChatgptAQuestion(prompt: kotlin.String, country: kotlin.String? = null, webSearch: kotlin.String? = "auto", imageUrl: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = chatgptAskChatgptAQuestionWithHttpInfo(prompt = prompt, country = country, webSearch = webSearch, imageUrl = imageUrl)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -84,14 +85,15 @@ class ChatGPTApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * @param prompt The prompt to send to ChatGPT (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
      * @param webSearch auto (let ChatGPT decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. (optional, default to "auto")
+     * @param imageUrl Public http(s) URL of an image to attach to the prompt. ChatGPT reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun chatgptAskChatgptAQuestionWithHttpInfo(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = chatgptAskChatgptAQuestionRequestConfig(prompt = prompt, country = country, webSearch = webSearch)
+    fun chatgptAskChatgptAQuestionWithHttpInfo(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?, imageUrl: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = chatgptAskChatgptAQuestionRequestConfig(prompt = prompt, country = country, webSearch = webSearch, imageUrl = imageUrl)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -104,9 +106,10 @@ class ChatGPTApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * @param prompt The prompt to send to ChatGPT (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
      * @param webSearch auto (let ChatGPT decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. (optional, default to "auto")
+     * @param imageUrl Public http(s) URL of an image to attach to the prompt. ChatGPT reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. (optional)
      * @return RequestConfig
      */
-    fun chatgptAskChatgptAQuestionRequestConfig(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?) : RequestConfig<Unit> {
+    fun chatgptAskChatgptAQuestionRequestConfig(prompt: kotlin.String, country: kotlin.String?, webSearch: kotlin.String?, imageUrl: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -116,6 +119,9 @@ class ChatGPTApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
                 }
                 if (webSearch != null) {
                     put("web_search", listOf(webSearch.toString()))
+                }
+                if (imageUrl != null) {
+                    put("image_url", listOf(imageUrl.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
