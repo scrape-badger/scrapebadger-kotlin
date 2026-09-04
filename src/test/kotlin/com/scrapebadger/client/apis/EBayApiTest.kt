@@ -145,6 +145,14 @@ class EBayApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test ebaySearchByImage
+        should("test ebaySearchByImage") {
+            // uncomment below to test ebaySearchByImage
+            //val requestBody : kotlin.collections.Map<kotlin.String, kotlin.Any> = Object // kotlin.collections.Map<kotlin.String, kotlin.Any> | 
+            //val result : kotlin.Any = apiInstance.ebaySearchByImage(requestBody)
+            //result shouldBe ("TODO")
+        }
+
         // to test ebaySearchListings
         should("test ebaySearchListings") {
             // uncomment below to test ebaySearchListings

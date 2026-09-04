@@ -16,6 +16,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**ebayKeywordSuggestions**](EBayApi.md#ebayKeywordSuggestions) | **GET** /v1/ebay/autocomplete | Keyword suggestions |
 | [**ebayListCategories**](EBayApi.md#ebayListCategories) | **GET** /v1/ebay/categories | List categories |
 | [**ebayListMarkets**](EBayApi.md#ebayListMarkets) | **GET** /v1/ebay/markets | List markets |
+| [**ebaySearchByImage**](EBayApi.md#ebaySearchByImage) | **POST** /v1/ebay/search/by-image | Search by image |
 | [**ebaySearchListings**](EBayApi.md#ebaySearchListings) | **GET** /v1/ebay/search | Search listings |
 
 
@@ -647,6 +648,55 @@ Configure ApiKeyAuth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="ebaySearchByImage"></a>
+# **ebaySearchByImage**
+> kotlin.Any ebaySearchByImage(requestBody)
+
+Search by image
+
+Search active listings by image, the way eBay&#39;s camera icon does.  No &#x60;&#x60;sort_by&#x60;&#x60;: eBay ignores it on a visual results page.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = EBayApi()
+val requestBody : kotlin.collections.Map<kotlin.String, kotlin.Any> = Object // kotlin.collections.Map<kotlin.String, kotlin.Any> | 
+try {
+    val result : kotlin.Any = apiInstance.ebaySearchByImage(requestBody)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling EBayApi#ebaySearchByImage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling EBayApi#ebaySearchByImage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **requestBody** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md)|  | |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a id="ebaySearchListings"></a>
