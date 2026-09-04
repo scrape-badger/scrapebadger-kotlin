@@ -167,6 +167,7 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param location domestic|worldwide (optional)
+     * @param language english|japanese|chinese|korean (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -176,8 +177,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayCompletedSoldListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, location: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = ebayCompletedSoldListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location)
+    fun ebayCompletedSoldListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, location: kotlin.String? = null, language: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayCompletedSoldListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location, language = language)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -207,14 +208,15 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param location domestic|worldwide (optional)
+     * @param language english|japanese|chinese|korean (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayCompletedSoldListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayCompletedSoldListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location)
+    fun ebayCompletedSoldListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayCompletedSoldListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location, language = language)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -234,9 +236,10 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param location domestic|worldwide (optional)
+     * @param language english|japanese|chinese|korean (optional)
      * @return RequestConfig
      */
-    fun ebayCompletedSoldListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?) : RequestConfig<Unit> {
+    fun ebayCompletedSoldListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -267,6 +270,9 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 }
                 if (location != null) {
                     put("location", listOf(location.toString()))
+                }
+                if (language != null) {
+                    put("language", listOf(language.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -1074,6 +1080,7 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @param freeShipping  (optional, default to false)
      * @param location domestic|worldwide (optional)
+     * @param language english|japanese|chinese|korean (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1083,8 +1090,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebaySearchListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, buyingFormat: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, freeShipping: kotlin.Boolean? = false, location: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = ebaySearchListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location)
+    fun ebaySearchListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, buyingFormat: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, freeShipping: kotlin.Boolean? = false, location: kotlin.String? = null, language: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebaySearchListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location, language = language)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1116,14 +1123,15 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @param freeShipping  (optional, default to false)
      * @param location domestic|worldwide (optional)
+     * @param language english|japanese|chinese|korean (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebaySearchListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebaySearchListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location)
+    fun ebaySearchListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebaySearchListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location, language = language)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1145,9 +1153,10 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @param freeShipping  (optional, default to false)
      * @param location domestic|worldwide (optional)
+     * @param language english|japanese|chinese|korean (optional)
      * @return RequestConfig
      */
-    fun ebaySearchListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?) : RequestConfig<Unit> {
+    fun ebaySearchListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1184,6 +1193,9 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 }
                 if (location != null) {
                     put("location", listOf(location.toString()))
+                }
+                if (language != null) {
+                    put("language", listOf(language.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

@@ -82,7 +82,7 @@ Configure ApiKeyAuth:
 
 <a id="ebayCompletedSoldListings"></a>
 # **ebayCompletedSoldListings**
-> kotlin.Any ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location)
+> kotlin.Any ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
 
 Completed / sold listings
 
@@ -105,8 +105,9 @@ val condition : kotlin.String = condition_example // kotlin.String | new|open_bo
 val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 val location : kotlin.String = location_example // kotlin.String | domestic|worldwide
+val language : kotlin.String = language_example // kotlin.String | english|japanese|chinese|korean
 try {
-    val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location)
+    val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling EBayApi#ebayCompletedSoldListings")
@@ -127,9 +128,10 @@ try {
 | **condition** | **kotlin.String**| new|open_box|refurbished|used|for_parts|graded|ungraded | [optional] |
 | **minPrice** | **java.math.BigDecimal**|  | [optional] |
 | **maxPrice** | **java.math.BigDecimal**|  | [optional] |
+| **location** | **kotlin.String**| domestic|worldwide | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **location** | **kotlin.String**| domestic|worldwide | [optional] |
+| **language** | **kotlin.String**| english|japanese|chinese|korean | [optional] |
 
 ### Return type
 
@@ -649,7 +651,7 @@ Configure ApiKeyAuth:
 
 <a id="ebaySearchListings"></a>
 # **ebaySearchListings**
-> kotlin.Any ebaySearchListings(query, domain, categoryId, page, perPage, sortBy, condition, buyingFormat, minPrice, maxPrice, freeShipping, location)
+> kotlin.Any ebaySearchListings(query, domain, categoryId, page, perPage, sortBy, condition, buyingFormat, minPrice, maxPrice, freeShipping, location, language)
 
 Search listings
 
@@ -674,8 +676,9 @@ val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal |
 val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
 val freeShipping : kotlin.Boolean = true // kotlin.Boolean | 
 val location : kotlin.String = location_example // kotlin.String | domestic|worldwide
+val language : kotlin.String = language_example // kotlin.String | english|japanese|chinese|korean
 try {
-    val result : kotlin.Any = apiInstance.ebaySearchListings(query, domain, categoryId, page, perPage, sortBy, condition, buyingFormat, minPrice, maxPrice, freeShipping, location)
+    val result : kotlin.Any = apiInstance.ebaySearchListings(query, domain, categoryId, page, perPage, sortBy, condition, buyingFormat, minPrice, maxPrice, freeShipping, location, language)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling EBayApi#ebaySearchListings")
@@ -698,9 +701,10 @@ try {
 | **minPrice** | **java.math.BigDecimal**|  | [optional] |
 | **maxPrice** | **java.math.BigDecimal**|  | [optional] |
 | **freeShipping** | **kotlin.Boolean**|  | [optional] [default to false] |
+| **location** | **kotlin.String**| domestic|worldwide | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **location** | **kotlin.String**| domestic|worldwide | [optional] |
+| **language** | **kotlin.String**| english|japanese|chinese|korean | [optional] |
 
 ### Return type
 
