@@ -30,7 +30,7 @@ val apiInstance = GeminiApi()
 val prompt : kotlin.String = prompt_example // kotlin.String | The prompt to send to Gemini (max 4096 characters).
 val country : kotlin.String = country_example // kotlin.String | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'.
 val webSearch : kotlin.String = webSearch_example // kotlin.String | auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). `web_search_triggered` in the response always reports what actually happened.
-val imageUrl : kotlin.String = imageUrl_example // kotlin.String | Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts `image_base64`. Exactly one of the two.
+val imageUrl : kotlin.String = imageUrl_example // kotlin.String | UNAVAILABLE. Signed-out Gemini refuses image questions — it accepts the upload and then answers PERMISSION_DENIED to its own generate RPC, so this returns 422 immediately rather than charging for a render that cannot succeed. Use /v1/chatgpt/ask for image input.
 try {
     val result : kotlin.Any = apiInstance.geminiAskGeminiAQuestion(prompt, country, webSearch, imageUrl)
     println(result)
@@ -49,7 +49,7 @@ try {
 | **webSearch** | **kotlin.String**| auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). &#x60;web_search_triggered&#x60; in the response always reports what actually happened. | [optional] [default to &quot;auto&quot;] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **imageUrl** | **kotlin.String**| Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts &#x60;image_base64&#x60;. Exactly one of the two. | [optional] |
+| **imageUrl** | **kotlin.String**| UNAVAILABLE. Signed-out Gemini refuses image questions — it accepts the upload and then answers PERMISSION_DENIED to its own generate RPC, so this returns 422 immediately rather than charging for a render that cannot succeed. Use /v1/chatgpt/ask for image input. | [optional] |
 
 ### Return type
 

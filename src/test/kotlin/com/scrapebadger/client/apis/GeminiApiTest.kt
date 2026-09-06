@@ -32,7 +32,7 @@ class GeminiApiTest : ShouldSpec() {
             //val prompt : kotlin.String = prompt_example // kotlin.String | The prompt to send to Gemini (max 4096 characters).
             //val country : kotlin.String = country_example // kotlin.String | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'.
             //val webSearch : kotlin.String = webSearch_example // kotlin.String | auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). `web_search_triggered` in the response always reports what actually happened.
-            //val imageUrl : kotlin.String = imageUrl_example // kotlin.String | Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts `image_base64`. Exactly one of the two.
+            //val imageUrl : kotlin.String = imageUrl_example // kotlin.String | UNAVAILABLE. Signed-out Gemini refuses image questions — it accepts the upload and then answers PERMISSION_DENIED to its own generate RPC, so this returns 422 immediately rather than charging for a render that cannot succeed. Use /v1/chatgpt/ask for image input.
             //val result : kotlin.Any = apiInstance.geminiAskGeminiAQuestion(prompt, country, webSearch, imageUrl)
             //result shouldBe ("TODO")
         }
