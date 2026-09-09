@@ -1441,15 +1441,16 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Search Marketplace
-     * Search Facebook Marketplace listings by keyword and location.
+     * Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.
      * @param query Search keywords
-     * @param location Marketplace location slug (optional, default to "nyc")
+     * @param location Marketplace location slug or numeric place id (optional, default to "nyc")
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param daysSinceListed  (optional)
      * @param sortBy  (optional)
      * @param itemCondition  (optional)
      * @param deliveryMethod  (optional)
+     * @param radius Search radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -1460,8 +1461,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookSearchMarketplace(query: kotlin.String, location: kotlin.String? = "nyc", minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, daysSinceListed: kotlin.Int? = null, sortBy: kotlin.String? = null, itemCondition: kotlin.String? = null, deliveryMethod: kotlin.String? = null, after: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = facebookSearchMarketplaceWithHttpInfo(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, after = after)
+    fun facebookSearchMarketplace(query: kotlin.String, location: kotlin.String? = "nyc", minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, daysSinceListed: kotlin.Int? = null, sortBy: kotlin.String? = null, itemCondition: kotlin.String? = null, deliveryMethod: kotlin.String? = null, radius: kotlin.Int? = null, after: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = facebookSearchMarketplaceWithHttpInfo(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, radius = radius, after = after)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1480,15 +1481,16 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Search Marketplace
-     * Search Facebook Marketplace listings by keyword and location.
+     * Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.
      * @param query Search keywords
-     * @param location Marketplace location slug (optional, default to "nyc")
+     * @param location Marketplace location slug or numeric place id (optional, default to "nyc")
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param daysSinceListed  (optional)
      * @param sortBy  (optional)
      * @param itemCondition  (optional)
      * @param deliveryMethod  (optional)
+     * @param radius Search radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -1496,8 +1498,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookSearchMarketplaceWithHttpInfo(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, after: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookSearchMarketplaceRequestConfig(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, after = after)
+    fun facebookSearchMarketplaceWithHttpInfo(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookSearchMarketplaceRequestConfig(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, radius = radius, after = after)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1508,17 +1510,18 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * To obtain the request config of the operation facebookSearchMarketplace
      *
      * @param query Search keywords
-     * @param location Marketplace location slug (optional, default to "nyc")
+     * @param location Marketplace location slug or numeric place id (optional, default to "nyc")
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param daysSinceListed  (optional)
      * @param sortBy  (optional)
      * @param itemCondition  (optional)
      * @param deliveryMethod  (optional)
+     * @param radius Search radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
      * @return RequestConfig
      */
-    fun facebookSearchMarketplaceRequestConfig(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, after: kotlin.String?) : RequestConfig<Unit> {
+    fun facebookSearchMarketplaceRequestConfig(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1543,6 +1546,9 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
                 }
                 if (deliveryMethod != null) {
                     put("delivery_method", listOf(deliveryMethod.toString()))
+                }
+                if (radius != null) {
+                    put("radius", listOf(radius.toString()))
                 }
                 if (after != null) {
                     put("after", listOf(after.toString()))

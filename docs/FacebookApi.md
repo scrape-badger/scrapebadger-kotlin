@@ -940,11 +940,11 @@ Configure ApiKeyAuth:
 
 <a id="facebookSearchMarketplace"></a>
 # **facebookSearchMarketplace**
-> kotlin.Any facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, after)
+> kotlin.Any facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after)
 
 Search Marketplace
 
-Search Facebook Marketplace listings by keyword and location.
+Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.
 
 ### Example
 ```kotlin
@@ -954,16 +954,17 @@ Search Facebook Marketplace listings by keyword and location.
 
 val apiInstance = FacebookApi()
 val query : kotlin.String = query_example // kotlin.String | Search keywords
-val location : kotlin.String = location_example // kotlin.String | Marketplace location slug
+val location : kotlin.String = location_example // kotlin.String | Marketplace location slug or numeric place id
 val minPrice : kotlin.Int = 56 // kotlin.Int | 
 val maxPrice : kotlin.Int = 56 // kotlin.Int | 
 val daysSinceListed : kotlin.Int = 56 // kotlin.Int | 
 val sortBy : kotlin.String = sortBy_example // kotlin.String | 
 val itemCondition : kotlin.String = itemCondition_example // kotlin.String | 
 val deliveryMethod : kotlin.String = deliveryMethod_example // kotlin.String | 
+val radius : kotlin.Int = 56 // kotlin.Int | Search radius around the location (km, or miles in the US)
 val after : kotlin.String = after_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, after)
+    val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookSearchMarketplace")
@@ -976,13 +977,14 @@ try {
 
 ### Parameters
 | **query** | **kotlin.String**| Search keywords | |
-| **location** | **kotlin.String**| Marketplace location slug | [optional] [default to &quot;nyc&quot;] |
+| **location** | **kotlin.String**| Marketplace location slug or numeric place id | [optional] [default to &quot;nyc&quot;] |
 | **minPrice** | **kotlin.Int**|  | [optional] |
 | **maxPrice** | **kotlin.Int**|  | [optional] |
 | **daysSinceListed** | **kotlin.Int**|  | [optional] |
 | **sortBy** | **kotlin.String**|  | [optional] |
 | **itemCondition** | **kotlin.String**|  | [optional] |
 | **deliveryMethod** | **kotlin.String**|  | [optional] |
+| **radius** | **kotlin.Int**| Search radius around the location (km, or miles in the US) | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **after** | **kotlin.String**|  | [optional] |

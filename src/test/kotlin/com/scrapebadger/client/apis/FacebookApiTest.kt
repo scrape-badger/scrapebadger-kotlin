@@ -188,15 +188,16 @@ class FacebookApiTest : ShouldSpec() {
         should("test facebookSearchMarketplace") {
             // uncomment below to test facebookSearchMarketplace
             //val query : kotlin.String = query_example // kotlin.String | Search keywords
-            //val location : kotlin.String = location_example // kotlin.String | Marketplace location slug
+            //val location : kotlin.String = location_example // kotlin.String | Marketplace location slug or numeric place id
             //val minPrice : kotlin.Int = 56 // kotlin.Int | 
             //val maxPrice : kotlin.Int = 56 // kotlin.Int | 
             //val daysSinceListed : kotlin.Int = 56 // kotlin.Int | 
             //val sortBy : kotlin.String = sortBy_example // kotlin.String | 
             //val itemCondition : kotlin.String = itemCondition_example // kotlin.String | 
             //val deliveryMethod : kotlin.String = deliveryMethod_example // kotlin.String | 
+            //val radius : kotlin.Int = 56 // kotlin.Int | Search radius around the location (km, or miles in the US)
             //val after : kotlin.String = after_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, after)
+            //val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after)
             //result shouldBe ("TODO")
         }
 
