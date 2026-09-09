@@ -35,6 +35,14 @@ class ZillowApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test zillowGetMultifamilyBuilding
+        should("test zillowGetMultifamilyBuilding") {
+            // uncomment below to test zillowGetMultifamilyBuilding
+            //val url : kotlin.String = url_example // kotlin.String | Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/
+            //val result : kotlin.Any = apiInstance.zillowGetMultifamilyBuilding(url)
+            //result shouldBe ("TODO")
+        }
+
         // to test zillowGetPropertyDetail
         should("test zillowGetPropertyDetail") {
             // uncomment below to test zillowGetPropertyDetail

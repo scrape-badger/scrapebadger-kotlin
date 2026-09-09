@@ -564,6 +564,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *YouTubeApi* | [**youtubeYoutubeScraperHealthCheck**](docs/YouTubeApi.md#youtubeyoutubescraperhealthcheck) | **GET** /v1/youtube/health | YouTube scraper health check |
 | *YouTubeApi* | [**youtubeYoutubeScraperHealthCheckHead**](docs/YouTubeApi.md#youtubeyoutubescraperhealthcheckhead) | **HEAD** /v1/youtube/health | YouTube scraper health check |
 | *ZillowApi* | [**zillowGetAgentProfileListings**](docs/ZillowApi.md#zillowgetagentprofilelistings) | **GET** /v1/zillow/agent | Get agent profile + listings |
+| *ZillowApi* | [**zillowGetMultifamilyBuilding**](docs/ZillowApi.md#zillowgetmultifamilybuilding) | **GET** /v1/zillow/building | Get multifamily building |
 | *ZillowApi* | [**zillowGetPropertyDetail**](docs/ZillowApi.md#zillowgetpropertydetail) | **GET** /v1/zillow/property/{zpid} | Get property detail |
 | *ZillowApi* | [**zillowGetPropertyDetailByUrl**](docs/ZillowApi.md#zillowgetpropertydetailbyurl) | **GET** /v1/zillow/property | Get property detail by URL |
 | *ZillowApi* | [**zillowListCoverageMarkets**](docs/ZillowApi.md#zillowlistcoveragemarkets) | **GET** /v1/zillow/markets | List coverage markets |

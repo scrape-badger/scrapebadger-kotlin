@@ -5,6 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**zillowGetAgentProfileListings**](ZillowApi.md#zillowGetAgentProfileListings) | **GET** /v1/zillow/agent | Get agent profile + listings |
+| [**zillowGetMultifamilyBuilding**](ZillowApi.md#zillowGetMultifamilyBuilding) | **GET** /v1/zillow/building | Get multifamily building |
 | [**zillowGetPropertyDetail**](ZillowApi.md#zillowGetPropertyDetail) | **GET** /v1/zillow/property/{zpid} | Get property detail |
 | [**zillowGetPropertyDetailByUrl**](ZillowApi.md#zillowGetPropertyDetailByUrl) | **GET** /v1/zillow/property | Get property detail by URL |
 | [**zillowListCoverageMarkets**](ZillowApi.md#zillowListCoverageMarkets) | **GET** /v1/zillow/markets | List coverage markets |
@@ -48,6 +49,55 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **url** | **kotlin.String**| Full Zillow /profile/... URL | [optional] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="zillowGetMultifamilyBuilding"></a>
+# **zillowGetMultifamilyBuilding**
+> kotlin.Any zillowGetMultifamilyBuilding(url)
+
+Get multifamily building
+
+Get a Zillow apartment community with per-unit pricing and availability.  Multi-unit rentals are served on &#x60;/apartments/...&#x60; and &#x60;/b/...&#x60; pages, which &#x60;/property&#x60; cannot read — pass a &#x60;home_type&#x3D;BUILDING&#x60; search result&#39;s &#x60;detail_url&#x60; here instead.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = ZillowApi()
+val url : kotlin.String = url_example // kotlin.String | Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/
+try {
+    val result : kotlin.Any = apiInstance.zillowGetMultifamilyBuilding(url)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ZillowApi#zillowGetMultifamilyBuilding")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ZillowApi#zillowGetMultifamilyBuilding")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **url** | **kotlin.String**| Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/ | |
 
 ### Return type
 

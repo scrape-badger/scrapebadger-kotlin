@@ -128,6 +128,80 @@ class ZillowApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
+     * Get multifamily building
+     * Get a Zillow apartment community with per-unit pricing and availability.  Multi-unit rentals are served on &#x60;/apartments/...&#x60; and &#x60;/b/...&#x60; pages, which &#x60;/property&#x60; cannot read — pass a &#x60;home_type&#x3D;BUILDING&#x60; search result&#39;s &#x60;detail_url&#x60; here instead.
+     * @param url Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun zillowGetMultifamilyBuilding(url: kotlin.String) : kotlin.Any {
+        val localVarResponse = zillowGetMultifamilyBuildingWithHttpInfo(url = url)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get multifamily building
+     * Get a Zillow apartment community with per-unit pricing and availability.  Multi-unit rentals are served on &#x60;/apartments/...&#x60; and &#x60;/b/...&#x60; pages, which &#x60;/property&#x60; cannot read — pass a &#x60;home_type&#x3D;BUILDING&#x60; search result&#39;s &#x60;detail_url&#x60; here instead.
+     * @param url Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun zillowGetMultifamilyBuildingWithHttpInfo(url: kotlin.String) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = zillowGetMultifamilyBuildingRequestConfig(url = url)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation zillowGetMultifamilyBuilding
+     *
+     * @param url Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/
+     * @return RequestConfig
+     */
+    fun zillowGetMultifamilyBuildingRequestConfig(url: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("url", listOf(url.toString()))
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/zillow/building",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Get property detail
      * Get a single Zillow property&#39;s full detail by zpid.
      * @param zpid 
