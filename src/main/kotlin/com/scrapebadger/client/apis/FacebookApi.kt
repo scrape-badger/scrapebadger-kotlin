@@ -679,10 +679,11 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Get post comments
-     * Get a Facebook post&#39;s comment thread (paginated).
+     * Get a Facebook post&#39;s comment thread, 10 per page.  &#x60;&#x60;sort&#x60;&#x60; is &#x60;&#x60;relevance&#x60;&#x60; (Facebook&#39;s ranked order, the default) or &#x60;&#x60;newest&#x60;&#x60;. Follow &#x60;&#x60;end_cursor&#x60;&#x60; while &#x60;&#x60;has_next_page&#x60;&#x60; to walk the whole thread; &#x60;&#x60;total_count&#x60;&#x60; is how many the post has.
      * @param postId 
+     * @param url Full post permalink/reel URL — overrides post_id (optional)
      * @param after  (optional)
-     * @param sort  (optional, default to "relevance")
+     * @param sort relevance | newest (optional, default to "relevance")
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -692,8 +693,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookGetPostComments(postId: kotlin.String, after: kotlin.String? = null, sort: kotlin.String? = "relevance") : kotlin.Any {
-        val localVarResponse = facebookGetPostCommentsWithHttpInfo(postId = postId, after = after, sort = sort)
+    fun facebookGetPostComments(postId: kotlin.String, url: kotlin.String? = null, after: kotlin.String? = null, sort: kotlin.String? = "relevance") : kotlin.Any {
+        val localVarResponse = facebookGetPostCommentsWithHttpInfo(postId = postId, url = url, after = after, sort = sort)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -712,18 +713,19 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Get post comments
-     * Get a Facebook post&#39;s comment thread (paginated).
+     * Get a Facebook post&#39;s comment thread, 10 per page.  &#x60;&#x60;sort&#x60;&#x60; is &#x60;&#x60;relevance&#x60;&#x60; (Facebook&#39;s ranked order, the default) or &#x60;&#x60;newest&#x60;&#x60;. Follow &#x60;&#x60;end_cursor&#x60;&#x60; while &#x60;&#x60;has_next_page&#x60;&#x60; to walk the whole thread; &#x60;&#x60;total_count&#x60;&#x60; is how many the post has.
      * @param postId 
+     * @param url Full post permalink/reel URL — overrides post_id (optional)
      * @param after  (optional)
-     * @param sort  (optional, default to "relevance")
+     * @param sort relevance | newest (optional, default to "relevance")
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookGetPostCommentsWithHttpInfo(postId: kotlin.String, after: kotlin.String?, sort: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookGetPostCommentsRequestConfig(postId = postId, after = after, sort = sort)
+    fun facebookGetPostCommentsWithHttpInfo(postId: kotlin.String, url: kotlin.String?, after: kotlin.String?, sort: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookGetPostCommentsRequestConfig(postId = postId, url = url, after = after, sort = sort)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -734,14 +736,18 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * To obtain the request config of the operation facebookGetPostComments
      *
      * @param postId 
+     * @param url Full post permalink/reel URL — overrides post_id (optional)
      * @param after  (optional)
-     * @param sort  (optional, default to "relevance")
+     * @param sort relevance | newest (optional, default to "relevance")
      * @return RequestConfig
      */
-    fun facebookGetPostCommentsRequestConfig(postId: kotlin.String, after: kotlin.String?, sort: kotlin.String?) : RequestConfig<Unit> {
+    fun facebookGetPostCommentsRequestConfig(postId: kotlin.String, url: kotlin.String?, after: kotlin.String?, sort: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
+                if (url != null) {
+                    put("url", listOf(url.toString()))
+                }
                 if (after != null) {
                     put("after", listOf(after.toString()))
                 }
@@ -764,8 +770,9 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Get post detail
-     * Get a Facebook post&#39;s detail plus its top comments.
+     * Get a Facebook post&#39;s detail: text, media, author, date and the reaction / comment / share counts. The comments themselves come from &#x60;&#x60;/posts/{post_id}/comments&#x60;&#x60;.
      * @param postId 
+     * @param url Full post permalink/reel URL — overrides post_id (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -775,8 +782,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookGetPostDetail(postId: kotlin.String) : kotlin.Any {
-        val localVarResponse = facebookGetPostDetailWithHttpInfo(postId = postId)
+    fun facebookGetPostDetail(postId: kotlin.String, url: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = facebookGetPostDetailWithHttpInfo(postId = postId, url = url)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -795,16 +802,17 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Get post detail
-     * Get a Facebook post&#39;s detail plus its top comments.
+     * Get a Facebook post&#39;s detail: text, media, author, date and the reaction / comment / share counts. The comments themselves come from &#x60;&#x60;/posts/{post_id}/comments&#x60;&#x60;.
      * @param postId 
+     * @param url Full post permalink/reel URL — overrides post_id (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookGetPostDetailWithHttpInfo(postId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookGetPostDetailRequestConfig(postId = postId)
+    fun facebookGetPostDetailWithHttpInfo(postId: kotlin.String, url: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookGetPostDetailRequestConfig(postId = postId, url = url)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -815,11 +823,17 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * To obtain the request config of the operation facebookGetPostDetail
      *
      * @param postId 
+     * @param url Full post permalink/reel URL — overrides post_id (optional)
      * @return RequestConfig
      */
-    fun facebookGetPostDetailRequestConfig(postId: kotlin.String) : RequestConfig<Unit> {
+    fun facebookGetPostDetailRequestConfig(postId: kotlin.String, url: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (url != null) {
+                    put("url", listOf(url.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 

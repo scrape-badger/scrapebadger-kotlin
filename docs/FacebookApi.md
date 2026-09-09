@@ -442,11 +442,11 @@ Configure ApiKeyAuth:
 
 <a id="facebookGetPostComments"></a>
 # **facebookGetPostComments**
-> kotlin.Any facebookGetPostComments(postId, after, sort)
+> kotlin.Any facebookGetPostComments(postId, url, after, sort)
 
 Get post comments
 
-Get a Facebook post&#39;s comment thread (paginated).
+Get a Facebook post&#39;s comment thread, 10 per page.  &#x60;&#x60;sort&#x60;&#x60; is &#x60;&#x60;relevance&#x60;&#x60; (Facebook&#39;s ranked order, the default) or &#x60;&#x60;newest&#x60;&#x60;. Follow &#x60;&#x60;end_cursor&#x60;&#x60; while &#x60;&#x60;has_next_page&#x60;&#x60; to walk the whole thread; &#x60;&#x60;total_count&#x60;&#x60; is how many the post has.
 
 ### Example
 ```kotlin
@@ -456,10 +456,11 @@ Get a Facebook post&#39;s comment thread (paginated).
 
 val apiInstance = FacebookApi()
 val postId : kotlin.String = postId_example // kotlin.String | 
+val url : kotlin.String = url_example // kotlin.String | Full post permalink/reel URL — overrides post_id
 val after : kotlin.String = after_example // kotlin.String | 
-val sort : kotlin.String = sort_example // kotlin.String | 
+val sort : kotlin.String = sort_example // kotlin.String | relevance | newest
 try {
-    val result : kotlin.Any = apiInstance.facebookGetPostComments(postId, after, sort)
+    val result : kotlin.Any = apiInstance.facebookGetPostComments(postId, url, after, sort)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookGetPostComments")
@@ -472,10 +473,11 @@ try {
 
 ### Parameters
 | **postId** | **kotlin.String**|  | |
+| **url** | **kotlin.String**| Full post permalink/reel URL — overrides post_id | [optional] |
 | **after** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **sort** | **kotlin.String**|  | [optional] [default to &quot;relevance&quot;] |
+| **sort** | **kotlin.String**| relevance | newest | [optional] [default to &quot;relevance&quot;] |
 
 ### Return type
 
@@ -495,11 +497,11 @@ Configure ApiKeyAuth:
 
 <a id="facebookGetPostDetail"></a>
 # **facebookGetPostDetail**
-> kotlin.Any facebookGetPostDetail(postId)
+> kotlin.Any facebookGetPostDetail(postId, url)
 
 Get post detail
 
-Get a Facebook post&#39;s detail plus its top comments.
+Get a Facebook post&#39;s detail: text, media, author, date and the reaction / comment / share counts. The comments themselves come from &#x60;&#x60;/posts/{post_id}/comments&#x60;&#x60;.
 
 ### Example
 ```kotlin
@@ -509,8 +511,9 @@ Get a Facebook post&#39;s detail plus its top comments.
 
 val apiInstance = FacebookApi()
 val postId : kotlin.String = postId_example // kotlin.String | 
+val url : kotlin.String = url_example // kotlin.String | Full post permalink/reel URL — overrides post_id
 try {
-    val result : kotlin.Any = apiInstance.facebookGetPostDetail(postId)
+    val result : kotlin.Any = apiInstance.facebookGetPostDetail(postId, url)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookGetPostDetail")
@@ -522,9 +525,10 @@ try {
 ```
 
 ### Parameters
+| **postId** | **kotlin.String**|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **postId** | **kotlin.String**|  | |
+| **url** | **kotlin.String**| Full post permalink/reel URL — overrides post_id | [optional] |
 
 ### Return type
 

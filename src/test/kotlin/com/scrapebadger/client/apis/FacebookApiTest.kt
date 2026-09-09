@@ -103,9 +103,10 @@ class FacebookApiTest : ShouldSpec() {
         should("test facebookGetPostComments") {
             // uncomment below to test facebookGetPostComments
             //val postId : kotlin.String = postId_example // kotlin.String | 
+            //val url : kotlin.String = url_example // kotlin.String | Full post permalink/reel URL — overrides post_id
             //val after : kotlin.String = after_example // kotlin.String | 
-            //val sort : kotlin.String = sort_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookGetPostComments(postId, after, sort)
+            //val sort : kotlin.String = sort_example // kotlin.String | relevance | newest
+            //val result : kotlin.Any = apiInstance.facebookGetPostComments(postId, url, after, sort)
             //result shouldBe ("TODO")
         }
 
@@ -113,7 +114,8 @@ class FacebookApiTest : ShouldSpec() {
         should("test facebookGetPostDetail") {
             // uncomment below to test facebookGetPostDetail
             //val postId : kotlin.String = postId_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookGetPostDetail(postId)
+            //val url : kotlin.String = url_example // kotlin.String | Full post permalink/reel URL — overrides post_id
+            //val result : kotlin.Any = apiInstance.facebookGetPostDetail(postId, url)
             //result shouldBe ("TODO")
         }
 
