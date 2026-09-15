@@ -52,6 +52,7 @@ docs/TwitterApi.md
 docs/ValidationError.md
 docs/ValidationErrorLocInner.md
 docs/VintedApi.md
+docs/VintedImageSearchRequest.md
 docs/VintedMobileReadRequest.md
 docs/WalmartApi.md
 docs/WebApi.md
@@ -144,6 +145,7 @@ src/main/kotlin/com/scrapebadger/client/models/TweetDeliveryLogListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/TweetDeliveryLogResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/ValidationError.kt
 src/main/kotlin/com/scrapebadger/client/models/ValidationErrorLocInner.kt
+src/main/kotlin/com/scrapebadger/client/models/VintedImageSearchRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/VintedMobileReadRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookCreate.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookListItem.kt
@@ -208,6 +210,7 @@ src/test/kotlin/com/scrapebadger/client/models/TweetDeliveryLogListResponseTest.
 src/test/kotlin/com/scrapebadger/client/models/TweetDeliveryLogResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ValidationErrorLocInnerTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ValidationErrorTest.kt
+src/test/kotlin/com/scrapebadger/client/models/VintedImageSearchRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/VintedMobileReadRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookCreateTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookListItemTest.kt

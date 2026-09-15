@@ -13,6 +13,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**vintedListPublicVintedMobileOperations**](VintedApi.md#vintedListPublicVintedMobileOperations) | **GET** /v1/vinted/mobile/operations | List public Vinted mobile operations |
 | [**vintedReadVintedMobileData**](VintedApi.md#vintedReadVintedMobileData) | **POST** /v1/vinted/mobile/{operation} | Read Vinted mobile data |
 | [**vintedSearchBrands**](VintedApi.md#vintedSearchBrands) | **GET** /v1/vinted/brands | Search brands |
+| [**vintedSearchByImage**](VintedApi.md#vintedSearchByImage) | **POST** /v1/vinted/search_by_image | Search by image |
 | [**vintedSearchVintedItems**](VintedApi.md#vintedSearchVintedItems) | **GET** /v1/vinted/search | Search Vinted items |
 | [**vintedVintedScraperHealthCheck**](VintedApi.md#vintedVintedScraperHealthCheck) | **GET** /v1/vinted/health | Vinted scraper health check |
 | [**vintedVintedScraperHealthCheckHead**](VintedApi.md#vintedVintedScraperHealthCheckHead) | **HEAD** /v1/vinted/health | Vinted scraper health check |
@@ -465,6 +466,55 @@ Configure ApiKeyAuth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="vintedSearchByImage"></a>
+# **vintedSearchByImage**
+> kotlin.Any vintedSearchByImage(vintedImageSearchRequest)
+
+Search by image
+
+Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking; no similarity score. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = VintedApi()
+val vintedImageSearchRequest : VintedImageSearchRequest =  // VintedImageSearchRequest | 
+try {
+    val result : kotlin.Any = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VintedApi#vintedSearchByImage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VintedApi#vintedSearchByImage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **vintedImageSearchRequest** | [**VintedImageSearchRequest**](VintedImageSearchRequest.md)|  | |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a id="vintedSearchVintedItems"></a>

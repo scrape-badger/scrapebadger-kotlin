@@ -20,6 +20,7 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.VintedApi
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.VintedImageSearchRequest
 import com.scrapebadger.client.models.VintedMobileReadRequest
 
 class VintedApiTest : ShouldSpec() {
@@ -101,6 +102,14 @@ class VintedApiTest : ShouldSpec() {
             //val keyword : kotlin.String = keyword_example // kotlin.String | Brand search keyword
             //val market : kotlin.String = market_example // kotlin.String | 
             //val result : kotlin.Any = apiInstance.vintedSearchBrands(keyword, market)
+            //result shouldBe ("TODO")
+        }
+
+        // to test vintedSearchByImage
+        should("test vintedSearchByImage") {
+            // uncomment below to test vintedSearchByImage
+            //val vintedImageSearchRequest : VintedImageSearchRequest =  // VintedImageSearchRequest | 
+            //val result : kotlin.Any = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
             //result shouldBe ("TODO")
         }
 
