@@ -10,6 +10,8 @@ All URIs are relative to *https://scrapebadger.com*
 | [**vintedListColors**](VintedApi.md#vintedListColors) | **GET** /v1/vinted/colors | List colors |
 | [**vintedListItemConditions**](VintedApi.md#vintedListItemConditions) | **GET** /v1/vinted/statuses | List item conditions |
 | [**vintedListMarkets**](VintedApi.md#vintedListMarkets) | **GET** /v1/vinted/markets | List markets |
+| [**vintedListPublicVintedMobileOperations**](VintedApi.md#vintedListPublicVintedMobileOperations) | **GET** /v1/vinted/mobile/operations | List public Vinted mobile operations |
+| [**vintedReadVintedMobileData**](VintedApi.md#vintedReadVintedMobileData) | **POST** /v1/vinted/mobile/{operation} | Read Vinted mobile data |
 | [**vintedSearchBrands**](VintedApi.md#vintedSearchBrands) | **GET** /v1/vinted/brands | Search brands |
 | [**vintedSearchVintedItems**](VintedApi.md#vintedSearchVintedItems) | **GET** /v1/vinted/search | Search Vinted items |
 | [**vintedVintedScraperHealthCheck**](VintedApi.md#vintedVintedScraperHealthCheck) | **GET** /v1/vinted/health | Vinted scraper health check |
@@ -317,6 +319,103 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a id="vintedListPublicVintedMobileOperations"></a>
+# **vintedListPublicVintedMobileOperations**
+> kotlin.Any vintedListPublicVintedMobileOperations()
+
+List public Vinted mobile operations
+
+Discover public read operations, parameters and runnable examples. Free.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = VintedApi()
+try {
+    val result : kotlin.Any = apiInstance.vintedListPublicVintedMobileOperations()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VintedApi#vintedListPublicVintedMobileOperations")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VintedApi#vintedListPublicVintedMobileOperations")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="vintedReadVintedMobileData"></a>
+# **vintedReadVintedMobileData**
+> kotlin.Any vintedReadVintedMobileData(operation, vintedMobileReadRequest)
+
+Read Vinted mobile data
+
+Read catalog, listing, seller, review, sold-comparable, pricing, reference, shipping-reference, homepage or help data. No Vinted account is required. This is an allowlisted read API, including read-only upstream POST queries. Returns operation, market, and the upstream JSON under data. One credit. Sold comparable prices are not guaranteed final negotiated sale prices.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = VintedApi()
+val operation : kotlin.String = operation_example // kotlin.String | 
+val vintedMobileReadRequest : VintedMobileReadRequest =  // VintedMobileReadRequest | 
+try {
+    val result : kotlin.Any = apiInstance.vintedReadVintedMobileData(operation, vintedMobileReadRequest)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VintedApi#vintedReadVintedMobileData")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VintedApi#vintedReadVintedMobileData")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **operation** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **vintedMobileReadRequest** | [**VintedMobileReadRequest**](VintedMobileReadRequest.md)|  | |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a id="vintedSearchBrands"></a>
 # **vintedSearchBrands**
 > kotlin.Any vintedSearchBrands(keyword, market)
@@ -370,7 +469,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedSearchVintedItems"></a>
 # **vintedSearchVintedItems**
-> kotlin.Any vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, statusIds, order)
+> kotlin.Any vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
 
 Search Vinted items
 
@@ -393,10 +492,14 @@ val priceTo : java.math.BigDecimal = 8.14 // java.math.BigDecimal |
 val brandIds : kotlin.String = brandIds_example // kotlin.String | 
 val catalogIds : kotlin.String = catalogIds_example // kotlin.String | Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. '1904' or '1904,79'. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the `catalog[]` value in a Vinted category URL (vinted.fr/catalog?catalog[]=1904).
 val colorIds : kotlin.String = colorIds_example // kotlin.String | Comma-separated color IDs
+val sizeIds : kotlin.String = sizeIds_example // kotlin.String | Comma-separated size IDs
+val materialIds : kotlin.String = materialIds_example // kotlin.String | Comma-separated material IDs
+val time : kotlin.Int = 56 // kotlin.Int | Pagination time returned by the preceding page
+val searchSessionId : kotlin.String = searchSessionId_example // kotlin.String | Reuse across pages of one search
 val statusIds : kotlin.String = statusIds_example // kotlin.String | Comma-separated condition/status IDs
 val order : kotlin.String = order_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, statusIds, order)
+    val result : kotlin.Any = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedSearchVintedItems")
@@ -418,6 +521,10 @@ try {
 | **brandIds** | **kotlin.String**|  | [optional] |
 | **catalogIds** | **kotlin.String**| Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. &#39;1904&#39; or &#39;1904,79&#39;. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the &#x60;catalog[]&#x60; value in a Vinted category URL (vinted.fr/catalog?catalog[]&#x3D;1904). | [optional] |
 | **colorIds** | **kotlin.String**| Comma-separated color IDs | [optional] |
+| **sizeIds** | **kotlin.String**| Comma-separated size IDs | [optional] |
+| **materialIds** | **kotlin.String**| Comma-separated material IDs | [optional] |
+| **time** | **kotlin.Int**| Pagination time returned by the preceding page | [optional] |
+| **searchSessionId** | **kotlin.String**| Reuse across pages of one search | [optional] |
 | **statusIds** | **kotlin.String**| Comma-separated condition/status IDs | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |

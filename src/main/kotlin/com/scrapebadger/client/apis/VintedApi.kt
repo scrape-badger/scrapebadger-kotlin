@@ -20,6 +20,7 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.VintedMobileReadRequest
 
 import com.squareup.moshi.Json
 
@@ -515,6 +516,149 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
+     * List public Vinted mobile operations
+     * Discover public read operations, parameters and runnable examples. Free.
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun vintedListPublicVintedMobileOperations() : kotlin.Any {
+        val localVarResponse = vintedListPublicVintedMobileOperationsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * List public Vinted mobile operations
+     * Discover public read operations, parameters and runnable examples. Free.
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun vintedListPublicVintedMobileOperationsWithHttpInfo() : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = vintedListPublicVintedMobileOperationsRequestConfig()
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation vintedListPublicVintedMobileOperations
+     *
+     * @return RequestConfig
+     */
+    fun vintedListPublicVintedMobileOperationsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vinted/mobile/operations",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * Read Vinted mobile data
+     * Read catalog, listing, seller, review, sold-comparable, pricing, reference, shipping-reference, homepage or help data. No Vinted account is required. This is an allowlisted read API, including read-only upstream POST queries. Returns operation, market, and the upstream JSON under data. One credit. Sold comparable prices are not guaranteed final negotiated sale prices.
+     * @param operation 
+     * @param vintedMobileReadRequest 
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun vintedReadVintedMobileData(operation: kotlin.String, vintedMobileReadRequest: VintedMobileReadRequest) : kotlin.Any {
+        val localVarResponse = vintedReadVintedMobileDataWithHttpInfo(operation = operation, vintedMobileReadRequest = vintedMobileReadRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Read Vinted mobile data
+     * Read catalog, listing, seller, review, sold-comparable, pricing, reference, shipping-reference, homepage or help data. No Vinted account is required. This is an allowlisted read API, including read-only upstream POST queries. Returns operation, market, and the upstream JSON under data. One credit. Sold comparable prices are not guaranteed final negotiated sale prices.
+     * @param operation 
+     * @param vintedMobileReadRequest 
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun vintedReadVintedMobileDataWithHttpInfo(operation: kotlin.String, vintedMobileReadRequest: VintedMobileReadRequest) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = vintedReadVintedMobileDataRequestConfig(operation = operation, vintedMobileReadRequest = vintedMobileReadRequest)
+
+        return request<VintedMobileReadRequest, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation vintedReadVintedMobileData
+     *
+     * @param operation 
+     * @param vintedMobileReadRequest 
+     * @return RequestConfig
+     */
+    fun vintedReadVintedMobileDataRequestConfig(operation: kotlin.String, vintedMobileReadRequest: VintedMobileReadRequest) : RequestConfig<VintedMobileReadRequest> {
+        val localVariableBody = vintedMobileReadRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vinted/mobile/{operation}".replace("{"+"operation"+"}", encodeURIComponent(operation.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Search brands
      * Search Vinted brands.
      * @param keyword Brand search keyword
@@ -607,6 +751,10 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param brandIds  (optional)
      * @param catalogIds Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. &#39;1904&#39; or &#39;1904,79&#39;. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the &#x60;catalog[]&#x60; value in a Vinted category URL (vinted.fr/catalog?catalog[]&#x3D;1904). (optional)
      * @param colorIds Comma-separated color IDs (optional)
+     * @param sizeIds Comma-separated size IDs (optional)
+     * @param materialIds Comma-separated material IDs (optional)
+     * @param time Pagination time returned by the preceding page (optional)
+     * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
      * @return kotlin.Any
@@ -618,8 +766,8 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedSearchVintedItems(query: kotlin.String, market: kotlin.String? = "fr", sellerCountry: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = 20, priceFrom: java.math.BigDecimal? = null, priceTo: java.math.BigDecimal? = null, brandIds: kotlin.String? = null, catalogIds: kotlin.String? = null, colorIds: kotlin.String? = null, statusIds: kotlin.String? = null, order: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = vintedSearchVintedItemsWithHttpInfo(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, statusIds = statusIds, order = order)
+    fun vintedSearchVintedItems(query: kotlin.String, market: kotlin.String? = "fr", sellerCountry: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = 20, priceFrom: java.math.BigDecimal? = null, priceTo: java.math.BigDecimal? = null, brandIds: kotlin.String? = null, catalogIds: kotlin.String? = null, colorIds: kotlin.String? = null, sizeIds: kotlin.String? = null, materialIds: kotlin.String? = null, time: kotlin.Int? = null, searchSessionId: kotlin.String? = null, statusIds: kotlin.String? = null, order: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = vintedSearchVintedItemsWithHttpInfo(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, sizeIds = sizeIds, materialIds = materialIds, time = time, searchSessionId = searchSessionId, statusIds = statusIds, order = order)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -649,6 +797,10 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param brandIds  (optional)
      * @param catalogIds Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. &#39;1904&#39; or &#39;1904,79&#39;. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the &#x60;catalog[]&#x60; value in a Vinted category URL (vinted.fr/catalog?catalog[]&#x3D;1904). (optional)
      * @param colorIds Comma-separated color IDs (optional)
+     * @param sizeIds Comma-separated size IDs (optional)
+     * @param materialIds Comma-separated material IDs (optional)
+     * @param time Pagination time returned by the preceding page (optional)
+     * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
      * @return ApiResponse<kotlin.Any?>
@@ -657,8 +809,8 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedSearchVintedItemsWithHttpInfo(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = vintedSearchVintedItemsRequestConfig(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, statusIds = statusIds, order = order)
+    fun vintedSearchVintedItemsWithHttpInfo(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, sizeIds: kotlin.String?, materialIds: kotlin.String?, time: kotlin.Int?, searchSessionId: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = vintedSearchVintedItemsRequestConfig(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, sizeIds = sizeIds, materialIds = materialIds, time = time, searchSessionId = searchSessionId, statusIds = statusIds, order = order)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -678,11 +830,15 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param brandIds  (optional)
      * @param catalogIds Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. &#39;1904&#39; or &#39;1904,79&#39;. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the &#x60;catalog[]&#x60; value in a Vinted category URL (vinted.fr/catalog?catalog[]&#x3D;1904). (optional)
      * @param colorIds Comma-separated color IDs (optional)
+     * @param sizeIds Comma-separated size IDs (optional)
+     * @param materialIds Comma-separated material IDs (optional)
+     * @param time Pagination time returned by the preceding page (optional)
+     * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
      * @return RequestConfig
      */
-    fun vintedSearchVintedItemsRequestConfig(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : RequestConfig<Unit> {
+    fun vintedSearchVintedItemsRequestConfig(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, sizeIds: kotlin.String?, materialIds: kotlin.String?, time: kotlin.Int?, searchSessionId: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -713,6 +869,18 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (colorIds != null) {
                     put("color_ids", listOf(colorIds.toString()))
+                }
+                if (sizeIds != null) {
+                    put("size_ids", listOf(sizeIds.toString()))
+                }
+                if (materialIds != null) {
+                    put("material_ids", listOf(materialIds.toString()))
+                }
+                if (time != null) {
+                    put("time", listOf(time.toString()))
+                }
+                if (searchSessionId != null) {
+                    put("search_session_id", listOf(searchSessionId.toString()))
                 }
                 if (statusIds != null) {
                     put("status_ids", listOf(statusIds.toString()))

@@ -20,6 +20,7 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.VintedApi
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.VintedMobileReadRequest
 
 class VintedApiTest : ShouldSpec() {
     init {
@@ -78,6 +79,22 @@ class VintedApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test vintedListPublicVintedMobileOperations
+        should("test vintedListPublicVintedMobileOperations") {
+            // uncomment below to test vintedListPublicVintedMobileOperations
+            //val result : kotlin.Any = apiInstance.vintedListPublicVintedMobileOperations()
+            //result shouldBe ("TODO")
+        }
+
+        // to test vintedReadVintedMobileData
+        should("test vintedReadVintedMobileData") {
+            // uncomment below to test vintedReadVintedMobileData
+            //val operation : kotlin.String = operation_example // kotlin.String | 
+            //val vintedMobileReadRequest : VintedMobileReadRequest =  // VintedMobileReadRequest | 
+            //val result : kotlin.Any = apiInstance.vintedReadVintedMobileData(operation, vintedMobileReadRequest)
+            //result shouldBe ("TODO")
+        }
+
         // to test vintedSearchBrands
         should("test vintedSearchBrands") {
             // uncomment below to test vintedSearchBrands
@@ -100,9 +117,13 @@ class VintedApiTest : ShouldSpec() {
             //val brandIds : kotlin.String = brandIds_example // kotlin.String | 
             //val catalogIds : kotlin.String = catalogIds_example // kotlin.String | Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. '1904' or '1904,79'. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the `catalog[]` value in a Vinted category URL (vinted.fr/catalog?catalog[]=1904).
             //val colorIds : kotlin.String = colorIds_example // kotlin.String | Comma-separated color IDs
+            //val sizeIds : kotlin.String = sizeIds_example // kotlin.String | Comma-separated size IDs
+            //val materialIds : kotlin.String = materialIds_example // kotlin.String | Comma-separated material IDs
+            //val time : kotlin.Int = 56 // kotlin.Int | Pagination time returned by the preceding page
+            //val searchSessionId : kotlin.String = searchSessionId_example // kotlin.String | Reuse across pages of one search
             //val statusIds : kotlin.String = statusIds_example // kotlin.String | Comma-separated condition/status IDs
             //val order : kotlin.String = order_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, statusIds, order)
+            //val result : kotlin.Any = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
             //result shouldBe ("TODO")
         }
 

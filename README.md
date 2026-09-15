@@ -484,6 +484,8 @@ All URIs are relative to *https://scrapebadger.com*
 | *VintedApi* | [**vintedListColors**](docs/VintedApi.md#vintedlistcolors) | **GET** /v1/vinted/colors | List colors |
 | *VintedApi* | [**vintedListItemConditions**](docs/VintedApi.md#vintedlistitemconditions) | **GET** /v1/vinted/statuses | List item conditions |
 | *VintedApi* | [**vintedListMarkets**](docs/VintedApi.md#vintedlistmarkets) | **GET** /v1/vinted/markets | List markets |
+| *VintedApi* | [**vintedListPublicVintedMobileOperations**](docs/VintedApi.md#vintedlistpublicvintedmobileoperations) | **GET** /v1/vinted/mobile/operations | List public Vinted mobile operations |
+| *VintedApi* | [**vintedReadVintedMobileData**](docs/VintedApi.md#vintedreadvintedmobiledata) | **POST** /v1/vinted/mobile/{operation} | Read Vinted mobile data |
 | *VintedApi* | [**vintedSearchBrands**](docs/VintedApi.md#vintedsearchbrands) | **GET** /v1/vinted/brands | Search brands |
 | *VintedApi* | [**vintedSearchVintedItems**](docs/VintedApi.md#vintedsearchvinteditems) | **GET** /v1/vinted/search | Search Vinted items |
 | *VintedApi* | [**vintedVintedScraperHealthCheck**](docs/VintedApi.md#vintedvintedscraperhealthcheck) | **GET** /v1/vinted/health | Vinted scraper health check |
@@ -599,6 +601,7 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.TweetDeliveryLogResponse](docs/TweetDeliveryLogResponse.md)
  - [com.scrapebadger.client.models.ValidationError](docs/ValidationError.md)
  - [com.scrapebadger.client.models.ValidationErrorLocInner](docs/ValidationErrorLocInner.md)
+ - [com.scrapebadger.client.models.VintedMobileReadRequest](docs/VintedMobileReadRequest.md)
  - [com.scrapebadger.client.models.WebhookCreate](docs/WebhookCreate.md)
  - [com.scrapebadger.client.models.WebhookListItem](docs/WebhookListItem.md)
  - [com.scrapebadger.client.models.WebhookListResponse](docs/WebhookListResponse.md)
