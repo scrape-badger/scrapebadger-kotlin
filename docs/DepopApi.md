@@ -334,7 +334,7 @@ val categories : kotlin.String = categories_example // kotlin.String | Comma-sep
 val sizes : kotlin.String = sizes_example // kotlin.String | Comma-separated size IDs
 val conditions : kotlin.String = conditions_example // kotlin.String | Comma-separated condition slugs (brand_new, used_excellent, ...)
 val gender : kotlin.String = gender_example // kotlin.String | male | female
-val sort : kotlin.String = sort_example // kotlin.String | relevance | newlyListed | priceAscending | priceDescending
+val sort : kotlin.String = sort_example // kotlin.String | relevance (default) | priceAscending | priceDescending
 try {
     val result : kotlin.Any = apiInstance.depopSearchDepopProducts(query, market, perPage, cursor, priceMin, priceMax, brands, categories, sizes, conditions, gender, sort)
     println(result)
@@ -361,7 +361,7 @@ try {
 | **gender** | **kotlin.String**| male | female | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **sort** | **kotlin.String**| relevance | newlyListed | priceAscending | priceDescending | [optional] |
+| **sort** | **kotlin.String**| relevance (default) | priceAscending | priceDescending | [optional] |
 
 ### Return type
 

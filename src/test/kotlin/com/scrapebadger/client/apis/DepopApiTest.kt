@@ -90,7 +90,7 @@ class DepopApiTest : ShouldSpec() {
             //val sizes : kotlin.String = sizes_example // kotlin.String | Comma-separated size IDs
             //val conditions : kotlin.String = conditions_example // kotlin.String | Comma-separated condition slugs (brand_new, used_excellent, ...)
             //val gender : kotlin.String = gender_example // kotlin.String | male | female
-            //val sort : kotlin.String = sort_example // kotlin.String | relevance | newlyListed | priceAscending | priceDescending
+            //val sort : kotlin.String = sort_example // kotlin.String | relevance (default) | priceAscending | priceDescending
             //val result : kotlin.Any = apiInstance.depopSearchDepopProducts(query, market, perPage, cursor, priceMin, priceMax, brands, categories, sizes, conditions, gender, sort)
             //result shouldBe ("TODO")
         }

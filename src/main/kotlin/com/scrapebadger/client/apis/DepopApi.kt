@@ -512,7 +512,7 @@ class DepopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory =
      * @param sizes Comma-separated size IDs (optional)
      * @param conditions Comma-separated condition slugs (brand_new, used_excellent, ...) (optional)
      * @param gender male | female (optional)
-     * @param sort relevance | newlyListed | priceAscending | priceDescending (optional)
+     * @param sort relevance (default) | priceAscending | priceDescending (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -554,7 +554,7 @@ class DepopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory =
      * @param sizes Comma-separated size IDs (optional)
      * @param conditions Comma-separated condition slugs (brand_new, used_excellent, ...) (optional)
      * @param gender male | female (optional)
-     * @param sort relevance | newlyListed | priceAscending | priceDescending (optional)
+     * @param sort relevance (default) | priceAscending | priceDescending (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -583,7 +583,7 @@ class DepopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory =
      * @param sizes Comma-separated size IDs (optional)
      * @param conditions Comma-separated condition slugs (brand_new, used_excellent, ...) (optional)
      * @param gender male | female (optional)
-     * @param sort relevance | newlyListed | priceAscending | priceDescending (optional)
+     * @param sort relevance (default) | priceAscending | priceDescending (optional)
      * @return RequestConfig
      */
     fun depopSearchDepopProductsRequestConfig(query: kotlin.String, market: kotlin.String?, perPage: kotlin.Int?, cursor: kotlin.String?, priceMin: java.math.BigDecimal?, priceMax: java.math.BigDecimal?, brands: kotlin.String?, categories: kotlin.String?, sizes: kotlin.String?, conditions: kotlin.String?, gender: kotlin.String?, sort: kotlin.String?) : RequestConfig<Unit> {
