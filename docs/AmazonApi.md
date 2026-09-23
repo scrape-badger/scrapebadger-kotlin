@@ -338,7 +338,7 @@ Configure ApiKeyAuth:
 
 Get product reviews
 
-Customer reviews for an ASIN (featured + paginated, with filters).
+Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.
 
 ### Example
 ```kotlin
@@ -349,9 +349,9 @@ Customer reviews for an ASIN (featured + paginated, with filters).
 val apiInstance = AmazonApi()
 val asin : kotlin.String = asin_example // kotlin.String | 
 val domain : kotlin.String = domain_example // kotlin.String | 
-val page : kotlin.Int = 56 // kotlin.Int | Review page (1-100, ~10 reviews/page)
+val page : kotlin.Int = 56 // kotlin.Int | Review page (10 reviews/page)
 val sortBy : kotlin.String = sortBy_example // kotlin.String | helpful | recent
-val star : kotlin.String = star_example // kotlin.String | one_star..five_star | positive | critical
+val star : kotlin.String = star_example // kotlin.String | 1-5 | one_star..five_star | positive | critical | all_stars
 val verifiedOnly : kotlin.Boolean = true // kotlin.Boolean | 
 val mediaOnly : kotlin.Boolean = true // kotlin.Boolean | 
 try {
@@ -369,9 +369,9 @@ try {
 ### Parameters
 | **asin** | **kotlin.String**|  | |
 | **domain** | **kotlin.String**|  | [optional] [default to &quot;com&quot;] |
-| **page** | **kotlin.Int**| Review page (1-100, ~10 reviews/page) | [optional] [default to 1] |
+| **page** | **kotlin.Int**| Review page (10 reviews/page) | [optional] [default to 1] |
 | **sortBy** | **kotlin.String**| helpful | recent | [optional] [default to &quot;helpful&quot;] |
-| **star** | **kotlin.String**| one_star..five_star | positive | critical | [optional] |
+| **star** | **kotlin.String**| 1-5 | one_star..five_star | positive | critical | all_stars | [optional] |
 | **verifiedOnly** | **kotlin.Boolean**|  | [optional] [default to false] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |

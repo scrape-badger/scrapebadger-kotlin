@@ -88,9 +88,9 @@ class AmazonApiTest : ShouldSpec() {
             // uncomment below to test amazonGetProductReviews
             //val asin : kotlin.String = asin_example // kotlin.String | 
             //val domain : kotlin.String = domain_example // kotlin.String | 
-            //val page : kotlin.Int = 56 // kotlin.Int | Review page (1-100, ~10 reviews/page)
+            //val page : kotlin.Int = 56 // kotlin.Int | Review page (10 reviews/page)
             //val sortBy : kotlin.String = sortBy_example // kotlin.String | helpful | recent
-            //val star : kotlin.String = star_example // kotlin.String | one_star..five_star | positive | critical
+            //val star : kotlin.String = star_example // kotlin.String | 1-5 | one_star..five_star | positive | critical | all_stars
             //val verifiedOnly : kotlin.Boolean = true // kotlin.Boolean | 
             //val mediaOnly : kotlin.Boolean = true // kotlin.Boolean | 
             //val result : kotlin.Any = apiInstance.amazonGetProductReviews(asin, domain, page, sortBy, star, verifiedOnly, mediaOnly)

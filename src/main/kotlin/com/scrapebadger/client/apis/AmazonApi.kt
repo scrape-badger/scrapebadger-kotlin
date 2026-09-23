@@ -545,12 +545,12 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Get product reviews
-     * Customer reviews for an ASIN (featured + paginated, with filters).
+     * Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.
      * @param asin 
      * @param domain  (optional, default to "com")
-     * @param page Review page (1-100, ~10 reviews/page) (optional, default to 1)
+     * @param page Review page (10 reviews/page) (optional, default to 1)
      * @param sortBy helpful | recent (optional, default to "helpful")
-     * @param star one_star..five_star | positive | critical (optional)
+     * @param star 1-5 | one_star..five_star | positive | critical | all_stars (optional)
      * @param verifiedOnly  (optional, default to false)
      * @param mediaOnly  (optional, default to false)
      * @return kotlin.Any
@@ -582,12 +582,12 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Get product reviews
-     * Customer reviews for an ASIN (featured + paginated, with filters).
+     * Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.
      * @param asin 
      * @param domain  (optional, default to "com")
-     * @param page Review page (1-100, ~10 reviews/page) (optional, default to 1)
+     * @param page Review page (10 reviews/page) (optional, default to 1)
      * @param sortBy helpful | recent (optional, default to "helpful")
-     * @param star one_star..five_star | positive | critical (optional)
+     * @param star 1-5 | one_star..five_star | positive | critical | all_stars (optional)
      * @param verifiedOnly  (optional, default to false)
      * @param mediaOnly  (optional, default to false)
      * @return ApiResponse<kotlin.Any?>
@@ -609,9 +609,9 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      *
      * @param asin 
      * @param domain  (optional, default to "com")
-     * @param page Review page (1-100, ~10 reviews/page) (optional, default to 1)
+     * @param page Review page (10 reviews/page) (optional, default to 1)
      * @param sortBy helpful | recent (optional, default to "helpful")
-     * @param star one_star..five_star | positive | critical (optional)
+     * @param star 1-5 | one_star..five_star | positive | critical | all_stars (optional)
      * @param verifiedOnly  (optional, default to false)
      * @param mediaOnly  (optional, default to false)
      * @return RequestConfig
