@@ -19,7 +19,15 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.BrandsResponse
+import com.scrapebadger.client.models.ColorsResponse
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.ItemDetailResponse
+import com.scrapebadger.client.models.MarketsResponse
+import com.scrapebadger.client.models.SearchResponse
+import com.scrapebadger.client.models.StatusesResponse
+import com.scrapebadger.client.models.UserItemsResponse
+import com.scrapebadger.client.models.UserProfileResponse
 import com.scrapebadger.client.models.VintedImageSearchRequest
 import com.scrapebadger.client.models.VintedMobileReadRequest
 
@@ -52,7 +60,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Get detailed information about a Vinted item.
      * @param itemId 
      * @param market  (optional, default to "fr")
-     * @return kotlin.Any
+     * @return ItemDetailResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -61,11 +69,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedGetItemDetails(itemId: kotlin.Int, market: kotlin.String? = "fr") : kotlin.Any {
+    fun vintedGetItemDetails(itemId: kotlin.Int, market: kotlin.String? = "fr") : ItemDetailResponse {
         val localVarResponse = vintedGetItemDetailsWithHttpInfo(itemId = itemId, market = market)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ItemDetailResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -84,16 +92,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Get detailed information about a Vinted item.
      * @param itemId 
      * @param market  (optional, default to "fr")
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<ItemDetailResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedGetItemDetailsWithHttpInfo(itemId: kotlin.Int, market: kotlin.String?) : ApiResponse<kotlin.Any?> {
+    fun vintedGetItemDetailsWithHttpInfo(itemId: kotlin.Int, market: kotlin.String?) : ApiResponse<ItemDetailResponse?> {
         val localVariableConfig = vintedGetItemDetailsRequestConfig(itemId = itemId, market = market)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, ItemDetailResponse>(
             localVariableConfig
         )
     }
@@ -131,7 +139,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Get a Vinted user&#39;s profile.
      * @param userId 
      * @param market  (optional, default to "fr")
-     * @return kotlin.Any
+     * @return UserProfileResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -140,11 +148,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedGetUserProfile(userId: kotlin.Int, market: kotlin.String? = "fr") : kotlin.Any {
+    fun vintedGetUserProfile(userId: kotlin.Int, market: kotlin.String? = "fr") : UserProfileResponse {
         val localVarResponse = vintedGetUserProfileWithHttpInfo(userId = userId, market = market)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UserProfileResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -163,16 +171,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Get a Vinted user&#39;s profile.
      * @param userId 
      * @param market  (optional, default to "fr")
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<UserProfileResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedGetUserProfileWithHttpInfo(userId: kotlin.Int, market: kotlin.String?) : ApiResponse<kotlin.Any?> {
+    fun vintedGetUserProfileWithHttpInfo(userId: kotlin.Int, market: kotlin.String?) : ApiResponse<UserProfileResponse?> {
         val localVariableConfig = vintedGetUserProfileRequestConfig(userId = userId, market = market)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, UserProfileResponse>(
             localVariableConfig
         )
     }
@@ -212,7 +220,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param market  (optional, default to "fr")
      * @param page  (optional, default to 1)
      * @param perPage  (optional, default to 20)
-     * @return kotlin.Any
+     * @return UserItemsResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -221,11 +229,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedGetUserSListedItems(userId: kotlin.Int, market: kotlin.String? = "fr", page: kotlin.Int? = 1, perPage: kotlin.Int? = 20) : kotlin.Any {
+    fun vintedGetUserSListedItems(userId: kotlin.Int, market: kotlin.String? = "fr", page: kotlin.Int? = 1, perPage: kotlin.Int? = 20) : UserItemsResponse {
         val localVarResponse = vintedGetUserSListedItemsWithHttpInfo(userId = userId, market = market, page = page, perPage = perPage)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UserItemsResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -246,16 +254,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param market  (optional, default to "fr")
      * @param page  (optional, default to 1)
      * @param perPage  (optional, default to 20)
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<UserItemsResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedGetUserSListedItemsWithHttpInfo(userId: kotlin.Int, market: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?) : ApiResponse<kotlin.Any?> {
+    fun vintedGetUserSListedItemsWithHttpInfo(userId: kotlin.Int, market: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?) : ApiResponse<UserItemsResponse?> {
         val localVariableConfig = vintedGetUserSListedItemsRequestConfig(userId = userId, market = market, page = page, perPage = perPage)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, UserItemsResponse>(
             localVariableConfig
         )
     }
@@ -300,7 +308,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * List colors
      * Get available Vinted colors for filtering.
      * @param market  (optional, default to "fr")
-     * @return kotlin.Any
+     * @return ColorsResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -309,11 +317,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedListColors(market: kotlin.String? = "fr") : kotlin.Any {
+    fun vintedListColors(market: kotlin.String? = "fr") : ColorsResponse {
         val localVarResponse = vintedListColorsWithHttpInfo(market = market)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ColorsResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -331,16 +339,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * List colors
      * Get available Vinted colors for filtering.
      * @param market  (optional, default to "fr")
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<ColorsResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedListColorsWithHttpInfo(market: kotlin.String?) : ApiResponse<kotlin.Any?> {
+    fun vintedListColorsWithHttpInfo(market: kotlin.String?) : ApiResponse<ColorsResponse?> {
         val localVariableConfig = vintedListColorsRequestConfig(market = market)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, ColorsResponse>(
             localVariableConfig
         )
     }
@@ -376,7 +384,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * List item conditions
      * Get available item condition statuses.
      * @param market  (optional, default to "fr")
-     * @return kotlin.Any
+     * @return StatusesResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -385,11 +393,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedListItemConditions(market: kotlin.String? = "fr") : kotlin.Any {
+    fun vintedListItemConditions(market: kotlin.String? = "fr") : StatusesResponse {
         val localVarResponse = vintedListItemConditionsWithHttpInfo(market = market)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as StatusesResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -407,16 +415,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * List item conditions
      * Get available item condition statuses.
      * @param market  (optional, default to "fr")
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<StatusesResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedListItemConditionsWithHttpInfo(market: kotlin.String?) : ApiResponse<kotlin.Any?> {
+    fun vintedListItemConditionsWithHttpInfo(market: kotlin.String?) : ApiResponse<StatusesResponse?> {
         val localVariableConfig = vintedListItemConditionsRequestConfig(market = market)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, StatusesResponse>(
             localVariableConfig
         )
     }
@@ -451,7 +459,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     /**
      * List markets
      * List all supported Vinted markets.
-     * @return kotlin.Any
+     * @return MarketsResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -460,11 +468,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedListMarkets() : kotlin.Any {
+    fun vintedListMarkets() : MarketsResponse {
         val localVarResponse = vintedListMarketsWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as MarketsResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -481,16 +489,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     /**
      * List markets
      * List all supported Vinted markets.
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<MarketsResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedListMarketsWithHttpInfo() : ApiResponse<kotlin.Any?> {
+    fun vintedListMarketsWithHttpInfo() : ApiResponse<MarketsResponse?> {
         val localVariableConfig = vintedListMarketsRequestConfig()
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, MarketsResponse>(
             localVariableConfig
         )
     }
@@ -664,7 +672,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Search Vinted brands.
      * @param keyword Brand search keyword
      * @param market  (optional, default to "fr")
-     * @return kotlin.Any
+     * @return BrandsResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -673,11 +681,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedSearchBrands(keyword: kotlin.String, market: kotlin.String? = "fr") : kotlin.Any {
+    fun vintedSearchBrands(keyword: kotlin.String, market: kotlin.String? = "fr") : BrandsResponse {
         val localVarResponse = vintedSearchBrandsWithHttpInfo(keyword = keyword, market = market)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BrandsResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -696,16 +704,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Search Vinted brands.
      * @param keyword Brand search keyword
      * @param market  (optional, default to "fr")
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<BrandsResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedSearchBrandsWithHttpInfo(keyword: kotlin.String, market: kotlin.String?) : ApiResponse<kotlin.Any?> {
+    fun vintedSearchBrandsWithHttpInfo(keyword: kotlin.String, market: kotlin.String?) : ApiResponse<BrandsResponse?> {
         val localVariableConfig = vintedSearchBrandsRequestConfig(keyword = keyword, market = market)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, BrandsResponse>(
             localVariableConfig
         )
     }
@@ -743,7 +751,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Search by image
      * Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries &#x60;similarity_score&#x60; on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
      * @param vintedImageSearchRequest 
-     * @return kotlin.Any
+     * @return SearchResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -752,11 +760,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedSearchByImage(vintedImageSearchRequest: VintedImageSearchRequest) : kotlin.Any {
+    fun vintedSearchByImage(vintedImageSearchRequest: VintedImageSearchRequest) : SearchResponse {
         val localVarResponse = vintedSearchByImageWithHttpInfo(vintedImageSearchRequest = vintedImageSearchRequest)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as SearchResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -774,16 +782,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Search by image
      * Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries &#x60;similarity_score&#x60; on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
      * @param vintedImageSearchRequest 
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<SearchResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedSearchByImageWithHttpInfo(vintedImageSearchRequest: VintedImageSearchRequest) : ApiResponse<kotlin.Any?> {
+    fun vintedSearchByImageWithHttpInfo(vintedImageSearchRequest: VintedImageSearchRequest) : ApiResponse<SearchResponse?> {
         val localVariableConfig = vintedSearchByImageRequestConfig(vintedImageSearchRequest = vintedImageSearchRequest)
 
-        return request<VintedImageSearchRequest, kotlin.Any>(
+        return request<VintedImageSearchRequest, SearchResponse>(
             localVariableConfig
         )
     }
@@ -830,7 +838,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
-     * @return kotlin.Any
+     * @return SearchResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -839,11 +847,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedSearchVintedItems(query: kotlin.String, market: kotlin.String? = "fr", sellerCountry: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = 20, priceFrom: java.math.BigDecimal? = null, priceTo: java.math.BigDecimal? = null, brandIds: kotlin.String? = null, catalogIds: kotlin.String? = null, colorIds: kotlin.String? = null, sizeIds: kotlin.String? = null, materialIds: kotlin.String? = null, time: kotlin.Int? = null, searchSessionId: kotlin.String? = null, statusIds: kotlin.String? = null, order: kotlin.String? = null) : kotlin.Any {
+    fun vintedSearchVintedItems(query: kotlin.String, market: kotlin.String? = "fr", sellerCountry: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = 20, priceFrom: java.math.BigDecimal? = null, priceTo: java.math.BigDecimal? = null, brandIds: kotlin.String? = null, catalogIds: kotlin.String? = null, colorIds: kotlin.String? = null, sizeIds: kotlin.String? = null, materialIds: kotlin.String? = null, time: kotlin.Int? = null, searchSessionId: kotlin.String? = null, statusIds: kotlin.String? = null, order: kotlin.String? = null) : SearchResponse {
         val localVarResponse = vintedSearchVintedItemsWithHttpInfo(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, sizeIds = sizeIds, materialIds = materialIds, time = time, searchSessionId = searchSessionId, statusIds = statusIds, order = order)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Success -> (localVarResponse as Success<*>).data as SearchResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -876,16 +884,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
-     * @return ApiResponse<kotlin.Any?>
+     * @return ApiResponse<SearchResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedSearchVintedItemsWithHttpInfo(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, sizeIds: kotlin.String?, materialIds: kotlin.String?, time: kotlin.Int?, searchSessionId: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : ApiResponse<kotlin.Any?> {
+    fun vintedSearchVintedItemsWithHttpInfo(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, sizeIds: kotlin.String?, materialIds: kotlin.String?, time: kotlin.Int?, searchSessionId: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : ApiResponse<SearchResponse?> {
         val localVariableConfig = vintedSearchVintedItemsRequestConfig(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, sizeIds = sizeIds, materialIds = materialIds, time = time, searchSessionId = searchSessionId, statusIds = statusIds, order = order)
 
-        return request<Unit, kotlin.Any>(
+        return request<Unit, SearchResponse>(
             localVariableConfig
         )
     }

@@ -21,7 +21,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 <a id="vintedGetItemDetails"></a>
 # **vintedGetItemDetails**
-> kotlin.Any vintedGetItemDetails(itemId, market)
+> ItemDetailResponse vintedGetItemDetails(itemId, market)
 
 Get item details
 
@@ -37,7 +37,7 @@ val apiInstance = VintedApi()
 val itemId : kotlin.Int = 56 // kotlin.Int | 
 val market : kotlin.String = market_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedGetItemDetails(itemId, market)
+    val result : ItemDetailResponse = apiInstance.vintedGetItemDetails(itemId, market)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedGetItemDetails")
@@ -56,7 +56,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**ItemDetailResponse**](ItemDetailResponse.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedGetUserProfile"></a>
 # **vintedGetUserProfile**
-> kotlin.Any vintedGetUserProfile(userId, market)
+> UserProfileResponse vintedGetUserProfile(userId, market)
 
 Get user profile
 
@@ -88,7 +88,7 @@ val apiInstance = VintedApi()
 val userId : kotlin.Int = 56 // kotlin.Int | 
 val market : kotlin.String = market_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedGetUserProfile(userId, market)
+    val result : UserProfileResponse = apiInstance.vintedGetUserProfile(userId, market)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedGetUserProfile")
@@ -107,7 +107,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**UserProfileResponse**](UserProfileResponse.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedGetUserSListedItems"></a>
 # **vintedGetUserSListedItems**
-> kotlin.Any vintedGetUserSListedItems(userId, market, page, perPage)
+> UserItemsResponse vintedGetUserSListedItems(userId, market, page, perPage)
 
 Get user&#39;s listed items
 
@@ -141,7 +141,7 @@ val market : kotlin.String = market_example // kotlin.String |
 val page : kotlin.Int = 56 // kotlin.Int | 
 val perPage : kotlin.Int = 56 // kotlin.Int | 
 try {
-    val result : kotlin.Any = apiInstance.vintedGetUserSListedItems(userId, market, page, perPage)
+    val result : UserItemsResponse = apiInstance.vintedGetUserSListedItems(userId, market, page, perPage)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedGetUserSListedItems")
@@ -162,7 +162,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**UserItemsResponse**](UserItemsResponse.md)
 
 ### Authorization
 
@@ -178,7 +178,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedListColors"></a>
 # **vintedListColors**
-> kotlin.Any vintedListColors(market)
+> ColorsResponse vintedListColors(market)
 
 List colors
 
@@ -193,7 +193,7 @@ Get available Vinted colors for filtering.
 val apiInstance = VintedApi()
 val market : kotlin.String = market_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedListColors(market)
+    val result : ColorsResponse = apiInstance.vintedListColors(market)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedListColors")
@@ -211,7 +211,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**ColorsResponse**](ColorsResponse.md)
 
 ### Authorization
 
@@ -227,7 +227,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedListItemConditions"></a>
 # **vintedListItemConditions**
-> kotlin.Any vintedListItemConditions(market)
+> StatusesResponse vintedListItemConditions(market)
 
 List item conditions
 
@@ -242,7 +242,7 @@ Get available item condition statuses.
 val apiInstance = VintedApi()
 val market : kotlin.String = market_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedListItemConditions(market)
+    val result : StatusesResponse = apiInstance.vintedListItemConditions(market)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedListItemConditions")
@@ -260,7 +260,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**StatusesResponse**](StatusesResponse.md)
 
 ### Authorization
 
@@ -276,7 +276,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedListMarkets"></a>
 # **vintedListMarkets**
-> kotlin.Any vintedListMarkets()
+> MarketsResponse vintedListMarkets()
 
 List markets
 
@@ -290,7 +290,7 @@ List all supported Vinted markets.
 
 val apiInstance = VintedApi()
 try {
-    val result : kotlin.Any = apiInstance.vintedListMarkets()
+    val result : MarketsResponse = apiInstance.vintedListMarkets()
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedListMarkets")
@@ -306,7 +306,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**MarketsResponse**](MarketsResponse.md)
 
 ### Authorization
 
@@ -419,7 +419,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedSearchBrands"></a>
 # **vintedSearchBrands**
-> kotlin.Any vintedSearchBrands(keyword, market)
+> BrandsResponse vintedSearchBrands(keyword, market)
 
 Search brands
 
@@ -435,7 +435,7 @@ val apiInstance = VintedApi()
 val keyword : kotlin.String = keyword_example // kotlin.String | Brand search keyword
 val market : kotlin.String = market_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedSearchBrands(keyword, market)
+    val result : BrandsResponse = apiInstance.vintedSearchBrands(keyword, market)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedSearchBrands")
@@ -454,7 +454,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**BrandsResponse**](BrandsResponse.md)
 
 ### Authorization
 
@@ -470,7 +470,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedSearchByImage"></a>
 # **vintedSearchByImage**
-> kotlin.Any vintedSearchByImage(vintedImageSearchRequest)
+> SearchResponse vintedSearchByImage(vintedImageSearchRequest)
 
 Search by image
 
@@ -485,7 +485,7 @@ Find active Vinted listings from a photo. 10 credits per successful request. Ret
 val apiInstance = VintedApi()
 val vintedImageSearchRequest : VintedImageSearchRequest =  // VintedImageSearchRequest | 
 try {
-    val result : kotlin.Any = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
+    val result : SearchResponse = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedSearchByImage")
@@ -503,7 +503,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**SearchResponse**](SearchResponse.md)
 
 ### Authorization
 
@@ -519,7 +519,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedSearchVintedItems"></a>
 # **vintedSearchVintedItems**
-> kotlin.Any vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
+> SearchResponse vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
 
 Search Vinted items
 
@@ -549,7 +549,7 @@ val searchSessionId : kotlin.String = searchSessionId_example // kotlin.String |
 val statusIds : kotlin.String = statusIds_example // kotlin.String | Comma-separated condition/status IDs
 val order : kotlin.String = order_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
+    val result : SearchResponse = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedSearchVintedItems")
@@ -582,7 +582,7 @@ try {
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+[**SearchResponse**](SearchResponse.md)
 
 ### Authorization
 

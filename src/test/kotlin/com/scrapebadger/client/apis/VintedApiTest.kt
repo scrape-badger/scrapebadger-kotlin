@@ -19,7 +19,15 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.VintedApi
+import com.scrapebadger.client.models.BrandsResponse
+import com.scrapebadger.client.models.ColorsResponse
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.ItemDetailResponse
+import com.scrapebadger.client.models.MarketsResponse
+import com.scrapebadger.client.models.SearchResponse
+import com.scrapebadger.client.models.StatusesResponse
+import com.scrapebadger.client.models.UserItemsResponse
+import com.scrapebadger.client.models.UserProfileResponse
 import com.scrapebadger.client.models.VintedImageSearchRequest
 import com.scrapebadger.client.models.VintedMobileReadRequest
 
@@ -33,7 +41,7 @@ class VintedApiTest : ShouldSpec() {
             // uncomment below to test vintedGetItemDetails
             //val itemId : kotlin.Int = 56 // kotlin.Int | 
             //val market : kotlin.String = market_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedGetItemDetails(itemId, market)
+            //val result : ItemDetailResponse = apiInstance.vintedGetItemDetails(itemId, market)
             //result shouldBe ("TODO")
         }
 
@@ -42,7 +50,7 @@ class VintedApiTest : ShouldSpec() {
             // uncomment below to test vintedGetUserProfile
             //val userId : kotlin.Int = 56 // kotlin.Int | 
             //val market : kotlin.String = market_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedGetUserProfile(userId, market)
+            //val result : UserProfileResponse = apiInstance.vintedGetUserProfile(userId, market)
             //result shouldBe ("TODO")
         }
 
@@ -53,7 +61,7 @@ class VintedApiTest : ShouldSpec() {
             //val market : kotlin.String = market_example // kotlin.String | 
             //val page : kotlin.Int = 56 // kotlin.Int | 
             //val perPage : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.vintedGetUserSListedItems(userId, market, page, perPage)
+            //val result : UserItemsResponse = apiInstance.vintedGetUserSListedItems(userId, market, page, perPage)
             //result shouldBe ("TODO")
         }
 
@@ -61,7 +69,7 @@ class VintedApiTest : ShouldSpec() {
         should("test vintedListColors") {
             // uncomment below to test vintedListColors
             //val market : kotlin.String = market_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedListColors(market)
+            //val result : ColorsResponse = apiInstance.vintedListColors(market)
             //result shouldBe ("TODO")
         }
 
@@ -69,14 +77,14 @@ class VintedApiTest : ShouldSpec() {
         should("test vintedListItemConditions") {
             // uncomment below to test vintedListItemConditions
             //val market : kotlin.String = market_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedListItemConditions(market)
+            //val result : StatusesResponse = apiInstance.vintedListItemConditions(market)
             //result shouldBe ("TODO")
         }
 
         // to test vintedListMarkets
         should("test vintedListMarkets") {
             // uncomment below to test vintedListMarkets
-            //val result : kotlin.Any = apiInstance.vintedListMarkets()
+            //val result : MarketsResponse = apiInstance.vintedListMarkets()
             //result shouldBe ("TODO")
         }
 
@@ -101,7 +109,7 @@ class VintedApiTest : ShouldSpec() {
             // uncomment below to test vintedSearchBrands
             //val keyword : kotlin.String = keyword_example // kotlin.String | Brand search keyword
             //val market : kotlin.String = market_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedSearchBrands(keyword, market)
+            //val result : BrandsResponse = apiInstance.vintedSearchBrands(keyword, market)
             //result shouldBe ("TODO")
         }
 
@@ -109,7 +117,7 @@ class VintedApiTest : ShouldSpec() {
         should("test vintedSearchByImage") {
             // uncomment below to test vintedSearchByImage
             //val vintedImageSearchRequest : VintedImageSearchRequest =  // VintedImageSearchRequest | 
-            //val result : kotlin.Any = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
+            //val result : SearchResponse = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
             //result shouldBe ("TODO")
         }
 
@@ -132,7 +140,7 @@ class VintedApiTest : ShouldSpec() {
             //val searchSessionId : kotlin.String = searchSessionId_example // kotlin.String | Reuse across pages of one search
             //val statusIds : kotlin.String = statusIds_example // kotlin.String | Comma-separated condition/status IDs
             //val order : kotlin.String = order_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
+            //val result : SearchResponse = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
             //result shouldBe ("TODO")
         }
 
