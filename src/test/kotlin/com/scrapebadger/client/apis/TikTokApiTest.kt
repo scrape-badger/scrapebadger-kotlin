@@ -26,6 +26,17 @@ class TikTokApiTest : ShouldSpec() {
         // uncomment below to create an instance of TikTokApi
         //val apiInstance = TikTokApi()
 
+        // to test tiktokBestSellingTiktokShopProducts
+        should("test tiktokBestSellingTiktokShopProducts") {
+            // uncomment below to test tiktokBestSellingTiktokShopProducts
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+            //val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+            //val pages : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val result : kotlin.Any = apiInstance.tiktokBestSellingTiktokShopProducts(region, categoryId, pages, limit)
+            //result shouldBe ("TODO")
+        }
+
         // to test tiktokGeneralSearch
         should("test tiktokGeneralSearch") {
             // uncomment below to test tiktokGeneralSearch
@@ -268,9 +279,10 @@ class TikTokApiTest : ShouldSpec() {
         should("test tiktokSearchTiktokShopProducts") {
             // uncomment below to test tiktokSearchTiktokShopProducts
             //val q : kotlin.String = q_example // kotlin.String | Keyword, e.g. 'wireless earbuds'
-            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+            //val pageToken : kotlin.String = pageToken_example // kotlin.String | 
             //val offset : kotlin.Int = 56 // kotlin.Int | Pass back next_offset for the next page (US)
-            //val result : kotlin.Any = apiInstance.tiktokSearchTiktokShopProducts(q, region, offset)
+            //val result : kotlin.Any = apiInstance.tiktokSearchTiktokShopProducts(q, region, pageToken, offset)
             //result shouldBe ("TODO")
         }
 
@@ -296,11 +308,22 @@ class TikTokApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test tiktokTiktokShopCategoryProducts
+        should("test tiktokTiktokShopCategoryProducts") {
+            // uncomment below to test tiktokTiktokShopCategoryProducts
+            //val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+            //val count : kotlin.Int = 56 // kotlin.Int | 
+            //val excludeProductIds : kotlin.collections.List<kotlin.String?> =  // kotlin.collections.List<kotlin.String?> | Repeat for every next_exclude_product_ids value
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopCategoryProducts(categoryId, region, count, excludeProductIds)
+            //result shouldBe ("TODO")
+        }
+
         // to test tiktokTiktokShopCategorySubcategoriesTopProducts
         should("test tiktokTiktokShopCategorySubcategoriesTopProducts") {
             // uncomment below to test tiktokTiktokShopCategorySubcategoriesTopProducts
             //val categoryId : kotlin.String = categoryId_example // kotlin.String | 
-            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
             //val result : kotlin.Any = apiInstance.tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId, region)
             //result shouldBe ("TODO")
         }
@@ -309,7 +332,7 @@ class TikTokApiTest : ShouldSpec() {
         should("test tiktokTiktokShopProductDetail") {
             // uncomment below to test tiktokTiktokShopProductDetail
             //val productId : kotlin.String = productId_example // kotlin.String | 
-            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
             //val result : kotlin.Any = apiInstance.tiktokTiktokShopProductDetail(productId, region)
             //result shouldBe ("TODO")
         }
@@ -318,7 +341,7 @@ class TikTokApiTest : ShouldSpec() {
         should("test tiktokTiktokShopProductReviews") {
             // uncomment below to test tiktokTiktokShopProductReviews
             //val productId : kotlin.String = productId_example // kotlin.String | 
-            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
             //val page : kotlin.Int = 56 // kotlin.Int | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
             //val sort : kotlin.String = sort_example // kotlin.String | recommended | recent
@@ -329,10 +352,20 @@ class TikTokApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test tiktokTiktokShopRegionalMallFeed
+        should("test tiktokTiktokShopRegionalMallFeed") {
+            // uncomment below to test tiktokTiktokShopRegionalMallFeed
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+            //val tabId : kotlin.Int = 56 // kotlin.Int | 
+            //val pageToken : kotlin.String = pageToken_example // kotlin.String | 
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopRegionalMallFeed(region, tabId, pageToken)
+            //result shouldBe ("TODO")
+        }
+
         // to test tiktokTiktokShopRootCategories
         should("test tiktokTiktokShopRootCategories") {
             // uncomment below to test tiktokTiktokShopRootCategories
-            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
             //val result : kotlin.Any = apiInstance.tiktokTiktokShopRootCategories(region)
             //result shouldBe ("TODO")
         }
@@ -341,10 +374,22 @@ class TikTokApiTest : ShouldSpec() {
         should("test tiktokTiktokShopStoreProducts") {
             // uncomment below to test tiktokTiktokShopStoreProducts
             //val sellerId : kotlin.String = sellerId_example // kotlin.String | 
-            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
             //val cursor : kotlin.String = cursor_example // kotlin.String | Pass back next_cursor for the next page
             //val count : kotlin.Int = 56 // kotlin.Int | 
             //val result : kotlin.Any = apiInstance.tiktokTiktokShopStoreProducts(sellerId, region, cursor, count)
+            //result shouldBe ("TODO")
+        }
+
+        // to test tiktokTiktokShopThemeRanking
+        should("test tiktokTiktokShopThemeRanking") {
+            // uncomment below to test tiktokTiktokShopThemeRanking
+            //val rankId : kotlin.String = rankId_example // kotlin.String | 
+            //val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+            //val rankType : kotlin.Int = 56 // kotlin.Int | 
+            //val cursor : kotlin.Int = 56 // kotlin.Int | 
+            //val count : kotlin.Int = 56 // kotlin.Int | 
+            //val result : kotlin.Any = apiInstance.tiktokTiktokShopThemeRanking(rankId, region, rankType, cursor, count)
             //result shouldBe ("TODO")
         }
 

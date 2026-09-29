@@ -4,6 +4,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**tiktokBestSellingTiktokShopProducts**](TikTokApi.md#tiktokBestSellingTiktokShopProducts) | **GET** /v1/tiktok/shop/bestsellers | Best-selling TikTok Shop products |
 | [**tiktokGeneralSearch**](TikTokApi.md#tiktokGeneralSearch) | **GET** /v1/tiktok/search | General search |
 | [**tiktokGetCommentReplies**](TikTokApi.md#tiktokGetCommentReplies) | **GET** /v1/tiktok/comments/{comment_id}/replies | Get comment replies |
 | [**tiktokGetComments**](TikTokApi.md#tiktokGetComments) | **GET** /v1/tiktok/videos/{video_id}/comments | Get comments |
@@ -31,15 +32,73 @@ All URIs are relative to *https://scrapebadger.com*
 | [**tiktokSearchTiktokShopProducts**](TikTokApi.md#tiktokSearchTiktokShopProducts) | **GET** /v1/tiktok/shop/search | Search TikTok Shop products |
 | [**tiktokSearchUsers**](TikTokApi.md#tiktokSearchUsers) | **GET** /v1/tiktok/search/users | Search users |
 | [**tiktokSearchVideos**](TikTokApi.md#tiktokSearchVideos) | **GET** /v1/tiktok/search/videos | Search videos |
+| [**tiktokTiktokShopCategoryProducts**](TikTokApi.md#tiktokTiktokShopCategoryProducts) | **GET** /v1/tiktok/shop/categories/{category_id}/products | TikTok Shop category products |
 | [**tiktokTiktokShopCategorySubcategoriesTopProducts**](TikTokApi.md#tiktokTiktokShopCategorySubcategoriesTopProducts) | **GET** /v1/tiktok/shop/categories/{category_id} | TikTok Shop category: subcategories + top products |
 | [**tiktokTiktokShopProductDetail**](TikTokApi.md#tiktokTiktokShopProductDetail) | **GET** /v1/tiktok/shop/products/{product_id} | TikTok Shop product detail |
 | [**tiktokTiktokShopProductReviews**](TikTokApi.md#tiktokTiktokShopProductReviews) | **GET** /v1/tiktok/shop/products/{product_id}/reviews | TikTok Shop product reviews |
+| [**tiktokTiktokShopRegionalMallFeed**](TikTokApi.md#tiktokTiktokShopRegionalMallFeed) | **GET** /v1/tiktok/shop/mall | TikTok Shop regional mall feed |
 | [**tiktokTiktokShopRootCategories**](TikTokApi.md#tiktokTiktokShopRootCategories) | **GET** /v1/tiktok/shop/categories | TikTok Shop root categories |
 | [**tiktokTiktokShopStoreProducts**](TikTokApi.md#tiktokTiktokShopStoreProducts) | **GET** /v1/tiktok/shop/stores/{seller_id} | TikTok Shop store + products |
+| [**tiktokTiktokShopThemeRanking**](TikTokApi.md#tiktokTiktokShopThemeRanking) | **GET** /v1/tiktok/shop/rankings/{rank_id} | TikTok Shop theme ranking |
 | [**tiktokTrendingHashtags**](TikTokApi.md#tiktokTrendingHashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags |
 | [**tiktokTrendingSongs**](TikTokApi.md#tiktokTrendingSongs) | **GET** /v1/tiktok/trending/songs | Trending songs |
 | [**tiktokTrendingVideos**](TikTokApi.md#tiktokTrendingVideos) | **GET** /v1/tiktok/trending/videos | Trending videos |
 
+
+<a id="tiktokBestSellingTiktokShopProducts"></a>
+# **tiktokBestSellingTiktokShopProducts**
+> kotlin.Any tiktokBestSellingTiktokShopProducts(region, categoryId, pages, limit)
+
+Best-selling TikTok Shop products
+
+Sales-ranked best-selling products, available for every operating market.  Ranked by real sold_count (source: sales_ranked); works for SG/MY/JP where TikTok&#39;s curated /shop/rankings are not exposed. Omit category_id for a market-wide list.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+val pages : kotlin.Int = 56 // kotlin.Int | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
+try {
+    val result : kotlin.Any = apiInstance.tiktokBestSellingTiktokShopProducts(region, categoryId, pages, limit)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokBestSellingTiktokShopProducts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokBestSellingTiktokShopProducts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
+| **categoryId** | **kotlin.String**|  | [optional] |
+| **pages** | **kotlin.Int**|  | [optional] [default to 2] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **limit** | **kotlin.Int**|  | [optional] [default to 20] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 <a id="tiktokGeneralSearch"></a>
 # **tiktokGeneralSearch**
@@ -1308,7 +1367,7 @@ Configure ApiKeyAuth:
 
 <a id="tiktokSearchTiktokShopProducts"></a>
 # **tiktokSearchTiktokShopProducts**
-> kotlin.Any tiktokSearchTiktokShopProducts(q, region, offset)
+> kotlin.Any tiktokSearchTiktokShopProducts(q, region, pageToken, offset)
 
 Search TikTok Shop products
 
@@ -1322,10 +1381,11 @@ Keyword search over TikTok Shop products: 30 per page with offset pagination (US
 
 val apiInstance = TikTokApi()
 val q : kotlin.String = q_example // kotlin.String | Keyword, e.g. 'wireless earbuds'
-val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+val pageToken : kotlin.String = pageToken_example // kotlin.String | 
 val offset : kotlin.Int = 56 // kotlin.Int | Pass back next_offset for the next page (US)
 try {
-    val result : kotlin.Any = apiInstance.tiktokSearchTiktokShopProducts(q, region, offset)
+    val result : kotlin.Any = apiInstance.tiktokSearchTiktokShopProducts(q, region, pageToken, offset)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TikTokApi#tiktokSearchTiktokShopProducts")
@@ -1338,7 +1398,8 @@ try {
 
 ### Parameters
 | **q** | **kotlin.String**| Keyword, e.g. &#39;wireless earbuds&#39; | |
-| **region** | **kotlin.String**| Market: US, GB, ID | [optional] [default to &quot;US&quot;] |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
+| **pageToken** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **offset** | **kotlin.Int**| Pass back next_offset for the next page (US) | [optional] [default to 0] |
@@ -1469,6 +1530,61 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a id="tiktokTiktokShopCategoryProducts"></a>
+# **tiktokTiktokShopCategoryProducts**
+> kotlin.Any tiktokTiktokShopCategoryProducts(categoryId, region, count, excludeProductIds)
+
+TikTok Shop category products
+
+Category recommendations. Pass accumulated exclusion IDs for the next page; these are not sales rankings.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val categoryId : kotlin.String = categoryId_example // kotlin.String | 
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+val count : kotlin.Int = 56 // kotlin.Int | 
+val excludeProductIds : kotlin.collections.List<kotlin.String?> =  // kotlin.collections.List<kotlin.String?> | Repeat for every next_exclude_product_ids value
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopCategoryProducts(categoryId, region, count, excludeProductIds)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopCategoryProducts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopCategoryProducts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **categoryId** | **kotlin.String**|  | |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
+| **count** | **kotlin.Int**|  | [optional] [default to 20] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **excludeProductIds** | [**kotlin.collections.List&lt;kotlin.String?&gt;**](kotlin.String.md)| Repeat for every next_exclude_product_ids value | [optional] [default to arrayListOf()] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a id="tiktokTiktokShopCategorySubcategoriesTopProducts"></a>
 # **tiktokTiktokShopCategorySubcategoriesTopProducts**
 > kotlin.Any tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId, region)
@@ -1485,7 +1601,7 @@ A category&#39;s subcategories and its top products as TikTok Shop ranks them.
 
 val apiInstance = TikTokApi()
 val categoryId : kotlin.String = categoryId_example // kotlin.String | 
-val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
 try {
     val result : kotlin.Any = apiInstance.tiktokTiktokShopCategorySubcategoriesTopProducts(categoryId, region)
     println(result)
@@ -1502,7 +1618,7 @@ try {
 | **categoryId** | **kotlin.String**|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **region** | **kotlin.String**| Market: US, GB, ID | [optional] [default to &quot;US&quot;] |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
 
 ### Return type
 
@@ -1536,7 +1652,7 @@ Full TikTok Shop product page: description, images, price, SKUs with stock, firs
 
 val apiInstance = TikTokApi()
 val productId : kotlin.String = productId_example // kotlin.String | 
-val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
 try {
     val result : kotlin.Any = apiInstance.tiktokTiktokShopProductDetail(productId, region)
     println(result)
@@ -1553,7 +1669,7 @@ try {
 | **productId** | **kotlin.String**|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **region** | **kotlin.String**| Market: US, GB, ID | [optional] [default to &quot;US&quot;] |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
 
 ### Return type
 
@@ -1577,7 +1693,7 @@ Configure ApiKeyAuth:
 
 TikTok Shop product reviews
 
-Paginated product reviews with the rating breakdown (US).
+Paginated product reviews with rating breakdown (US and ID). Indonesia supports recent/recommended ordering, star and media filters; verified&#x3D;true is not supported.
 
 ### Example
 ```kotlin
@@ -1587,7 +1703,7 @@ Paginated product reviews with the rating breakdown (US).
 
 val apiInstance = TikTokApi()
 val productId : kotlin.String = productId_example // kotlin.String | 
-val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
 val page : kotlin.Int = 56 // kotlin.Int | 
 val count : kotlin.Int = 56 // kotlin.Int | 
 val sort : kotlin.String = sort_example // kotlin.String | recommended | recent
@@ -1608,7 +1724,7 @@ try {
 
 ### Parameters
 | **productId** | **kotlin.String**|  | |
-| **region** | **kotlin.String**| Market: US, GB, ID | [optional] [default to &quot;US&quot;] |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
 | **page** | **kotlin.Int**|  | [optional] [default to 1] |
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
 | **sort** | **kotlin.String**| recommended | recent | [optional] [default to &quot;recommended&quot;] |
@@ -1617,6 +1733,59 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **verified** | **kotlin.Boolean**| Only verified purchases | [optional] [default to false] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokTiktokShopRegionalMallFeed"></a>
+# **tiktokTiktokShopRegionalMallFeed**
+> kotlin.Any tiktokTiktokShopRegionalMallFeed(region, tabId, pageToken)
+
+TikTok Shop regional mall feed
+
+Mall navigation and recommendations with a 15-minute continuation token.  ID, SG, MY, PH, TH, VN and JP are locally verified. Tabs are not a complete category taxonomy.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+val tabId : kotlin.Int = 56 // kotlin.Int | 
+val pageToken : kotlin.String = pageToken_example // kotlin.String | 
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopRegionalMallFeed(region, tabId, pageToken)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopRegionalMallFeed")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopRegionalMallFeed")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
+| **tabId** | **kotlin.Int**|  | [optional] [default to 0] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **pageToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -1649,7 +1818,7 @@ Top-level TikTok Shop categories of a market. Drill down with /shop/categories/{
 //import com.scrapebadger.client.models.*
 
 val apiInstance = TikTokApi()
-val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
 try {
     val result : kotlin.Any = apiInstance.tiktokTiktokShopRootCategories(region)
     println(result)
@@ -1665,7 +1834,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **region** | **kotlin.String**| Market: US, GB, ID | [optional] [default to &quot;US&quot;] |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
 
 ### Return type
 
@@ -1699,7 +1868,7 @@ A store&#39;s stats and its cursor-paginated product catalogue (US).
 
 val apiInstance = TikTokApi()
 val sellerId : kotlin.String = sellerId_example // kotlin.String | 
-val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
 val cursor : kotlin.String = cursor_example // kotlin.String | Pass back next_cursor for the next page
 val count : kotlin.Int = 56 // kotlin.Int | 
 try {
@@ -1716,8 +1885,65 @@ try {
 
 ### Parameters
 | **sellerId** | **kotlin.String**|  | |
-| **region** | **kotlin.String**| Market: US, GB, ID | [optional] [default to &quot;US&quot;] |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
 | **cursor** | **kotlin.String**| Pass back next_cursor for the next page | [optional] [default to &quot;&quot;] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **count** | **kotlin.Int**|  | [optional] [default to 20] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="tiktokTiktokShopThemeRanking"></a>
+# **tiktokTiktokShopThemeRanking**
+> kotlin.Any tiktokTiktokShopThemeRanking(rankId, region, rankType, cursor, count)
+
+TikTok Shop theme ranking
+
+Native category/theme ranking. ID, PH, TH and VN are locally verified.  Types: 1 high seller, 2 trending, 3 ratings. Coverage depends on the configured guest profile; a category recommendation feed is not used as a substitute.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = TikTokApi()
+val rankId : kotlin.String = rankId_example // kotlin.String | 
+val region : kotlin.String = region_example // kotlin.String | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint
+val rankType : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.Int = 56 // kotlin.Int | 
+val count : kotlin.Int = 56 // kotlin.Int | 
+try {
+    val result : kotlin.Any = apiInstance.tiktokTiktokShopThemeRanking(rankId, region, rankType, cursor, count)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TikTokApi#tiktokTiktokShopThemeRanking")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TikTokApi#tiktokTiktokShopThemeRanking")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **rankId** | **kotlin.String**|  | |
+| **region** | **kotlin.String**| Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint | [optional] [default to &quot;US&quot;] |
+| **rankType** | **kotlin.Int**|  | [optional] [default to 1] |
+| **cursor** | **kotlin.Int**|  | [optional] [default to 0] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
