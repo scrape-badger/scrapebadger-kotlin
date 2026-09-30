@@ -145,7 +145,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -179,7 +179,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -200,7 +200,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return RequestConfig
      */
     fun tiktokGeneralSearchRequestConfig(query: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
@@ -418,11 +418,12 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * Get followers (deprecated)
-     * DEPRECATED — TikTok followers require an authenticated account session. Returns HTTP 410.
+     * Get followers
+     * Get publicly visible followers without an account.
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -432,10 +433,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetFollowersDeprecated(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30) : kotlin.Any {
-        @Suppress("DEPRECATION")
-        val localVarResponse = tiktokGetFollowersDeprecatedWithHttpInfo(username = username, region = region, count = count)
+    fun tiktokGetFollowers(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30, cursor: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = tiktokGetFollowersWithHttpInfo(username = username, region = region, count = count, cursor = cursor)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -453,21 +452,20 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * Get followers (deprecated)
-     * DEPRECATED — TikTok followers require an authenticated account session. Returns HTTP 410.
+     * Get followers
+     * Get publicly visible followers without an account.
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetFollowersDeprecatedWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        @Suppress("DEPRECATION")
-        val localVariableConfig = tiktokGetFollowersDeprecatedRequestConfig(username = username, region = region, count = count)
+    fun tiktokGetFollowersWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokGetFollowersRequestConfig(username = username, region = region, count = count, cursor = cursor)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -475,15 +473,15 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * To obtain the request config of the operation tiktokGetFollowersDeprecated
+     * To obtain the request config of the operation tiktokGetFollowers
      *
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return RequestConfig
      */
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetFollowersDeprecatedRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+    fun tiktokGetFollowersRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -492,6 +490,9 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (count != null) {
                     put("count", listOf(count.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -508,11 +509,12 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * Get following (deprecated)
-     * DEPRECATED — TikTok following requires an authenticated account session. Returns HTTP 410.
+     * Get following
+     * Get publicly visible followed accounts. Hidden lists return HTTP 403.
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -522,10 +524,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetFollowingDeprecated(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30) : kotlin.Any {
-        @Suppress("DEPRECATION")
-        val localVarResponse = tiktokGetFollowingDeprecatedWithHttpInfo(username = username, region = region, count = count)
+    fun tiktokGetFollowing(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30, cursor: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = tiktokGetFollowingWithHttpInfo(username = username, region = region, count = count, cursor = cursor)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -543,21 +543,20 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * Get following (deprecated)
-     * DEPRECATED — TikTok following requires an authenticated account session. Returns HTTP 410.
+     * Get following
+     * Get publicly visible followed accounts. Hidden lists return HTTP 403.
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetFollowingDeprecatedWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        @Suppress("DEPRECATION")
-        val localVariableConfig = tiktokGetFollowingDeprecatedRequestConfig(username = username, region = region, count = count)
+    fun tiktokGetFollowingWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokGetFollowingRequestConfig(username = username, region = region, count = count, cursor = cursor)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -565,15 +564,15 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * To obtain the request config of the operation tiktokGetFollowingDeprecated
+     * To obtain the request config of the operation tiktokGetFollowing
      *
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return RequestConfig
      */
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetFollowingDeprecatedRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+    fun tiktokGetFollowingRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -582,6 +581,9 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (count != null) {
                     put("count", listOf(count.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -768,11 +770,12 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * Get liked videos (deprecated)
-     * DEPRECATED — TikTok liked videos require an authenticated account session. Returns HTTP 410.
+     * Get liked videos
+     * Get public liked videos. Hidden liked lists return HTTP 403.
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -782,10 +785,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetLikedVideosDeprecated(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30) : kotlin.Any {
-        @Suppress("DEPRECATION")
-        val localVarResponse = tiktokGetLikedVideosDeprecatedWithHttpInfo(username = username, region = region, count = count)
+    fun tiktokGetLikedVideos(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30, cursor: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = tiktokGetLikedVideosWithHttpInfo(username = username, region = region, count = count, cursor = cursor)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -803,21 +804,20 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * Get liked videos (deprecated)
-     * DEPRECATED — TikTok liked videos require an authenticated account session. Returns HTTP 410.
+     * Get liked videos
+     * Get public liked videos. Hidden liked lists return HTTP 403.
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetLikedVideosDeprecatedWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        @Suppress("DEPRECATION")
-        val localVariableConfig = tiktokGetLikedVideosDeprecatedRequestConfig(username = username, region = region, count = count)
+    fun tiktokGetLikedVideosWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokGetLikedVideosRequestConfig(username = username, region = region, count = count, cursor = cursor)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -825,15 +825,15 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
-     * To obtain the request config of the operation tiktokGetLikedVideosDeprecated
+     * To obtain the request config of the operation tiktokGetLikedVideos
      *
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return RequestConfig
      */
-    @Deprecated(message = "This operation is deprecated.")
-    fun tiktokGetLikedVideosDeprecatedRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+    fun tiktokGetLikedVideosRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -842,6 +842,9 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (count != null) {
                     put("count", listOf(count.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -1113,6 +1116,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param videoId 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 16)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1122,8 +1126,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokGetRelatedVideos(videoId: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 16) : kotlin.Any {
-        val localVarResponse = tiktokGetRelatedVideosWithHttpInfo(videoId = videoId, region = region, count = count)
+    fun tiktokGetRelatedVideos(videoId: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 16, cursor: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = tiktokGetRelatedVideosWithHttpInfo(videoId = videoId, region = region, count = count, cursor = cursor)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1146,14 +1150,15 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param videoId 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 16)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokGetRelatedVideosWithHttpInfo(videoId: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokGetRelatedVideosRequestConfig(videoId = videoId, region = region, count = count)
+    fun tiktokGetRelatedVideosWithHttpInfo(videoId: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokGetRelatedVideosRequestConfig(videoId = videoId, region = region, count = count, cursor = cursor)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1166,9 +1171,10 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param videoId 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 16)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return RequestConfig
      */
-    fun tiktokGetRelatedVideosRequestConfig(videoId: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+    fun tiktokGetRelatedVideosRequestConfig(videoId: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1177,6 +1183,9 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (count != null) {
                     put("count", listOf(count.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -1198,6 +1207,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1207,8 +1217,8 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokGetReposts(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30) : kotlin.Any {
-        val localVarResponse = tiktokGetRepostsWithHttpInfo(username = username, region = region, count = count)
+    fun tiktokGetReposts(username: kotlin.String, region: kotlin.String? = "US", count: kotlin.Int? = 30, cursor: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = tiktokGetRepostsWithHttpInfo(username = username, region = region, count = count, cursor = cursor)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1231,14 +1241,15 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun tiktokGetRepostsWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = tiktokGetRepostsRequestConfig(username = username, region = region, count = count)
+    fun tiktokGetRepostsWithHttpInfo(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = tiktokGetRepostsRequestConfig(username = username, region = region, count = count, cursor = cursor)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1251,9 +1262,10 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
+     * @param cursor Continuation cursor from the previous page (optional)
      * @return RequestConfig
      */
-    fun tiktokGetRepostsRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?) : RequestConfig<Unit> {
+    fun tiktokGetRepostsRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1262,6 +1274,9 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (count != null) {
                     put("count", listOf(count.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -1520,7 +1535,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
-     * @param cursor Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (signer path only). (optional)
+     * @param cursor Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (opaque; expires after 15 minutes). (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1554,7 +1569,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
-     * @param cursor Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (signer path only). (optional)
+     * @param cursor Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (opaque; expires after 15 minutes). (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1575,7 +1590,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param username 
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 30)
-     * @param cursor Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (signer path only). (optional)
+     * @param cursor Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (opaque; expires after 15 minutes). (optional)
      * @return RequestConfig
      */
     fun tiktokGetUserVideosRequestConfig(username: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
@@ -1900,7 +1915,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1934,7 +1949,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1955,7 +1970,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return RequestConfig
      */
     fun tiktokSearchHashtagsRequestConfig(query: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
@@ -2288,7 +2303,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2322,7 +2337,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2343,7 +2358,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return RequestConfig
      */
     fun tiktokSearchUsersRequestConfig(query: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
@@ -2380,7 +2395,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2414,7 +2429,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -2435,7 +2450,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param query Search keyword
      * @param region  (optional, default to "US")
      * @param count  (optional, default to 20)
-     * @param cursor Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor (optional)
+     * @param cursor Opaque continuation cursor from a prior page&#39;s pagination.cursor (optional)
      * @return RequestConfig
      */
     fun tiktokSearchVideosRequestConfig(query: kotlin.String, region: kotlin.String?, count: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
@@ -3186,7 +3201,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Trending hashtags
      * Get trending hashtags (mobile Discover surface — view_count + creators).
      * @param region  (optional, default to "US")
-     * @param period  (optional, default to 7)
+     * @param period Historical windows are unavailable; omit period (optional)
      * @param count  (optional, default to 20)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -3197,7 +3212,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokTrendingHashtags(region: kotlin.String? = "US", period: kotlin.Int? = 7, count: kotlin.Int? = 20) : kotlin.Any {
+    fun tiktokTrendingHashtags(region: kotlin.String? = "US", period: kotlin.Int? = null, count: kotlin.Int? = 20) : kotlin.Any {
         val localVarResponse = tiktokTrendingHashtagsWithHttpInfo(region = region, period = period, count = count)
 
         return when (localVarResponse.responseType) {
@@ -3219,7 +3234,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Trending hashtags
      * Get trending hashtags (mobile Discover surface — view_count + creators).
      * @param region  (optional, default to "US")
-     * @param period  (optional, default to 7)
+     * @param period Historical windows are unavailable; omit period (optional)
      * @param count  (optional, default to 20)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -3239,7 +3254,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation tiktokTrendingHashtags
      *
      * @param region  (optional, default to "US")
-     * @param period  (optional, default to 7)
+     * @param period Historical windows are unavailable; omit period (optional)
      * @param count  (optional, default to 20)
      * @return RequestConfig
      */
@@ -3274,7 +3289,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Trending songs
      * Get trending songs/sounds (mobile hot-music feed — ranked by usage).
      * @param region  (optional, default to "US")
-     * @param period  (optional, default to 7)
+     * @param period Historical windows are unavailable; omit period (optional)
      * @param count  (optional, default to 20)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -3285,7 +3300,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun tiktokTrendingSongs(region: kotlin.String? = "US", period: kotlin.Int? = 7, count: kotlin.Int? = 20) : kotlin.Any {
+    fun tiktokTrendingSongs(region: kotlin.String? = "US", period: kotlin.Int? = null, count: kotlin.Int? = 20) : kotlin.Any {
         val localVarResponse = tiktokTrendingSongsWithHttpInfo(region = region, period = period, count = count)
 
         return when (localVarResponse.responseType) {
@@ -3307,7 +3322,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Trending songs
      * Get trending songs/sounds (mobile hot-music feed — ranked by usage).
      * @param region  (optional, default to "US")
-     * @param period  (optional, default to 7)
+     * @param period Historical windows are unavailable; omit period (optional)
      * @param count  (optional, default to 20)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -3327,7 +3342,7 @@ class TikTokApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation tiktokTrendingSongs
      *
      * @param region  (optional, default to "US")
-     * @param period  (optional, default to 7)
+     * @param period Historical windows are unavailable; omit period (optional)
      * @param count  (optional, default to 20)
      * @return RequestConfig
      */

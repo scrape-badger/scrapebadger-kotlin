@@ -733,7 +733,7 @@ Configure ApiKeyAuth:
 
 Google Lens visual search
 
-Google Lens visual search.  Response carries &#x60;&#x60;lens_results&#x60;&#x60; (Scrapingdog parity alias) with &#x60;&#x60;title&#x60;&#x60; / &#x60;&#x60;source&#x60;&#x60; / &#x60;&#x60;source_favicon&#x60;&#x60; / &#x60;&#x60;thumbnail&#x60;&#x60; / &#x60;&#x60;original_thumbnail&#x60;&#x60; / &#x60;&#x60;rating&#x60;&#x60; / &#x60;&#x60;reviews&#x60;&#x60; / &#x60;&#x60;in_stock&#x60;&#x60;, plus &#x60;&#x60;price&#x60;&#x60; (&#x60;&#x60;{value, currency, extracted}&#x60;&#x60;) and the raw &#x60;&#x60;tag&#x60;&#x60; chip it is parsed from, on shoppable matches. &#x60;&#x60;related_searches&#x60;&#x60; chips come alongside. Legacy &#x60;&#x60;results&#x60;&#x60; alias kept for backwards compat.
+Google Lens visual search.  Response carries &#x60;&#x60;lens_results&#x60;&#x60; (Scrapingdog parity alias) with &#x60;&#x60;title&#x60;&#x60; / &#x60;&#x60;source&#x60;&#x60; / &#x60;&#x60;source_favicon&#x60;&#x60; / &#x60;&#x60;thumbnail&#x60;&#x60; / &#x60;&#x60;original_thumbnail&#x60;&#x60; / &#x60;&#x60;rating&#x60;&#x60; / &#x60;&#x60;reviews&#x60;&#x60; / &#x60;&#x60;in_stock&#x60;&#x60;, plus &#x60;&#x60;price&#x60;&#x60; (&#x60;&#x60;{value, currency, extracted}&#x60;&#x60;) and the raw &#x60;&#x60;tag&#x60;&#x60; chip it is parsed from, on shoppable matches. &#x60;&#x60;related_searches&#x60;&#x60; chips come alongside. Legacy &#x60;&#x60;results&#x60;&#x60; alias kept for backwards compat.  &#x60;&#x60;query&#x60;&#x60; refines the grid with text and is honoured. &#x60;&#x60;product&#x60;&#x60; and &#x60;&#x60;exact_matches&#x60;&#x60; are not yet supported, and &#x60;&#x60;visual_matches&#x3D;false&#x60;&#x60; cannot be: visual matches are the only surface served. Setting any of the three adds a line to the &#x60;&#x60;warnings&#x60;&#x60; array on the response rather than changing the result — see SCR-177. The match grid still CONTAINS an image&#39;s exact matches; Google just does not label which they are.
 
 ### Example
 ```kotlin
@@ -748,9 +748,9 @@ val country : kotlin.String = country_example // kotlin.String | ISO country cod
 val language : kotlin.String = language_example // kotlin.String | Language code (alias for hl)
 val gl : kotlin.String = gl_example // kotlin.String | Country code
 val hl : kotlin.String = hl_example // kotlin.String | Language code
-val product : kotlin.Boolean = true // kotlin.Boolean | Bias towards shoppable product matches
-val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Include the visual-matches carousel
-val exactMatches : kotlin.Boolean = true // kotlin.Boolean | Restrict to exact-match results
+val product : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
+val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Always true in practice — `false` is reported back in `warnings`
+val exactMatches : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
 try {
     val result : kotlin.Any = apiInstance.googleGoogleLensVisualSearch(url, query, country, language, gl, hl, product, visualMatches, exactMatches)
     println(result)
@@ -770,11 +770,11 @@ try {
 | **language** | **kotlin.String**| Language code (alias for hl) | [optional] |
 | **gl** | **kotlin.String**| Country code | [optional] [default to &quot;us&quot;] |
 | **hl** | **kotlin.String**| Language code | [optional] [default to &quot;en&quot;] |
-| **product** | **kotlin.Boolean**| Bias towards shoppable product matches | [optional] [default to false] |
-| **visualMatches** | **kotlin.Boolean**| Include the visual-matches carousel | [optional] [default to true] |
+| **product** | **kotlin.Boolean**| NOT YET SUPPORTED — accepted, and reported back in &#x60;warnings&#x60; | [optional] [default to false] |
+| **visualMatches** | **kotlin.Boolean**| Always true in practice — &#x60;false&#x60; is reported back in &#x60;warnings&#x60; | [optional] [default to true] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **exactMatches** | **kotlin.Boolean**| Restrict to exact-match results | [optional] [default to false] |
+| **exactMatches** | **kotlin.Boolean**| NOT YET SUPPORTED — accepted, and reported back in &#x60;warnings&#x60; | [optional] [default to false] |
 
 ### Return type
 

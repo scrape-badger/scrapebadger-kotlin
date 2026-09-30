@@ -8,11 +8,11 @@ All URIs are relative to *https://scrapebadger.com*
 | [**tiktokGeneralSearch**](TikTokApi.md#tiktokGeneralSearch) | **GET** /v1/tiktok/search | General search |
 | [**tiktokGetCommentReplies**](TikTokApi.md#tiktokGetCommentReplies) | **GET** /v1/tiktok/comments/{comment_id}/replies | Get comment replies |
 | [**tiktokGetComments**](TikTokApi.md#tiktokGetComments) | **GET** /v1/tiktok/videos/{video_id}/comments | Get comments |
-| [**tiktokGetFollowersDeprecated**](TikTokApi.md#tiktokGetFollowersDeprecated) | **GET** /v1/tiktok/users/{username}/followers | Get followers (deprecated) |
-| [**tiktokGetFollowingDeprecated**](TikTokApi.md#tiktokGetFollowingDeprecated) | **GET** /v1/tiktok/users/{username}/following | Get following (deprecated) |
+| [**tiktokGetFollowers**](TikTokApi.md#tiktokGetFollowers) | **GET** /v1/tiktok/users/{username}/followers | Get followers |
+| [**tiktokGetFollowing**](TikTokApi.md#tiktokGetFollowing) | **GET** /v1/tiktok/users/{username}/following | Get following |
 | [**tiktokGetHashtagDetail**](TikTokApi.md#tiktokGetHashtagDetail) | **GET** /v1/tiktok/hashtags/{name} | Get hashtag detail |
 | [**tiktokGetHashtagVideos**](TikTokApi.md#tiktokGetHashtagVideos) | **GET** /v1/tiktok/hashtags/{name}/videos | Get hashtag videos |
-| [**tiktokGetLikedVideosDeprecated**](TikTokApi.md#tiktokGetLikedVideosDeprecated) | **GET** /v1/tiktok/users/{username}/liked | Get liked videos (deprecated) |
+| [**tiktokGetLikedVideos**](TikTokApi.md#tiktokGetLikedVideos) | **GET** /v1/tiktok/users/{username}/liked | Get liked videos |
 | [**tiktokGetMusicSoundDetail**](TikTokApi.md#tiktokGetMusicSoundDetail) | **GET** /v1/tiktok/music/{music_id} | Get music/sound detail |
 | [**tiktokGetMusicVideos**](TikTokApi.md#tiktokGetMusicVideos) | **GET** /v1/tiktok/music/{music_id}/videos | Get music videos |
 | [**tiktokGetOembedMetadata**](TikTokApi.md#tiktokGetOembedMetadata) | **GET** /v1/tiktok/oembed | Get oEmbed metadata |
@@ -118,7 +118,7 @@ val apiInstance = TikTokApi()
 val query : kotlin.String = query_example // kotlin.String | Search keyword
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
-val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
 try {
     val result : kotlin.Any = apiInstance.tiktokGeneralSearch(query, region, count, cursor)
     println(result)
@@ -137,7 +137,7 @@ try {
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **cursor** | **kotlin.String**| Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor | [optional] |
+| **cursor** | **kotlin.String**| Opaque continuation cursor from a prior page&#39;s pagination.cursor | [optional] |
 
 ### Return type
 
@@ -267,13 +267,13 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="tiktokGetFollowersDeprecated"></a>
-# **tiktokGetFollowersDeprecated**
-> kotlin.Any tiktokGetFollowersDeprecated(username, region, count)
+<a id="tiktokGetFollowers"></a>
+# **tiktokGetFollowers**
+> kotlin.Any tiktokGetFollowers(username, region, count, cursor)
 
-Get followers (deprecated)
+Get followers
 
-DEPRECATED — TikTok followers require an authenticated account session. Returns HTTP 410.
+Get publicly visible followers without an account.
 
 ### Example
 ```kotlin
@@ -285,14 +285,15 @@ val apiInstance = TikTokApi()
 val username : kotlin.String = username_example // kotlin.String | 
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
 try {
-    val result : kotlin.Any = apiInstance.tiktokGetFollowersDeprecated(username, region, count)
+    val result : kotlin.Any = apiInstance.tiktokGetFollowers(username, region, count, cursor)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling TikTokApi#tiktokGetFollowersDeprecated")
+    println("4xx response calling TikTokApi#tiktokGetFollowers")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling TikTokApi#tiktokGetFollowersDeprecated")
+    println("5xx response calling TikTokApi#tiktokGetFollowers")
     e.printStackTrace()
 }
 ```
@@ -300,9 +301,10 @@ try {
 ### Parameters
 | **username** | **kotlin.String**|  | |
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
+| **count** | **kotlin.Int**|  | [optional] [default to 30] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **count** | **kotlin.Int**|  | [optional] [default to 30] |
+| **cursor** | **kotlin.String**| Continuation cursor from the previous page | [optional] |
 
 ### Return type
 
@@ -320,13 +322,13 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="tiktokGetFollowingDeprecated"></a>
-# **tiktokGetFollowingDeprecated**
-> kotlin.Any tiktokGetFollowingDeprecated(username, region, count)
+<a id="tiktokGetFollowing"></a>
+# **tiktokGetFollowing**
+> kotlin.Any tiktokGetFollowing(username, region, count, cursor)
 
-Get following (deprecated)
+Get following
 
-DEPRECATED — TikTok following requires an authenticated account session. Returns HTTP 410.
+Get publicly visible followed accounts. Hidden lists return HTTP 403.
 
 ### Example
 ```kotlin
@@ -338,14 +340,15 @@ val apiInstance = TikTokApi()
 val username : kotlin.String = username_example // kotlin.String | 
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
 try {
-    val result : kotlin.Any = apiInstance.tiktokGetFollowingDeprecated(username, region, count)
+    val result : kotlin.Any = apiInstance.tiktokGetFollowing(username, region, count, cursor)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling TikTokApi#tiktokGetFollowingDeprecated")
+    println("4xx response calling TikTokApi#tiktokGetFollowing")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling TikTokApi#tiktokGetFollowingDeprecated")
+    println("5xx response calling TikTokApi#tiktokGetFollowing")
     e.printStackTrace()
 }
 ```
@@ -353,9 +356,10 @@ try {
 ### Parameters
 | **username** | **kotlin.String**|  | |
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
+| **count** | **kotlin.Int**|  | [optional] [default to 30] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **count** | **kotlin.Int**|  | [optional] [default to 30] |
+| **cursor** | **kotlin.String**| Continuation cursor from the previous page | [optional] |
 
 ### Return type
 
@@ -479,13 +483,13 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="tiktokGetLikedVideosDeprecated"></a>
-# **tiktokGetLikedVideosDeprecated**
-> kotlin.Any tiktokGetLikedVideosDeprecated(username, region, count)
+<a id="tiktokGetLikedVideos"></a>
+# **tiktokGetLikedVideos**
+> kotlin.Any tiktokGetLikedVideos(username, region, count, cursor)
 
-Get liked videos (deprecated)
+Get liked videos
 
-DEPRECATED — TikTok liked videos require an authenticated account session. Returns HTTP 410.
+Get public liked videos. Hidden liked lists return HTTP 403.
 
 ### Example
 ```kotlin
@@ -497,14 +501,15 @@ val apiInstance = TikTokApi()
 val username : kotlin.String = username_example // kotlin.String | 
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
 try {
-    val result : kotlin.Any = apiInstance.tiktokGetLikedVideosDeprecated(username, region, count)
+    val result : kotlin.Any = apiInstance.tiktokGetLikedVideos(username, region, count, cursor)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling TikTokApi#tiktokGetLikedVideosDeprecated")
+    println("4xx response calling TikTokApi#tiktokGetLikedVideos")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling TikTokApi#tiktokGetLikedVideosDeprecated")
+    println("5xx response calling TikTokApi#tiktokGetLikedVideos")
     e.printStackTrace()
 }
 ```
@@ -512,9 +517,10 @@ try {
 ### Parameters
 | **username** | **kotlin.String**|  | |
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
+| **count** | **kotlin.Int**|  | [optional] [default to 30] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **count** | **kotlin.Int**|  | [optional] [default to 30] |
+| **cursor** | **kotlin.String**| Continuation cursor from the previous page | [optional] |
 
 ### Return type
 
@@ -691,7 +697,7 @@ Configure ApiKeyAuth:
 
 <a id="tiktokGetRelatedVideos"></a>
 # **tiktokGetRelatedVideos**
-> kotlin.Any tiktokGetRelatedVideos(videoId, region, count)
+> kotlin.Any tiktokGetRelatedVideos(videoId, region, count, cursor)
 
 Get related videos
 
@@ -707,8 +713,9 @@ val apiInstance = TikTokApi()
 val videoId : kotlin.String = videoId_example // kotlin.String | 
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
 try {
-    val result : kotlin.Any = apiInstance.tiktokGetRelatedVideos(videoId, region, count)
+    val result : kotlin.Any = apiInstance.tiktokGetRelatedVideos(videoId, region, count, cursor)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TikTokApi#tiktokGetRelatedVideos")
@@ -722,9 +729,10 @@ try {
 ### Parameters
 | **videoId** | **kotlin.String**|  | |
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
+| **count** | **kotlin.Int**|  | [optional] [default to 16] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **count** | **kotlin.Int**|  | [optional] [default to 16] |
+| **cursor** | **kotlin.String**| Continuation cursor from the previous page | [optional] |
 
 ### Return type
 
@@ -744,7 +752,7 @@ Configure ApiKeyAuth:
 
 <a id="tiktokGetReposts"></a>
 # **tiktokGetReposts**
-> kotlin.Any tiktokGetReposts(username, region, count)
+> kotlin.Any tiktokGetReposts(username, region, count, cursor)
 
 Get reposts
 
@@ -760,8 +768,9 @@ val apiInstance = TikTokApi()
 val username : kotlin.String = username_example // kotlin.String | 
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
 try {
-    val result : kotlin.Any = apiInstance.tiktokGetReposts(username, region, count)
+    val result : kotlin.Any = apiInstance.tiktokGetReposts(username, region, count, cursor)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TikTokApi#tiktokGetReposts")
@@ -775,9 +784,10 @@ try {
 ### Parameters
 | **username** | **kotlin.String**|  | |
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
+| **count** | **kotlin.Int**|  | [optional] [default to 30] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **count** | **kotlin.Int**|  | [optional] [default to 30] |
+| **cursor** | **kotlin.String**| Continuation cursor from the previous page | [optional] |
 
 ### Return type
 
@@ -966,7 +976,7 @@ val apiInstance = TikTokApi()
 val username : kotlin.String = username_example // kotlin.String | 
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
-val cursor : kotlin.String = cursor_example // kotlin.String | Pagination cursor from a prior page's `pagination.cursor` (signer path only).
+val cursor : kotlin.String = cursor_example // kotlin.String | Pagination cursor from a prior page's `pagination.cursor` (opaque; expires after 15 minutes).
 try {
     val result : kotlin.Any = apiInstance.tiktokGetUserVideos(username, region, count, cursor)
     println(result)
@@ -985,7 +995,7 @@ try {
 | **count** | **kotlin.Int**|  | [optional] [default to 30] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **cursor** | **kotlin.String**| Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (signer path only). | [optional] |
+| **cursor** | **kotlin.String**| Pagination cursor from a prior page&#39;s &#x60;pagination.cursor&#x60; (opaque; expires after 15 minutes). | [optional] |
 
 ### Return type
 
@@ -1212,7 +1222,7 @@ val apiInstance = TikTokApi()
 val query : kotlin.String = query_example // kotlin.String | Search keyword
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
-val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
 try {
     val result : kotlin.Any = apiInstance.tiktokSearchHashtags(query, region, count, cursor)
     println(result)
@@ -1231,7 +1241,7 @@ try {
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **cursor** | **kotlin.String**| Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor | [optional] |
+| **cursor** | **kotlin.String**| Opaque continuation cursor from a prior page&#39;s pagination.cursor | [optional] |
 
 ### Return type
 
@@ -1438,7 +1448,7 @@ val apiInstance = TikTokApi()
 val query : kotlin.String = query_example // kotlin.String | Search keyword
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
-val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
 try {
     val result : kotlin.Any = apiInstance.tiktokSearchUsers(query, region, count, cursor)
     println(result)
@@ -1457,7 +1467,7 @@ try {
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **cursor** | **kotlin.String**| Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor | [optional] |
+| **cursor** | **kotlin.String**| Opaque continuation cursor from a prior page&#39;s pagination.cursor | [optional] |
 
 ### Return type
 
@@ -1493,7 +1503,7 @@ val apiInstance = TikTokApi()
 val query : kotlin.String = query_example // kotlin.String | Search keyword
 val region : kotlin.String = region_example // kotlin.String | 
 val count : kotlin.Int = 56 // kotlin.Int | 
-val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
 try {
     val result : kotlin.Any = apiInstance.tiktokSearchVideos(query, region, count, cursor)
     println(result)
@@ -1512,7 +1522,7 @@ try {
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **cursor** | **kotlin.String**| Composite pagination cursor (offset.search_id) from a prior page&#39;s pagination.cursor | [optional] |
+| **cursor** | **kotlin.String**| Opaque continuation cursor from a prior page&#39;s pagination.cursor | [optional] |
 
 ### Return type
 
@@ -1980,7 +1990,7 @@ Get trending hashtags (mobile Discover surface — view_count + creators).
 
 val apiInstance = TikTokApi()
 val region : kotlin.String = region_example // kotlin.String | 
-val period : kotlin.Int = 56 // kotlin.Int | 
+val period : kotlin.Int = 56 // kotlin.Int | Historical windows are unavailable; omit period
 val count : kotlin.Int = 56 // kotlin.Int | 
 try {
     val result : kotlin.Any = apiInstance.tiktokTrendingHashtags(region, period, count)
@@ -1996,7 +2006,7 @@ try {
 
 ### Parameters
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
-| **period** | **kotlin.Int**|  | [optional] [default to 7] |
+| **period** | **kotlin.Int**| Historical windows are unavailable; omit period | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |
@@ -2033,7 +2043,7 @@ Get trending songs/sounds (mobile hot-music feed — ranked by usage).
 
 val apiInstance = TikTokApi()
 val region : kotlin.String = region_example // kotlin.String | 
-val period : kotlin.Int = 56 // kotlin.Int | 
+val period : kotlin.Int = 56 // kotlin.Int | Historical windows are unavailable; omit period
 val count : kotlin.Int = 56 // kotlin.Int | 
 try {
     val result : kotlin.Any = apiInstance.tiktokTrendingSongs(region, period, count)
@@ -2049,7 +2059,7 @@ try {
 
 ### Parameters
 | **region** | **kotlin.String**|  | [optional] [default to &quot;US&quot;] |
-| **period** | **kotlin.Int**|  | [optional] [default to 7] |
+| **period** | **kotlin.Int**| Historical windows are unavailable; omit period | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **count** | **kotlin.Int**|  | [optional] [default to 20] |

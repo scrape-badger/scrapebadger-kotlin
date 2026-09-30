@@ -182,9 +182,9 @@ class GoogleApiTest : ShouldSpec() {
             //val language : kotlin.String = language_example // kotlin.String | Language code (alias for hl)
             //val gl : kotlin.String = gl_example // kotlin.String | Country code
             //val hl : kotlin.String = hl_example // kotlin.String | Language code
-            //val product : kotlin.Boolean = true // kotlin.Boolean | Bias towards shoppable product matches
-            //val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Include the visual-matches carousel
-            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | Restrict to exact-match results
+            //val product : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
+            //val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Always true in practice — `false` is reported back in `warnings`
+            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
             //val result : kotlin.Any = apiInstance.googleGoogleLensVisualSearch(url, query, country, language, gl, hl, product, visualMatches, exactMatches)
             //result shouldBe ("TODO")
         }

@@ -43,7 +43,7 @@ class TikTokApiTest : ShouldSpec() {
             //val query : kotlin.String = query_example // kotlin.String | Search keyword
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
             //val result : kotlin.Any = apiInstance.tiktokGeneralSearch(query, region, count, cursor)
             //result shouldBe ("TODO")
         }
@@ -71,23 +71,25 @@ class TikTokApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
-        // to test tiktokGetFollowersDeprecated
-        should("test tiktokGetFollowersDeprecated") {
-            // uncomment below to test tiktokGetFollowersDeprecated
+        // to test tiktokGetFollowers
+        should("test tiktokGetFollowers") {
+            // uncomment below to test tiktokGetFollowers
             //val username : kotlin.String = username_example // kotlin.String | 
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.tiktokGetFollowersDeprecated(username, region, count)
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
+            //val result : kotlin.Any = apiInstance.tiktokGetFollowers(username, region, count, cursor)
             //result shouldBe ("TODO")
         }
 
-        // to test tiktokGetFollowingDeprecated
-        should("test tiktokGetFollowingDeprecated") {
-            // uncomment below to test tiktokGetFollowingDeprecated
+        // to test tiktokGetFollowing
+        should("test tiktokGetFollowing") {
+            // uncomment below to test tiktokGetFollowing
             //val username : kotlin.String = username_example // kotlin.String | 
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.tiktokGetFollowingDeprecated(username, region, count)
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
+            //val result : kotlin.Any = apiInstance.tiktokGetFollowing(username, region, count, cursor)
             //result shouldBe ("TODO")
         }
 
@@ -111,13 +113,14 @@ class TikTokApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
-        // to test tiktokGetLikedVideosDeprecated
-        should("test tiktokGetLikedVideosDeprecated") {
-            // uncomment below to test tiktokGetLikedVideosDeprecated
+        // to test tiktokGetLikedVideos
+        should("test tiktokGetLikedVideos") {
+            // uncomment below to test tiktokGetLikedVideos
             //val username : kotlin.String = username_example // kotlin.String | 
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.tiktokGetLikedVideosDeprecated(username, region, count)
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
+            //val result : kotlin.Any = apiInstance.tiktokGetLikedVideos(username, region, count, cursor)
             //result shouldBe ("TODO")
         }
 
@@ -156,7 +159,8 @@ class TikTokApiTest : ShouldSpec() {
             //val videoId : kotlin.String = videoId_example // kotlin.String | 
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.tiktokGetRelatedVideos(videoId, region, count)
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
+            //val result : kotlin.Any = apiInstance.tiktokGetRelatedVideos(videoId, region, count, cursor)
             //result shouldBe ("TODO")
         }
 
@@ -166,7 +170,8 @@ class TikTokApiTest : ShouldSpec() {
             //val username : kotlin.String = username_example // kotlin.String | 
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.tiktokGetReposts(username, region, count)
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Continuation cursor from the previous page
+            //val result : kotlin.Any = apiInstance.tiktokGetReposts(username, region, count, cursor)
             //result shouldBe ("TODO")
         }
 
@@ -203,7 +208,7 @@ class TikTokApiTest : ShouldSpec() {
             //val username : kotlin.String = username_example // kotlin.String | 
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val cursor : kotlin.String = cursor_example // kotlin.String | Pagination cursor from a prior page's `pagination.cursor` (signer path only).
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Pagination cursor from a prior page's `pagination.cursor` (opaque; expires after 15 minutes).
             //val result : kotlin.Any = apiInstance.tiktokGetUserVideos(username, region, count, cursor)
             //result shouldBe ("TODO")
         }
@@ -245,7 +250,7 @@ class TikTokApiTest : ShouldSpec() {
             //val query : kotlin.String = query_example // kotlin.String | Search keyword
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
             //val result : kotlin.Any = apiInstance.tiktokSearchHashtags(query, region, count, cursor)
             //result shouldBe ("TODO")
         }
@@ -292,7 +297,7 @@ class TikTokApiTest : ShouldSpec() {
             //val query : kotlin.String = query_example // kotlin.String | Search keyword
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
             //val result : kotlin.Any = apiInstance.tiktokSearchUsers(query, region, count, cursor)
             //result shouldBe ("TODO")
         }
@@ -303,7 +308,7 @@ class TikTokApiTest : ShouldSpec() {
             //val query : kotlin.String = query_example // kotlin.String | Search keyword
             //val region : kotlin.String = region_example // kotlin.String | 
             //val count : kotlin.Int = 56 // kotlin.Int | 
-            //val cursor : kotlin.String = cursor_example // kotlin.String | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor
+            //val cursor : kotlin.String = cursor_example // kotlin.String | Opaque continuation cursor from a prior page's pagination.cursor
             //val result : kotlin.Any = apiInstance.tiktokSearchVideos(query, region, count, cursor)
             //result shouldBe ("TODO")
         }
@@ -397,7 +402,7 @@ class TikTokApiTest : ShouldSpec() {
         should("test tiktokTrendingHashtags") {
             // uncomment below to test tiktokTrendingHashtags
             //val region : kotlin.String = region_example // kotlin.String | 
-            //val period : kotlin.Int = 56 // kotlin.Int | 
+            //val period : kotlin.Int = 56 // kotlin.Int | Historical windows are unavailable; omit period
             //val count : kotlin.Int = 56 // kotlin.Int | 
             //val result : kotlin.Any = apiInstance.tiktokTrendingHashtags(region, period, count)
             //result shouldBe ("TODO")
@@ -407,7 +412,7 @@ class TikTokApiTest : ShouldSpec() {
         should("test tiktokTrendingSongs") {
             // uncomment below to test tiktokTrendingSongs
             //val region : kotlin.String = region_example // kotlin.String | 
-            //val period : kotlin.Int = 56 // kotlin.Int | 
+            //val period : kotlin.Int = 56 // kotlin.Int | Historical windows are unavailable; omit period
             //val count : kotlin.Int = 56 // kotlin.Int | 
             //val result : kotlin.Any = apiInstance.tiktokTrendingSongs(region, period, count)
             //result shouldBe ("TODO")
