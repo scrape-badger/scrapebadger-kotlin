@@ -184,7 +184,7 @@ class GoogleApiTest : ShouldSpec() {
             //val hl : kotlin.String = hl_example // kotlin.String | Language code
             //val product : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
             //val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Always true in practice — `false` is reported back in `warnings`
-            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
+            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | Return the pages hosting this image, flagged `exact_match`
             //val result : kotlin.Any = apiInstance.googleGoogleLensVisualSearch(url, query, country, language, gl, hl, product, visualMatches, exactMatches)
             //result shouldBe ("TODO")
         }
