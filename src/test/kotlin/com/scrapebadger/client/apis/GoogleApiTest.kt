@@ -184,7 +184,7 @@ class GoogleApiTest : ShouldSpec() {
             //val hl : kotlin.String = hl_example // kotlin.String | Language code
             //val product : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
             //val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Always true in practice — `false` is reported back in `warnings`
-            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | EXPERIMENTAL and off by default: when Google's source set is available this returns only the pages hosting the image, each flagged exact_match; it is frequently unavailable, and every request that falls back says so in warnings
+            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | Return only the pages hosting this image, flagged exact_match. Available for most images (7/10 in sampling); falls back to the full grid otherwise, saying so in warnings
             //val result : kotlin.Any = apiInstance.googleGoogleLensVisualSearch(url, query, country, language, gl, hl, product, visualMatches, exactMatches)
             //result shouldBe ("TODO")
         }
