@@ -182,9 +182,9 @@ class GoogleApiTest : ShouldSpec() {
             //val language : kotlin.String = language_example // kotlin.String | Language code (alias for hl)
             //val gl : kotlin.String = gl_example // kotlin.String | Country code
             //val hl : kotlin.String = hl_example // kotlin.String | Language code
-            //val product : kotlin.Boolean = true // kotlin.Boolean | NOT YET SUPPORTED — accepted, and reported back in `warnings`
+            //val product : kotlin.Boolean = true // kotlin.Boolean | Only the tiles Google marked buyable (price + stock), drawn from the same grid
             //val visualMatches : kotlin.Boolean = true // kotlin.Boolean | Always true in practice — `false` is reported back in `warnings`
-            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | Return only the pages hosting this image, flagged exact_match. Available for most images (7/10 in sampling); falls back to the full grid otherwise, saying so in warnings
+            //val exactMatches : kotlin.Boolean = true // kotlin.Boolean | Return only the pages hosting this image, flagged exact_match. Available for most images (8/10 in sampling); falls back to the full grid otherwise, saying so in warnings
             //val result : kotlin.Any = apiInstance.googleGoogleLensVisualSearch(url, query, country, language, gl, hl, product, visualMatches, exactMatches)
             //result shouldBe ("TODO")
         }
