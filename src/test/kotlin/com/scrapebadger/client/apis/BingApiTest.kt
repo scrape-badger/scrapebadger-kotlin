@@ -93,8 +93,8 @@ class BingApiTest : ShouldSpec() {
             // uncomment below to test bingWebSearch
             //val query : kotlin.String = query_example // kotlin.String | Search keywords, e.g. 'coffee machine'
             //val market : kotlin.String = market_example // kotlin.String | Bing market code, e.g. 'en-US', 'en-GB', 'de-DE'. See /markets.
-            //val count : kotlin.Int = 56 // kotlin.Int | Results per page (1-50)
-            //val offset : kotlin.Int = 56 // kotlin.Int | Zero-based result offset for pagination
+            //val count : kotlin.Int = 56 // kotlin.Int | Organic results to return (1-50), merged from Bing's following pages when one page is short. May return fewer.
+            //val offset : kotlin.Int = 56 // kotlin.Int | Organic results to skip in Bing's ranking. Paginate with offset += count.
             //val safeSearch : kotlin.String = safeSearch_example // kotlin.String | off | moderate | strict (default moderate)
             //val result : kotlin.Any = apiInstance.bingWebSearch(query, market, count, offset, safeSearch)
             //result shouldBe ("TODO")

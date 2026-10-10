@@ -383,8 +383,8 @@ Bing web SERP — organic results, ads, related searches and total count.
 val apiInstance = BingApi()
 val query : kotlin.String = query_example // kotlin.String | Search keywords, e.g. 'coffee machine'
 val market : kotlin.String = market_example // kotlin.String | Bing market code, e.g. 'en-US', 'en-GB', 'de-DE'. See /markets.
-val count : kotlin.Int = 56 // kotlin.Int | Results per page (1-50)
-val offset : kotlin.Int = 56 // kotlin.Int | Zero-based result offset for pagination
+val count : kotlin.Int = 56 // kotlin.Int | Organic results to return (1-50), merged from Bing's following pages when one page is short. May return fewer.
+val offset : kotlin.Int = 56 // kotlin.Int | Organic results to skip in Bing's ranking. Paginate with offset += count.
 val safeSearch : kotlin.String = safeSearch_example // kotlin.String | off | moderate | strict (default moderate)
 try {
     val result : kotlin.Any = apiInstance.bingWebSearch(query, market, count, offset, safeSearch)
@@ -401,8 +401,8 @@ try {
 ### Parameters
 | **query** | **kotlin.String**| Search keywords, e.g. &#39;coffee machine&#39; | |
 | **market** | **kotlin.String**| Bing market code, e.g. &#39;en-US&#39;, &#39;en-GB&#39;, &#39;de-DE&#39;. See /markets. | [optional] [default to &quot;en-US&quot;] |
-| **count** | **kotlin.Int**| Results per page (1-50) | [optional] [default to 10] |
-| **offset** | **kotlin.Int**| Zero-based result offset for pagination | [optional] [default to 0] |
+| **count** | **kotlin.Int**| Organic results to return (1-50), merged from Bing&#39;s following pages when one page is short. May return fewer. | [optional] [default to 10] |
+| **offset** | **kotlin.Int**| Organic results to skip in Bing&#39;s ranking. Paginate with offset +&#x3D; count. | [optional] [default to 0] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **safeSearch** | **kotlin.String**| off | moderate | strict (default moderate) | [optional] |

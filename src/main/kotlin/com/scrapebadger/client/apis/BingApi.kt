@@ -604,8 +604,8 @@ class BingApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Bing web SERP — organic results, ads, related searches and total count.
      * @param query Search keywords, e.g. &#39;coffee machine&#39;
      * @param market Bing market code, e.g. &#39;en-US&#39;, &#39;en-GB&#39;, &#39;de-DE&#39;. See /markets. (optional, default to "en-US")
-     * @param count Results per page (1-50) (optional, default to 10)
-     * @param offset Zero-based result offset for pagination (optional, default to 0)
+     * @param count Organic results to return (1-50), merged from Bing&#39;s following pages when one page is short. May return fewer. (optional, default to 10)
+     * @param offset Organic results to skip in Bing&#39;s ranking. Paginate with offset +&#x3D; count. (optional, default to 0)
      * @param safeSearch off | moderate | strict (default moderate) (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -639,8 +639,8 @@ class BingApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Bing web SERP — organic results, ads, related searches and total count.
      * @param query Search keywords, e.g. &#39;coffee machine&#39;
      * @param market Bing market code, e.g. &#39;en-US&#39;, &#39;en-GB&#39;, &#39;de-DE&#39;. See /markets. (optional, default to "en-US")
-     * @param count Results per page (1-50) (optional, default to 10)
-     * @param offset Zero-based result offset for pagination (optional, default to 0)
+     * @param count Organic results to return (1-50), merged from Bing&#39;s following pages when one page is short. May return fewer. (optional, default to 10)
+     * @param offset Organic results to skip in Bing&#39;s ranking. Paginate with offset +&#x3D; count. (optional, default to 0)
      * @param safeSearch off | moderate | strict (default moderate) (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -661,8 +661,8 @@ class BingApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      *
      * @param query Search keywords, e.g. &#39;coffee machine&#39;
      * @param market Bing market code, e.g. &#39;en-US&#39;, &#39;en-GB&#39;, &#39;de-DE&#39;. See /markets. (optional, default to "en-US")
-     * @param count Results per page (1-50) (optional, default to 10)
-     * @param offset Zero-based result offset for pagination (optional, default to 0)
+     * @param count Organic results to return (1-50), merged from Bing&#39;s following pages when one page is short. May return fewer. (optional, default to 10)
+     * @param offset Organic results to skip in Bing&#39;s ranking. Paginate with offset +&#x3D; count. (optional, default to 0)
      * @param safeSearch off | moderate | strict (default moderate) (optional)
      * @return RequestConfig
      */
