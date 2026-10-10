@@ -522,10 +522,8 @@ All URIs are relative to *https://scrapebadger.com*
 | *WalmartApi* | [**walmartWalmartScraperHealthCheckHead**](docs/WalmartApi.md#walmartwalmartscraperhealthcheckhead) | **HEAD** /v1/walmart/health | Walmart scraper health check |
 | *WebApi* | [**webDetectAntiBotAndCaptchaSystems**](docs/WebApi.md#webdetectantibotandcaptchasystems) | **POST** /v1/web/detect | Detect anti-bot and CAPTCHA systems |
 | *WebApi* | [**webExtractStructuredData**](docs/WebApi.md#webextractstructureddata) | **POST** /v1/web/extract | Extract structured data |
-| *WebApi* | [**webGetBatchJobStatus**](docs/WebApi.md#webgetbatchjobstatus) | **GET** /v1/web/batch/{job_id} | Get batch job status |
 | *WebApi* | [**webPollAnAutoUnblockDiscoveryJob**](docs/WebApi.md#webpollanautounblockdiscoveryjob) | **GET** /v1/web/unblock/{job_id} | Poll an auto-unblock discovery job |
 | *WebApi* | [**webScrapeAUrl**](docs/WebApi.md#webscrapeaurl) | **POST** /v1/web/scrape | Scrape a URL |
-| *WebApi* | [**webSubmitBatchScrapingJob**](docs/WebApi.md#websubmitbatchscrapingjob) | **POST** /v1/web/batch | Submit batch scraping job |
 | *WebApi* | [**webTakeAScreenshot**](docs/WebApi.md#webtakeascreenshot) | **POST** /v1/web/screenshot | Take a screenshot |
 | *WebApi* | [**webWebScraperHealthCheck**](docs/WebApi.md#webwebscraperhealthcheck) | **GET** /v1/web/health | Web scraper health check |
 | *WebApi* | [**webWebScraperHealthCheckHead**](docs/WebApi.md#webwebscraperhealthcheckhead) | **HEAD** /v1/web/health | Web scraper health check |
@@ -602,6 +600,9 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.BillingLogResponse](docs/BillingLogResponse.md)
  - [com.scrapebadger.client.models.BrandsResponse](docs/BrandsResponse.md)
  - [com.scrapebadger.client.models.ColorsResponse](docs/ColorsResponse.md)
+ - [com.scrapebadger.client.models.ExtractRequest](docs/ExtractRequest.md)
+ - [com.scrapebadger.client.models.ExtractRequestExtractRulesValue](docs/ExtractRequestExtractRulesValue.md)
+ - [com.scrapebadger.client.models.ExtractRule](docs/ExtractRule.md)
  - [com.scrapebadger.client.models.FilterRuleCreate](docs/FilterRuleCreate.md)
  - [com.scrapebadger.client.models.FilterRuleDeliveryLogListResponse](docs/FilterRuleDeliveryLogListResponse.md)
  - [com.scrapebadger.client.models.FilterRuleDeliveryLogResponse](docs/FilterRuleDeliveryLogResponse.md)
@@ -614,6 +615,7 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.ItemDetailResponse](docs/ItemDetailResponse.md)
  - [com.scrapebadger.client.models.MarketsResponse](docs/MarketsResponse.md)
  - [com.scrapebadger.client.models.PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse](docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md)
+ - [com.scrapebadger.client.models.ScreenshotRequest](docs/ScreenshotRequest.md)
  - [com.scrapebadger.client.models.SearchResponse](docs/SearchResponse.md)
  - [com.scrapebadger.client.models.StatusesResponse](docs/StatusesResponse.md)
  - [com.scrapebadger.client.models.StreamMonitorCreate](docs/StreamMonitorCreate.md)

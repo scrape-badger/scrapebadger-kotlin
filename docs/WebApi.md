@@ -6,10 +6,8 @@ All URIs are relative to *https://scrapebadger.com*
 | ------------- | ------------- | ------------- |
 | [**webDetectAntiBotAndCaptchaSystems**](WebApi.md#webDetectAntiBotAndCaptchaSystems) | **POST** /v1/web/detect | Detect anti-bot and CAPTCHA systems |
 | [**webExtractStructuredData**](WebApi.md#webExtractStructuredData) | **POST** /v1/web/extract | Extract structured data |
-| [**webGetBatchJobStatus**](WebApi.md#webGetBatchJobStatus) | **GET** /v1/web/batch/{job_id} | Get batch job status |
 | [**webPollAnAutoUnblockDiscoveryJob**](WebApi.md#webPollAnAutoUnblockDiscoveryJob) | **GET** /v1/web/unblock/{job_id} | Poll an auto-unblock discovery job |
 | [**webScrapeAUrl**](WebApi.md#webScrapeAUrl) | **POST** /v1/web/scrape | Scrape a URL |
-| [**webSubmitBatchScrapingJob**](WebApi.md#webSubmitBatchScrapingJob) | **POST** /v1/web/batch | Submit batch scraping job |
 | [**webTakeAScreenshot**](WebApi.md#webTakeAScreenshot) | **POST** /v1/web/screenshot | Take a screenshot |
 | [**webWebScraperHealthCheck**](WebApi.md#webWebScraperHealthCheck) | **GET** /v1/web/health | Web scraper health check |
 | [**webWebScraperHealthCheckHead**](WebApi.md#webWebScraperHealthCheckHead) | **HEAD** /v1/web/health | Web scraper health check |
@@ -63,11 +61,11 @@ Configure ApiKeyAuth:
 
 <a id="webExtractStructuredData"></a>
 # **webExtractStructuredData**
-> kotlin.Any webExtractStructuredData()
+> kotlin.Any webExtractStructuredData(extractRequest)
 
 Extract structured data
 
-Extract structured data from a URL using CSS or XPath selectors. (Phase 6)
+Scrape a URL and extract fields with CSS/XPath selectors and/or AI.  &#x60;&#x60;extract_rules&#x60;&#x60; maps a field to a selector and returns &#x60;&#x60;data&#x60;&#x60;; &#x60;&#x60;ai_extract_rules&#x60;&#x60; (field -&gt; description) and &#x60;&#x60;ai_query&#x60;&#x60; return &#x60;&#x60;ai_extraction&#x60;&#x60;. Billed as a scrape, plus the AI extraction credits when AI is asked for and succeeds.
 
 ### Example
 ```kotlin
@@ -76,8 +74,9 @@ Extract structured data from a URL using CSS or XPath selectors. (Phase 6)
 //import com.scrapebadger.client.models.*
 
 val apiInstance = WebApi()
+val extractRequest : ExtractRequest =  // ExtractRequest | 
 try {
-    val result : kotlin.Any = apiInstance.webExtractStructuredData()
+    val result : kotlin.Any = apiInstance.webExtractStructuredData(extractRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WebApi#webExtractStructuredData")
@@ -89,56 +88,9 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**kotlin.Any**](kotlin.Any.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["X-API-Key"] = ""
-    ApiClient.apiKeyPrefix["X-API-Key"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a id="webGetBatchJobStatus"></a>
-# **webGetBatchJobStatus**
-> kotlin.Any webGetBatchJobStatus(jobId)
-
-Get batch job status
-
-Get the status of a batch scraping job. (Phase 6)
-
-### Example
-```kotlin
-// Import classes:
-//import com.scrapebadger.client.infrastructure.*
-//import com.scrapebadger.client.models.*
-
-val apiInstance = WebApi()
-val jobId : kotlin.String = jobId_example // kotlin.String | 
-try {
-    val result : kotlin.Any = apiInstance.webGetBatchJobStatus(jobId)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling WebApi#webGetBatchJobStatus")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling WebApi#webGetBatchJobStatus")
-    e.printStackTrace()
-}
-```
-
-### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **jobId** | **kotlin.String**|  | |
+| **extractRequest** | [**ExtractRequest**](ExtractRequest.md)|  | |
 
 ### Return type
 
@@ -153,7 +105,7 @@ Configure ApiKeyAuth:
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a id="webPollAnAutoUnblockDiscoveryJob"></a>
@@ -251,59 +203,13 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="webSubmitBatchScrapingJob"></a>
-# **webSubmitBatchScrapingJob**
-> kotlin.Any webSubmitBatchScrapingJob()
-
-Submit batch scraping job
-
-Submit a batch of URLs for scraping. (Phase 6)
-
-### Example
-```kotlin
-// Import classes:
-//import com.scrapebadger.client.infrastructure.*
-//import com.scrapebadger.client.models.*
-
-val apiInstance = WebApi()
-try {
-    val result : kotlin.Any = apiInstance.webSubmitBatchScrapingJob()
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling WebApi#webSubmitBatchScrapingJob")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling WebApi#webSubmitBatchScrapingJob")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**kotlin.Any**](kotlin.Any.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["X-API-Key"] = ""
-    ApiClient.apiKeyPrefix["X-API-Key"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a id="webTakeAScreenshot"></a>
 # **webTakeAScreenshot**
-> kotlin.Any webTakeAScreenshot()
+> kotlin.Any webTakeAScreenshot(screenshotRequest)
 
 Take a screenshot
 
-Take a screenshot of a URL. (browser engine)
+Render a URL in the browser engine and return a PNG screenshot.  &#x60;&#x60;screenshot&#x60;&#x60; is the PNG, base64-encoded. &#x60;&#x60;width&#x60;&#x60;/&#x60;&#x60;height&#x60;&#x60; set the viewport; &#x60;&#x60;full_page&#x60;&#x60; captures the whole scrollable page. Billed as a browser scrape (plus the proxy tier); a page that loads without a screenshot is a 502 and costs nothing.
 
 ### Example
 ```kotlin
@@ -312,8 +218,9 @@ Take a screenshot of a URL. (browser engine)
 //import com.scrapebadger.client.models.*
 
 val apiInstance = WebApi()
+val screenshotRequest : ScreenshotRequest =  // ScreenshotRequest | 
 try {
-    val result : kotlin.Any = apiInstance.webTakeAScreenshot()
+    val result : kotlin.Any = apiInstance.webTakeAScreenshot(screenshotRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WebApi#webTakeAScreenshot")
@@ -325,7 +232,9 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **screenshotRequest** | [**ScreenshotRequest**](ScreenshotRequest.md)|  | |
 
 ### Return type
 
@@ -340,7 +249,7 @@ Configure ApiKeyAuth:
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a id="webWebScraperHealthCheck"></a>

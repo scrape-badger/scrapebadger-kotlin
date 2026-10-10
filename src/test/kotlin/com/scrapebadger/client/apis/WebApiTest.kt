@@ -19,7 +19,9 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.WebApi
+import com.scrapebadger.client.models.ExtractRequest
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.ScreenshotRequest
 
 class WebApiTest : ShouldSpec() {
     init {
@@ -36,15 +38,8 @@ class WebApiTest : ShouldSpec() {
         // to test webExtractStructuredData
         should("test webExtractStructuredData") {
             // uncomment below to test webExtractStructuredData
-            //val result : kotlin.Any = apiInstance.webExtractStructuredData()
-            //result shouldBe ("TODO")
-        }
-
-        // to test webGetBatchJobStatus
-        should("test webGetBatchJobStatus") {
-            // uncomment below to test webGetBatchJobStatus
-            //val jobId : kotlin.String = jobId_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.webGetBatchJobStatus(jobId)
+            //val extractRequest : ExtractRequest =  // ExtractRequest | 
+            //val result : kotlin.Any = apiInstance.webExtractStructuredData(extractRequest)
             //result shouldBe ("TODO")
         }
 
@@ -63,17 +58,11 @@ class WebApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
-        // to test webSubmitBatchScrapingJob
-        should("test webSubmitBatchScrapingJob") {
-            // uncomment below to test webSubmitBatchScrapingJob
-            //val result : kotlin.Any = apiInstance.webSubmitBatchScrapingJob()
-            //result shouldBe ("TODO")
-        }
-
         // to test webTakeAScreenshot
         should("test webTakeAScreenshot") {
             // uncomment below to test webTakeAScreenshot
-            //val result : kotlin.Any = apiInstance.webTakeAScreenshot()
+            //val screenshotRequest : ScreenshotRequest =  // ScreenshotRequest | 
+            //val result : kotlin.Any = apiInstance.webTakeAScreenshot(screenshotRequest)
             //result shouldBe ("TODO")
         }
 

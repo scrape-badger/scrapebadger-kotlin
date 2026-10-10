@@ -19,7 +19,9 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.ExtractRequest
 import com.scrapebadger.client.models.HTTPValidationError
+import com.scrapebadger.client.models.ScreenshotRequest
 
 import com.squareup.moshi.Json
 
@@ -115,7 +117,8 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
 
     /**
      * Extract structured data
-     * Extract structured data from a URL using CSS or XPath selectors. (Phase 6)
+     * Scrape a URL and extract fields with CSS/XPath selectors and/or AI.  &#x60;&#x60;extract_rules&#x60;&#x60; maps a field to a selector and returns &#x60;&#x60;data&#x60;&#x60;; &#x60;&#x60;ai_extract_rules&#x60;&#x60; (field -&gt; description) and &#x60;&#x60;ai_query&#x60;&#x60; return &#x60;&#x60;ai_extraction&#x60;&#x60;. Billed as a scrape, plus the AI extraction credits when AI is asked for and succeeds.
+     * @param extractRequest 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -125,8 +128,8 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun webExtractStructuredData() : kotlin.Any {
-        val localVarResponse = webExtractStructuredDataWithHttpInfo()
+    fun webExtractStructuredData(extractRequest: ExtractRequest) : kotlin.Any {
+        val localVarResponse = webExtractStructuredDataWithHttpInfo(extractRequest = extractRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -145,17 +148,18 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
 
     /**
      * Extract structured data
-     * Extract structured data from a URL using CSS or XPath selectors. (Phase 6)
+     * Scrape a URL and extract fields with CSS/XPath selectors and/or AI.  &#x60;&#x60;extract_rules&#x60;&#x60; maps a field to a selector and returns &#x60;&#x60;data&#x60;&#x60;; &#x60;&#x60;ai_extract_rules&#x60;&#x60; (field -&gt; description) and &#x60;&#x60;ai_query&#x60;&#x60; return &#x60;&#x60;ai_extraction&#x60;&#x60;. Billed as a scrape, plus the AI extraction credits when AI is asked for and succeeds.
+     * @param extractRequest 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun webExtractStructuredDataWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = webExtractStructuredDataRequestConfig()
+    fun webExtractStructuredDataWithHttpInfo(extractRequest: ExtractRequest) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = webExtractStructuredDataRequestConfig(extractRequest = extractRequest)
 
-        return request<Unit, kotlin.Any>(
+        return request<ExtractRequest, kotlin.Any>(
             localVariableConfig
         )
     }
@@ -163,88 +167,19 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
     /**
      * To obtain the request config of the operation webExtractStructuredData
      *
+     * @param extractRequest 
      * @return RequestConfig
      */
-    fun webExtractStructuredDataRequestConfig() : RequestConfig<Unit> {
-        val localVariableBody = null
+    fun webExtractStructuredDataRequestConfig(extractRequest: ExtractRequest) : RequestConfig<ExtractRequest> {
+        val localVariableBody = extractRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/web/extract",
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            requiresAuthentication = true,
-            body = localVariableBody
-        )
-    }
-
-    /**
-     * Get batch job status
-     * Get the status of a batch scraping job. (Phase 6)
-     * @param jobId 
-     * @return kotlin.Any
-     * @throws IllegalStateException If the request is not correctly configured
-     * @throws IOException Rethrows the OkHttp execute method exception
-     * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
-     * @throws ServerException If the API returns a server error response
-     */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun webGetBatchJobStatus(jobId: kotlin.String) : kotlin.Any {
-        val localVarResponse = webGetBatchJobStatusWithHttpInfo(jobId = jobId)
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-     * Get batch job status
-     * Get the status of a batch scraping job. (Phase 6)
-     * @param jobId 
-     * @return ApiResponse<kotlin.Any?>
-     * @throws IllegalStateException If the request is not correctly configured
-     * @throws IOException Rethrows the OkHttp execute method exception
-     */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class)
-    fun webGetBatchJobStatusWithHttpInfo(jobId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = webGetBatchJobStatusRequestConfig(jobId = jobId)
-
-        return request<Unit, kotlin.Any>(
-            localVariableConfig
-        )
-    }
-
-    /**
-     * To obtain the request config of the operation webGetBatchJobStatus
-     *
-     * @param jobId 
-     * @return RequestConfig
-     */
-    fun webGetBatchJobStatusRequestConfig(jobId: kotlin.String) : RequestConfig<Unit> {
-        val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Accept"] = "application/json"
-
-        return RequestConfig(
-            method = RequestMethod.GET,
-            path = "/v1/web/batch/{job_id}".replace("{"+"job_id"+"}", encodeURIComponent(jobId.toString())),
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,
@@ -392,76 +327,9 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
     }
 
     /**
-     * Submit batch scraping job
-     * Submit a batch of URLs for scraping. (Phase 6)
-     * @return kotlin.Any
-     * @throws IllegalStateException If the request is not correctly configured
-     * @throws IOException Rethrows the OkHttp execute method exception
-     * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
-     * @throws ServerException If the API returns a server error response
-     */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun webSubmitBatchScrapingJob() : kotlin.Any {
-        val localVarResponse = webSubmitBatchScrapingJobWithHttpInfo()
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-     * Submit batch scraping job
-     * Submit a batch of URLs for scraping. (Phase 6)
-     * @return ApiResponse<kotlin.Any?>
-     * @throws IllegalStateException If the request is not correctly configured
-     * @throws IOException Rethrows the OkHttp execute method exception
-     */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class)
-    fun webSubmitBatchScrapingJobWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = webSubmitBatchScrapingJobRequestConfig()
-
-        return request<Unit, kotlin.Any>(
-            localVariableConfig
-        )
-    }
-
-    /**
-     * To obtain the request config of the operation webSubmitBatchScrapingJob
-     *
-     * @return RequestConfig
-     */
-    fun webSubmitBatchScrapingJobRequestConfig() : RequestConfig<Unit> {
-        val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Accept"] = "application/json"
-
-        return RequestConfig(
-            method = RequestMethod.POST,
-            path = "/v1/web/batch",
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            requiresAuthentication = true,
-            body = localVariableBody
-        )
-    }
-
-    /**
      * Take a screenshot
-     * Take a screenshot of a URL. (browser engine)
+     * Render a URL in the browser engine and return a PNG screenshot.  &#x60;&#x60;screenshot&#x60;&#x60; is the PNG, base64-encoded. &#x60;&#x60;width&#x60;&#x60;/&#x60;&#x60;height&#x60;&#x60; set the viewport; &#x60;&#x60;full_page&#x60;&#x60; captures the whole scrollable page. Billed as a browser scrape (plus the proxy tier); a page that loads without a screenshot is a 502 and costs nothing.
+     * @param screenshotRequest 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -471,8 +339,8 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun webTakeAScreenshot() : kotlin.Any {
-        val localVarResponse = webTakeAScreenshotWithHttpInfo()
+    fun webTakeAScreenshot(screenshotRequest: ScreenshotRequest) : kotlin.Any {
+        val localVarResponse = webTakeAScreenshotWithHttpInfo(screenshotRequest = screenshotRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -491,17 +359,18 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
 
     /**
      * Take a screenshot
-     * Take a screenshot of a URL. (browser engine)
+     * Render a URL in the browser engine and return a PNG screenshot.  &#x60;&#x60;screenshot&#x60;&#x60; is the PNG, base64-encoded. &#x60;&#x60;width&#x60;&#x60;/&#x60;&#x60;height&#x60;&#x60; set the viewport; &#x60;&#x60;full_page&#x60;&#x60; captures the whole scrollable page. Billed as a browser scrape (plus the proxy tier); a page that loads without a screenshot is a 502 and costs nothing.
+     * @param screenshotRequest 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun webTakeAScreenshotWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = webTakeAScreenshotRequestConfig()
+    fun webTakeAScreenshotWithHttpInfo(screenshotRequest: ScreenshotRequest) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = webTakeAScreenshotRequestConfig(screenshotRequest = screenshotRequest)
 
-        return request<Unit, kotlin.Any>(
+        return request<ScreenshotRequest, kotlin.Any>(
             localVariableConfig
         )
     }
@@ -509,12 +378,14 @@ class WebApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = A
     /**
      * To obtain the request config of the operation webTakeAScreenshot
      *
+     * @param screenshotRequest 
      * @return RequestConfig
      */
-    fun webTakeAScreenshotRequestConfig() : RequestConfig<Unit> {
-        val localVariableBody = null
+    fun webTakeAScreenshotRequestConfig(screenshotRequest: ScreenshotRequest) : RequestConfig<ScreenshotRequest> {
+        val localVariableBody = screenshotRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(

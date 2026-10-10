@@ -18,6 +18,9 @@ docs/ColorsResponse.md
 docs/DepopApi.md
 docs/DuckDuckGoApi.md
 docs/EBayApi.md
+docs/ExtractRequest.md
+docs/ExtractRequestExtractRulesValue.md
+docs/ExtractRule.md
 docs/FacebookApi.md
 docs/FilterRuleCreate.md
 docs/FilterRuleDeliveryLogListResponse.md
@@ -45,6 +48,7 @@ docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md
 docs/RealtorApi.md
 docs/RedditApi.md
 docs/RedfinApi.md
+docs/ScreenshotRequest.md
 docs/SearchResponse.md
 docs/StatusesResponse.md
 docs/StreamMonitorCreate.md
@@ -149,6 +153,9 @@ src/main/kotlin/com/scrapebadger/client/models/BillingLogListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/BillingLogResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/BrandsResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/ColorsResponse.kt
+src/main/kotlin/com/scrapebadger/client/models/ExtractRequest.kt
+src/main/kotlin/com/scrapebadger/client/models/ExtractRequestExtractRulesValue.kt
+src/main/kotlin/com/scrapebadger/client/models/ExtractRule.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleCreate.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogResponse.kt
@@ -161,6 +168,7 @@ src/main/kotlin/com/scrapebadger/client/models/HTTPValidationError.kt
 src/main/kotlin/com/scrapebadger/client/models/ItemDetailResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/MarketsResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.kt
+src/main/kotlin/com/scrapebadger/client/models/ScreenshotRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/SearchResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/StatusesResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/StreamMonitorCreate.kt
@@ -234,6 +242,9 @@ src/test/kotlin/com/scrapebadger/client/models/BillingLogListResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/BillingLogResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/BrandsResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ColorsResponseTest.kt
+src/test/kotlin/com/scrapebadger/client/models/ExtractRequestExtractRulesValueTest.kt
+src/test/kotlin/com/scrapebadger/client/models/ExtractRequestTest.kt
+src/test/kotlin/com/scrapebadger/client/models/ExtractRuleTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleCreateTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogListResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogResponseTest.kt
@@ -246,6 +257,7 @@ src/test/kotlin/com/scrapebadger/client/models/HTTPValidationErrorTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ItemDetailResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/MarketsResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponseTest.kt
+src/test/kotlin/com/scrapebadger/client/models/ScreenshotRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/SearchResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/StatusesResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/StreamMonitorCreateTest.kt
