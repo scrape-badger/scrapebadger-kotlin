@@ -78,6 +78,7 @@ docs/VintedSellerSummary.md
 docs/VintedStatus.md
 docs/VintedUserProfile.md
 docs/VintedUserSummary.md
+docs/WallapopApi.md
 docs/WalmartApi.md
 docs/WebApi.md
 docs/WebhookCreate.md
@@ -125,6 +126,7 @@ src/main/kotlin/com/scrapebadger/client/apis/RedfinApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/TikTokApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/TwitterApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/VintedApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/WallapopApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/WalmartApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/WebApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/YahooApi.kt
@@ -231,6 +233,7 @@ src/test/kotlin/com/scrapebadger/client/apis/RedfinApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/TikTokApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/TwitterApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/VintedApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/WallapopApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/WalmartApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/WebApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/YahooApiTest.kt
