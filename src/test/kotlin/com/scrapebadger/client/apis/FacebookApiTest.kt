@@ -78,7 +78,8 @@ class FacebookApiTest : ShouldSpec() {
             // uncomment below to test facebookGetGroupPosts
             //val groupId : kotlin.String = groupId_example // kotlin.String | 
             //val after : kotlin.String = after_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookGetGroupPosts(groupId, after)
+            //val sort : kotlin.String = sort_example // kotlin.String | newest | relevance
+            //val result : kotlin.Any = apiInstance.facebookGetGroupPosts(groupId, after, sort)
             //result shouldBe ("TODO")
         }
 

@@ -291,11 +291,11 @@ Configure ApiKeyAuth:
 
 <a id="facebookGetGroupPosts"></a>
 # **facebookGetGroupPosts**
-> kotlin.Any facebookGetGroupPosts(groupId, after)
+> kotlin.Any facebookGetGroupPosts(groupId, after, sort)
 
 Get group posts
 
-Get a Facebook group&#39;s post feed.
+Get a public Facebook group&#39;s post feed.  &#x60;&#x60;sort&#x60;&#x60; is &#x60;&#x60;newest&#x60;&#x60; (newest first by post time, the default) or &#x60;&#x60;relevance&#x60;&#x60; (Facebook&#39;s \&quot;top posts\&quot; ranking, which moves posts with fresh comments up). Facebook serves 3 posts per page to logged-out visitors; follow &#x60;&#x60;end_cursor&#x60;&#x60; while &#x60;&#x60;has_next_page&#x60;&#x60; for older posts.
 
 ### Example
 ```kotlin
@@ -306,8 +306,9 @@ Get a Facebook group&#39;s post feed.
 val apiInstance = FacebookApi()
 val groupId : kotlin.String = groupId_example // kotlin.String | 
 val after : kotlin.String = after_example // kotlin.String | 
+val sort : kotlin.String = sort_example // kotlin.String | newest | relevance
 try {
-    val result : kotlin.Any = apiInstance.facebookGetGroupPosts(groupId, after)
+    val result : kotlin.Any = apiInstance.facebookGetGroupPosts(groupId, after, sort)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookGetGroupPosts")
@@ -320,9 +321,10 @@ try {
 
 ### Parameters
 | **groupId** | **kotlin.String**|  | |
+| **after** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **after** | **kotlin.String**|  | [optional] |
+| **sort** | **kotlin.String**| newest | relevance | [optional] [default to newest] [enum: newest, relevance] |
 
 ### Return type
 

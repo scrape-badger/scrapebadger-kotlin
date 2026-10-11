@@ -449,10 +449,28 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     }
 
     /**
+     * enum for parameter sort
+     */
+     enum class SortFacebookGetGroupPosts(val value: kotlin.String) {
+         @Json(name = "newest") newest("newest"),
+         @Json(name = "relevance") relevance("relevance");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * Get group posts
-     * Get a Facebook group&#39;s post feed.
+     * Get a public Facebook group&#39;s post feed.  &#x60;&#x60;sort&#x60;&#x60; is &#x60;&#x60;newest&#x60;&#x60; (newest first by post time, the default) or &#x60;&#x60;relevance&#x60;&#x60; (Facebook&#39;s \&quot;top posts\&quot; ranking, which moves posts with fresh comments up). Facebook serves 3 posts per page to logged-out visitors; follow &#x60;&#x60;end_cursor&#x60;&#x60; while &#x60;&#x60;has_next_page&#x60;&#x60; for older posts.
      * @param groupId 
      * @param after  (optional)
+     * @param sort newest | relevance (optional, default to newest)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -462,8 +480,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookGetGroupPosts(groupId: kotlin.String, after: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = facebookGetGroupPostsWithHttpInfo(groupId = groupId, after = after)
+    fun facebookGetGroupPosts(groupId: kotlin.String, after: kotlin.String? = null, sort: SortFacebookGetGroupPosts? = SortFacebookGetGroupPosts.newest) : kotlin.Any {
+        val localVarResponse = facebookGetGroupPostsWithHttpInfo(groupId = groupId, after = after, sort = sort)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -482,17 +500,18 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Get group posts
-     * Get a Facebook group&#39;s post feed.
+     * Get a public Facebook group&#39;s post feed.  &#x60;&#x60;sort&#x60;&#x60; is &#x60;&#x60;newest&#x60;&#x60; (newest first by post time, the default) or &#x60;&#x60;relevance&#x60;&#x60; (Facebook&#39;s \&quot;top posts\&quot; ranking, which moves posts with fresh comments up). Facebook serves 3 posts per page to logged-out visitors; follow &#x60;&#x60;end_cursor&#x60;&#x60; while &#x60;&#x60;has_next_page&#x60;&#x60; for older posts.
      * @param groupId 
      * @param after  (optional)
+     * @param sort newest | relevance (optional, default to newest)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookGetGroupPostsWithHttpInfo(groupId: kotlin.String, after: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookGetGroupPostsRequestConfig(groupId = groupId, after = after)
+    fun facebookGetGroupPostsWithHttpInfo(groupId: kotlin.String, after: kotlin.String?, sort: SortFacebookGetGroupPosts?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookGetGroupPostsRequestConfig(groupId = groupId, after = after, sort = sort)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -504,14 +523,18 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      *
      * @param groupId 
      * @param after  (optional)
+     * @param sort newest | relevance (optional, default to newest)
      * @return RequestConfig
      */
-    fun facebookGetGroupPostsRequestConfig(groupId: kotlin.String, after: kotlin.String?) : RequestConfig<Unit> {
+    fun facebookGetGroupPostsRequestConfig(groupId: kotlin.String, after: kotlin.String?, sort: SortFacebookGetGroupPosts?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (after != null) {
                     put("after", listOf(after.toString()))
+                }
+                if (sort != null) {
+                    put("sort", listOf(sort.value))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
