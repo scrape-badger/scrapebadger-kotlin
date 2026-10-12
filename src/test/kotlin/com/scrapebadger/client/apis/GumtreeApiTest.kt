@@ -29,27 +29,31 @@ class GumtreeApiTest : ShouldSpec() {
         // to test gumtreeGetListing
         should("test gumtreeGetListing") {
             // uncomment below to test gumtreeGetListing
-            //val listingId : kotlin.String = listingId_example // kotlin.String | Gumtree listing id — the number at the end of a gumtree.com/p/... URL
-            //val result : kotlin.Any = apiInstance.gumtreeGetListing(listingId)
+            //val listingId : kotlin.String = listingId_example // kotlin.String | Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeGetListing(listingId, market)
             //result shouldBe ("TODO")
         }
 
         // to test gumtreeGetSearchFilters
         should("test gumtreeGetSearchFilters") {
             // uncomment below to test gumtreeGetSearchFilters
-            //val category : kotlin.String = category_example // kotlin.String | Category slug, e.g. 'cars', 'for-sale', 'property-to-rent', 'jobs'. Default 'all'.
-            //val location : kotlin.String = location_example // kotlin.String | Location slug ('london'), town name or UK postcode ('SW1A 1AA'). Default 'uk'.
-            //val query : kotlin.String = query_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.gumtreeGetSearchFilters(category, location, query)
+            //val category : kotlin.String = category_example // kotlin.String | uk: category slug, e.g. 'cars', 'for-sale', 'property-to-rent', 'jobs', 'bicycles'. au/za: numeric category id, e.g. '18320' (au cars) or '9077' (za cars). Use /categories to browse the tree. Default 'all'.
+            //val location : kotlin.String = location_example // kotlin.String | uk: location slug ('london'), town name or UK postcode ('SW1A 1AA'). au/za: numeric location id, e.g. '3003435' (au Sydney) or '3100003' (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country.
+            //val query : kotlin.String = query_example // kotlin.String | Optional keywords to scope the counts
+            //val filters : kotlin.String = filters_example // kotlin.String | za only: filters already applied (e.g. 'ma:toyota' to list Toyota models)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeGetSearchFilters(category, location, query, filters, market)
             //result shouldBe ("TODO")
         }
 
         // to test gumtreeGetSellerListings
         should("test gumtreeGetSellerListings") {
             // uncomment below to test gumtreeGetSellerListings
-            //val listingId : kotlin.String = listingId_example // kotlin.String | Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+            //val listingId : kotlin.String = listingId_example // kotlin.String | Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
             //val page : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.gumtreeGetSellerListings(listingId, page)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeGetSellerListings(listingId, page, market)
             //result shouldBe ("TODO")
         }
 
@@ -70,24 +74,34 @@ class GumtreeApiTest : ShouldSpec() {
         // to test gumtreeListCategories
         should("test gumtreeListCategories") {
             // uncomment below to test gumtreeListCategories
-            //val parentId : kotlin.Int = 56 // kotlin.Int | Parent category id (default: all)
-            //val result : kotlin.Any = apiInstance.gumtreeListCategories(parentId)
+            //val parentId : kotlin.Int = 56 // kotlin.Int | Category id to list the children of (default: all)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeListCategories(parentId, market)
             //result shouldBe ("TODO")
         }
 
         // to test gumtreeListLocations
         should("test gumtreeListLocations") {
             // uncomment below to test gumtreeListLocations
-            //val parentId : kotlin.Int = 56 // kotlin.Int | Parent location id (default: UK)
-            //val result : kotlin.Any = apiInstance.gumtreeListLocations(parentId)
+            //val parentId : kotlin.Int = 56 // kotlin.Int | Location id to list the children of (default: the whole country)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeListLocations(parentId, market)
+            //result shouldBe ("TODO")
+        }
+
+        // to test gumtreeListMarkets
+        should("test gumtreeListMarkets") {
+            // uncomment below to test gumtreeListMarkets
+            //val result : kotlin.Any = apiInstance.gumtreeListMarkets()
             //result shouldBe ("TODO")
         }
 
         // to test gumtreeLocationSuggestions
         should("test gumtreeLocationSuggestions") {
             // uncomment below to test gumtreeLocationSuggestions
-            //val query : kotlin.String = query_example // kotlin.String | Town or postcode prefix, e.g. 'manch'
-            //val result : kotlin.Any = apiInstance.gumtreeLocationSuggestions(query)
+            //val query : kotlin.String = query_example // kotlin.String | Town, area or postcode prefix, e.g. 'manch' or 'SW1A'
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeLocationSuggestions(query, market)
             //result shouldBe ("TODO")
         }
 
@@ -95,18 +109,19 @@ class GumtreeApiTest : ShouldSpec() {
         should("test gumtreeSearchListings") {
             // uncomment below to test gumtreeSearchListings
             //val query : kotlin.String = query_example // kotlin.String | Search keywords, e.g. 'mountain bike'
-            //val category : kotlin.String = category_example // kotlin.String | Category slug, e.g. 'cars', 'for-sale', 'property-to-rent', 'jobs'. Default 'all'.
-            //val location : kotlin.String = location_example // kotlin.String | Location slug ('london'), town name or UK postcode ('SW1A 1AA'). Default 'uk'.
-            //val distance : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Radius in miles
-            //val minPrice : kotlin.Int = 56 // kotlin.Int | GBP; needs a category
-            //val maxPrice : kotlin.Int = 56 // kotlin.Int | GBP; needs a category
-            //val sort : kotlin.String = sort_example // kotlin.String | 
-            //val sellerType : kotlin.String = sellerType_example // kotlin.String | 
-            //val urgentOnly : kotlin.Boolean = true // kotlin.Boolean | 
-            //val withPhotos : kotlin.Boolean = true // kotlin.Boolean | 
-            //val filters : kotlin.String = filters_example // kotlin.String | Category filters as key:value pairs, e.g. 'vehicle_make:bmw,vehicle_fuel_type:petrol'
+            //val category : kotlin.String = category_example // kotlin.String | uk: category slug, e.g. 'cars', 'for-sale', 'property-to-rent', 'jobs', 'bicycles'. au/za: numeric category id, e.g. '18320' (au cars) or '9077' (za cars). Use /categories to browse the tree. Default 'all'.
+            //val location : kotlin.String = location_example // kotlin.String | uk: location slug ('london'), town name or UK postcode ('SW1A 1AA'). au/za: numeric location id, e.g. '3003435' (au Sydney) or '3100003' (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country.
+            //val distance : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Radius around `location`: miles (uk) or km (au). Not offered by za.
+            //val minPrice : kotlin.Int = 56 // kotlin.Int | Minimum price in the market's currency (uk: needs a category, not 'all')
+            //val maxPrice : kotlin.Int = 56 // kotlin.Int | Maximum price in the market's currency (uk: needs a category, not 'all')
+            //val sort : kotlin.String = sort_example // kotlin.String | Result ordering (default relevance). 'distance' needs uk, or au with a location.
+            //val sellerType : kotlin.String = sellerType_example // kotlin.String | uk/za: 'trade' covers dealers, agencies and recruiters. au: not supported — use a category filter such as 'cars.forsaleby_s:ownr'.
+            //val urgentOnly : kotlin.Boolean = true // kotlin.Boolean | uk only: only ads marked urgent
+            //val withPhotos : kotlin.Boolean = true // kotlin.Boolean | uk only: only ads with photos
+            //val filters : kotlin.String = filters_example // kotlin.String | Category-specific filters as comma-separated key:value pairs, e.g. 'vehicle_make:bmw,vehicle_fuel_type:petrol,min_vehicle_mileage:10000' (uk), 'cars.carmake_s:toyota,cars.forsaleby_s:ownr' (au) or 'ma:toyota,fu:petrol,max_km:100000' (za). Range filters take min_<key>/max_<key>. Discover keys and values with /search/filters for the same market.
             //val page : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.Any = apiInstance.gumtreeSearchListings(query, category, location, distance, minPrice, maxPrice, sort, sellerType, urgentOnly, withPhotos, filters, page)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeSearchListings(query, category, location, distance, minPrice, maxPrice, sort, sellerType, urgentOnly, withPhotos, filters, page, market)
             //result shouldBe ("TODO")
         }
 
@@ -114,7 +129,8 @@ class GumtreeApiTest : ShouldSpec() {
         should("test gumtreeSearchSuggestions") {
             // uncomment below to test gumtreeSearchSuggestions
             //val query : kotlin.String = query_example // kotlin.String | Partial search term, e.g. 'iph'
-            //val result : kotlin.Any = apiInstance.gumtreeSearchSuggestions(query)
+            //val market : kotlin.String = market_example // kotlin.String | Which Gumtree: 'uk' (gumtree.com, GBP), 'au' (gumtree.com.au, AUD) or 'za' (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another.
+            //val result : kotlin.Any = apiInstance.gumtreeSearchSuggestions(query, market)
             //result shouldBe ("TODO")
         }
 

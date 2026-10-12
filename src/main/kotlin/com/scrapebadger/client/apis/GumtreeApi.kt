@@ -46,9 +46,28 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeGetListing(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * Get listing
      * Full listing — description, attributes, images, seller, similar listings.
-     * @param listingId Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+     * @param listingId Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -58,8 +77,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeGetListing(listingId: kotlin.String) : kotlin.Any {
-        val localVarResponse = gumtreeGetListingWithHttpInfo(listingId = listingId)
+    fun gumtreeGetListing(listingId: kotlin.String, market: MarketGumtreeGetListing? = MarketGumtreeGetListing.uk) : kotlin.Any {
+        val localVarResponse = gumtreeGetListingWithHttpInfo(listingId = listingId, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -79,15 +98,16 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * Get listing
      * Full listing — description, attributes, images, seller, similar listings.
-     * @param listingId Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+     * @param listingId Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeGetListingWithHttpInfo(listingId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeGetListingRequestConfig(listingId = listingId)
+    fun gumtreeGetListingWithHttpInfo(listingId: kotlin.String, market: MarketGumtreeGetListing?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeGetListingRequestConfig(listingId = listingId, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -97,12 +117,18 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation gumtreeGetListing
      *
-     * @param listingId Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+     * @param listingId Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeGetListingRequestConfig(listingId: kotlin.String) : RequestConfig<Unit> {
+    fun gumtreeGetListingRequestConfig(listingId: kotlin.String, market: MarketGumtreeGetListing?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (market != null) {
+                    put("market", listOf(market.value))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -117,11 +143,31 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeGetSearchFilters(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * Get search filters
-     * Filters, sort orders and radius options for a category, with live counts.
-     * @param category Category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;. Default &#39;all&#39;. (optional, default to "all")
-     * @param location Location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). Default &#39;uk&#39;. (optional, default to "uk")
-     * @param query  (optional)
+     * Filters, sort orders and radius options for a category, with live counts.  Feed a &#x60;key&#x60; and a &#x60;value&#x60; back into &#x60;/search&#x60; as &#x60;filters&#x3D;key:value&#x60;. au bills 2x (browser render).
+     * @param category uk: category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;, &#39;bicycles&#39;. au/za: numeric category id, e.g. &#39;18320&#39; (au cars) or &#39;9077&#39; (za cars). Use /categories to browse the tree. Default &#39;all&#39;. (optional, default to "all")
+     * @param location uk: location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). au/za: numeric location id, e.g. &#39;3003435&#39; (au Sydney) or &#39;3100003&#39; (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country. (optional)
+     * @param query Optional keywords to scope the counts (optional)
+     * @param filters za only: filters already applied (e.g. &#39;ma:toyota&#39; to list Toyota models) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -131,8 +177,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeGetSearchFilters(category: kotlin.String? = "all", location: kotlin.String? = "uk", query: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = gumtreeGetSearchFiltersWithHttpInfo(category = category, location = location, query = query)
+    fun gumtreeGetSearchFilters(category: kotlin.String? = "all", location: kotlin.String? = null, query: kotlin.String? = null, filters: kotlin.String? = null, market: MarketGumtreeGetSearchFilters? = MarketGumtreeGetSearchFilters.uk) : kotlin.Any {
+        val localVarResponse = gumtreeGetSearchFiltersWithHttpInfo(category = category, location = location, query = query, filters = filters, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -151,18 +197,20 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * Get search filters
-     * Filters, sort orders and radius options for a category, with live counts.
-     * @param category Category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;. Default &#39;all&#39;. (optional, default to "all")
-     * @param location Location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). Default &#39;uk&#39;. (optional, default to "uk")
-     * @param query  (optional)
+     * Filters, sort orders and radius options for a category, with live counts.  Feed a &#x60;key&#x60; and a &#x60;value&#x60; back into &#x60;/search&#x60; as &#x60;filters&#x3D;key:value&#x60;. au bills 2x (browser render).
+     * @param category uk: category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;, &#39;bicycles&#39;. au/za: numeric category id, e.g. &#39;18320&#39; (au cars) or &#39;9077&#39; (za cars). Use /categories to browse the tree. Default &#39;all&#39;. (optional, default to "all")
+     * @param location uk: location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). au/za: numeric location id, e.g. &#39;3003435&#39; (au Sydney) or &#39;3100003&#39; (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country. (optional)
+     * @param query Optional keywords to scope the counts (optional)
+     * @param filters za only: filters already applied (e.g. &#39;ma:toyota&#39; to list Toyota models) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeGetSearchFiltersWithHttpInfo(category: kotlin.String?, location: kotlin.String?, query: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeGetSearchFiltersRequestConfig(category = category, location = location, query = query)
+    fun gumtreeGetSearchFiltersWithHttpInfo(category: kotlin.String?, location: kotlin.String?, query: kotlin.String?, filters: kotlin.String?, market: MarketGumtreeGetSearchFilters?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeGetSearchFiltersRequestConfig(category = category, location = location, query = query, filters = filters, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -172,12 +220,14 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation gumtreeGetSearchFilters
      *
-     * @param category Category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;. Default &#39;all&#39;. (optional, default to "all")
-     * @param location Location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). Default &#39;uk&#39;. (optional, default to "uk")
-     * @param query  (optional)
+     * @param category uk: category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;, &#39;bicycles&#39;. au/za: numeric category id, e.g. &#39;18320&#39; (au cars) or &#39;9077&#39; (za cars). Use /categories to browse the tree. Default &#39;all&#39;. (optional, default to "all")
+     * @param location uk: location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). au/za: numeric location id, e.g. &#39;3003435&#39; (au Sydney) or &#39;3100003&#39; (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country. (optional)
+     * @param query Optional keywords to scope the counts (optional)
+     * @param filters za only: filters already applied (e.g. &#39;ma:toyota&#39; to list Toyota models) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeGetSearchFiltersRequestConfig(category: kotlin.String?, location: kotlin.String?, query: kotlin.String?) : RequestConfig<Unit> {
+    fun gumtreeGetSearchFiltersRequestConfig(category: kotlin.String?, location: kotlin.String?, query: kotlin.String?, filters: kotlin.String?, market: MarketGumtreeGetSearchFilters?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -189,6 +239,12 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
                 }
                 if (query != null) {
                     put("query", listOf(query.toString()))
+                }
+                if (filters != null) {
+                    put("filters", listOf(filters.toString()))
+                }
+                if (market != null) {
+                    put("market", listOf(market.value))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -205,10 +261,29 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeGetSellerListings(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * Get seller listings
      * Every live listing by the seller of the given listing.
-     * @param listingId Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+     * @param listingId Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
      * @param page  (optional, default to 1)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -218,8 +293,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeGetSellerListings(listingId: kotlin.String, page: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = gumtreeGetSellerListingsWithHttpInfo(listingId = listingId, page = page)
+    fun gumtreeGetSellerListings(listingId: kotlin.String, page: kotlin.Int? = 1, market: MarketGumtreeGetSellerListings? = MarketGumtreeGetSellerListings.uk) : kotlin.Any {
+        val localVarResponse = gumtreeGetSellerListingsWithHttpInfo(listingId = listingId, page = page, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -239,16 +314,17 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * Get seller listings
      * Every live listing by the seller of the given listing.
-     * @param listingId Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+     * @param listingId Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
      * @param page  (optional, default to 1)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeGetSellerListingsWithHttpInfo(listingId: kotlin.String, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeGetSellerListingsRequestConfig(listingId = listingId, page = page)
+    fun gumtreeGetSellerListingsWithHttpInfo(listingId: kotlin.String, page: kotlin.Int?, market: MarketGumtreeGetSellerListings?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeGetSellerListingsRequestConfig(listingId = listingId, page = page, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -258,16 +334,20 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation gumtreeGetSellerListings
      *
-     * @param listingId Gumtree listing id — the number at the end of a gumtree.com/p/... URL
+     * @param listingId Gumtree listing id — the number at the end of the listing URL (uk/au: ~10 digits; za: the full 26-digit ad id, not the short one)
      * @param page  (optional, default to 1)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeGetSellerListingsRequestConfig(listingId: kotlin.String, page: kotlin.Int?) : RequestConfig<Unit> {
+    fun gumtreeGetSellerListingsRequestConfig(listingId: kotlin.String, page: kotlin.Int?, market: MarketGumtreeGetSellerListings?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (page != null) {
                     put("page", listOf(page.toString()))
+                }
+                if (market != null) {
+                    put("market", listOf(market.value))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -420,9 +500,28 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeListCategories(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * List categories
-     * Browse Gumtree&#39;s category tree. A node&#39;s &#x60;slug&#x60; is the &#x60;/search&#x60; category.
-     * @param parentId Parent category id (default: all) (optional, default to 1)
+     * Browse Gumtree&#39;s category tree.  A node&#39;s &#x60;slug&#x60; (uk) or &#x60;id&#x60; (au/za) is the &#x60;/search&#x60; category.
+     * @param parentId Category id to list the children of (default: all) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -432,8 +531,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeListCategories(parentId: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = gumtreeListCategoriesWithHttpInfo(parentId = parentId)
+    fun gumtreeListCategories(parentId: kotlin.Int? = null, market: MarketGumtreeListCategories? = MarketGumtreeListCategories.uk) : kotlin.Any {
+        val localVarResponse = gumtreeListCategoriesWithHttpInfo(parentId = parentId, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -452,16 +551,17 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * List categories
-     * Browse Gumtree&#39;s category tree. A node&#39;s &#x60;slug&#x60; is the &#x60;/search&#x60; category.
-     * @param parentId Parent category id (default: all) (optional, default to 1)
+     * Browse Gumtree&#39;s category tree.  A node&#39;s &#x60;slug&#x60; (uk) or &#x60;id&#x60; (au/za) is the &#x60;/search&#x60; category.
+     * @param parentId Category id to list the children of (default: all) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeListCategoriesWithHttpInfo(parentId: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeListCategoriesRequestConfig(parentId = parentId)
+    fun gumtreeListCategoriesWithHttpInfo(parentId: kotlin.Int?, market: MarketGumtreeListCategories?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeListCategoriesRequestConfig(parentId = parentId, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -471,15 +571,19 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation gumtreeListCategories
      *
-     * @param parentId Parent category id (default: all) (optional, default to 1)
+     * @param parentId Category id to list the children of (default: all) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeListCategoriesRequestConfig(parentId: kotlin.Int?) : RequestConfig<Unit> {
+    fun gumtreeListCategoriesRequestConfig(parentId: kotlin.Int?, market: MarketGumtreeListCategories?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (parentId != null) {
                     put("parent_id", listOf(parentId.toString()))
+                }
+                if (market != null) {
+                    put("market", listOf(market.value))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -496,9 +600,28 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeListLocations(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * List locations
-     * Browse Gumtree&#39;s location tree.
-     * @param parentId Parent location id (default: UK) (optional, default to 10000392)
+     * Browse Gumtree&#39;s location tree.  uk: UK -&gt; nations -&gt; counties -&gt; towns. au: states -&gt; regions -&gt; areas, each with its live ad count (browser render, bills 5x). za: provinces -&gt; towns.
+     * @param parentId Location id to list the children of (default: the whole country) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -508,8 +631,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeListLocations(parentId: kotlin.Int? = 10000392) : kotlin.Any {
-        val localVarResponse = gumtreeListLocationsWithHttpInfo(parentId = parentId)
+    fun gumtreeListLocations(parentId: kotlin.Int? = null, market: MarketGumtreeListLocations? = MarketGumtreeListLocations.uk) : kotlin.Any {
+        val localVarResponse = gumtreeListLocationsWithHttpInfo(parentId = parentId, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -528,16 +651,17 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * List locations
-     * Browse Gumtree&#39;s location tree.
-     * @param parentId Parent location id (default: UK) (optional, default to 10000392)
+     * Browse Gumtree&#39;s location tree.  uk: UK -&gt; nations -&gt; counties -&gt; towns. au: states -&gt; regions -&gt; areas, each with its live ad count (browser render, bills 5x). za: provinces -&gt; towns.
+     * @param parentId Location id to list the children of (default: the whole country) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeListLocationsWithHttpInfo(parentId: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeListLocationsRequestConfig(parentId = parentId)
+    fun gumtreeListLocationsWithHttpInfo(parentId: kotlin.Int?, market: MarketGumtreeListLocations?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeListLocationsRequestConfig(parentId = parentId, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -547,15 +671,19 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation gumtreeListLocations
      *
-     * @param parentId Parent location id (default: UK) (optional, default to 10000392)
+     * @param parentId Location id to list the children of (default: the whole country) (optional)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeListLocationsRequestConfig(parentId: kotlin.Int?) : RequestConfig<Unit> {
+    fun gumtreeListLocationsRequestConfig(parentId: kotlin.Int?, market: MarketGumtreeListLocations?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (parentId != null) {
                     put("parent_id", listOf(parentId.toString()))
+                }
+                if (market != null) {
+                    put("market", listOf(market.value))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -572,9 +700,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
-     * Location suggestions
-     * Resolve a place name or postcode to Gumtree locations with coordinates.
-     * @param query Town or postcode prefix, e.g. &#39;manch&#39;
+     * List markets
+     * The Gumtree sites this API covers (uk, au, za) with currency and id formats.
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -584,8 +711,96 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeLocationSuggestions(query: kotlin.String) : kotlin.Any {
-        val localVarResponse = gumtreeLocationSuggestionsWithHttpInfo(query = query)
+    fun gumtreeListMarkets() : kotlin.Any {
+        val localVarResponse = gumtreeListMarketsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * List markets
+     * The Gumtree sites this API covers (uk, au, za) with currency and id formats.
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun gumtreeListMarketsWithHttpInfo() : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeListMarketsRequestConfig()
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation gumtreeListMarkets
+     *
+     * @return RequestConfig
+     */
+    fun gumtreeListMarketsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/gumtree/markets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeLocationSuggestions(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
+     * Location suggestions
+     * Resolve a place name or postcode to Gumtree location ids (uk: with coordinates).  The &#x60;id&#x60; (au/za) or &#x60;name&#x60; (uk) is what &#x60;/search&#x60; takes as &#x60;location&#x60;.
+     * @param query Town, area or postcode prefix, e.g. &#39;manch&#39; or &#39;SW1A&#39;
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun gumtreeLocationSuggestions(query: kotlin.String, market: MarketGumtreeLocationSuggestions? = MarketGumtreeLocationSuggestions.uk) : kotlin.Any {
+        val localVarResponse = gumtreeLocationSuggestionsWithHttpInfo(query = query, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -604,16 +819,17 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * Location suggestions
-     * Resolve a place name or postcode to Gumtree locations with coordinates.
-     * @param query Town or postcode prefix, e.g. &#39;manch&#39;
+     * Resolve a place name or postcode to Gumtree location ids (uk: with coordinates).  The &#x60;id&#x60; (au/za) or &#x60;name&#x60; (uk) is what &#x60;/search&#x60; takes as &#x60;location&#x60;.
+     * @param query Town, area or postcode prefix, e.g. &#39;manch&#39; or &#39;SW1A&#39;
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeLocationSuggestionsWithHttpInfo(query: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeLocationSuggestionsRequestConfig(query = query)
+    fun gumtreeLocationSuggestionsWithHttpInfo(query: kotlin.String, market: MarketGumtreeLocationSuggestions?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeLocationSuggestionsRequestConfig(query = query, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -623,14 +839,18 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation gumtreeLocationSuggestions
      *
-     * @param query Town or postcode prefix, e.g. &#39;manch&#39;
+     * @param query Town, area or postcode prefix, e.g. &#39;manch&#39; or &#39;SW1A&#39;
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeLocationSuggestionsRequestConfig(query: kotlin.String) : RequestConfig<Unit> {
+    fun gumtreeLocationSuggestionsRequestConfig(query: kotlin.String, market: MarketGumtreeLocationSuggestions?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 put("query", listOf(query.toString()))
+                if (market != null) {
+                    put("market", listOf(market.value))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
@@ -683,20 +903,39 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeSearchListings(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * Search listings
-     * Search gumtree.com listings. ~25-30 per page, up to 50 pages.
+     * Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20. An au search runs a real browser (~10-20 s) and bills 2x.
      * @param query Search keywords, e.g. &#39;mountain bike&#39; (optional)
-     * @param category Category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;. Default &#39;all&#39;. (optional, default to "all")
-     * @param location Location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). Default &#39;uk&#39;. (optional, default to "uk")
-     * @param distance Radius in miles (optional)
-     * @param minPrice GBP; needs a category (optional)
-     * @param maxPrice GBP; needs a category (optional)
-     * @param sort  (optional)
-     * @param sellerType  (optional)
-     * @param urgentOnly  (optional, default to false)
-     * @param withPhotos  (optional, default to false)
-     * @param filters Category filters as key:value pairs, e.g. &#39;vehicle_make:bmw,vehicle_fuel_type:petrol&#39; (optional)
+     * @param category uk: category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;, &#39;bicycles&#39;. au/za: numeric category id, e.g. &#39;18320&#39; (au cars) or &#39;9077&#39; (za cars). Use /categories to browse the tree. Default &#39;all&#39;. (optional, default to "all")
+     * @param location uk: location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). au/za: numeric location id, e.g. &#39;3003435&#39; (au Sydney) or &#39;3100003&#39; (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country. (optional)
+     * @param distance Radius around &#x60;location&#x60;: miles (uk) or km (au). Not offered by za. (optional)
+     * @param minPrice Minimum price in the market&#39;s currency (uk: needs a category, not &#39;all&#39;) (optional)
+     * @param maxPrice Maximum price in the market&#39;s currency (uk: needs a category, not &#39;all&#39;) (optional)
+     * @param sort Result ordering (default relevance). &#39;distance&#39; needs uk, or au with a location. (optional)
+     * @param sellerType uk/za: &#39;trade&#39; covers dealers, agencies and recruiters. au: not supported — use a category filter such as &#39;cars.forsaleby_s:ownr&#39;. (optional)
+     * @param urgentOnly uk only: only ads marked urgent (optional, default to false)
+     * @param withPhotos uk only: only ads with photos (optional, default to false)
+     * @param filters Category-specific filters as comma-separated key:value pairs, e.g. &#39;vehicle_make:bmw,vehicle_fuel_type:petrol,min_vehicle_mileage:10000&#39; (uk), &#39;cars.carmake_s:toyota,cars.forsaleby_s:ownr&#39; (au) or &#39;ma:toyota,fu:petrol,max_km:100000&#39; (za). Range filters take min_&lt;key&gt;/max_&lt;key&gt;. Discover keys and values with /search/filters for the same market. (optional)
      * @param page  (optional, default to 1)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -706,8 +945,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeSearchListings(query: kotlin.String? = null, category: kotlin.String? = "all", location: kotlin.String? = "uk", distance: java.math.BigDecimal? = null, minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, sort: SortGumtreeSearchListings? = null, sellerType: SellerTypeGumtreeSearchListings? = null, urgentOnly: kotlin.Boolean? = false, withPhotos: kotlin.Boolean? = false, filters: kotlin.String? = null, page: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = gumtreeSearchListingsWithHttpInfo(query = query, category = category, location = location, distance = distance, minPrice = minPrice, maxPrice = maxPrice, sort = sort, sellerType = sellerType, urgentOnly = urgentOnly, withPhotos = withPhotos, filters = filters, page = page)
+    fun gumtreeSearchListings(query: kotlin.String? = null, category: kotlin.String? = "all", location: kotlin.String? = null, distance: java.math.BigDecimal? = null, minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, sort: SortGumtreeSearchListings? = null, sellerType: SellerTypeGumtreeSearchListings? = null, urgentOnly: kotlin.Boolean? = false, withPhotos: kotlin.Boolean? = false, filters: kotlin.String? = null, page: kotlin.Int? = 1, market: MarketGumtreeSearchListings? = MarketGumtreeSearchListings.uk) : kotlin.Any {
+        val localVarResponse = gumtreeSearchListingsWithHttpInfo(query = query, category = category, location = location, distance = distance, minPrice = minPrice, maxPrice = maxPrice, sort = sort, sellerType = sellerType, urgentOnly = urgentOnly, withPhotos = withPhotos, filters = filters, page = page, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -726,27 +965,28 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * Search listings
-     * Search gumtree.com listings. ~25-30 per page, up to 50 pages.
+     * Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20. An au search runs a real browser (~10-20 s) and bills 2x.
      * @param query Search keywords, e.g. &#39;mountain bike&#39; (optional)
-     * @param category Category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;. Default &#39;all&#39;. (optional, default to "all")
-     * @param location Location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). Default &#39;uk&#39;. (optional, default to "uk")
-     * @param distance Radius in miles (optional)
-     * @param minPrice GBP; needs a category (optional)
-     * @param maxPrice GBP; needs a category (optional)
-     * @param sort  (optional)
-     * @param sellerType  (optional)
-     * @param urgentOnly  (optional, default to false)
-     * @param withPhotos  (optional, default to false)
-     * @param filters Category filters as key:value pairs, e.g. &#39;vehicle_make:bmw,vehicle_fuel_type:petrol&#39; (optional)
+     * @param category uk: category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;, &#39;bicycles&#39;. au/za: numeric category id, e.g. &#39;18320&#39; (au cars) or &#39;9077&#39; (za cars). Use /categories to browse the tree. Default &#39;all&#39;. (optional, default to "all")
+     * @param location uk: location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). au/za: numeric location id, e.g. &#39;3003435&#39; (au Sydney) or &#39;3100003&#39; (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country. (optional)
+     * @param distance Radius around &#x60;location&#x60;: miles (uk) or km (au). Not offered by za. (optional)
+     * @param minPrice Minimum price in the market&#39;s currency (uk: needs a category, not &#39;all&#39;) (optional)
+     * @param maxPrice Maximum price in the market&#39;s currency (uk: needs a category, not &#39;all&#39;) (optional)
+     * @param sort Result ordering (default relevance). &#39;distance&#39; needs uk, or au with a location. (optional)
+     * @param sellerType uk/za: &#39;trade&#39; covers dealers, agencies and recruiters. au: not supported — use a category filter such as &#39;cars.forsaleby_s:ownr&#39;. (optional)
+     * @param urgentOnly uk only: only ads marked urgent (optional, default to false)
+     * @param withPhotos uk only: only ads with photos (optional, default to false)
+     * @param filters Category-specific filters as comma-separated key:value pairs, e.g. &#39;vehicle_make:bmw,vehicle_fuel_type:petrol,min_vehicle_mileage:10000&#39; (uk), &#39;cars.carmake_s:toyota,cars.forsaleby_s:ownr&#39; (au) or &#39;ma:toyota,fu:petrol,max_km:100000&#39; (za). Range filters take min_&lt;key&gt;/max_&lt;key&gt;. Discover keys and values with /search/filters for the same market. (optional)
      * @param page  (optional, default to 1)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeSearchListingsWithHttpInfo(query: kotlin.String?, category: kotlin.String?, location: kotlin.String?, distance: java.math.BigDecimal?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sort: SortGumtreeSearchListings?, sellerType: SellerTypeGumtreeSearchListings?, urgentOnly: kotlin.Boolean?, withPhotos: kotlin.Boolean?, filters: kotlin.String?, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeSearchListingsRequestConfig(query = query, category = category, location = location, distance = distance, minPrice = minPrice, maxPrice = maxPrice, sort = sort, sellerType = sellerType, urgentOnly = urgentOnly, withPhotos = withPhotos, filters = filters, page = page)
+    fun gumtreeSearchListingsWithHttpInfo(query: kotlin.String?, category: kotlin.String?, location: kotlin.String?, distance: java.math.BigDecimal?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sort: SortGumtreeSearchListings?, sellerType: SellerTypeGumtreeSearchListings?, urgentOnly: kotlin.Boolean?, withPhotos: kotlin.Boolean?, filters: kotlin.String?, page: kotlin.Int?, market: MarketGumtreeSearchListings?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeSearchListingsRequestConfig(query = query, category = category, location = location, distance = distance, minPrice = minPrice, maxPrice = maxPrice, sort = sort, sellerType = sellerType, urgentOnly = urgentOnly, withPhotos = withPhotos, filters = filters, page = page, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -757,20 +997,21 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * To obtain the request config of the operation gumtreeSearchListings
      *
      * @param query Search keywords, e.g. &#39;mountain bike&#39; (optional)
-     * @param category Category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;. Default &#39;all&#39;. (optional, default to "all")
-     * @param location Location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). Default &#39;uk&#39;. (optional, default to "uk")
-     * @param distance Radius in miles (optional)
-     * @param minPrice GBP; needs a category (optional)
-     * @param maxPrice GBP; needs a category (optional)
-     * @param sort  (optional)
-     * @param sellerType  (optional)
-     * @param urgentOnly  (optional, default to false)
-     * @param withPhotos  (optional, default to false)
-     * @param filters Category filters as key:value pairs, e.g. &#39;vehicle_make:bmw,vehicle_fuel_type:petrol&#39; (optional)
+     * @param category uk: category slug, e.g. &#39;cars&#39;, &#39;for-sale&#39;, &#39;property-to-rent&#39;, &#39;jobs&#39;, &#39;bicycles&#39;. au/za: numeric category id, e.g. &#39;18320&#39; (au cars) or &#39;9077&#39; (za cars). Use /categories to browse the tree. Default &#39;all&#39;. (optional, default to "all")
+     * @param location uk: location slug (&#39;london&#39;), town name or UK postcode (&#39;SW1A 1AA&#39;). au/za: numeric location id, e.g. &#39;3003435&#39; (au Sydney) or &#39;3100003&#39; (za Gauteng). Use /locations/autocomplete to resolve one. Default: the whole country. (optional)
+     * @param distance Radius around &#x60;location&#x60;: miles (uk) or km (au). Not offered by za. (optional)
+     * @param minPrice Minimum price in the market&#39;s currency (uk: needs a category, not &#39;all&#39;) (optional)
+     * @param maxPrice Maximum price in the market&#39;s currency (uk: needs a category, not &#39;all&#39;) (optional)
+     * @param sort Result ordering (default relevance). &#39;distance&#39; needs uk, or au with a location. (optional)
+     * @param sellerType uk/za: &#39;trade&#39; covers dealers, agencies and recruiters. au: not supported — use a category filter such as &#39;cars.forsaleby_s:ownr&#39;. (optional)
+     * @param urgentOnly uk only: only ads marked urgent (optional, default to false)
+     * @param withPhotos uk only: only ads with photos (optional, default to false)
+     * @param filters Category-specific filters as comma-separated key:value pairs, e.g. &#39;vehicle_make:bmw,vehicle_fuel_type:petrol,min_vehicle_mileage:10000&#39; (uk), &#39;cars.carmake_s:toyota,cars.forsaleby_s:ownr&#39; (au) or &#39;ma:toyota,fu:petrol,max_km:100000&#39; (za). Range filters take min_&lt;key&gt;/max_&lt;key&gt;. Discover keys and values with /search/filters for the same market. (optional)
      * @param page  (optional, default to 1)
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeSearchListingsRequestConfig(query: kotlin.String?, category: kotlin.String?, location: kotlin.String?, distance: java.math.BigDecimal?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sort: SortGumtreeSearchListings?, sellerType: SellerTypeGumtreeSearchListings?, urgentOnly: kotlin.Boolean?, withPhotos: kotlin.Boolean?, filters: kotlin.String?, page: kotlin.Int?) : RequestConfig<Unit> {
+    fun gumtreeSearchListingsRequestConfig(query: kotlin.String?, category: kotlin.String?, location: kotlin.String?, distance: java.math.BigDecimal?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sort: SortGumtreeSearchListings?, sellerType: SellerTypeGumtreeSearchListings?, urgentOnly: kotlin.Boolean?, withPhotos: kotlin.Boolean?, filters: kotlin.String?, page: kotlin.Int?, market: MarketGumtreeSearchListings?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -810,6 +1051,9 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
                 if (page != null) {
                     put("page", listOf(page.toString()))
                 }
+                if (market != null) {
+                    put("market", listOf(market.value))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
@@ -825,9 +1069,28 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
+     * enum for parameter market
+     */
+     enum class MarketGumtreeSearchSuggestions(val value: kotlin.String) {
+         @Json(name = "uk") uk("uk"),
+         @Json(name = "au") au("au"),
+         @Json(name = "za") za("za");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
      * Search suggestions
      * Gumtree search-box keyword suggestions with their categories.
      * @param query Partial search term, e.g. &#39;iph&#39;
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -837,8 +1100,8 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun gumtreeSearchSuggestions(query: kotlin.String) : kotlin.Any {
-        val localVarResponse = gumtreeSearchSuggestionsWithHttpInfo(query = query)
+    fun gumtreeSearchSuggestions(query: kotlin.String, market: MarketGumtreeSearchSuggestions? = MarketGumtreeSearchSuggestions.uk) : kotlin.Any {
+        val localVarResponse = gumtreeSearchSuggestionsWithHttpInfo(query = query, market = market)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -859,14 +1122,15 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * Search suggestions
      * Gumtree search-box keyword suggestions with their categories.
      * @param query Partial search term, e.g. &#39;iph&#39;
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun gumtreeSearchSuggestionsWithHttpInfo(query: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = gumtreeSearchSuggestionsRequestConfig(query = query)
+    fun gumtreeSearchSuggestionsWithHttpInfo(query: kotlin.String, market: MarketGumtreeSearchSuggestions?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = gumtreeSearchSuggestionsRequestConfig(query = query, market = market)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -877,13 +1141,17 @@ class GumtreeApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * To obtain the request config of the operation gumtreeSearchSuggestions
      *
      * @param query Partial search term, e.g. &#39;iph&#39;
+     * @param market Which Gumtree: &#39;uk&#39; (gumtree.com, GBP), &#39;au&#39; (gumtree.com.au, AUD) or &#39;za&#39; (gumtree.co.za, ZAR). Separate sites — ids from one market mean nothing in another. (optional, default to uk)
      * @return RequestConfig
      */
-    fun gumtreeSearchSuggestionsRequestConfig(query: kotlin.String) : RequestConfig<Unit> {
+    fun gumtreeSearchSuggestionsRequestConfig(query: kotlin.String, market: MarketGumtreeSearchSuggestions?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 put("query", listOf(query.toString()))
+                if (market != null) {
+                    put("market", listOf(market.value))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"

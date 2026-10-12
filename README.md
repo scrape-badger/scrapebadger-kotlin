@@ -279,6 +279,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *GumtreeApi* | [**gumtreeGumtreeScraperHealthCheckHead**](docs/GumtreeApi.md#gumtreegumtreescraperhealthcheckhead) | **HEAD** /v1/gumtree/health | Gumtree scraper health check |
 | *GumtreeApi* | [**gumtreeListCategories**](docs/GumtreeApi.md#gumtreelistcategories) | **GET** /v1/gumtree/categories | List categories |
 | *GumtreeApi* | [**gumtreeListLocations**](docs/GumtreeApi.md#gumtreelistlocations) | **GET** /v1/gumtree/locations | List locations |
+| *GumtreeApi* | [**gumtreeListMarkets**](docs/GumtreeApi.md#gumtreelistmarkets) | **GET** /v1/gumtree/markets | List markets |
 | *GumtreeApi* | [**gumtreeLocationSuggestions**](docs/GumtreeApi.md#gumtreelocationsuggestions) | **GET** /v1/gumtree/locations/autocomplete | Location suggestions |
 | *GumtreeApi* | [**gumtreeSearchListings**](docs/GumtreeApi.md#gumtreesearchlistings) | **GET** /v1/gumtree/search | Search listings |
 | *GumtreeApi* | [**gumtreeSearchSuggestions**](docs/GumtreeApi.md#gumtreesearchsuggestions) | **GET** /v1/gumtree/autocomplete | Search suggestions |
