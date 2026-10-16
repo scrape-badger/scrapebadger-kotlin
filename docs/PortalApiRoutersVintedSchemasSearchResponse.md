@@ -1,5 +1,5 @@
 
-# SearchResponse
+# PortalApiRoutersVintedSchemasSearchResponse
 
 ## Properties
 | Name | Type | Description | Notes |

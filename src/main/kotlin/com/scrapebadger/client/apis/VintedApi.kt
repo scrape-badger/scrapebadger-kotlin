@@ -24,7 +24,7 @@ import com.scrapebadger.client.models.ColorsResponse
 import com.scrapebadger.client.models.HTTPValidationError
 import com.scrapebadger.client.models.ItemDetailResponse
 import com.scrapebadger.client.models.MarketsResponse
-import com.scrapebadger.client.models.SearchResponse
+import com.scrapebadger.client.models.PortalApiRoutersVintedSchemasSearchResponse
 import com.scrapebadger.client.models.StatusesResponse
 import com.scrapebadger.client.models.UserItemsResponse
 import com.scrapebadger.client.models.UserProfileResponse
@@ -751,7 +751,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Search by image
      * Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries &#x60;similarity_score&#x60; on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
      * @param vintedImageSearchRequest 
-     * @return SearchResponse
+     * @return PortalApiRoutersVintedSchemasSearchResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -760,11 +760,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedSearchByImage(vintedImageSearchRequest: VintedImageSearchRequest) : SearchResponse {
+    fun vintedSearchByImage(vintedImageSearchRequest: VintedImageSearchRequest) : PortalApiRoutersVintedSchemasSearchResponse {
         val localVarResponse = vintedSearchByImageWithHttpInfo(vintedImageSearchRequest = vintedImageSearchRequest)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SearchResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as PortalApiRoutersVintedSchemasSearchResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -782,16 +782,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Search by image
      * Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries &#x60;similarity_score&#x60; on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
      * @param vintedImageSearchRequest 
-     * @return ApiResponse<SearchResponse?>
+     * @return ApiResponse<PortalApiRoutersVintedSchemasSearchResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedSearchByImageWithHttpInfo(vintedImageSearchRequest: VintedImageSearchRequest) : ApiResponse<SearchResponse?> {
+    fun vintedSearchByImageWithHttpInfo(vintedImageSearchRequest: VintedImageSearchRequest) : ApiResponse<PortalApiRoutersVintedSchemasSearchResponse?> {
         val localVariableConfig = vintedSearchByImageRequestConfig(vintedImageSearchRequest = vintedImageSearchRequest)
 
-        return request<VintedImageSearchRequest, SearchResponse>(
+        return request<VintedImageSearchRequest, PortalApiRoutersVintedSchemasSearchResponse>(
             localVariableConfig
         )
     }
@@ -838,7 +838,7 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
-     * @return SearchResponse
+     * @return PortalApiRoutersVintedSchemasSearchResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -847,11 +847,11 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun vintedSearchVintedItems(query: kotlin.String, market: kotlin.String? = "fr", sellerCountry: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = 20, priceFrom: java.math.BigDecimal? = null, priceTo: java.math.BigDecimal? = null, brandIds: kotlin.String? = null, catalogIds: kotlin.String? = null, colorIds: kotlin.String? = null, sizeIds: kotlin.String? = null, materialIds: kotlin.String? = null, time: kotlin.Int? = null, searchSessionId: kotlin.String? = null, statusIds: kotlin.String? = null, order: kotlin.String? = null) : SearchResponse {
+    fun vintedSearchVintedItems(query: kotlin.String, market: kotlin.String? = "fr", sellerCountry: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = 20, priceFrom: java.math.BigDecimal? = null, priceTo: java.math.BigDecimal? = null, brandIds: kotlin.String? = null, catalogIds: kotlin.String? = null, colorIds: kotlin.String? = null, sizeIds: kotlin.String? = null, materialIds: kotlin.String? = null, time: kotlin.Int? = null, searchSessionId: kotlin.String? = null, statusIds: kotlin.String? = null, order: kotlin.String? = null) : PortalApiRoutersVintedSchemasSearchResponse {
         val localVarResponse = vintedSearchVintedItemsWithHttpInfo(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, sizeIds = sizeIds, materialIds = materialIds, time = time, searchSessionId = searchSessionId, statusIds = statusIds, order = order)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SearchResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as PortalApiRoutersVintedSchemasSearchResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -884,16 +884,16 @@ class VintedApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param searchSessionId Reuse across pages of one search (optional)
      * @param statusIds Comma-separated condition/status IDs (optional)
      * @param order  (optional)
-     * @return ApiResponse<SearchResponse?>
+     * @return ApiResponse<PortalApiRoutersVintedSchemasSearchResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun vintedSearchVintedItemsWithHttpInfo(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, sizeIds: kotlin.String?, materialIds: kotlin.String?, time: kotlin.Int?, searchSessionId: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : ApiResponse<SearchResponse?> {
+    fun vintedSearchVintedItemsWithHttpInfo(query: kotlin.String, market: kotlin.String?, sellerCountry: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, priceFrom: java.math.BigDecimal?, priceTo: java.math.BigDecimal?, brandIds: kotlin.String?, catalogIds: kotlin.String?, colorIds: kotlin.String?, sizeIds: kotlin.String?, materialIds: kotlin.String?, time: kotlin.Int?, searchSessionId: kotlin.String?, statusIds: kotlin.String?, order: kotlin.String?) : ApiResponse<PortalApiRoutersVintedSchemasSearchResponse?> {
         val localVariableConfig = vintedSearchVintedItemsRequestConfig(query = query, market = market, sellerCountry = sellerCountry, page = page, perPage = perPage, priceFrom = priceFrom, priceTo = priceTo, brandIds = brandIds, catalogIds = catalogIds, colorIds = colorIds, sizeIds = sizeIds, materialIds = materialIds, time = time, searchSessionId = searchSessionId, statusIds = statusIds, order = order)
 
-        return request<Unit, SearchResponse>(
+        return request<Unit, PortalApiRoutersVintedSchemasSearchResponse>(
             localVariableConfig
         )
     }

@@ -24,7 +24,7 @@ import com.scrapebadger.client.models.ColorsResponse
 import com.scrapebadger.client.models.HTTPValidationError
 import com.scrapebadger.client.models.ItemDetailResponse
 import com.scrapebadger.client.models.MarketsResponse
-import com.scrapebadger.client.models.SearchResponse
+import com.scrapebadger.client.models.PortalApiRoutersVintedSchemasSearchResponse
 import com.scrapebadger.client.models.StatusesResponse
 import com.scrapebadger.client.models.UserItemsResponse
 import com.scrapebadger.client.models.UserProfileResponse
@@ -117,7 +117,7 @@ class VintedApiTest : ShouldSpec() {
         should("test vintedSearchByImage") {
             // uncomment below to test vintedSearchByImage
             //val vintedImageSearchRequest : VintedImageSearchRequest =  // VintedImageSearchRequest | 
-            //val result : SearchResponse = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
+            //val result : PortalApiRoutersVintedSchemasSearchResponse = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
             //result shouldBe ("TODO")
         }
 
@@ -140,7 +140,7 @@ class VintedApiTest : ShouldSpec() {
             //val searchSessionId : kotlin.String = searchSessionId_example // kotlin.String | Reuse across pages of one search
             //val statusIds : kotlin.String = statusIds_example // kotlin.String | Comma-separated condition/status IDs
             //val order : kotlin.String = order_example // kotlin.String | 
-            //val result : SearchResponse = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
+            //val result : PortalApiRoutersVintedSchemasSearchResponse = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
             //result shouldBe ("TODO")
         }
 

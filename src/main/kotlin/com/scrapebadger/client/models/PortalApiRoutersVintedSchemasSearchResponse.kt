@@ -31,7 +31,7 @@ import com.squareup.moshi.JsonClass
  */
 
 
-data class SearchResponse (
+data class PortalApiRoutersVintedSchemasSearchResponse (
 
     @Json(name = "items")
     val items: kotlin.collections.List<VintedItemSummary>,

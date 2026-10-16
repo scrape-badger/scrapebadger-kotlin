@@ -470,7 +470,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedSearchByImage"></a>
 # **vintedSearchByImage**
-> SearchResponse vintedSearchByImage(vintedImageSearchRequest)
+> PortalApiRoutersVintedSchemasSearchResponse vintedSearchByImage(vintedImageSearchRequest)
 
 Search by image
 
@@ -485,7 +485,7 @@ Find active Vinted listings from a photo. 10 credits per successful request. Ret
 val apiInstance = VintedApi()
 val vintedImageSearchRequest : VintedImageSearchRequest =  // VintedImageSearchRequest | 
 try {
-    val result : SearchResponse = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
+    val result : PortalApiRoutersVintedSchemasSearchResponse = apiInstance.vintedSearchByImage(vintedImageSearchRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedSearchByImage")
@@ -503,7 +503,7 @@ try {
 
 ### Return type
 
-[**SearchResponse**](SearchResponse.md)
+[**PortalApiRoutersVintedSchemasSearchResponse**](PortalApiRoutersVintedSchemasSearchResponse.md)
 
 ### Authorization
 
@@ -519,7 +519,7 @@ Configure ApiKeyAuth:
 
 <a id="vintedSearchVintedItems"></a>
 # **vintedSearchVintedItems**
-> SearchResponse vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
+> PortalApiRoutersVintedSchemasSearchResponse vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
 
 Search Vinted items
 
@@ -549,7 +549,7 @@ val searchSessionId : kotlin.String = searchSessionId_example // kotlin.String |
 val statusIds : kotlin.String = statusIds_example // kotlin.String | Comma-separated condition/status IDs
 val order : kotlin.String = order_example // kotlin.String | 
 try {
-    val result : SearchResponse = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
+    val result : PortalApiRoutersVintedSchemasSearchResponse = apiInstance.vintedSearchVintedItems(query, market, sellerCountry, page, perPage, priceFrom, priceTo, brandIds, catalogIds, colorIds, sizeIds, materialIds, time, searchSessionId, statusIds, order)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VintedApi#vintedSearchVintedItems")
@@ -582,7 +582,7 @@ try {
 
 ### Return type
 
-[**SearchResponse**](SearchResponse.md)
+[**PortalApiRoutersVintedSchemasSearchResponse**](PortalApiRoutersVintedSchemasSearchResponse.md)
 
 ### Authorization
 

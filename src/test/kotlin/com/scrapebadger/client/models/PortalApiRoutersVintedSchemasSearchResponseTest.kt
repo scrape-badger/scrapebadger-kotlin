@@ -18,14 +18,14 @@ package com.scrapebadger.client.models
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
-import com.scrapebadger.client.models.SearchResponse
+import com.scrapebadger.client.models.PortalApiRoutersVintedSchemasSearchResponse
 import com.scrapebadger.client.models.VintedItemSummary
 import com.scrapebadger.client.models.VintedPagination
 
-class SearchResponseTest : ShouldSpec() {
+class PortalApiRoutersVintedSchemasSearchResponseTest : ShouldSpec() {
     init {
-        // uncomment below to create an instance of SearchResponse
-        //val modelInstance = SearchResponse()
+        // uncomment below to create an instance of PortalApiRoutersVintedSchemasSearchResponse
+        //val modelInstance = PortalApiRoutersVintedSchemasSearchResponse()
 
         // to test the property `items`
         should("test items") {
