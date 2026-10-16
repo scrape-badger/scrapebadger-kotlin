@@ -1034,7 +1034,7 @@ val kgmid : kotlin.String = kgmid_example // kotlin.String | Knowledge Graph ent
 val si : kotlin.String = si_example // kotlin.String | Cached search params
 val ibp : kotlin.String = ibp_example // kotlin.String | Layout control
 val uds : kotlin.String = uds_example // kotlin.String | Google filter string
-val aiOverview : kotlin.Boolean = true // kotlin.Boolean | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview.
+val aiOverview : kotlin.Boolean = true // kotlin.Boolean | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged.
 try {
     val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview)
     println(result)
@@ -1073,7 +1073,7 @@ try {
 | **uds** | **kotlin.String**| Google filter string | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **aiOverview** | **kotlin.Boolean**| Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview. | [optional] [default to false] |
+| **aiOverview** | **kotlin.Boolean**| Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. | [optional] [default to false] |
 
 ### Return type
 

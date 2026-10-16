@@ -252,7 +252,7 @@ class GoogleApiTest : ShouldSpec() {
             //val si : kotlin.String = si_example // kotlin.String | Cached search params
             //val ibp : kotlin.String = ibp_example // kotlin.String | Layout control
             //val uds : kotlin.String = uds_example // kotlin.String | Google filter string
-            //val aiOverview : kotlin.Boolean = true // kotlin.Boolean | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview.
+            //val aiOverview : kotlin.Boolean = true // kotlin.Boolean | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged.
             //val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview)
             //result shouldBe ("TODO")
         }

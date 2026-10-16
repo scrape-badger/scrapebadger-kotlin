@@ -1742,7 +1742,7 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param si Cached search params (optional)
      * @param ibp Layout control (optional)
      * @param uds Google filter string (optional)
-     * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview. (optional, default to false)
+     * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. (optional, default to false)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1796,7 +1796,7 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param si Cached search params (optional)
      * @param ibp Layout control (optional)
      * @param uds Google filter string (optional)
-     * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview. (optional, default to false)
+     * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. (optional, default to false)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1837,7 +1837,7 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param si Cached search params (optional)
      * @param ibp Layout control (optional)
      * @param uds Google filter string (optional)
-     * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview. (optional, default to false)
+     * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. (optional, default to false)
      * @return RequestConfig
      */
     fun googleGoogleWebSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, device: DeviceGoogleGoogleWebSearch?, userAgent: kotlin.String?, output: OutputGoogleGoogleWebSearch?, location: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, uule: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?, aiOverview: kotlin.Boolean?) : RequestConfig<Unit> {
