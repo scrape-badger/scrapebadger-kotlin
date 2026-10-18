@@ -189,6 +189,27 @@ class GoogleApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test googleGoogleLightWebSearch
+        should("test googleGoogleLightWebSearch") {
+            // uncomment below to test googleGoogleLightWebSearch
+            //val q : kotlin.String = q_example // kotlin.String | Search query (supports Google operators)
+            //val gl : kotlin.String = gl_example // kotlin.String | Country code
+            //val hl : kotlin.String = hl_example // kotlin.String | Language code
+            //val num : kotlin.Int = 56 // kotlin.Int | 
+            //val start : kotlin.Int = 56 // kotlin.Int | Page offset (0, 10, 20...)
+            //val domain : kotlin.String = domain_example // kotlin.String | Google domain
+            //val location : kotlin.String = location_example // kotlin.String | City-level geo-targeting
+            //val uule : kotlin.String = uule_example // kotlin.String | Encoded location
+            //val lr : kotlin.String = lr_example // kotlin.String | Language restrict (e.g. lang_en)
+            //val tbs : kotlin.String = tbs_example // kotlin.String | Time filter (e.g. qdr:d)
+            //val safe : kotlin.String = safe_example // kotlin.String | Safe search: off or active
+            //val filter : kotlin.Int = 56 // kotlin.Int | 
+            //val nfpr : kotlin.Int = 56 // kotlin.Int | Disable auto-correction
+            //val output : kotlin.String = output_example // kotlin.String | 
+            //val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output)
+            //result shouldBe ("TODO")
+        }
+
         // to test googleGoogleScraperHealthCheck
         should("test googleGoogleScraperHealthCheck") {
             // uncomment below to test googleGoogleScraperHealthCheck

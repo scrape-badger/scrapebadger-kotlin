@@ -269,6 +269,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *GoogleApi* | [**googleGoogleFlightsCalendarCheapestFarePerDate**](docs/GoogleApi.md#googlegoogleflightscalendarcheapestfareperdate) | **GET** /v1/google/flights/calendar | Google Flights calendar — cheapest fare per date |
 | *GoogleApi* | [**googleGoogleFlightsSearch**](docs/GoogleApi.md#googlegoogleflightssearch) | **GET** /v1/google/flights/search | Google Flights search |
 | *GoogleApi* | [**googleGoogleLensVisualSearch**](docs/GoogleApi.md#googlegooglelensvisualsearch) | **GET** /v1/google/lens/search | Google Lens visual search |
+| *GoogleApi* | [**googleGoogleLightWebSearch**](docs/GoogleApi.md#googlegooglelightwebsearch) | **GET** /v1/google/light/search | Google Light web search |
 | *GoogleApi* | [**googleGoogleScraperHealthCheck**](docs/GoogleApi.md#googlegooglescraperhealthcheck) | **GET** /v1/google/health | Google scraper health check |
 | *GoogleApi* | [**googleGoogleScraperHealthCheckHead**](docs/GoogleApi.md#googlegooglescraperhealthcheckhead) | **HEAD** /v1/google/health | Google scraper health check |
 | *GoogleApi* | [**googleGoogleSearchSuggestions**](docs/GoogleApi.md#googlegooglesearchsuggestions) | **GET** /v1/google/autocomplete | Google search suggestions |

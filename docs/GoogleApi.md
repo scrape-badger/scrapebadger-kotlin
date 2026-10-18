@@ -17,6 +17,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**googleGoogleFlightsCalendarCheapestFarePerDate**](GoogleApi.md#googleGoogleFlightsCalendarCheapestFarePerDate) | **GET** /v1/google/flights/calendar | Google Flights calendar — cheapest fare per date |
 | [**googleGoogleFlightsSearch**](GoogleApi.md#googleGoogleFlightsSearch) | **GET** /v1/google/flights/search | Google Flights search |
 | [**googleGoogleLensVisualSearch**](GoogleApi.md#googleGoogleLensVisualSearch) | **GET** /v1/google/lens/search | Google Lens visual search |
+| [**googleGoogleLightWebSearch**](GoogleApi.md#googleGoogleLightWebSearch) | **GET** /v1/google/light/search | Google Light web search |
 | [**googleGoogleScraperHealthCheck**](GoogleApi.md#googleGoogleScraperHealthCheck) | **GET** /v1/google/health | Google scraper health check |
 | [**googleGoogleScraperHealthCheckHead**](GoogleApi.md#googleGoogleScraperHealthCheckHead) | **HEAD** /v1/google/health | Google scraper health check |
 | [**googleGoogleSearchSuggestions**](GoogleApi.md#googleGoogleSearchSuggestions) | **GET** /v1/google/autocomplete | Google search suggestions |
@@ -775,6 +776,81 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **exactMatches** | **kotlin.Boolean**| Return only the pages hosting this image, flagged exact_match. Available for most images (8/10 in sampling); falls back to the full grid otherwise, saying so in warnings | [optional] [default to false] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="googleGoogleLightWebSearch"></a>
+# **googleGoogleLightWebSearch**
+> kotlin.Any googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output)
+
+Google Light web search
+
+Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = GoogleApi()
+val q : kotlin.String = q_example // kotlin.String | Search query (supports Google operators)
+val gl : kotlin.String = gl_example // kotlin.String | Country code
+val hl : kotlin.String = hl_example // kotlin.String | Language code
+val num : kotlin.Int = 56 // kotlin.Int | 
+val start : kotlin.Int = 56 // kotlin.Int | Page offset (0, 10, 20...)
+val domain : kotlin.String = domain_example // kotlin.String | Google domain
+val location : kotlin.String = location_example // kotlin.String | City-level geo-targeting
+val uule : kotlin.String = uule_example // kotlin.String | Encoded location
+val lr : kotlin.String = lr_example // kotlin.String | Language restrict (e.g. lang_en)
+val tbs : kotlin.String = tbs_example // kotlin.String | Time filter (e.g. qdr:d)
+val safe : kotlin.String = safe_example // kotlin.String | Safe search: off or active
+val filter : kotlin.Int = 56 // kotlin.Int | 
+val nfpr : kotlin.Int = 56 // kotlin.Int | Disable auto-correction
+val output : kotlin.String = output_example // kotlin.String | 
+try {
+    val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GoogleApi#googleGoogleLightWebSearch")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GoogleApi#googleGoogleLightWebSearch")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **q** | **kotlin.String**| Search query (supports Google operators) | |
+| **gl** | **kotlin.String**| Country code | [optional] [default to &quot;us&quot;] |
+| **hl** | **kotlin.String**| Language code | [optional] [default to &quot;en&quot;] |
+| **num** | **kotlin.Int**|  | [optional] [default to 10] |
+| **start** | **kotlin.Int**| Page offset (0, 10, 20...) | [optional] [default to 0] |
+| **domain** | **kotlin.String**| Google domain | [optional] [default to &quot;google.com&quot;] |
+| **location** | **kotlin.String**| City-level geo-targeting | [optional] |
+| **uule** | **kotlin.String**| Encoded location | [optional] |
+| **lr** | **kotlin.String**| Language restrict (e.g. lang_en) | [optional] |
+| **tbs** | **kotlin.String**| Time filter (e.g. qdr:d) | [optional] |
+| **safe** | **kotlin.String**| Safe search: off or active | [optional] [default to &quot;off&quot;] |
+| **filter** | **kotlin.Int**|  | [optional] |
+| **nfpr** | **kotlin.Int**| Disable auto-correction | [optional] [default to 0] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **output** | **kotlin.String**|  | [optional] [default to json] [enum: json, html] |
 
 ### Return type
 

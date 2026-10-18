@@ -1354,6 +1354,175 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
     }
 
     /**
+     * enum for parameter output
+     */
+     enum class OutputGoogleGoogleLightWebSearch(val value: kotlin.String) {
+         @Json(name = "json") json("json"),
+         @Json(name = "html") html("html");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
+     * Google Light web search
+     * Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
+     * @param q Search query (supports Google operators)
+     * @param gl Country code (optional, default to "us")
+     * @param hl Language code (optional, default to "en")
+     * @param num  (optional, default to 10)
+     * @param start Page offset (0, 10, 20...) (optional, default to 0)
+     * @param domain Google domain (optional, default to "google.com")
+     * @param location City-level geo-targeting (optional)
+     * @param uule Encoded location (optional)
+     * @param lr Language restrict (e.g. lang_en) (optional)
+     * @param tbs Time filter (e.g. qdr:d) (optional)
+     * @param safe Safe search: off or active (optional, default to "off")
+     * @param filter  (optional)
+     * @param nfpr Disable auto-correction (optional, default to 0)
+     * @param output  (optional, default to json)
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun googleGoogleLightWebSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", num: kotlin.Int? = 10, start: kotlin.Int? = 0, domain: kotlin.String? = "google.com", location: kotlin.String? = null, uule: kotlin.String? = null, lr: kotlin.String? = null, tbs: kotlin.String? = null, safe: kotlin.String? = "off", filter: kotlin.Int? = null, nfpr: kotlin.Int? = 0, output: OutputGoogleGoogleLightWebSearch? = OutputGoogleGoogleLightWebSearch.json) : kotlin.Any {
+        val localVarResponse = googleGoogleLightWebSearchWithHttpInfo(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, location = location, uule = uule, lr = lr, tbs = tbs, safe = safe, filter = filter, nfpr = nfpr, output = output)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Google Light web search
+     * Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
+     * @param q Search query (supports Google operators)
+     * @param gl Country code (optional, default to "us")
+     * @param hl Language code (optional, default to "en")
+     * @param num  (optional, default to 10)
+     * @param start Page offset (0, 10, 20...) (optional, default to 0)
+     * @param domain Google domain (optional, default to "google.com")
+     * @param location City-level geo-targeting (optional)
+     * @param uule Encoded location (optional)
+     * @param lr Language restrict (e.g. lang_en) (optional)
+     * @param tbs Time filter (e.g. qdr:d) (optional)
+     * @param safe Safe search: off or active (optional, default to "off")
+     * @param filter  (optional)
+     * @param nfpr Disable auto-correction (optional, default to 0)
+     * @param output  (optional, default to json)
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun googleGoogleLightWebSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, location: kotlin.String?, uule: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, output: OutputGoogleGoogleLightWebSearch?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googleGoogleLightWebSearchRequestConfig(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, location = location, uule = uule, lr = lr, tbs = tbs, safe = safe, filter = filter, nfpr = nfpr, output = output)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation googleGoogleLightWebSearch
+     *
+     * @param q Search query (supports Google operators)
+     * @param gl Country code (optional, default to "us")
+     * @param hl Language code (optional, default to "en")
+     * @param num  (optional, default to 10)
+     * @param start Page offset (0, 10, 20...) (optional, default to 0)
+     * @param domain Google domain (optional, default to "google.com")
+     * @param location City-level geo-targeting (optional)
+     * @param uule Encoded location (optional)
+     * @param lr Language restrict (e.g. lang_en) (optional)
+     * @param tbs Time filter (e.g. qdr:d) (optional)
+     * @param safe Safe search: off or active (optional, default to "off")
+     * @param filter  (optional)
+     * @param nfpr Disable auto-correction (optional, default to 0)
+     * @param output  (optional, default to json)
+     * @return RequestConfig
+     */
+    fun googleGoogleLightWebSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, location: kotlin.String?, uule: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, output: OutputGoogleGoogleLightWebSearch?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("q", listOf(q.toString()))
+                if (gl != null) {
+                    put("gl", listOf(gl.toString()))
+                }
+                if (hl != null) {
+                    put("hl", listOf(hl.toString()))
+                }
+                if (num != null) {
+                    put("num", listOf(num.toString()))
+                }
+                if (start != null) {
+                    put("start", listOf(start.toString()))
+                }
+                if (domain != null) {
+                    put("domain", listOf(domain.toString()))
+                }
+                if (location != null) {
+                    put("location", listOf(location.toString()))
+                }
+                if (uule != null) {
+                    put("uule", listOf(uule.toString()))
+                }
+                if (lr != null) {
+                    put("lr", listOf(lr.toString()))
+                }
+                if (tbs != null) {
+                    put("tbs", listOf(tbs.toString()))
+                }
+                if (safe != null) {
+                    put("safe", listOf(safe.toString()))
+                }
+                if (filter != null) {
+                    put("filter", listOf(filter.toString()))
+                }
+                if (nfpr != null) {
+                    put("nfpr", listOf(nfpr.toString()))
+                }
+                if (output != null) {
+                    put("output", listOf(output.value))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/google/light/search",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Google scraper health check
      * Check health of the Google scraper service.  Accepts &#x60;&#x60;HEAD&#x60;&#x60; so external uptime checkers (UptimeRobot uses HEAD by default for HTTP monitors) don&#39;t get a 405 Method Not Allowed.
      * @return kotlin.Any
