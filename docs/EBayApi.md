@@ -83,11 +83,11 @@ Configure ApiKeyAuth:
 
 <a id="ebayCompletedSoldListings"></a>
 # **ebayCompletedSoldListings**
-> kotlin.Any ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
+> kotlin.Any ebayCompletedSoldListings(query, seller, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
 
 Completed / sold listings
 
-Search completed/sold listings — eBay&#39;s sold-price history.  eBay pads a short result set with \&quot;results matching fewer words\&quot; and counts only the exact ones in &#x60;&#x60;pagination.total_results&#x60;&#x60;. Results come back in eBay&#39;s own ranking order with the exact matches first, and each one carries &#x60;&#x60;exact_match&#x60;&#x60; (true/false) so a price series can be built without parsing titles. An empty &#x60;&#x60;results&#x60;&#x60; with &#x60;&#x60;total_results: 0&#x60;&#x60; is eBay&#39;s own answer and costs 0 credits — a fetch failure is never a 200.  &#x60;&#x60;price&#x60;&#x60; is what the listing sold for, including the market&#39;s buyer-protection fee, as a local buyer sees it. It is &#x60;&#x60;null&#x60;&#x60; on one shape: an auction that also accepted offers (&#x60;&#x60;bids&#x60;&#x60; set). eBay&#39;s sold index answers those with either the listing&#39;s start/Buy-It-Now price or the price it sold at, varying between identical requests with nothing to say which, so no number there is trustworthy — &#x60;&#x60;/v1/ebay/items/{item_id}&#x60;&#x60; carries the winning bid for them (before the fee). A listing that closed purely on an accepted Best Offer prices normally: eBay never publishes the accepted amount, so &#x60;&#x60;price&#x60;&#x60; is the listed one, exactly as its own item page shows.
+Search completed/sold listings — eBay&#39;s sold-price history.  Pass &#x60;&#x60;query&#x60;&#x60;, &#x60;&#x60;seller&#x60;&#x60; or both. &#x60;&#x60;seller&#x60;&#x60; alone returns everything that seller sold, page by page, with no keyword needed.  eBay pads a short result set with \&quot;results matching fewer words\&quot; and counts only the exact ones in &#x60;&#x60;pagination.total_results&#x60;&#x60;. Results come back in eBay&#39;s own ranking order with the exact matches first, and each one carries &#x60;&#x60;exact_match&#x60;&#x60; (true/false) so a price series can be built without parsing titles. An empty &#x60;&#x60;results&#x60;&#x60; with &#x60;&#x60;total_results: 0&#x60;&#x60; is eBay&#39;s own answer and costs 0 credits — a fetch failure is never a 200.  &#x60;&#x60;price&#x60;&#x60; is what the listing sold for, including the market&#39;s buyer-protection fee, as a local buyer sees it. It is &#x60;&#x60;null&#x60;&#x60; on one shape: an auction that also accepted offers (&#x60;&#x60;bids&#x60;&#x60; set). eBay&#39;s sold index answers those with either the listing&#39;s start/Buy-It-Now price or the price it sold at, varying between identical requests with nothing to say which, so no number there is trustworthy — &#x60;&#x60;/v1/ebay/items/{item_id}&#x60;&#x60; carries the winning bid for them (before the fee). A listing that closed purely on an accepted Best Offer prices normally: eBay never publishes the accepted amount, so &#x60;&#x60;price&#x60;&#x60; is the listed one, exactly as its own item page shows.
 
 ### Example
 ```kotlin
@@ -96,7 +96,8 @@ Search completed/sold listings — eBay&#39;s sold-price history.  eBay pads a s
 //import com.scrapebadger.client.models.*
 
 val apiInstance = EBayApi()
-val query : kotlin.String = query_example // kotlin.String | Search keywords
+val query : kotlin.String = query_example // kotlin.String | Search keywords. Optional when `seller` is set.
+val seller : kotlin.String = seller_example // kotlin.String | Only this seller's sold listings (eBay username). Works without `query`.
 val domain : kotlin.String = domain_example // kotlin.String | Marketplace domain (com, co.uk, de …)
 val categoryId : kotlin.String = categoryId_example // kotlin.String | Restrict to a category id
 val page : kotlin.Int = 56 // kotlin.Int | 
@@ -108,7 +109,7 @@ val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal |
 val location : kotlin.String = location_example // kotlin.String | domestic|worldwide
 val language : kotlin.String = language_example // kotlin.String | english|japanese|chinese|korean
 try {
-    val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
+    val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, seller, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling EBayApi#ebayCompletedSoldListings")
@@ -120,7 +121,8 @@ try {
 ```
 
 ### Parameters
-| **query** | **kotlin.String**| Search keywords | |
+| **query** | **kotlin.String**| Search keywords. Optional when &#x60;seller&#x60; is set. | [optional] |
+| **seller** | **kotlin.String**| Only this seller&#39;s sold listings (eBay username). Works without &#x60;query&#x60;. | [optional] |
 | **domain** | **kotlin.String**| Marketplace domain (com, co.uk, de …) | [optional] [default to &quot;com&quot;] |
 | **categoryId** | **kotlin.String**| Restrict to a category id | [optional] |
 | **page** | **kotlin.Int**|  | [optional] [default to 1] |

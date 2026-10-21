@@ -43,7 +43,8 @@ class EBayApiTest : ShouldSpec() {
         // to test ebayCompletedSoldListings
         should("test ebayCompletedSoldListings") {
             // uncomment below to test ebayCompletedSoldListings
-            //val query : kotlin.String = query_example // kotlin.String | Search keywords
+            //val query : kotlin.String = query_example // kotlin.String | Search keywords. Optional when `seller` is set.
+            //val seller : kotlin.String = seller_example // kotlin.String | Only this seller's sold listings (eBay username). Works without `query`.
             //val domain : kotlin.String = domain_example // kotlin.String | Marketplace domain (com, co.uk, de …)
             //val categoryId : kotlin.String = categoryId_example // kotlin.String | Restrict to a category id
             //val page : kotlin.Int = 56 // kotlin.Int | 
@@ -54,7 +55,7 @@ class EBayApiTest : ShouldSpec() {
             //val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
             //val location : kotlin.String = location_example // kotlin.String | domestic|worldwide
             //val language : kotlin.String = language_example // kotlin.String | english|japanese|chinese|korean
-            //val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
+            //val result : kotlin.Any = apiInstance.ebayCompletedSoldListings(query, seller, domain, categoryId, page, perPage, sortBy, condition, minPrice, maxPrice, location, language)
             //result shouldBe ("TODO")
         }
 
