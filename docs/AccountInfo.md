@@ -10,6 +10,7 @@
 | **tier** | **kotlin.String** |  |  |
 | **rateLimitPerMinute** | **kotlin.Int** |  |  |
 | **subscription** | [**SubscriptionInfo**](SubscriptionInfo.md) |  |  [optional] |
+| **agentTrial** | [**AgentTrialInfo**](AgentTrialInfo.md) |  |  [optional] |
 
 
 

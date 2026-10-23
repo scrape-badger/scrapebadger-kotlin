@@ -15,7 +15,7 @@
 | **url** | [**Url**](Url.md) |  |  [optional] |
 | **imageUrl** | [**Imageurl**](Imageurl.md) |  |  [optional] |
 | **additionalImageUrls** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional] |
-| **images** | **kotlin.collections.List&lt;kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;&gt;** |  |  [optional] |
+| **images** | **kotlin.collections.List&lt;kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;?&gt;** |  |  [optional] |
 | **variants** | [**kotlin.collections.List&lt;Variant&gt;**](Variant.md) |  |  [optional] |
 | **isSellingFast** | [**Issellingfast**](Issellingfast.md) |  |  [optional] |
 | **isRestockingSoon** | [**Isrestockingsoon**](Isrestockingsoon.md) |  |  [optional] |
@@ -23,7 +23,7 @@
 | **gender** | [**Gender**](Gender.md) |  |  [optional] |
 | **description** | [**Description**](Description.md) |  |  [optional] |
 | **ratings** | [**Ratings**](Ratings.md) |  |  [optional] |
-| **breadcrumbs** | **kotlin.collections.List&lt;kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;&gt;** |  |  [optional] |
+| **breadcrumbs** | **kotlin.collections.List&lt;kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;?&gt;** |  |  [optional] |
 
 
 

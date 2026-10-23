@@ -250,6 +250,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *FacebookApi* | [**facebookSearchPlaces**](docs/FacebookApi.md#facebooksearchplaces) | **GET** /v1/facebook/search/places | Search places |
 | *FacebookApi* | [**facebookSearchPosts**](docs/FacebookApi.md#facebooksearchposts) | **GET** /v1/facebook/search/posts | Search posts |
 | *FacebookApi* | [**facebookSearchTheAdLibrary**](docs/FacebookApi.md#facebooksearchtheadlibrary) | **GET** /v1/facebook/ads/search | Search the Ad Library |
+| *FeedbackApi* | [**feedbackReportABugOrSendFeedback**](docs/FeedbackApi.md#feedbackreportabugorsendfeedback) | **POST** /v1/feedback | Report a bug or send feedback |
 | *GeminiApi* | [**geminiAskGeminiAQuestion**](docs/GeminiApi.md#geminiaskgeminiaquestion) | **GET** /v1/gemini/ask | Ask Gemini a question |
 | *GeminiApi* | [**geminiAskGeminiAQuestionPost**](docs/GeminiApi.md#geminiaskgeminiaquestionpost) | **POST** /v1/gemini/ask | Ask Gemini a question (POST) |
 | *GeminiApi* | [**geminiGeminiScraperHealthCheck**](docs/GeminiApi.md#geminigeminiscraperhealthcheck) | **GET** /v1/gemini/health | Gemini scraper health check |
@@ -410,6 +411,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *PerplexityApi* | [**perplexityMeasureABrandSVisibilityInAPerplexityAnswerPost**](docs/PerplexityApi.md#perplexitymeasureabrandsvisibilityinaperplexityanswerpost) | **POST** /v1/perplexity/brand-visibility | Measure a brand's visibility in a Perplexity answer (POST) |
 | *PerplexityApi* | [**perplexityPerplexityScraperHealthCheck**](docs/PerplexityApi.md#perplexityperplexityscraperhealthcheck) | **GET** /v1/perplexity/health | Perplexity scraper health check |
 | *PerplexityApi* | [**perplexityPerplexityScraperHealthCheckHead**](docs/PerplexityApi.md#perplexityperplexityscraperhealthcheckhead) | **HEAD** /v1/perplexity/health | Perplexity scraper health check |
+| *QuoteApi* | [**quoteQuoteACall**](docs/QuoteApi.md#quotequoteacall) | **POST** /v1/quote | Quote a call |
 | *RealtorApi* | [**realtorGetFullPropertyDetail**](docs/RealtorApi.md#realtorgetfullpropertydetail) | **GET** /v1/realtor/properties/{property_id} | Get full property detail |
 | *RealtorApi* | [**realtorListMarkets**](docs/RealtorApi.md#realtorlistmarkets) | **GET** /v1/realtor/markets | List markets |
 | *RealtorApi* | [**realtorLocationAutocomplete**](docs/RealtorApi.md#realtorlocationautocomplete) | **GET** /v1/realtor/autocomplete | Location autocomplete |
@@ -446,6 +448,8 @@ All URIs are relative to *https://scrapebadger.com*
 | *RedfinApi* | [**redfinRedfinScraperHealthCheckHead**](docs/RedfinApi.md#redfinredfinscraperhealthcheckhead) | **HEAD** /v1/redfin/health | Redfin scraper health check |
 | *RedfinApi* | [**redfinRegionAddressSuggestions**](docs/RedfinApi.md#redfinregionaddresssuggestions) | **GET** /v1/redfin/autocomplete | Region/address suggestions |
 | *RedfinApi* | [**redfinSearchProperties**](docs/RedfinApi.md#redfinsearchproperties) | **GET** /v1/redfin/search | Search properties |
+| *RequestsApi* | [**requestsPollAnAsyncRequest**](docs/RequestsApi.md#requestspollanasyncrequest) | **GET** /v1/requests/{request_id} | Poll an async request |
+| *ResultsApi* | [**resultsReReadAResult**](docs/ResultsApi.md#resultsrereadaresult) | **GET** /v1/results/{result_id} | Re-read a result |
 | *TargetApi* | [**targetBrowseACategory**](docs/TargetApi.md#targetbrowseacategory) | **GET** /v1/target/category | Browse a category |
 | *TargetApi* | [**targetFindNearbyStores**](docs/TargetApi.md#targetfindnearbystores) | **GET** /v1/target/stores | Find nearby stores |
 | *TargetApi* | [**targetGetCategories**](docs/TargetApi.md#targetgetcategories) | **GET** /v1/target/categories | Get categories |
@@ -664,6 +668,7 @@ All URIs are relative to *https://scrapebadger.com*
 ## Documentation for Models
 
  - [com.scrapebadger.client.models.AccountInfo](docs/AccountInfo.md)
+ - [com.scrapebadger.client.models.AgentTrialInfo](docs/AgentTrialInfo.md)
  - [com.scrapebadger.client.models.BillingLogListResponse](docs/BillingLogListResponse.md)
  - [com.scrapebadger.client.models.BillingLogResponse](docs/BillingLogResponse.md)
  - [com.scrapebadger.client.models.Brandid](docs/Brandid.md)
@@ -677,6 +682,7 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.ExtractRequest](docs/ExtractRequest.md)
  - [com.scrapebadger.client.models.ExtractRequestExtractRulesValue](docs/ExtractRequestExtractRulesValue.md)
  - [com.scrapebadger.client.models.ExtractRule](docs/ExtractRule.md)
+ - [com.scrapebadger.client.models.FeedbackRequest](docs/FeedbackRequest.md)
  - [com.scrapebadger.client.models.FilterRuleCreate](docs/FilterRuleCreate.md)
  - [com.scrapebadger.client.models.FilterRuleDeliveryLogListResponse](docs/FilterRuleDeliveryLogListResponse.md)
  - [com.scrapebadger.client.models.FilterRuleDeliveryLogResponse](docs/FilterRuleDeliveryLogResponse.md)
@@ -703,6 +709,7 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.ProductPrice](docs/ProductPrice.md)
  - [com.scrapebadger.client.models.ProductResponse](docs/ProductResponse.md)
  - [com.scrapebadger.client.models.Productcode](docs/Productcode.md)
+ - [com.scrapebadger.client.models.QuoteRequest](docs/QuoteRequest.md)
  - [com.scrapebadger.client.models.Ratings](docs/Ratings.md)
  - [com.scrapebadger.client.models.ScreenshotRequest](docs/ScreenshotRequest.md)
  - [com.scrapebadger.client.models.Searchterm](docs/Searchterm.md)

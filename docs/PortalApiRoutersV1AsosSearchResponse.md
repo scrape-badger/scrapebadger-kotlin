@@ -12,7 +12,7 @@
 | **searchTerm** | [**Searchterm**](Searchterm.md) |  |  [optional] |
 | **categoryName** | [**Categoryname**](Categoryname.md) |  |  [optional] |
 | **nextOffset** | [**NextOffset**](NextOffset.md) |  |  [optional] |
-| **facets** | **kotlin.collections.List&lt;kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;&gt;** |  |  [optional] |
+| **facets** | **kotlin.collections.List&lt;kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;?&gt;** |  |  [optional] |
 
 
 

@@ -19,6 +19,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.models.AccountInfo
+import com.scrapebadger.client.models.AgentTrialInfo
 import com.scrapebadger.client.models.SubscriptionInfo
 
 class AccountInfoTest : ShouldSpec() {
@@ -60,6 +61,12 @@ class AccountInfoTest : ShouldSpec() {
         should("test subscription") {
             // uncomment below to test the property
             //modelInstance.subscription shouldBe ("TODO")
+        }
+
+        // to test the property `agentTrial`
+        should("test agentTrial") {
+            // uncomment below to test the property
+            //modelInstance.agentTrial shouldBe ("TODO")
         }
 
     }

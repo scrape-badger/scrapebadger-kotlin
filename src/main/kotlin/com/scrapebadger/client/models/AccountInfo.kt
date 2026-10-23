@@ -15,6 +15,7 @@
 
 package com.scrapebadger.client.models
 
+import com.scrapebadger.client.models.AgentTrialInfo
 import com.scrapebadger.client.models.SubscriptionInfo
 
 import com.squareup.moshi.Json
@@ -29,6 +30,7 @@ import com.squareup.moshi.JsonClass
  * @param tier 
  * @param rateLimitPerMinute 
  * @param subscription 
+ * @param agentTrial 
  */
 
 
@@ -50,7 +52,10 @@ data class AccountInfo (
     val rateLimitPerMinute: kotlin.Int?,
 
     @Json(name = "subscription")
-    val subscription: SubscriptionInfo? = null
+    val subscription: SubscriptionInfo? = null,
+
+    @Json(name = "agent_trial")
+    val agentTrial: AgentTrialInfo? = null
 
 ) {
 
