@@ -34,8 +34,9 @@ class FacebookApiTest : ShouldSpec() {
             //val minPrice : kotlin.Int = 56 // kotlin.Int | 
             //val maxPrice : kotlin.Int = 56 // kotlin.Int | 
             //val sortBy : kotlin.String = sortBy_example // kotlin.String | 
+            //val radius : kotlin.Int = 56 // kotlin.Int | Radius around the location (km, or miles in the US)
             //val after : kotlin.String = after_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookBrowseAMarketplaceCategory(category, location, minPrice, maxPrice, sortBy, after)
+            //val result : kotlin.Any = apiInstance.facebookBrowseAMarketplaceCategory(category, location, minPrice, maxPrice, sortBy, radius, after)
             //result shouldBe ("TODO")
         }
 

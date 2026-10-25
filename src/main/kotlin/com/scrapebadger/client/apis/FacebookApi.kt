@@ -53,6 +53,7 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param sortBy  (optional)
+     * @param radius Radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -63,8 +64,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookBrowseAMarketplaceCategory(category: kotlin.String, location: kotlin.String? = "nyc", minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, sortBy: kotlin.String? = null, after: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = facebookBrowseAMarketplaceCategoryWithHttpInfo(category = category, location = location, minPrice = minPrice, maxPrice = maxPrice, sortBy = sortBy, after = after)
+    fun facebookBrowseAMarketplaceCategory(category: kotlin.String, location: kotlin.String? = "nyc", minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, sortBy: kotlin.String? = null, radius: kotlin.Int? = null, after: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = facebookBrowseAMarketplaceCategoryWithHttpInfo(category = category, location = location, minPrice = minPrice, maxPrice = maxPrice, sortBy = sortBy, radius = radius, after = after)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -89,6 +90,7 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param sortBy  (optional)
+     * @param radius Radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -96,8 +98,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookBrowseAMarketplaceCategoryWithHttpInfo(category: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sortBy: kotlin.String?, after: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookBrowseAMarketplaceCategoryRequestConfig(category = category, location = location, minPrice = minPrice, maxPrice = maxPrice, sortBy = sortBy, after = after)
+    fun facebookBrowseAMarketplaceCategoryWithHttpInfo(category: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sortBy: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookBrowseAMarketplaceCategoryRequestConfig(category = category, location = location, minPrice = minPrice, maxPrice = maxPrice, sortBy = sortBy, radius = radius, after = after)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -112,10 +114,11 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
      * @param sortBy  (optional)
+     * @param radius Radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
      * @return RequestConfig
      */
-    fun facebookBrowseAMarketplaceCategoryRequestConfig(category: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sortBy: kotlin.String?, after: kotlin.String?) : RequestConfig<Unit> {
+    fun facebookBrowseAMarketplaceCategoryRequestConfig(category: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, sortBy: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -130,6 +133,9 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
                 }
                 if (sortBy != null) {
                     put("sort_by", listOf(sortBy.toString()))
+                }
+                if (radius != null) {
+                    put("radius", listOf(radius.toString()))
                 }
                 if (after != null) {
                     put("after", listOf(after.toString()))

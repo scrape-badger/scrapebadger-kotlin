@@ -32,7 +32,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 <a id="facebookBrowseAMarketplaceCategory"></a>
 # **facebookBrowseAMarketplaceCategory**
-> kotlin.Any facebookBrowseAMarketplaceCategory(category, location, minPrice, maxPrice, sortBy, after)
+> kotlin.Any facebookBrowseAMarketplaceCategory(category, location, minPrice, maxPrice, sortBy, radius, after)
 
 Browse a Marketplace category
 
@@ -50,9 +50,10 @@ val location : kotlin.String = location_example // kotlin.String |
 val minPrice : kotlin.Int = 56 // kotlin.Int | 
 val maxPrice : kotlin.Int = 56 // kotlin.Int | 
 val sortBy : kotlin.String = sortBy_example // kotlin.String | 
+val radius : kotlin.Int = 56 // kotlin.Int | Radius around the location (km, or miles in the US)
 val after : kotlin.String = after_example // kotlin.String | 
 try {
-    val result : kotlin.Any = apiInstance.facebookBrowseAMarketplaceCategory(category, location, minPrice, maxPrice, sortBy, after)
+    val result : kotlin.Any = apiInstance.facebookBrowseAMarketplaceCategory(category, location, minPrice, maxPrice, sortBy, radius, after)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookBrowseAMarketplaceCategory")
@@ -69,6 +70,7 @@ try {
 | **minPrice** | **kotlin.Int**|  | [optional] |
 | **maxPrice** | **kotlin.Int**|  | [optional] |
 | **sortBy** | **kotlin.String**|  | [optional] |
+| **radius** | **kotlin.Int**| Radius around the location (km, or miles in the US) | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **after** | **kotlin.String**|  | [optional] |
