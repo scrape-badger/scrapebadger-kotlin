@@ -1163,6 +1163,100 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     }
 
     /**
+     * Resolve a town/postcode to a Marketplace location
+     * Resolve a town, postcode or coordinates to a Facebook Marketplace place id.  Facebook keys Marketplace by place, not coordinates, and only a place slug or numeric place id works as &#x60;&#x60;location&#x60;&#x60;. Pass the returned &#x60;&#x60;place_id&#x60;&#x60; as &#x60;&#x60;location&#x60;&#x60; on Marketplace search/category to centre results anywhere, not just the preset catalogue. Postcodes resolve exactly; a bare town name in an ambiguous country is best paired with &#x60;&#x60;country&#x60;&#x60; (e.g. &#x60;&#x60;gb&#x60;&#x60;).
+     * @param query Town, city, postcode or address (e.g. &#39;Durham&#39;, &#39;DH1 3LE&#39;) (optional)
+     * @param latitude Resolve this exact point instead (optional)
+     * @param longitude  (optional)
+     * @param country ISO country code hint for an ambiguous name (e.g. gb) (optional)
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun facebookResolveATownPostcodeToAMarketplaceLocation(query: kotlin.String? = null, latitude: java.math.BigDecimal? = null, longitude: java.math.BigDecimal? = null, country: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = facebookResolveATownPostcodeToAMarketplaceLocationWithHttpInfo(query = query, latitude = latitude, longitude = longitude, country = country)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Resolve a town/postcode to a Marketplace location
+     * Resolve a town, postcode or coordinates to a Facebook Marketplace place id.  Facebook keys Marketplace by place, not coordinates, and only a place slug or numeric place id works as &#x60;&#x60;location&#x60;&#x60;. Pass the returned &#x60;&#x60;place_id&#x60;&#x60; as &#x60;&#x60;location&#x60;&#x60; on Marketplace search/category to centre results anywhere, not just the preset catalogue. Postcodes resolve exactly; a bare town name in an ambiguous country is best paired with &#x60;&#x60;country&#x60;&#x60; (e.g. &#x60;&#x60;gb&#x60;&#x60;).
+     * @param query Town, city, postcode or address (e.g. &#39;Durham&#39;, &#39;DH1 3LE&#39;) (optional)
+     * @param latitude Resolve this exact point instead (optional)
+     * @param longitude  (optional)
+     * @param country ISO country code hint for an ambiguous name (e.g. gb) (optional)
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun facebookResolveATownPostcodeToAMarketplaceLocationWithHttpInfo(query: kotlin.String?, latitude: java.math.BigDecimal?, longitude: java.math.BigDecimal?, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookResolveATownPostcodeToAMarketplaceLocationRequestConfig(query = query, latitude = latitude, longitude = longitude, country = country)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation facebookResolveATownPostcodeToAMarketplaceLocation
+     *
+     * @param query Town, city, postcode or address (e.g. &#39;Durham&#39;, &#39;DH1 3LE&#39;) (optional)
+     * @param latitude Resolve this exact point instead (optional)
+     * @param longitude  (optional)
+     * @param country ISO country code hint for an ambiguous name (e.g. gb) (optional)
+     * @return RequestConfig
+     */
+    fun facebookResolveATownPostcodeToAMarketplaceLocationRequestConfig(query: kotlin.String?, latitude: java.math.BigDecimal?, longitude: java.math.BigDecimal?, country: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (query != null) {
+                    put("query", listOf(query.toString()))
+                }
+                if (latitude != null) {
+                    put("latitude", listOf(latitude.toString()))
+                }
+                if (longitude != null) {
+                    put("longitude", listOf(longitude.toString()))
+                }
+                if (country != null) {
+                    put("country", listOf(country.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/facebook/marketplace/locations/resolve",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Search advertiser pages
      * Search advertiser Pages in the Ad Library — returns page ids, categories, likes/followers, verification and Instagram handles.
      * @param query Advertiser name or keyword

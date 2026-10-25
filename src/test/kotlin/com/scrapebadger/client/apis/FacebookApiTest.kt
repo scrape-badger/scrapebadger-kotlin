@@ -152,6 +152,17 @@ class FacebookApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test facebookResolveATownPostcodeToAMarketplaceLocation
+        should("test facebookResolveATownPostcodeToAMarketplaceLocation") {
+            // uncomment below to test facebookResolveATownPostcodeToAMarketplaceLocation
+            //val query : kotlin.String = query_example // kotlin.String | Town, city, postcode or address (e.g. 'Durham', 'DH1 3LE')
+            //val latitude : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Resolve this exact point instead
+            //val longitude : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
+            //val country : kotlin.String = country_example // kotlin.String | ISO country code hint for an ambiguous name (e.g. gb)
+            //val result : kotlin.Any = apiInstance.facebookResolveATownPostcodeToAMarketplaceLocation(query, latitude, longitude, country)
+            //result shouldBe ("TODO")
+        }
+
         // to test facebookSearchAdvertiserPages
         should("test facebookSearchAdvertiserPages") {
             // uncomment below to test facebookSearchAdvertiserPages

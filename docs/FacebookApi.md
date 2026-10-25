@@ -18,6 +18,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**facebookGetProfilePosts**](FacebookApi.md#facebookGetProfilePosts) | **GET** /v1/facebook/profiles/{identifier}/posts | Get profile posts |
 | [**facebookListCategories**](FacebookApi.md#facebookListCategories) | **GET** /v1/facebook/marketplace/categories | List categories |
 | [**facebookListLocations**](FacebookApi.md#facebookListLocations) | **GET** /v1/facebook/marketplace/locations | List locations |
+| [**facebookResolveATownPostcodeToAMarketplaceLocation**](FacebookApi.md#facebookResolveATownPostcodeToAMarketplaceLocation) | **GET** /v1/facebook/marketplace/locations/resolve | Resolve a town/postcode to a Marketplace location |
 | [**facebookSearchAdvertiserPages**](FacebookApi.md#facebookSearchAdvertiserPages) | **GET** /v1/facebook/ads/pages/search | Search advertiser pages |
 | [**facebookSearchEvents**](FacebookApi.md#facebookSearchEvents) | **GET** /v1/facebook/search/events | Search events |
 | [**facebookSearchEverything**](FacebookApi.md#facebookSearchEverything) | **GET** /v1/facebook/search | Search everything |
@@ -725,6 +726,61 @@ try {
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="facebookResolveATownPostcodeToAMarketplaceLocation"></a>
+# **facebookResolveATownPostcodeToAMarketplaceLocation**
+> kotlin.Any facebookResolveATownPostcodeToAMarketplaceLocation(query, latitude, longitude, country)
+
+Resolve a town/postcode to a Marketplace location
+
+Resolve a town, postcode or coordinates to a Facebook Marketplace place id.  Facebook keys Marketplace by place, not coordinates, and only a place slug or numeric place id works as &#x60;&#x60;location&#x60;&#x60;. Pass the returned &#x60;&#x60;place_id&#x60;&#x60; as &#x60;&#x60;location&#x60;&#x60; on Marketplace search/category to centre results anywhere, not just the preset catalogue. Postcodes resolve exactly; a bare town name in an ambiguous country is best paired with &#x60;&#x60;country&#x60;&#x60; (e.g. &#x60;&#x60;gb&#x60;&#x60;).
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = FacebookApi()
+val query : kotlin.String = query_example // kotlin.String | Town, city, postcode or address (e.g. 'Durham', 'DH1 3LE')
+val latitude : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Resolve this exact point instead
+val longitude : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 
+val country : kotlin.String = country_example // kotlin.String | ISO country code hint for an ambiguous name (e.g. gb)
+try {
+    val result : kotlin.Any = apiInstance.facebookResolveATownPostcodeToAMarketplaceLocation(query, latitude, longitude, country)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling FacebookApi#facebookResolveATownPostcodeToAMarketplaceLocation")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling FacebookApi#facebookResolveATownPostcodeToAMarketplaceLocation")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **query** | **kotlin.String**| Town, city, postcode or address (e.g. &#39;Durham&#39;, &#39;DH1 3LE&#39;) | [optional] |
+| **latitude** | **java.math.BigDecimal**| Resolve this exact point instead | [optional] |
+| **longitude** | **java.math.BigDecimal**|  | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **country** | **kotlin.String**| ISO country code hint for an ambiguous name (e.g. gb) | [optional] |
 
 ### Return type
 
