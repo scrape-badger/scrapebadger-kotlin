@@ -50,6 +50,7 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * Send a prompt to Perplexity and get the answer plus the web sources it cited.
      * @param prompt The prompt to send to Perplexity (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
+     * @param strictCountry Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. (optional, default to false)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -59,8 +60,8 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun perplexityAskPerplexityAQuestion(prompt: kotlin.String, country: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = perplexityAskPerplexityAQuestionWithHttpInfo(prompt = prompt, country = country)
+    fun perplexityAskPerplexityAQuestion(prompt: kotlin.String, country: kotlin.String? = null, strictCountry: kotlin.Boolean? = false) : kotlin.Any {
+        val localVarResponse = perplexityAskPerplexityAQuestionWithHttpInfo(prompt = prompt, country = country, strictCountry = strictCountry)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -82,14 +83,15 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * Send a prompt to Perplexity and get the answer plus the web sources it cited.
      * @param prompt The prompt to send to Perplexity (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
+     * @param strictCountry Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. (optional, default to false)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun perplexityAskPerplexityAQuestionWithHttpInfo(prompt: kotlin.String, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = perplexityAskPerplexityAQuestionRequestConfig(prompt = prompt, country = country)
+    fun perplexityAskPerplexityAQuestionWithHttpInfo(prompt: kotlin.String, country: kotlin.String?, strictCountry: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = perplexityAskPerplexityAQuestionRequestConfig(prompt = prompt, country = country, strictCountry = strictCountry)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -101,15 +103,19 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      *
      * @param prompt The prompt to send to Perplexity (max 4096 characters).
      * @param country ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. (optional)
+     * @param strictCountry Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. (optional, default to false)
      * @return RequestConfig
      */
-    fun perplexityAskPerplexityAQuestionRequestConfig(prompt: kotlin.String, country: kotlin.String?) : RequestConfig<Unit> {
+    fun perplexityAskPerplexityAQuestionRequestConfig(prompt: kotlin.String, country: kotlin.String?, strictCountry: kotlin.Boolean?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 put("prompt", listOf(prompt.toString()))
                 if (country != null) {
                     put("country", listOf(country.toString()))
+                }
+                if (strictCountry != null) {
+                    put("strict_country", listOf(strictCountry.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -202,6 +208,7 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param aliases Comma-separated alternative names. (optional)
      * @param competitors Comma-separated competitor names. (optional)
      * @param country ISO-3166 alpha-2 egress country. (optional)
+     * @param strictCountry Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. (optional, default to false)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -211,8 +218,8 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun perplexityMeasureABrandSVisibilityInAPerplexityAnswer(prompt: kotlin.String, brand: kotlin.String, domain: kotlin.String? = null, aliases: kotlin.String? = null, competitors: kotlin.String? = null, country: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = perplexityMeasureABrandSVisibilityInAPerplexityAnswerWithHttpInfo(prompt = prompt, brand = brand, domain = domain, aliases = aliases, competitors = competitors, country = country)
+    fun perplexityMeasureABrandSVisibilityInAPerplexityAnswer(prompt: kotlin.String, brand: kotlin.String, domain: kotlin.String? = null, aliases: kotlin.String? = null, competitors: kotlin.String? = null, country: kotlin.String? = null, strictCountry: kotlin.Boolean? = false) : kotlin.Any {
+        val localVarResponse = perplexityMeasureABrandSVisibilityInAPerplexityAnswerWithHttpInfo(prompt = prompt, brand = brand, domain = domain, aliases = aliases, competitors = competitors, country = country, strictCountry = strictCountry)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -238,14 +245,15 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param aliases Comma-separated alternative names. (optional)
      * @param competitors Comma-separated competitor names. (optional)
      * @param country ISO-3166 alpha-2 egress country. (optional)
+     * @param strictCountry Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. (optional, default to false)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun perplexityMeasureABrandSVisibilityInAPerplexityAnswerWithHttpInfo(prompt: kotlin.String, brand: kotlin.String, domain: kotlin.String?, aliases: kotlin.String?, competitors: kotlin.String?, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = perplexityMeasureABrandSVisibilityInAPerplexityAnswerRequestConfig(prompt = prompt, brand = brand, domain = domain, aliases = aliases, competitors = competitors, country = country)
+    fun perplexityMeasureABrandSVisibilityInAPerplexityAnswerWithHttpInfo(prompt: kotlin.String, brand: kotlin.String, domain: kotlin.String?, aliases: kotlin.String?, competitors: kotlin.String?, country: kotlin.String?, strictCountry: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = perplexityMeasureABrandSVisibilityInAPerplexityAnswerRequestConfig(prompt = prompt, brand = brand, domain = domain, aliases = aliases, competitors = competitors, country = country, strictCountry = strictCountry)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -261,9 +269,10 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
      * @param aliases Comma-separated alternative names. (optional)
      * @param competitors Comma-separated competitor names. (optional)
      * @param country ISO-3166 alpha-2 egress country. (optional)
+     * @param strictCountry Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. (optional, default to false)
      * @return RequestConfig
      */
-    fun perplexityMeasureABrandSVisibilityInAPerplexityAnswerRequestConfig(prompt: kotlin.String, brand: kotlin.String, domain: kotlin.String?, aliases: kotlin.String?, competitors: kotlin.String?, country: kotlin.String?) : RequestConfig<Unit> {
+    fun perplexityMeasureABrandSVisibilityInAPerplexityAnswerRequestConfig(prompt: kotlin.String, brand: kotlin.String, domain: kotlin.String?, aliases: kotlin.String?, competitors: kotlin.String?, country: kotlin.String?, strictCountry: kotlin.Boolean?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -280,6 +289,9 @@ class PerplexityApi(basePath: kotlin.String = defaultBasePath, client: Call.Fact
                 }
                 if (country != null) {
                     put("country", listOf(country.toString()))
+                }
+                if (strictCountry != null) {
+                    put("strict_country", listOf(strictCountry.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
