@@ -11,6 +11,11 @@ docs/AmazonApi.md
 docs/ApartmentsApi.md
 docs/AppStoreApi.md
 docs/BaiduApi.md
+docs/BatchApi.md
+docs/BatchItem.md
+docs/BatchItemQueryValue.md
+docs/BatchItemQueryValueAnyOfInner.md
+docs/BatchRequest.md
 docs/BestBuyApi.md
 docs/BillingLogListResponse.md
 docs/BillingLogResponse.md
@@ -123,6 +128,7 @@ docs/WebhookCreate.md
 docs/WebhookListItem.md
 docs/WebhookListResponse.md
 docs/WebhookResponse.md
+docs/WebhookSecret.md
 docs/WebhookTestRequest.md
 docs/WebhookTestResponse.md
 docs/YahooApi.md
@@ -142,6 +148,7 @@ src/main/kotlin/com/scrapebadger/client/apis/AmazonApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ApartmentsApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/AppStoreApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BaiduApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/BatchApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BestBuyApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BingApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BookingApi.kt
@@ -200,6 +207,10 @@ src/main/kotlin/com/scrapebadger/client/infrastructure/URIAdapter.kt
 src/main/kotlin/com/scrapebadger/client/infrastructure/UUIDAdapter.kt
 src/main/kotlin/com/scrapebadger/client/models/AccountInfo.kt
 src/main/kotlin/com/scrapebadger/client/models/AgentTrialInfo.kt
+src/main/kotlin/com/scrapebadger/client/models/BatchItem.kt
+src/main/kotlin/com/scrapebadger/client/models/BatchItemQueryValue.kt
+src/main/kotlin/com/scrapebadger/client/models/BatchItemQueryValueAnyOfInner.kt
+src/main/kotlin/com/scrapebadger/client/models/BatchRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/BillingLogListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/BillingLogResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/Brandid.kt
@@ -277,6 +288,7 @@ src/main/kotlin/com/scrapebadger/client/models/WebhookCreate.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookListItem.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookResponse.kt
+src/main/kotlin/com/scrapebadger/client/models/WebhookSecret.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookTestRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookTestResponse.kt
 src/test/kotlin/com/scrapebadger/client/apis/ASOSApiTest.kt
@@ -287,6 +299,7 @@ src/test/kotlin/com/scrapebadger/client/apis/AmazonApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ApartmentsApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/AppStoreApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BaiduApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/BatchApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BestBuyApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BingApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BookingApiTest.kt
@@ -328,6 +341,10 @@ src/test/kotlin/com/scrapebadger/client/apis/YouTubeApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ZillowApiTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AccountInfoTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AgentTrialInfoTest.kt
+src/test/kotlin/com/scrapebadger/client/models/BatchItemQueryValueAnyOfInnerTest.kt
+src/test/kotlin/com/scrapebadger/client/models/BatchItemQueryValueTest.kt
+src/test/kotlin/com/scrapebadger/client/models/BatchItemTest.kt
+src/test/kotlin/com/scrapebadger/client/models/BatchRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/BillingLogListResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/BillingLogResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/BrandidTest.kt
@@ -405,5 +422,6 @@ src/test/kotlin/com/scrapebadger/client/models/WebhookCreateTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookListItemTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookListResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookResponseTest.kt
+src/test/kotlin/com/scrapebadger/client/models/WebhookSecretTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookTestRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookTestResponseTest.kt

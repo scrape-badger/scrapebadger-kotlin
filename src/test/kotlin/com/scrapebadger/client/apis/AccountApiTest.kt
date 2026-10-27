@@ -20,6 +20,7 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.AccountApi
 import com.scrapebadger.client.models.AccountInfo
+import com.scrapebadger.client.models.WebhookSecret
 
 class AccountApiTest : ShouldSpec() {
     init {
@@ -30,6 +31,20 @@ class AccountApiTest : ShouldSpec() {
         should("test accountGetAccountInfo") {
             // uncomment below to test accountGetAccountInfo
             //val result : AccountInfo = apiInstance.accountGetAccountInfo()
+            //result shouldBe ("TODO")
+        }
+
+        // to test accountGetTheWebhookSigningSecret
+        should("test accountGetTheWebhookSigningSecret") {
+            // uncomment below to test accountGetTheWebhookSigningSecret
+            //val result : WebhookSecret = apiInstance.accountGetTheWebhookSigningSecret()
+            //result shouldBe ("TODO")
+        }
+
+        // to test accountRotateTheWebhookSigningSecret
+        should("test accountRotateTheWebhookSigningSecret") {
+            // uncomment below to test accountRotateTheWebhookSigningSecret
+            //val result : WebhookSecret = apiInstance.accountRotateTheWebhookSigningSecret()
             //result shouldBe ("TODO")
         }
 

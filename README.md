@@ -106,6 +106,8 @@ All URIs are relative to *https://scrapebadger.com*
 | *ASOSApi* | [**asosSearchProducts**](docs/ASOSApi.md#asossearchproducts) | **GET** /v1/asos/search | Search products |
 | *ASOSApi* | [**asosSearchSuggestions**](docs/ASOSApi.md#asossearchsuggestions) | **GET** /v1/asos/autocomplete | Search suggestions |
 | *AccountApi* | [**accountGetAccountInfo**](docs/AccountApi.md#accountgetaccountinfo) | **GET** /v1/account/me | Get account info |
+| *AccountApi* | [**accountGetTheWebhookSigningSecret**](docs/AccountApi.md#accountgetthewebhooksigningsecret) | **GET** /v1/account/webhook-secret | Get the webhook signing secret |
+| *AccountApi* | [**accountRotateTheWebhookSigningSecret**](docs/AccountApi.md#accountrotatethewebhooksigningsecret) | **POST** /v1/account/webhook-secret/rotate | Rotate the webhook signing secret |
 | *AirbnbApi* | [**airbnbAirbnbScraperHealthCheck**](docs/AirbnbApi.md#airbnbairbnbscraperhealthcheck) | **GET** /v1/airbnb/health | Airbnb scraper health check |
 | *AirbnbApi* | [**airbnbAirbnbScraperHealthCheckHead**](docs/AirbnbApi.md#airbnbairbnbscraperhealthcheckhead) | **HEAD** /v1/airbnb/health | Airbnb scraper health check |
 | *AirbnbApi* | [**airbnbGetAvailabilityCalendar**](docs/AirbnbApi.md#airbnbgetavailabilitycalendar) | **GET** /v1/airbnb/listings/{room_id}/calendar | Get availability calendar |
@@ -156,6 +158,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *BaiduApi* | [**baiduBaiduScraperHealthCheckHead**](docs/BaiduApi.md#baidubaiduscraperhealthcheckhead) | **HEAD** /v1/baidu/health | Baidu scraper health check |
 | *BaiduApi* | [**baiduBaiduWebSearch**](docs/BaiduApi.md#baidubaiduwebsearch) | **GET** /v1/baidu/search | Baidu web search |
 | *BaiduApi* | [**baiduSearchSuggestions**](docs/BaiduApi.md#baidusearchsuggestions) | **GET** /v1/baidu/autocomplete | Search suggestions |
+| *BatchApi* | [**batchSubmitABatchOfAsyncRequests**](docs/BatchApi.md#batchsubmitabatchofasyncrequests) | **POST** /v1/batch | Submit a batch of async requests |
 | *BestBuyApi* | [**bestbuyBrowseACategory**](docs/BestBuyApi.md#bestbuybrowseacategory) | **GET** /v1/bestbuy/category | Browse a category |
 | *BestBuyApi* | [**bestbuyGetCategories**](docs/BestBuyApi.md#bestbuygetcategories) | **GET** /v1/bestbuy/categories | Get categories |
 | *BestBuyApi* | [**bestbuyGetLaptopAndComputerDeals**](docs/BestBuyApi.md#bestbuygetlaptopandcomputerdeals) | **GET** /v1/bestbuy/deals | Get laptop and computer deals |
@@ -670,6 +673,10 @@ All URIs are relative to *https://scrapebadger.com*
 
  - [com.scrapebadger.client.models.AccountInfo](docs/AccountInfo.md)
  - [com.scrapebadger.client.models.AgentTrialInfo](docs/AgentTrialInfo.md)
+ - [com.scrapebadger.client.models.BatchItem](docs/BatchItem.md)
+ - [com.scrapebadger.client.models.BatchItemQueryValue](docs/BatchItemQueryValue.md)
+ - [com.scrapebadger.client.models.BatchItemQueryValueAnyOfInner](docs/BatchItemQueryValueAnyOfInner.md)
+ - [com.scrapebadger.client.models.BatchRequest](docs/BatchRequest.md)
  - [com.scrapebadger.client.models.BillingLogListResponse](docs/BillingLogListResponse.md)
  - [com.scrapebadger.client.models.BillingLogResponse](docs/BillingLogResponse.md)
  - [com.scrapebadger.client.models.Brandid](docs/Brandid.md)
@@ -747,6 +754,7 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.WebhookListItem](docs/WebhookListItem.md)
  - [com.scrapebadger.client.models.WebhookListResponse](docs/WebhookListResponse.md)
  - [com.scrapebadger.client.models.WebhookResponse](docs/WebhookResponse.md)
+ - [com.scrapebadger.client.models.WebhookSecret](docs/WebhookSecret.md)
  - [com.scrapebadger.client.models.WebhookTestRequest](docs/WebhookTestRequest.md)
  - [com.scrapebadger.client.models.WebhookTestResponse](docs/WebhookTestResponse.md)
 
