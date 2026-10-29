@@ -29,6 +29,7 @@ docs/ChatGPTApi.md
 docs/ColorsResponse.md
 docs/Colour.md
 docs/Colourwayid.md
+docs/CopilotApi.md
 docs/DepopApi.md
 docs/Description.md
 docs/DuckDuckGoApi.md
@@ -153,6 +154,7 @@ src/main/kotlin/com/scrapebadger/client/apis/BestBuyApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BingApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/BookingApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ChatGPTApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/CopilotApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/DepopApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/DuckDuckGoApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/EBayApi.kt
@@ -304,6 +306,7 @@ src/test/kotlin/com/scrapebadger/client/apis/BestBuyApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BingApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/BookingApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ChatGPTApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/CopilotApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/DepopApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/DuckDuckGoApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/EBayApiTest.kt
