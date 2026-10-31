@@ -93,7 +93,12 @@ class AmazonApiTest : ShouldSpec() {
             //val star : kotlin.String = star_example // kotlin.String | 1-5 | one_star..five_star | positive | critical | all_stars
             //val verifiedOnly : kotlin.Boolean = true // kotlin.Boolean | 
             //val mediaOnly : kotlin.Boolean = true // kotlin.Boolean | 
-            //val result : kotlin.Any = apiInstance.amazonGetProductReviews(asin, domain, page, sortBy, star, verifiedOnly, mediaOnly)
+            //val mode : kotlin.String = mode_example // kotlin.String | public (anonymous featured block) | full (authenticated account pool)
+            //val maxPages : kotlin.Int = 56 // kotlin.Int | full mode: pages to walk per star sweep
+            //val perStar : kotlin.Boolean = true // kotlin.Boolean | full mode: sweep each star filter and merge + dedupe
+            //val limit : kotlin.Int = 56 // kotlin.Int | full mode: stop at this many distinct reviews
+            //val wootOffer : kotlin.String = wootOffer_example // kotlin.String | full mode + .com: URL (or slug) of a CURRENT woot.com offer page carrying the ASIN — unlocks the anonymous woot reviews endpoint as a bonus transport after the account pool
+            //val result : kotlin.Any = apiInstance.amazonGetProductReviews(asin, domain, page, sortBy, star, verifiedOnly, mediaOnly, mode, maxPages, perStar, limit, wootOffer)
             //result shouldBe ("TODO")
         }
 

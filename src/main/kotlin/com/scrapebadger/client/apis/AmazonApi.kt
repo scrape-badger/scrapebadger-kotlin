@@ -545,7 +545,7 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Get product reviews
-     * Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.
+     * Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.  &#x60;&#x60;mode&#x3D;full&#x60;&#x60; serves the rest, pool first and woot second: one pool account is leased and the authenticated review pages are walked until Amazon stops returning new rows (a gate, the review-limit banner or an expired session rotates the lease), then — when &#x60;&#x60;woot_offer&#x60;&#x60; names a current woot.com offer page carrying the ASIN (.com only) — Amazon-owned woot.com&#39;s anonymous reviews endpoint is fanned out as a bonus and merged in, deduped by review id. The same filter / sort / pagination contract applies to the collected set. When no source produced rows the answer is 503 (&#x60;&#x60;pool_exhausted&#x60;&#x60;, or &#x60;&#x60;reviews_unavailable&#x60;&#x60; when both paths ran) — never an empty 200 that reads as \&quot;no reviews\&quot;. Auth, rate limits, credits and usage logging are the gateway&#39;s, exactly as for every other mode of this endpoint.
      * @param asin 
      * @param domain  (optional, default to "com")
      * @param page Review page (10 reviews/page) (optional, default to 1)
@@ -553,6 +553,11 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param star 1-5 | one_star..five_star | positive | critical | all_stars (optional)
      * @param verifiedOnly  (optional, default to false)
      * @param mediaOnly  (optional, default to false)
+     * @param mode public (anonymous featured block) | full (authenticated account pool) (optional, default to "public")
+     * @param maxPages full mode: pages to walk per star sweep (optional, default to 10)
+     * @param perStar full mode: sweep each star filter and merge + dedupe (optional, default to false)
+     * @param limit full mode: stop at this many distinct reviews (optional)
+     * @param wootOffer full mode + .com: URL (or slug) of a CURRENT woot.com offer page carrying the ASIN — unlocks the anonymous woot reviews endpoint as a bonus transport after the account pool (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -562,8 +567,8 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun amazonGetProductReviews(asin: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1, sortBy: kotlin.String? = "helpful", star: kotlin.String? = null, verifiedOnly: kotlin.Boolean? = false, mediaOnly: kotlin.Boolean? = false) : kotlin.Any {
-        val localVarResponse = amazonGetProductReviewsWithHttpInfo(asin = asin, domain = domain, page = page, sortBy = sortBy, star = star, verifiedOnly = verifiedOnly, mediaOnly = mediaOnly)
+    fun amazonGetProductReviews(asin: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1, sortBy: kotlin.String? = "helpful", star: kotlin.String? = null, verifiedOnly: kotlin.Boolean? = false, mediaOnly: kotlin.Boolean? = false, mode: kotlin.String? = "public", maxPages: kotlin.Int? = 10, perStar: kotlin.Boolean? = false, limit: kotlin.Int? = null, wootOffer: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = amazonGetProductReviewsWithHttpInfo(asin = asin, domain = domain, page = page, sortBy = sortBy, star = star, verifiedOnly = verifiedOnly, mediaOnly = mediaOnly, mode = mode, maxPages = maxPages, perStar = perStar, limit = limit, wootOffer = wootOffer)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -582,7 +587,7 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Get product reviews
-     * Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.
+     * Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page&#39;s public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (&#x60;&#x60;ratings_total&#x60;&#x60; reports the true total). &#x60;&#x60;pagination&#x60;&#x60; gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised &#x60;&#x60;star&#x60;&#x60; or &#x60;&#x60;sort_by&#x60;&#x60; is rejected with 422 rather than silently answered with unfiltered reviews.  &#x60;&#x60;mode&#x3D;full&#x60;&#x60; serves the rest, pool first and woot second: one pool account is leased and the authenticated review pages are walked until Amazon stops returning new rows (a gate, the review-limit banner or an expired session rotates the lease), then — when &#x60;&#x60;woot_offer&#x60;&#x60; names a current woot.com offer page carrying the ASIN (.com only) — Amazon-owned woot.com&#39;s anonymous reviews endpoint is fanned out as a bonus and merged in, deduped by review id. The same filter / sort / pagination contract applies to the collected set. When no source produced rows the answer is 503 (&#x60;&#x60;pool_exhausted&#x60;&#x60;, or &#x60;&#x60;reviews_unavailable&#x60;&#x60; when both paths ran) — never an empty 200 that reads as \&quot;no reviews\&quot;. Auth, rate limits, credits and usage logging are the gateway&#39;s, exactly as for every other mode of this endpoint.
      * @param asin 
      * @param domain  (optional, default to "com")
      * @param page Review page (10 reviews/page) (optional, default to 1)
@@ -590,14 +595,19 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param star 1-5 | one_star..five_star | positive | critical | all_stars (optional)
      * @param verifiedOnly  (optional, default to false)
      * @param mediaOnly  (optional, default to false)
+     * @param mode public (anonymous featured block) | full (authenticated account pool) (optional, default to "public")
+     * @param maxPages full mode: pages to walk per star sweep (optional, default to 10)
+     * @param perStar full mode: sweep each star filter and merge + dedupe (optional, default to false)
+     * @param limit full mode: stop at this many distinct reviews (optional)
+     * @param wootOffer full mode + .com: URL (or slug) of a CURRENT woot.com offer page carrying the ASIN — unlocks the anonymous woot reviews endpoint as a bonus transport after the account pool (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun amazonGetProductReviewsWithHttpInfo(asin: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, sortBy: kotlin.String?, star: kotlin.String?, verifiedOnly: kotlin.Boolean?, mediaOnly: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = amazonGetProductReviewsRequestConfig(asin = asin, domain = domain, page = page, sortBy = sortBy, star = star, verifiedOnly = verifiedOnly, mediaOnly = mediaOnly)
+    fun amazonGetProductReviewsWithHttpInfo(asin: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, sortBy: kotlin.String?, star: kotlin.String?, verifiedOnly: kotlin.Boolean?, mediaOnly: kotlin.Boolean?, mode: kotlin.String?, maxPages: kotlin.Int?, perStar: kotlin.Boolean?, limit: kotlin.Int?, wootOffer: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = amazonGetProductReviewsRequestConfig(asin = asin, domain = domain, page = page, sortBy = sortBy, star = star, verifiedOnly = verifiedOnly, mediaOnly = mediaOnly, mode = mode, maxPages = maxPages, perStar = perStar, limit = limit, wootOffer = wootOffer)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -614,9 +624,14 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param star 1-5 | one_star..five_star | positive | critical | all_stars (optional)
      * @param verifiedOnly  (optional, default to false)
      * @param mediaOnly  (optional, default to false)
+     * @param mode public (anonymous featured block) | full (authenticated account pool) (optional, default to "public")
+     * @param maxPages full mode: pages to walk per star sweep (optional, default to 10)
+     * @param perStar full mode: sweep each star filter and merge + dedupe (optional, default to false)
+     * @param limit full mode: stop at this many distinct reviews (optional)
+     * @param wootOffer full mode + .com: URL (or slug) of a CURRENT woot.com offer page carrying the ASIN — unlocks the anonymous woot reviews endpoint as a bonus transport after the account pool (optional)
      * @return RequestConfig
      */
-    fun amazonGetProductReviewsRequestConfig(asin: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, sortBy: kotlin.String?, star: kotlin.String?, verifiedOnly: kotlin.Boolean?, mediaOnly: kotlin.Boolean?) : RequestConfig<Unit> {
+    fun amazonGetProductReviewsRequestConfig(asin: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, sortBy: kotlin.String?, star: kotlin.String?, verifiedOnly: kotlin.Boolean?, mediaOnly: kotlin.Boolean?, mode: kotlin.String?, maxPages: kotlin.Int?, perStar: kotlin.Boolean?, limit: kotlin.Int?, wootOffer: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -637,6 +652,21 @@ class AmazonApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (mediaOnly != null) {
                     put("media_only", listOf(mediaOnly.toString()))
+                }
+                if (mode != null) {
+                    put("mode", listOf(mode.toString()))
+                }
+                if (maxPages != null) {
+                    put("max_pages", listOf(maxPages.toString()))
+                }
+                if (perStar != null) {
+                    put("per_star", listOf(perStar.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+                if (wootOffer != null) {
+                    put("woot_offer", listOf(wootOffer.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
