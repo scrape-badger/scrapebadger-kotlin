@@ -206,8 +206,8 @@ class RedditApiTest : ShouldSpec() {
         // to test redditSearchRedditPosts
         should("test redditSearchRedditPosts") {
             // uncomment below to test redditSearchRedditPosts
-            //val q : kotlin.String = q_example // kotlin.String | Search query
-            //val subreddit : kotlin.String = subreddit_example // kotlin.String | Restrict to subreddit
+            //val q : kotlin.String = q_example // kotlin.String | Search query (Reddit search syntax), at most 256 UTF-8 bytes
+            //val subreddit : kotlin.String = subreddit_example // kotlin.String | Restrict to a subreddit, or several joined with + (sales+startups)
             //val sort : kotlin.String = sort_example // kotlin.String | Sort: relevance, hot, top, new, comments
             //val t : kotlin.String = t_example // kotlin.String | Time: hour, day, week, month, year, all
             //val limit : kotlin.Int = 56 // kotlin.Int | 
@@ -219,7 +219,7 @@ class RedditApiTest : ShouldSpec() {
         // to test redditSearchSubreddits
         should("test redditSearchSubreddits") {
             // uncomment below to test redditSearchSubreddits
-            //val q : kotlin.String = q_example // kotlin.String | Search query
+            //val q : kotlin.String = q_example // kotlin.String | Search query, at most 256 UTF-8 bytes
             //val limit : kotlin.Int = 56 // kotlin.Int | 
             //val after : kotlin.String = after_example // kotlin.String | 
             //val result : kotlin.Any = apiInstance.redditSearchSubreddits(q, limit, after)
@@ -229,7 +229,7 @@ class RedditApiTest : ShouldSpec() {
         // to test redditSearchUsers
         should("test redditSearchUsers") {
             // uncomment below to test redditSearchUsers
-            //val q : kotlin.String = q_example // kotlin.String | Search query
+            //val q : kotlin.String = q_example // kotlin.String | Search query, at most 256 UTF-8 bytes
             //val limit : kotlin.Int = 56 // kotlin.Int | 
             //val after : kotlin.String = after_example // kotlin.String | 
             //val result : kotlin.Any = apiInstance.redditSearchUsers(q, limit, after)
