@@ -123,7 +123,7 @@ Day-by-day availability for up to 12 months: bookable, check-in/out windows and 
 val apiInstance = AirbnbApi()
 val roomId : kotlin.String = roomId_example // kotlin.String | 
 val month : kotlin.Int = 56 // kotlin.Int | Start month (1-12)
-val year : kotlin.Int = 56 // kotlin.Int | Start year
+val year : kotlin.Int = 56 // kotlin.Int | Start year (current UTC year when omitted)
 val months : kotlin.Int = 56 // kotlin.Int | Number of months (max 12)
 val currency : kotlin.String = currency_example // kotlin.String | 
 val locale : kotlin.String = locale_example // kotlin.String | 
@@ -142,7 +142,7 @@ try {
 ### Parameters
 | **roomId** | **kotlin.String**|  | |
 | **month** | **kotlin.Int**| Start month (1-12) | [optional] [default to 1] |
-| **year** | **kotlin.Int**| Start year | [optional] [default to 2026] |
+| **year** | **kotlin.Int**| Start year (current UTC year when omitted) | [optional] |
 | **months** | **kotlin.Int**| Number of months (max 12) | [optional] [default to 12] |
 | **currency** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |

@@ -45,7 +45,7 @@ class AirbnbApiTest : ShouldSpec() {
             // uncomment below to test airbnbGetAvailabilityCalendar
             //val roomId : kotlin.String = roomId_example // kotlin.String | 
             //val month : kotlin.Int = 56 // kotlin.Int | Start month (1-12)
-            //val year : kotlin.Int = 56 // kotlin.Int | Start year
+            //val year : kotlin.Int = 56 // kotlin.Int | Start year (current UTC year when omitted)
             //val months : kotlin.Int = 56 // kotlin.Int | Number of months (max 12)
             //val currency : kotlin.String = currency_example // kotlin.String | 
             //val locale : kotlin.String = locale_example // kotlin.String | 

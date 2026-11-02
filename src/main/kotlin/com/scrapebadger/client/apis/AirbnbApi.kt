@@ -186,7 +186,7 @@ class AirbnbApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Day-by-day availability for up to 12 months: bookable, check-in/out windows and min/max nights per date.
      * @param roomId 
      * @param month Start month (1-12) (optional, default to 1)
-     * @param year Start year (optional, default to 2026)
+     * @param year Start year (current UTC year when omitted) (optional)
      * @param months Number of months (max 12) (optional, default to 12)
      * @param currency  (optional)
      * @param locale  (optional)
@@ -199,7 +199,7 @@ class AirbnbApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun airbnbGetAvailabilityCalendar(roomId: kotlin.String, month: kotlin.Int? = 1, year: kotlin.Int? = 2026, months: kotlin.Int? = 12, currency: kotlin.String? = null, locale: kotlin.String? = null) : kotlin.Any {
+    fun airbnbGetAvailabilityCalendar(roomId: kotlin.String, month: kotlin.Int? = 1, year: kotlin.Int? = null, months: kotlin.Int? = 12, currency: kotlin.String? = null, locale: kotlin.String? = null) : kotlin.Any {
         val localVarResponse = airbnbGetAvailabilityCalendarWithHttpInfo(roomId = roomId, month = month, year = year, months = months, currency = currency, locale = locale)
 
         return when (localVarResponse.responseType) {
@@ -222,7 +222,7 @@ class AirbnbApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * Day-by-day availability for up to 12 months: bookable, check-in/out windows and min/max nights per date.
      * @param roomId 
      * @param month Start month (1-12) (optional, default to 1)
-     * @param year Start year (optional, default to 2026)
+     * @param year Start year (current UTC year when omitted) (optional)
      * @param months Number of months (max 12) (optional, default to 12)
      * @param currency  (optional)
      * @param locale  (optional)
@@ -245,7 +245,7 @@ class AirbnbApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      *
      * @param roomId 
      * @param month Start month (1-12) (optional, default to 1)
-     * @param year Start year (optional, default to 2026)
+     * @param year Start year (current UTC year when omitted) (optional)
      * @param months Number of months (max 12) (optional, default to 12)
      * @param currency  (optional)
      * @param locale  (optional)
