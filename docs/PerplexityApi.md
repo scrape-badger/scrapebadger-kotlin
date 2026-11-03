@@ -14,7 +14,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 <a id="perplexityAskPerplexityAQuestion"></a>
 # **perplexityAskPerplexityAQuestion**
-> kotlin.Any perplexityAskPerplexityAQuestion(prompt, country, strictCountry)
+> kotlin.Any perplexityAskPerplexityAQuestion(prompt, country, strictCountry, location)
 
 Ask Perplexity a question
 
@@ -30,8 +30,9 @@ val apiInstance = PerplexityApi()
 val prompt : kotlin.String = prompt_example // kotlin.String | The prompt to send to Perplexity (max 4096 characters).
 val country : kotlin.String = country_example // kotlin.String | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'.
 val strictCountry : kotlin.Boolean = true // kotlin.Boolean | Answer only from an exit in `country`, never another one; 503 `country_unavailable` (not billed) when none answers. Requires `country`.
+val location : kotlin.String = location_example // kotlin.String | Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or 'lat,lng' in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP's city. It does not pick the egress: `country` does.
 try {
-    val result : kotlin.Any = apiInstance.perplexityAskPerplexityAQuestion(prompt, country, strictCountry)
+    val result : kotlin.Any = apiInstance.perplexityAskPerplexityAQuestion(prompt, country, strictCountry, location)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PerplexityApi#perplexityAskPerplexityAQuestion")
@@ -45,9 +46,10 @@ try {
 ### Parameters
 | **prompt** | **kotlin.String**| The prompt to send to Perplexity (max 4096 characters). | |
 | **country** | **kotlin.String**| ISO-3166 alpha-2 egress country, e.g. &#39;US&#39;, &#39;GB&#39;, &#39;DE&#39;. | [optional] |
+| **strictCountry** | **kotlin.Boolean**| Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. | [optional] [default to false] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **strictCountry** | **kotlin.Boolean**| Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. | [optional] [default to false] |
+| **location** | **kotlin.String**| Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or &#39;lat,lng&#39; in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP&#39;s city. It does not pick the egress: &#x60;country&#x60; does. | [optional] |
 
 ### Return type
 
@@ -113,7 +115,7 @@ Configure ApiKeyAuth:
 
 <a id="perplexityMeasureABrandSVisibilityInAPerplexityAnswer"></a>
 # **perplexityMeasureABrandSVisibilityInAPerplexityAnswer**
-> kotlin.Any perplexityMeasureABrandSVisibilityInAPerplexityAnswer(prompt, brand, domain, aliases, competitors, country, strictCountry)
+> kotlin.Any perplexityMeasureABrandSVisibilityInAPerplexityAnswer(prompt, brand, domain, aliases, competitors, country, strictCountry, location)
 
 Measure a brand&#39;s visibility in a Perplexity answer
 
@@ -133,8 +135,9 @@ val aliases : kotlin.String = aliases_example // kotlin.String | Comma-separated
 val competitors : kotlin.String = competitors_example // kotlin.String | Comma-separated competitor names.
 val country : kotlin.String = country_example // kotlin.String | ISO-3166 alpha-2 egress country.
 val strictCountry : kotlin.Boolean = true // kotlin.Boolean | Answer only from an exit in `country`, never another one; 503 `country_unavailable` (not billed) when none answers. Requires `country`.
+val location : kotlin.String = location_example // kotlin.String | Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or 'lat,lng' in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP's city. It does not pick the egress: `country` does.
 try {
-    val result : kotlin.Any = apiInstance.perplexityMeasureABrandSVisibilityInAPerplexityAnswer(prompt, brand, domain, aliases, competitors, country, strictCountry)
+    val result : kotlin.Any = apiInstance.perplexityMeasureABrandSVisibilityInAPerplexityAnswer(prompt, brand, domain, aliases, competitors, country, strictCountry, location)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PerplexityApi#perplexityMeasureABrandSVisibilityInAPerplexityAnswer")
@@ -152,9 +155,10 @@ try {
 | **aliases** | **kotlin.String**| Comma-separated alternative names. | [optional] |
 | **competitors** | **kotlin.String**| Comma-separated competitor names. | [optional] |
 | **country** | **kotlin.String**| ISO-3166 alpha-2 egress country. | [optional] |
+| **strictCountry** | **kotlin.Boolean**| Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. | [optional] [default to false] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **strictCountry** | **kotlin.Boolean**| Answer only from an exit in &#x60;country&#x60;, never another one; 503 &#x60;country_unavailable&#x60; (not billed) when none answers. Requires &#x60;country&#x60;. | [optional] [default to false] |
+| **location** | **kotlin.String**| Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or &#39;lat,lng&#39; in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP&#39;s city. It does not pick the egress: &#x60;country&#x60; does. | [optional] |
 
 ### Return type
 
