@@ -206,13 +206,16 @@ class GoogleApiTest : ShouldSpec() {
             //val filter : kotlin.Int = 56 // kotlin.Int | 
             //val nfpr : kotlin.Int = 56 // kotlin.Int | Disable auto-correction
             //val output : kotlin.String = output_example // kotlin.String | 
+            //val oq : kotlin.String = oq_example // kotlin.String | Original query sent to Google. Defaults to q; an empty string omits it.
+            //val sourceid : kotlin.String = sourceid_example // kotlin.String | Google source identifier. Defaults to chrome; an empty string omits it.
+            //val ie : kotlin.String = ie_example // kotlin.String | Google input encoding hint. Defaults to UTF-8; an empty string omits it.
             //val googleDomain : kotlin.String = googleDomain_example // kotlin.String | Alias for domain; Google requests use google.com with country targeting.
             //val lat : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Latitude; supply together with lon instead of location or uule.
             //val lon : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Longitude; supply together with lat.
             //val radius : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Location accuracy in meters; requires lat/lon or a named city with a known center.
             //val colorScheme : kotlin.String = colorScheme_example // kotlin.String | Google color scheme.
             //val tbm : kotlin.String = tbm_example // kotlin.String | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results.
-            //val udm : kotlin.String = udm_example // kotlin.String | Google result filter: 14 web, 18 forums. Other verticals require output=html.
+            //val udm : kotlin.String = udm_example // kotlin.String | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html.
             //val noCache : kotlin.Boolean = true // kotlin.Boolean | Bypass result caches and request a fresh Google fetch.
             //val asDt : kotlin.String = asDt_example // kotlin.String | Site restriction mode: i includes, e excludes as_sitesearch.
             //val asEpq : kotlin.String = asEpq_example // kotlin.String | Exact phrase.
@@ -234,7 +237,7 @@ class GoogleApiTest : ShouldSpec() {
             //val si : kotlin.String = si_example // kotlin.String | Cached Google parameters.
             //val ibp : kotlin.String = ibp_example // kotlin.String | Layout control.
             //val uds : kotlin.String = uds_example // kotlin.String | Google filter string.
-            //val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds)
+            //val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds)
             //result shouldBe ("TODO")
         }
 
@@ -304,13 +307,16 @@ class GoogleApiTest : ShouldSpec() {
             //val aiOverview : kotlin.Boolean = true // kotlin.Boolean | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged.
             //val mode : kotlin.String = mode_example // kotlin.String | 
             //val expandRelatedQuestions : kotlin.String = expandRelatedQuestions_example // kotlin.String | Open all People Also Ask answers (true) or the first N (0-99).
+            //val oq : kotlin.String = oq_example // kotlin.String | Original query sent to Google. Defaults to q; an empty string omits it.
+            //val sourceid : kotlin.String = sourceid_example // kotlin.String | Google source identifier. Defaults to chrome; an empty string omits it.
+            //val ie : kotlin.String = ie_example // kotlin.String | Google input encoding hint. Defaults to UTF-8; an empty string omits it.
             //val googleDomain : kotlin.String = googleDomain_example // kotlin.String | Alias for domain; Google requests use google.com with country targeting.
             //val lat : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Latitude; supply together with lon instead of location or uule.
             //val lon : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Longitude; supply together with lat.
             //val radius : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Location accuracy in meters; requires lat/lon or a named city with a known center.
             //val colorScheme : kotlin.String = colorScheme_example // kotlin.String | Google color scheme.
             //val tbm : kotlin.String = tbm_example // kotlin.String | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results.
-            //val udm : kotlin.String = udm_example // kotlin.String | Google result filter: 14 web, 18 forums. Other verticals require output=html.
+            //val udm : kotlin.String = udm_example // kotlin.String | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html.
             //val noCache : kotlin.Boolean = true // kotlin.Boolean | Bypass result caches and request a fresh Google fetch.
             //val asDt : kotlin.String = asDt_example // kotlin.String | Site restriction mode: i includes, e excludes as_sitesearch.
             //val asEpq : kotlin.String = asEpq_example // kotlin.String | Exact phrase.
@@ -323,7 +329,7 @@ class GoogleApiTest : ShouldSpec() {
             //val asQdr : kotlin.String = asQdr_example // kotlin.String | Time range, such as d, w, m or y1.
             //val asRq : kotlin.String = asRq_example // kotlin.String | Related URL; availability depends on Google.
             //val asSitesearch : kotlin.String = asSitesearch_example // kotlin.String | Restrict results to a site.
-            //val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch)
+            //val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch)
             //result shouldBe ("TODO")
         }
 

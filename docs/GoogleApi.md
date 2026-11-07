@@ -795,7 +795,7 @@ Configure ApiKeyAuth:
 
 <a id="googleGoogleLightWebSearch"></a>
 # **googleGoogleLightWebSearch**
-> kotlin.Any googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds)
+> kotlin.Any googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds)
 
 Google Light web search
 
@@ -822,13 +822,16 @@ val safe : kotlin.String = safe_example // kotlin.String | Safe search: off or a
 val filter : kotlin.Int = 56 // kotlin.Int | 
 val nfpr : kotlin.Int = 56 // kotlin.Int | Disable auto-correction
 val output : kotlin.String = output_example // kotlin.String | 
+val oq : kotlin.String = oq_example // kotlin.String | Original query sent to Google. Defaults to q; an empty string omits it.
+val sourceid : kotlin.String = sourceid_example // kotlin.String | Google source identifier. Defaults to chrome; an empty string omits it.
+val ie : kotlin.String = ie_example // kotlin.String | Google input encoding hint. Defaults to UTF-8; an empty string omits it.
 val googleDomain : kotlin.String = googleDomain_example // kotlin.String | Alias for domain; Google requests use google.com with country targeting.
 val lat : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Latitude; supply together with lon instead of location or uule.
 val lon : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Longitude; supply together with lat.
 val radius : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Location accuracy in meters; requires lat/lon or a named city with a known center.
 val colorScheme : kotlin.String = colorScheme_example // kotlin.String | Google color scheme.
 val tbm : kotlin.String = tbm_example // kotlin.String | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results.
-val udm : kotlin.String = udm_example // kotlin.String | Google result filter: 14 web, 18 forums. Other verticals require output=html.
+val udm : kotlin.String = udm_example // kotlin.String | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html.
 val noCache : kotlin.Boolean = true // kotlin.Boolean | Bypass result caches and request a fresh Google fetch.
 val asDt : kotlin.String = asDt_example // kotlin.String | Site restriction mode: i includes, e excludes as_sitesearch.
 val asEpq : kotlin.String = asEpq_example // kotlin.String | Exact phrase.
@@ -851,7 +854,7 @@ val si : kotlin.String = si_example // kotlin.String | Cached Google parameters.
 val ibp : kotlin.String = ibp_example // kotlin.String | Layout control.
 val uds : kotlin.String = uds_example // kotlin.String | Google filter string.
 try {
-    val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds)
+    val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GoogleApi#googleGoogleLightWebSearch")
@@ -877,13 +880,16 @@ try {
 | **filter** | **kotlin.Int**|  | [optional] |
 | **nfpr** | **kotlin.Int**| Disable auto-correction | [optional] [default to 0] |
 | **output** | **kotlin.String**|  | [optional] [default to json] [enum: json, html] |
+| **oq** | **kotlin.String**| Original query sent to Google. Defaults to q; an empty string omits it. | [optional] |
+| **sourceid** | **kotlin.String**| Google source identifier. Defaults to chrome; an empty string omits it. | [optional] |
+| **ie** | **kotlin.String**| Google input encoding hint. Defaults to UTF-8; an empty string omits it. | [optional] |
 | **googleDomain** | **kotlin.String**| Alias for domain; Google requests use google.com with country targeting. | [optional] |
 | **lat** | **java.math.BigDecimal**| Latitude; supply together with lon instead of location or uule. | [optional] |
 | **lon** | **java.math.BigDecimal**| Longitude; supply together with lat. | [optional] |
 | **radius** | **java.math.BigDecimal**| Location accuracy in meters; requires lat/lon or a named city with a known center. | [optional] |
 | **colorScheme** | **kotlin.String**| Google color scheme. | [optional] [enum: light, dark] |
 | **tbm** | **kotlin.String**| Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. | [optional] [enum: isch, lcl, vid, nws, shop, pts, bks] |
-| **udm** | **kotlin.String**| Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. | [optional] |
+| **udm** | **kotlin.String**| Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. | [optional] |
 | **noCache** | **kotlin.Boolean**| Bypass result caches and request a fresh Google fetch. | [optional] [default to false] |
 | **asDt** | **kotlin.String**| Site restriction mode: i includes, e excludes as_sitesearch. | [optional] |
 | **asEpq** | **kotlin.String**| Exact phrase. | [optional] |
@@ -1130,7 +1136,7 @@ Configure ApiKeyAuth:
 
 <a id="googleGoogleWebSearch"></a>
 # **googleGoogleWebSearch**
-> kotlin.Any googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch)
+> kotlin.Any googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch)
 
 Google web search
 
@@ -1169,13 +1175,16 @@ val uds : kotlin.String = uds_example // kotlin.String | Google filter string
 val aiOverview : kotlin.Boolean = true // kotlin.Boolean | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged.
 val mode : kotlin.String = mode_example // kotlin.String | 
 val expandRelatedQuestions : kotlin.String = expandRelatedQuestions_example // kotlin.String | Open all People Also Ask answers (true) or the first N (0-99).
+val oq : kotlin.String = oq_example // kotlin.String | Original query sent to Google. Defaults to q; an empty string omits it.
+val sourceid : kotlin.String = sourceid_example // kotlin.String | Google source identifier. Defaults to chrome; an empty string omits it.
+val ie : kotlin.String = ie_example // kotlin.String | Google input encoding hint. Defaults to UTF-8; an empty string omits it.
 val googleDomain : kotlin.String = googleDomain_example // kotlin.String | Alias for domain; Google requests use google.com with country targeting.
 val lat : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Latitude; supply together with lon instead of location or uule.
 val lon : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Longitude; supply together with lat.
 val radius : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Location accuracy in meters; requires lat/lon or a named city with a known center.
 val colorScheme : kotlin.String = colorScheme_example // kotlin.String | Google color scheme.
 val tbm : kotlin.String = tbm_example // kotlin.String | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results.
-val udm : kotlin.String = udm_example // kotlin.String | Google result filter: 14 web, 18 forums. Other verticals require output=html.
+val udm : kotlin.String = udm_example // kotlin.String | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html.
 val noCache : kotlin.Boolean = true // kotlin.Boolean | Bypass result caches and request a fresh Google fetch.
 val asDt : kotlin.String = asDt_example // kotlin.String | Site restriction mode: i includes, e excludes as_sitesearch.
 val asEpq : kotlin.String = asEpq_example // kotlin.String | Exact phrase.
@@ -1189,7 +1198,7 @@ val asQdr : kotlin.String = asQdr_example // kotlin.String | Time range, such as
 val asRq : kotlin.String = asRq_example // kotlin.String | Related URL; availability depends on Google.
 val asSitesearch : kotlin.String = asSitesearch_example // kotlin.String | Restrict results to a site.
 try {
-    val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch)
+    val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GoogleApi#googleGoogleWebSearch")
@@ -1227,13 +1236,16 @@ try {
 | **aiOverview** | **kotlin.Boolean**| Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. | [optional] [default to false] |
 | **mode** | **kotlin.String**|  | [optional] [default to full] [enum: full, fast] |
 | **expandRelatedQuestions** | **kotlin.String**| Open all People Also Ask answers (true) or the first N (0-99). | [optional] |
+| **oq** | **kotlin.String**| Original query sent to Google. Defaults to q; an empty string omits it. | [optional] |
+| **sourceid** | **kotlin.String**| Google source identifier. Defaults to chrome; an empty string omits it. | [optional] |
+| **ie** | **kotlin.String**| Google input encoding hint. Defaults to UTF-8; an empty string omits it. | [optional] |
 | **googleDomain** | **kotlin.String**| Alias for domain; Google requests use google.com with country targeting. | [optional] |
 | **lat** | **java.math.BigDecimal**| Latitude; supply together with lon instead of location or uule. | [optional] |
 | **lon** | **java.math.BigDecimal**| Longitude; supply together with lat. | [optional] |
 | **radius** | **java.math.BigDecimal**| Location accuracy in meters; requires lat/lon or a named city with a known center. | [optional] |
 | **colorScheme** | **kotlin.String**| Google color scheme. | [optional] [enum: light, dark] |
 | **tbm** | **kotlin.String**| Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. | [optional] [enum: isch, lcl, vid, nws, shop, pts, bks] |
-| **udm** | **kotlin.String**| Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. | [optional] |
+| **udm** | **kotlin.String**| Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. | [optional] |
 | **noCache** | **kotlin.Boolean**| Bypass result caches and request a fresh Google fetch. | [optional] [default to false] |
 | **asDt** | **kotlin.String**| Site restriction mode: i includes, e excludes as_sitesearch. | [optional] |
 | **asEpq** | **kotlin.String**| Exact phrase. | [optional] |

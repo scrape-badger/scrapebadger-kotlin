@@ -1426,13 +1426,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param filter  (optional)
      * @param nfpr Disable auto-correction (optional, default to 0)
      * @param output  (optional, default to json)
+     * @param oq Original query sent to Google. Defaults to q; an empty string omits it. (optional)
+     * @param sourceid Google source identifier. Defaults to chrome; an empty string omits it. (optional)
+     * @param ie Google input encoding hint. Defaults to UTF-8; an empty string omits it. (optional)
      * @param googleDomain Alias for domain; Google requests use google.com with country targeting. (optional)
      * @param lat Latitude; supply together with lon instead of location or uule. (optional)
      * @param lon Longitude; supply together with lat. (optional)
      * @param radius Location accuracy in meters; requires lat/lon or a named city with a known center. (optional)
      * @param colorScheme Google color scheme. (optional)
      * @param tbm Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. (optional)
-     * @param udm Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. (optional)
+     * @param udm Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. (optional)
      * @param noCache Bypass result caches and request a fresh Google fetch. (optional, default to false)
      * @param asDt Site restriction mode: i includes, e excludes as_sitesearch. (optional)
      * @param asEpq Exact phrase. (optional)
@@ -1463,8 +1466,8 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun googleGoogleLightWebSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", num: kotlin.Int? = 10, start: kotlin.Int? = 0, domain: kotlin.String? = "google.com", location: kotlin.String? = null, uule: kotlin.String? = null, lr: kotlin.String? = null, tbs: kotlin.String? = null, safe: kotlin.String? = "off", filter: kotlin.Int? = null, nfpr: kotlin.Int? = 0, output: OutputGoogleGoogleLightWebSearch? = OutputGoogleGoogleLightWebSearch.json, googleDomain: kotlin.String? = null, lat: java.math.BigDecimal? = null, lon: java.math.BigDecimal? = null, radius: java.math.BigDecimal? = null, colorScheme: ColorSchemeGoogleGoogleLightWebSearch? = null, tbm: TbmGoogleGoogleLightWebSearch? = null, udm: kotlin.String? = null, noCache: kotlin.Boolean? = false, asDt: kotlin.String? = null, asEpq: kotlin.String? = null, asEq: kotlin.String? = null, asLq: kotlin.String? = null, asNlo: kotlin.String? = null, asNhi: kotlin.String? = null, asOq: kotlin.String? = null, asQ: kotlin.String? = null, asQdr: kotlin.String? = null, asRq: kotlin.String? = null, asSitesearch: kotlin.String? = null, device: kotlin.String? = null, userAgent: kotlin.String? = null, cr: kotlin.String? = null, ludocid: kotlin.String? = null, lsig: kotlin.String? = null, kgmid: kotlin.String? = null, si: kotlin.String? = null, ibp: kotlin.String? = null, uds: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = googleGoogleLightWebSearchWithHttpInfo(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, location = location, uule = uule, lr = lr, tbs = tbs, safe = safe, filter = filter, nfpr = nfpr, output = output, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch, device = device, userAgent = userAgent, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds)
+    fun googleGoogleLightWebSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", num: kotlin.Int? = 10, start: kotlin.Int? = 0, domain: kotlin.String? = "google.com", location: kotlin.String? = null, uule: kotlin.String? = null, lr: kotlin.String? = null, tbs: kotlin.String? = null, safe: kotlin.String? = "off", filter: kotlin.Int? = null, nfpr: kotlin.Int? = 0, output: OutputGoogleGoogleLightWebSearch? = OutputGoogleGoogleLightWebSearch.json, oq: kotlin.String? = null, sourceid: kotlin.String? = null, ie: kotlin.String? = null, googleDomain: kotlin.String? = null, lat: java.math.BigDecimal? = null, lon: java.math.BigDecimal? = null, radius: java.math.BigDecimal? = null, colorScheme: ColorSchemeGoogleGoogleLightWebSearch? = null, tbm: TbmGoogleGoogleLightWebSearch? = null, udm: kotlin.String? = null, noCache: kotlin.Boolean? = false, asDt: kotlin.String? = null, asEpq: kotlin.String? = null, asEq: kotlin.String? = null, asLq: kotlin.String? = null, asNlo: kotlin.String? = null, asNhi: kotlin.String? = null, asOq: kotlin.String? = null, asQ: kotlin.String? = null, asQdr: kotlin.String? = null, asRq: kotlin.String? = null, asSitesearch: kotlin.String? = null, device: kotlin.String? = null, userAgent: kotlin.String? = null, cr: kotlin.String? = null, ludocid: kotlin.String? = null, lsig: kotlin.String? = null, kgmid: kotlin.String? = null, si: kotlin.String? = null, ibp: kotlin.String? = null, uds: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = googleGoogleLightWebSearchWithHttpInfo(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, location = location, uule = uule, lr = lr, tbs = tbs, safe = safe, filter = filter, nfpr = nfpr, output = output, oq = oq, sourceid = sourceid, ie = ie, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch, device = device, userAgent = userAgent, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1498,13 +1501,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param filter  (optional)
      * @param nfpr Disable auto-correction (optional, default to 0)
      * @param output  (optional, default to json)
+     * @param oq Original query sent to Google. Defaults to q; an empty string omits it. (optional)
+     * @param sourceid Google source identifier. Defaults to chrome; an empty string omits it. (optional)
+     * @param ie Google input encoding hint. Defaults to UTF-8; an empty string omits it. (optional)
      * @param googleDomain Alias for domain; Google requests use google.com with country targeting. (optional)
      * @param lat Latitude; supply together with lon instead of location or uule. (optional)
      * @param lon Longitude; supply together with lat. (optional)
      * @param radius Location accuracy in meters; requires lat/lon or a named city with a known center. (optional)
      * @param colorScheme Google color scheme. (optional)
      * @param tbm Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. (optional)
-     * @param udm Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. (optional)
+     * @param udm Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. (optional)
      * @param noCache Bypass result caches and request a fresh Google fetch. (optional, default to false)
      * @param asDt Site restriction mode: i includes, e excludes as_sitesearch. (optional)
      * @param asEpq Exact phrase. (optional)
@@ -1532,8 +1538,8 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun googleGoogleLightWebSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, location: kotlin.String?, uule: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, output: OutputGoogleGoogleLightWebSearch?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleLightWebSearch?, tbm: TbmGoogleGoogleLightWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?, device: kotlin.String?, userAgent: kotlin.String?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = googleGoogleLightWebSearchRequestConfig(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, location = location, uule = uule, lr = lr, tbs = tbs, safe = safe, filter = filter, nfpr = nfpr, output = output, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch, device = device, userAgent = userAgent, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds)
+    fun googleGoogleLightWebSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, location: kotlin.String?, uule: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, output: OutputGoogleGoogleLightWebSearch?, oq: kotlin.String?, sourceid: kotlin.String?, ie: kotlin.String?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleLightWebSearch?, tbm: TbmGoogleGoogleLightWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?, device: kotlin.String?, userAgent: kotlin.String?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googleGoogleLightWebSearchRequestConfig(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, location = location, uule = uule, lr = lr, tbs = tbs, safe = safe, filter = filter, nfpr = nfpr, output = output, oq = oq, sourceid = sourceid, ie = ie, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch, device = device, userAgent = userAgent, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1557,13 +1563,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param filter  (optional)
      * @param nfpr Disable auto-correction (optional, default to 0)
      * @param output  (optional, default to json)
+     * @param oq Original query sent to Google. Defaults to q; an empty string omits it. (optional)
+     * @param sourceid Google source identifier. Defaults to chrome; an empty string omits it. (optional)
+     * @param ie Google input encoding hint. Defaults to UTF-8; an empty string omits it. (optional)
      * @param googleDomain Alias for domain; Google requests use google.com with country targeting. (optional)
      * @param lat Latitude; supply together with lon instead of location or uule. (optional)
      * @param lon Longitude; supply together with lat. (optional)
      * @param radius Location accuracy in meters; requires lat/lon or a named city with a known center. (optional)
      * @param colorScheme Google color scheme. (optional)
      * @param tbm Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. (optional)
-     * @param udm Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. (optional)
+     * @param udm Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. (optional)
      * @param noCache Bypass result caches and request a fresh Google fetch. (optional, default to false)
      * @param asDt Site restriction mode: i includes, e excludes as_sitesearch. (optional)
      * @param asEpq Exact phrase. (optional)
@@ -1587,7 +1596,7 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param uds Google filter string. (optional)
      * @return RequestConfig
      */
-    fun googleGoogleLightWebSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, location: kotlin.String?, uule: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, output: OutputGoogleGoogleLightWebSearch?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleLightWebSearch?, tbm: TbmGoogleGoogleLightWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?, device: kotlin.String?, userAgent: kotlin.String?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?) : RequestConfig<Unit> {
+    fun googleGoogleLightWebSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, location: kotlin.String?, uule: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, output: OutputGoogleGoogleLightWebSearch?, oq: kotlin.String?, sourceid: kotlin.String?, ie: kotlin.String?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleLightWebSearch?, tbm: TbmGoogleGoogleLightWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?, device: kotlin.String?, userAgent: kotlin.String?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1630,6 +1639,15 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (output != null) {
                     put("output", listOf(output.value))
+                }
+                if (oq != null) {
+                    put("oq", listOf(oq.toString()))
+                }
+                if (sourceid != null) {
+                    put("sourceid", listOf(sourceid.toString()))
+                }
+                if (ie != null) {
+                    put("ie", listOf(ie.toString()))
                 }
                 if (googleDomain != null) {
                     put("google_domain", listOf(googleDomain.toString()))
@@ -2177,13 +2195,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. (optional, default to false)
      * @param mode  (optional, default to full)
      * @param expandRelatedQuestions Open all People Also Ask answers (true) or the first N (0-99). (optional)
+     * @param oq Original query sent to Google. Defaults to q; an empty string omits it. (optional)
+     * @param sourceid Google source identifier. Defaults to chrome; an empty string omits it. (optional)
+     * @param ie Google input encoding hint. Defaults to UTF-8; an empty string omits it. (optional)
      * @param googleDomain Alias for domain; Google requests use google.com with country targeting. (optional)
      * @param lat Latitude; supply together with lon instead of location or uule. (optional)
      * @param lon Longitude; supply together with lat. (optional)
      * @param radius Location accuracy in meters; requires lat/lon or a named city with a known center. (optional)
      * @param colorScheme Google color scheme. (optional)
      * @param tbm Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. (optional)
-     * @param udm Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. (optional)
+     * @param udm Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. (optional)
      * @param noCache Bypass result caches and request a fresh Google fetch. (optional, default to false)
      * @param asDt Site restriction mode: i includes, e excludes as_sitesearch. (optional)
      * @param asEpq Exact phrase. (optional)
@@ -2205,8 +2226,8 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun googleGoogleWebSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", num: kotlin.Int? = 10, start: kotlin.Int? = 0, domain: kotlin.String? = "google.com", device: DeviceGoogleGoogleWebSearch? = DeviceGoogleGoogleWebSearch.desktop, userAgent: kotlin.String? = null, output: OutputGoogleGoogleWebSearch? = OutputGoogleGoogleWebSearch.json, location: kotlin.String? = null, lr: kotlin.String? = null, tbs: kotlin.String? = null, safe: kotlin.String? = "off", uule: kotlin.String? = null, filter: kotlin.Int? = null, nfpr: kotlin.Int? = 0, cr: kotlin.String? = null, ludocid: kotlin.String? = null, lsig: kotlin.String? = null, kgmid: kotlin.String? = null, si: kotlin.String? = null, ibp: kotlin.String? = null, uds: kotlin.String? = null, aiOverview: kotlin.Boolean? = false, mode: ModeGoogleGoogleWebSearch? = ModeGoogleGoogleWebSearch.full, expandRelatedQuestions: kotlin.String? = null, googleDomain: kotlin.String? = null, lat: java.math.BigDecimal? = null, lon: java.math.BigDecimal? = null, radius: java.math.BigDecimal? = null, colorScheme: ColorSchemeGoogleGoogleWebSearch? = null, tbm: TbmGoogleGoogleWebSearch? = null, udm: kotlin.String? = null, noCache: kotlin.Boolean? = false, asDt: kotlin.String? = null, asEpq: kotlin.String? = null, asEq: kotlin.String? = null, asLq: kotlin.String? = null, asNlo: kotlin.String? = null, asNhi: kotlin.String? = null, asOq: kotlin.String? = null, asQ: kotlin.String? = null, asQdr: kotlin.String? = null, asRq: kotlin.String? = null, asSitesearch: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = googleGoogleWebSearchWithHttpInfo(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, device = device, userAgent = userAgent, output = output, location = location, lr = lr, tbs = tbs, safe = safe, uule = uule, filter = filter, nfpr = nfpr, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds, aiOverview = aiOverview, mode = mode, expandRelatedQuestions = expandRelatedQuestions, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch)
+    fun googleGoogleWebSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", num: kotlin.Int? = 10, start: kotlin.Int? = 0, domain: kotlin.String? = "google.com", device: DeviceGoogleGoogleWebSearch? = DeviceGoogleGoogleWebSearch.desktop, userAgent: kotlin.String? = null, output: OutputGoogleGoogleWebSearch? = OutputGoogleGoogleWebSearch.json, location: kotlin.String? = null, lr: kotlin.String? = null, tbs: kotlin.String? = null, safe: kotlin.String? = "off", uule: kotlin.String? = null, filter: kotlin.Int? = null, nfpr: kotlin.Int? = 0, cr: kotlin.String? = null, ludocid: kotlin.String? = null, lsig: kotlin.String? = null, kgmid: kotlin.String? = null, si: kotlin.String? = null, ibp: kotlin.String? = null, uds: kotlin.String? = null, aiOverview: kotlin.Boolean? = false, mode: ModeGoogleGoogleWebSearch? = ModeGoogleGoogleWebSearch.full, expandRelatedQuestions: kotlin.String? = null, oq: kotlin.String? = null, sourceid: kotlin.String? = null, ie: kotlin.String? = null, googleDomain: kotlin.String? = null, lat: java.math.BigDecimal? = null, lon: java.math.BigDecimal? = null, radius: java.math.BigDecimal? = null, colorScheme: ColorSchemeGoogleGoogleWebSearch? = null, tbm: TbmGoogleGoogleWebSearch? = null, udm: kotlin.String? = null, noCache: kotlin.Boolean? = false, asDt: kotlin.String? = null, asEpq: kotlin.String? = null, asEq: kotlin.String? = null, asLq: kotlin.String? = null, asNlo: kotlin.String? = null, asNhi: kotlin.String? = null, asOq: kotlin.String? = null, asQ: kotlin.String? = null, asQdr: kotlin.String? = null, asRq: kotlin.String? = null, asSitesearch: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = googleGoogleWebSearchWithHttpInfo(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, device = device, userAgent = userAgent, output = output, location = location, lr = lr, tbs = tbs, safe = safe, uule = uule, filter = filter, nfpr = nfpr, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds, aiOverview = aiOverview, mode = mode, expandRelatedQuestions = expandRelatedQuestions, oq = oq, sourceid = sourceid, ie = ie, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -2252,13 +2273,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. (optional, default to false)
      * @param mode  (optional, default to full)
      * @param expandRelatedQuestions Open all People Also Ask answers (true) or the first N (0-99). (optional)
+     * @param oq Original query sent to Google. Defaults to q; an empty string omits it. (optional)
+     * @param sourceid Google source identifier. Defaults to chrome; an empty string omits it. (optional)
+     * @param ie Google input encoding hint. Defaults to UTF-8; an empty string omits it. (optional)
      * @param googleDomain Alias for domain; Google requests use google.com with country targeting. (optional)
      * @param lat Latitude; supply together with lon instead of location or uule. (optional)
      * @param lon Longitude; supply together with lat. (optional)
      * @param radius Location accuracy in meters; requires lat/lon or a named city with a known center. (optional)
      * @param colorScheme Google color scheme. (optional)
      * @param tbm Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. (optional)
-     * @param udm Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. (optional)
+     * @param udm Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. (optional)
      * @param noCache Bypass result caches and request a fresh Google fetch. (optional, default to false)
      * @param asDt Site restriction mode: i includes, e excludes as_sitesearch. (optional)
      * @param asEpq Exact phrase. (optional)
@@ -2277,8 +2301,8 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun googleGoogleWebSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, device: DeviceGoogleGoogleWebSearch?, userAgent: kotlin.String?, output: OutputGoogleGoogleWebSearch?, location: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, uule: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?, aiOverview: kotlin.Boolean?, mode: ModeGoogleGoogleWebSearch?, expandRelatedQuestions: kotlin.String?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleWebSearch?, tbm: TbmGoogleGoogleWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = googleGoogleWebSearchRequestConfig(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, device = device, userAgent = userAgent, output = output, location = location, lr = lr, tbs = tbs, safe = safe, uule = uule, filter = filter, nfpr = nfpr, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds, aiOverview = aiOverview, mode = mode, expandRelatedQuestions = expandRelatedQuestions, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch)
+    fun googleGoogleWebSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, device: DeviceGoogleGoogleWebSearch?, userAgent: kotlin.String?, output: OutputGoogleGoogleWebSearch?, location: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, uule: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?, aiOverview: kotlin.Boolean?, mode: ModeGoogleGoogleWebSearch?, expandRelatedQuestions: kotlin.String?, oq: kotlin.String?, sourceid: kotlin.String?, ie: kotlin.String?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleWebSearch?, tbm: TbmGoogleGoogleWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googleGoogleWebSearchRequestConfig(q = q, gl = gl, hl = hl, num = num, start = start, domain = domain, device = device, userAgent = userAgent, output = output, location = location, lr = lr, tbs = tbs, safe = safe, uule = uule, filter = filter, nfpr = nfpr, cr = cr, ludocid = ludocid, lsig = lsig, kgmid = kgmid, si = si, ibp = ibp, uds = uds, aiOverview = aiOverview, mode = mode, expandRelatedQuestions = expandRelatedQuestions, oq = oq, sourceid = sourceid, ie = ie, googleDomain = googleDomain, lat = lat, lon = lon, radius = radius, colorScheme = colorScheme, tbm = tbm, udm = udm, noCache = noCache, asDt = asDt, asEpq = asEpq, asEq = asEq, asLq = asLq, asNlo = asNlo, asNhi = asNhi, asOq = asOq, asQ = asQ, asQdr = asQdr, asRq = asRq, asSitesearch = asSitesearch)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -2314,13 +2338,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param aiOverview Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. (optional, default to false)
      * @param mode  (optional, default to full)
      * @param expandRelatedQuestions Open all People Also Ask answers (true) or the first N (0-99). (optional)
+     * @param oq Original query sent to Google. Defaults to q; an empty string omits it. (optional)
+     * @param sourceid Google source identifier. Defaults to chrome; an empty string omits it. (optional)
+     * @param ie Google input encoding hint. Defaults to UTF-8; an empty string omits it. (optional)
      * @param googleDomain Alias for domain; Google requests use google.com with country targeting. (optional)
      * @param lat Latitude; supply together with lon instead of location or uule. (optional)
      * @param lon Longitude; supply together with lat. (optional)
      * @param radius Location accuracy in meters; requires lat/lon or a named city with a known center. (optional)
      * @param colorScheme Google color scheme. (optional)
      * @param tbm Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. (optional)
-     * @param udm Google result filter: 14 web, 18 forums. Other verticals require output&#x3D;html. (optional)
+     * @param udm Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. (optional)
      * @param noCache Bypass result caches and request a fresh Google fetch. (optional, default to false)
      * @param asDt Site restriction mode: i includes, e excludes as_sitesearch. (optional)
      * @param asEpq Exact phrase. (optional)
@@ -2335,7 +2362,7 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * @param asSitesearch Restrict results to a site. (optional)
      * @return RequestConfig
      */
-    fun googleGoogleWebSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, device: DeviceGoogleGoogleWebSearch?, userAgent: kotlin.String?, output: OutputGoogleGoogleWebSearch?, location: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, uule: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?, aiOverview: kotlin.Boolean?, mode: ModeGoogleGoogleWebSearch?, expandRelatedQuestions: kotlin.String?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleWebSearch?, tbm: TbmGoogleGoogleWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?) : RequestConfig<Unit> {
+    fun googleGoogleWebSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, num: kotlin.Int?, start: kotlin.Int?, domain: kotlin.String?, device: DeviceGoogleGoogleWebSearch?, userAgent: kotlin.String?, output: OutputGoogleGoogleWebSearch?, location: kotlin.String?, lr: kotlin.String?, tbs: kotlin.String?, safe: kotlin.String?, uule: kotlin.String?, filter: kotlin.Int?, nfpr: kotlin.Int?, cr: kotlin.String?, ludocid: kotlin.String?, lsig: kotlin.String?, kgmid: kotlin.String?, si: kotlin.String?, ibp: kotlin.String?, uds: kotlin.String?, aiOverview: kotlin.Boolean?, mode: ModeGoogleGoogleWebSearch?, expandRelatedQuestions: kotlin.String?, oq: kotlin.String?, sourceid: kotlin.String?, ie: kotlin.String?, googleDomain: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?, radius: java.math.BigDecimal?, colorScheme: ColorSchemeGoogleGoogleWebSearch?, tbm: TbmGoogleGoogleWebSearch?, udm: kotlin.String?, noCache: kotlin.Boolean?, asDt: kotlin.String?, asEpq: kotlin.String?, asEq: kotlin.String?, asLq: kotlin.String?, asNlo: kotlin.String?, asNhi: kotlin.String?, asOq: kotlin.String?, asQ: kotlin.String?, asQdr: kotlin.String?, asRq: kotlin.String?, asSitesearch: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -2414,6 +2441,15 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (expandRelatedQuestions != null) {
                     put("expand_related_questions", listOf(expandRelatedQuestions.toString()))
+                }
+                if (oq != null) {
+                    put("oq", listOf(oq.toString()))
+                }
+                if (sourceid != null) {
+                    put("sourceid", listOf(sourceid.toString()))
+                }
+                if (ie != null) {
+                    put("ie", listOf(ie.toString()))
                 }
                 if (googleDomain != null) {
                     put("google_domain", listOf(googleDomain.toString()))
