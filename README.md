@@ -152,6 +152,10 @@ All URIs are relative to *https://scrapebadger.com*
 | *AppStoreApi* | [**appStoreListMarkets**](docs/AppStoreApi.md#appstorelistmarkets) | **GET** /v1/app-store/markets | List markets |
 | *AppStoreApi* | [**appStoreSearchApps**](docs/AppStoreApi.md#appstoresearchapps) | **GET** /v1/app-store/search | Search apps |
 | *AppStoreApi* | [**appStoreTopCharts**](docs/AppStoreApi.md#appstoretopcharts) | **GET** /v1/app-store/charts | Top charts |
+| *AutoScout24Api* | [**autoscout24CheckAutoscout24Health**](docs/AutoScout24Api.md#autoscout24checkautoscout24health) | **GET** /v1/autoscout24/health | Check AutoScout24 health |
+| *AutoScout24Api* | [**autoscout24ListMarkets**](docs/AutoScout24Api.md#autoscout24listmarkets) | **GET** /v1/autoscout24/markets | List markets |
+| *AutoScout24Api* | [**autoscout24ListSearchFilters**](docs/AutoScout24Api.md#autoscout24listsearchfilters) | **GET** /v1/autoscout24/filters | List search filters |
+| *AutoScout24Api* | [**autoscout24SearchVehicles**](docs/AutoScout24Api.md#autoscout24searchvehicles) | **GET** /v1/autoscout24/search | Search vehicles |
 | *BaiduApi* | [**baiduBaiduImageSearch**](docs/BaiduApi.md#baidubaiduimagesearch) | **GET** /v1/baidu/images | Baidu image search |
 | *BaiduApi* | [**baiduBaiduNewsSearch**](docs/BaiduApi.md#baidubaidunewssearch) | **GET** /v1/baidu/news | Baidu news search |
 | *BaiduApi* | [**baiduBaiduScraperHealthCheck**](docs/BaiduApi.md#baidubaiduscraperhealthcheck) | **GET** /v1/baidu/health | Baidu scraper health check |
@@ -184,6 +188,12 @@ All URIs are relative to *https://scrapebadger.com*
 | *BookingApi* | [**bookingGetRoomTypesAndLiveRates**](docs/BookingApi.md#bookinggetroomtypesandliverates) | **GET** /v1/booking/properties/{country_code}/{slug}/rooms | Get room types and live rates |
 | *BookingApi* | [**bookingSearchDestinations**](docs/BookingApi.md#bookingsearchdestinations) | **GET** /v1/booking/destinations | Search destinations |
 | *BookingApi* | [**bookingSearchProperties**](docs/BookingApi.md#bookingsearchproperties) | **GET** /v1/booking/search | Search properties |
+| *BraveApi* | [**braveAutocomplete**](docs/BraveApi.md#braveautocomplete) | **GET** /v1/brave/autocomplete | Autocomplete |
+| *BraveApi* | [**braveImageSearch**](docs/BraveApi.md#braveimagesearch) | **GET** /v1/brave/images | Image search |
+| *BraveApi* | [**braveListSupportedLocales**](docs/BraveApi.md#bravelistsupportedlocales) | **GET** /v1/brave/locales | List supported locales |
+| *BraveApi* | [**braveNewsSearch**](docs/BraveApi.md#bravenewssearch) | **GET** /v1/brave/news | News search |
+| *BraveApi* | [**braveVideoSearch**](docs/BraveApi.md#bravevideosearch) | **GET** /v1/brave/videos | Video search |
+| *BraveApi* | [**braveWebSearch**](docs/BraveApi.md#bravewebsearch) | **GET** /v1/brave/search | Web search |
 | *ChatGPTApi* | [**chatgptAskChatgptAQuestion**](docs/ChatGPTApi.md#chatgptaskchatgptaquestion) | **GET** /v1/chatgpt/ask | Ask ChatGPT a question |
 | *ChatGPTApi* | [**chatgptAskChatgptAQuestionPost**](docs/ChatGPTApi.md#chatgptaskchatgptaquestionpost) | **POST** /v1/chatgpt/ask | Ask ChatGPT a question (POST) |
 | *ChatGPTApi* | [**chatgptChatgptScraperHealthCheck**](docs/ChatGPTApi.md#chatgptchatgptscraperhealthcheck) | **GET** /v1/chatgpt/health | ChatGPT scraper health check |
@@ -268,6 +278,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *GeminiApi* | [**geminiGeminiScraperHealthCheckHead**](docs/GeminiApi.md#geminigeminiscraperhealthcheckhead) | **HEAD** /v1/gemini/health | Gemini scraper health check |
 | *GeminiApi* | [**geminiMeasureABrandSVisibilityInAGeminiAnswer**](docs/GeminiApi.md#geminimeasureabrandsvisibilityinageminianswer) | **GET** /v1/gemini/brand-visibility | Measure a brand's visibility in a Gemini answer |
 | *GeminiApi* | [**geminiMeasureABrandSVisibilityInAGeminiAnswerPost**](docs/GeminiApi.md#geminimeasureabrandsvisibilityinageminianswerpost) | **POST** /v1/gemini/brand-visibility | Measure a brand's visibility in a Gemini answer (POST) |
+| *GitHubApi* | [**githubGetProfile**](docs/GitHubApi.md#githubgetprofile) | **GET** /v1/github/profiles/{username} | Get profile |
 | *GoogleApi* | [**googleGetAuthorCitationsPerYearChart**](docs/GoogleApi.md#googlegetauthorcitationsperyearchart) | **GET** /v1/google/scholar/author/citation | Get author citations-per-year chart |
 | *GoogleApi* | [**googleGetBusinessPosts**](docs/GoogleApi.md#googlegetbusinessposts) | **GET** /v1/google/maps/posts | Get business posts |
 | *GoogleApi* | [**googleGetCitationFormatsForAScholarPaper**](docs/GoogleApi.md#googlegetcitationformatsforascholarpaper) | **GET** /v1/google/scholar/cite | Get citation formats for a Scholar paper |
@@ -679,24 +690,48 @@ All URIs are relative to *https://scrapebadger.com*
 ## Documentation for Models
 
  - [com.scrapebadger.client.models.AccountInfo](docs/AccountInfo.md)
+ - [com.scrapebadger.client.models.Age](docs/Age.md)
  - [com.scrapebadger.client.models.AgentTrialInfo](docs/AgentTrialInfo.md)
+ - [com.scrapebadger.client.models.Article](docs/Article.md)
+ - [com.scrapebadger.client.models.AutoScout24FiltersResponse](docs/AutoScout24FiltersResponse.md)
+ - [com.scrapebadger.client.models.AutoScout24Listing](docs/AutoScout24Listing.md)
+ - [com.scrapebadger.client.models.AutoScout24Market](docs/AutoScout24Market.md)
+ - [com.scrapebadger.client.models.AutoScout24MarketsResponse](docs/AutoScout24MarketsResponse.md)
+ - [com.scrapebadger.client.models.AutoScout24SearchResponse](docs/AutoScout24SearchResponse.md)
  - [com.scrapebadger.client.models.BatchItem](docs/BatchItem.md)
  - [com.scrapebadger.client.models.BatchItemQueryValue](docs/BatchItemQueryValue.md)
  - [com.scrapebadger.client.models.BatchItemQueryValueAnyOfInner](docs/BatchItemQueryValueAnyOfInner.md)
  - [com.scrapebadger.client.models.BatchRequest](docs/BatchRequest.md)
  - [com.scrapebadger.client.models.BillingLogListResponse](docs/BillingLogListResponse.md)
  - [com.scrapebadger.client.models.BillingLogResponse](docs/BillingLogResponse.md)
+ - [com.scrapebadger.client.models.Book](docs/Book.md)
  - [com.scrapebadger.client.models.Brandid](docs/Brandid.md)
  - [com.scrapebadger.client.models.Brandname](docs/Brandname.md)
  - [com.scrapebadger.client.models.BrandsResponse](docs/BrandsResponse.md)
+ - [com.scrapebadger.client.models.BraveAutocompleteResponse](docs/BraveAutocompleteResponse.md)
+ - [com.scrapebadger.client.models.BraveLocaleOption](docs/BraveLocaleOption.md)
+ - [com.scrapebadger.client.models.BraveLocalesResponse](docs/BraveLocalesResponse.md)
+ - [com.scrapebadger.client.models.BravePagedResponse](docs/BravePagedResponse.md)
+ - [com.scrapebadger.client.models.BraveResponse](docs/BraveResponse.md)
+ - [com.scrapebadger.client.models.BraveResult](docs/BraveResult.md)
+ - [com.scrapebadger.client.models.BraveSearchResponse](docs/BraveSearchResponse.md)
+ - [com.scrapebadger.client.models.BraveSuggestion](docs/BraveSuggestion.md)
  - [com.scrapebadger.client.models.Categoryname](docs/Categoryname.md)
+ - [com.scrapebadger.client.models.Cluster](docs/Cluster.md)
  - [com.scrapebadger.client.models.ColorsResponse](docs/ColorsResponse.md)
  - [com.scrapebadger.client.models.Colour](docs/Colour.md)
  - [com.scrapebadger.client.models.Colourwayid](docs/Colourwayid.md)
+ - [com.scrapebadger.client.models.Confidence](docs/Confidence.md)
+ - [com.scrapebadger.client.models.Data](docs/Data.md)
+ - [com.scrapebadger.client.models.DeepResults](docs/DeepResults.md)
  - [com.scrapebadger.client.models.Description](docs/Description.md)
+ - [com.scrapebadger.client.models.Description1](docs/Description1.md)
+ - [com.scrapebadger.client.models.DisplayUrl](docs/DisplayUrl.md)
  - [com.scrapebadger.client.models.ExtractRequest](docs/ExtractRequest.md)
  - [com.scrapebadger.client.models.ExtractRequestExtractRulesValue](docs/ExtractRequestExtractRulesValue.md)
  - [com.scrapebadger.client.models.ExtractRule](docs/ExtractRule.md)
+ - [com.scrapebadger.client.models.FamilyFriendly](docs/FamilyFriendly.md)
+ - [com.scrapebadger.client.models.Faq](docs/Faq.md)
  - [com.scrapebadger.client.models.FeedbackRequest](docs/FeedbackRequest.md)
  - [com.scrapebadger.client.models.FilterRuleCreate](docs/FilterRuleCreate.md)
  - [com.scrapebadger.client.models.FilterRuleDeliveryLogListResponse](docs/FilterRuleDeliveryLogListResponse.md)
@@ -707,27 +742,68 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.FilterRuleValidateRequest](docs/FilterRuleValidateRequest.md)
  - [com.scrapebadger.client.models.FilterRuleValidateResponse](docs/FilterRuleValidateResponse.md)
  - [com.scrapebadger.client.models.Gender](docs/Gender.md)
+ - [com.scrapebadger.client.models.GitHubAccountPreview](docs/GitHubAccountPreview.md)
+ - [com.scrapebadger.client.models.GitHubAchievement](docs/GitHubAchievement.md)
+ - [com.scrapebadger.client.models.GitHubActivityBlock](docs/GitHubActivityBlock.md)
+ - [com.scrapebadger.client.models.GitHubActivityOverview](docs/GitHubActivityOverview.md)
+ - [com.scrapebadger.client.models.GitHubActivityRow](docs/GitHubActivityRow.md)
+ - [com.scrapebadger.client.models.GitHubCalendarDay](docs/GitHubCalendarDay.md)
+ - [com.scrapebadger.client.models.GitHubContributions](docs/GitHubContributions.md)
+ - [com.scrapebadger.client.models.GitHubLanguage](docs/GitHubLanguage.md)
+ - [com.scrapebadger.client.models.GitHubNamedLink](docs/GitHubNamedLink.md)
+ - [com.scrapebadger.client.models.GitHubPagination](docs/GitHubPagination.md)
+ - [com.scrapebadger.client.models.GitHubProfile](docs/GitHubProfile.md)
+ - [com.scrapebadger.client.models.GitHubProfileResponse](docs/GitHubProfileResponse.md)
+ - [com.scrapebadger.client.models.GitHubReadme](docs/GitHubReadme.md)
+ - [com.scrapebadger.client.models.GitHubRepository](docs/GitHubRepository.md)
+ - [com.scrapebadger.client.models.GitHubSocialAccount](docs/GitHubSocialAccount.md)
+ - [com.scrapebadger.client.models.GitHubStatus](docs/GitHubStatus.md)
+ - [com.scrapebadger.client.models.GitHubTextLink](docs/GitHubTextLink.md)
  - [com.scrapebadger.client.models.HTTPValidationError](docs/HTTPValidationError.md)
  - [com.scrapebadger.client.models.Imageurl](docs/Imageurl.md)
+ - [com.scrapebadger.client.models.IsLive](docs/IsLive.md)
  - [com.scrapebadger.client.models.Isinstock](docs/Isinstock.md)
  - [com.scrapebadger.client.models.Isrestockingsoon](docs/Isrestockingsoon.md)
  - [com.scrapebadger.client.models.Issellingfast](docs/Issellingfast.md)
  - [com.scrapebadger.client.models.ItemDetailResponse](docs/ItemDetailResponse.md)
+ - [com.scrapebadger.client.models.Language](docs/Language.md)
+ - [com.scrapebadger.client.models.Location](docs/Location.md)
  - [com.scrapebadger.client.models.MarketsResponse](docs/MarketsResponse.md)
+ - [com.scrapebadger.client.models.MetaUrl](docs/MetaUrl.md)
  - [com.scrapebadger.client.models.NextOffset](docs/NextOffset.md)
+ - [com.scrapebadger.client.models.NextPage](docs/NextPage.md)
+ - [com.scrapebadger.client.models.Organization](docs/Organization.md)
+ - [com.scrapebadger.client.models.PageAge](docs/PageAge.md)
+ - [com.scrapebadger.client.models.PageFetched](docs/PageFetched.md)
+ - [com.scrapebadger.client.models.PageFetchedAt](docs/PageFetchedAt.md)
+ - [com.scrapebadger.client.models.PageFetchedUtc](docs/PageFetchedUtc.md)
  - [com.scrapebadger.client.models.PortalApiRoutersV1AsosSearchResponse](docs/PortalApiRoutersV1AsosSearchResponse.md)
  - [com.scrapebadger.client.models.PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse](docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md)
  - [com.scrapebadger.client.models.PortalApiRoutersVintedSchemasSearchResponse](docs/PortalApiRoutersVintedSchemasSearchResponse.md)
  - [com.scrapebadger.client.models.Price](docs/Price.md)
  - [com.scrapebadger.client.models.PriceValue](docs/PriceValue.md)
  - [com.scrapebadger.client.models.Product](docs/Product.md)
+ - [com.scrapebadger.client.models.Product1](docs/Product1.md)
+ - [com.scrapebadger.client.models.ProductCluster](docs/ProductCluster.md)
  - [com.scrapebadger.client.models.ProductPrice](docs/ProductPrice.md)
  - [com.scrapebadger.client.models.ProductResponse](docs/ProductResponse.md)
  - [com.scrapebadger.client.models.Productcode](docs/Productcode.md)
+ - [com.scrapebadger.client.models.Profile](docs/Profile.md)
+ - [com.scrapebadger.client.models.Properties](docs/Properties.md)
+ - [com.scrapebadger.client.models.PublishedAt](docs/PublishedAt.md)
+ - [com.scrapebadger.client.models.PublishedUtc](docs/PublishedUtc.md)
+ - [com.scrapebadger.client.models.Qa](docs/Qa.md)
  - [com.scrapebadger.client.models.QuoteRequest](docs/QuoteRequest.md)
+ - [com.scrapebadger.client.models.Rating](docs/Rating.md)
  - [com.scrapebadger.client.models.Ratings](docs/Ratings.md)
+ - [com.scrapebadger.client.models.Recipe](docs/Recipe.md)
+ - [com.scrapebadger.client.models.Review](docs/Review.md)
  - [com.scrapebadger.client.models.ScreenshotRequest](docs/ScreenshotRequest.md)
  - [com.scrapebadger.client.models.Searchterm](docs/Searchterm.md)
+ - [com.scrapebadger.client.models.SiteName](docs/SiteName.md)
+ - [com.scrapebadger.client.models.Snippet](docs/Snippet.md)
+ - [com.scrapebadger.client.models.Software](docs/Software.md)
+ - [com.scrapebadger.client.models.Source](docs/Source.md)
  - [com.scrapebadger.client.models.StatusesResponse](docs/StatusesResponse.md)
  - [com.scrapebadger.client.models.StockProduct](docs/StockProduct.md)
  - [com.scrapebadger.client.models.StockResponse](docs/StockResponse.md)
@@ -736,14 +812,18 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.StreamMonitorResponse](docs/StreamMonitorResponse.md)
  - [com.scrapebadger.client.models.StreamMonitorUpdate](docs/StreamMonitorUpdate.md)
  - [com.scrapebadger.client.models.SubscriptionInfo](docs/SubscriptionInfo.md)
+ - [com.scrapebadger.client.models.Subtype](docs/Subtype.md)
+ - [com.scrapebadger.client.models.Thumbnail](docs/Thumbnail.md)
  - [com.scrapebadger.client.models.TweetDeliveryLogListResponse](docs/TweetDeliveryLogListResponse.md)
  - [com.scrapebadger.client.models.TweetDeliveryLogResponse](docs/TweetDeliveryLogResponse.md)
+ - [com.scrapebadger.client.models.Type](docs/Type.md)
  - [com.scrapebadger.client.models.Url](docs/Url.md)
  - [com.scrapebadger.client.models.UserItemsResponse](docs/UserItemsResponse.md)
  - [com.scrapebadger.client.models.UserProfileResponse](docs/UserProfileResponse.md)
  - [com.scrapebadger.client.models.ValidationError](docs/ValidationError.md)
  - [com.scrapebadger.client.models.ValidationErrorLocInner](docs/ValidationErrorLocInner.md)
  - [com.scrapebadger.client.models.Variant](docs/Variant.md)
+ - [com.scrapebadger.client.models.Video](docs/Video.md)
  - [com.scrapebadger.client.models.VintedBrand](docs/VintedBrand.md)
  - [com.scrapebadger.client.models.VintedColor](docs/VintedColor.md)
  - [com.scrapebadger.client.models.VintedImageSearchRequest](docs/VintedImageSearchRequest.md)

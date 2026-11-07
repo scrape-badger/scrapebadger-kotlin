@@ -23,7 +23,7 @@ import com.scrapebadger.client.models.Brandid
 import com.scrapebadger.client.models.Brandname
 import com.scrapebadger.client.models.Colour
 import com.scrapebadger.client.models.Colourwayid
-import com.scrapebadger.client.models.Description
+import com.scrapebadger.client.models.Description1
 import com.scrapebadger.client.models.Gender
 import com.scrapebadger.client.models.Imageurl
 import com.scrapebadger.client.models.Isinstock

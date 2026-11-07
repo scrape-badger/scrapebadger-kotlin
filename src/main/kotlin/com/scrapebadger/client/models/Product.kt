@@ -19,7 +19,7 @@ import com.scrapebadger.client.models.Brandid
 import com.scrapebadger.client.models.Brandname
 import com.scrapebadger.client.models.Colour
 import com.scrapebadger.client.models.Colourwayid
-import com.scrapebadger.client.models.Description
+import com.scrapebadger.client.models.Description1
 import com.scrapebadger.client.models.Gender
 import com.scrapebadger.client.models.Imageurl
 import com.scrapebadger.client.models.Isinstock
@@ -114,7 +114,7 @@ data class Product (
     val gender: Gender? = null,
 
     @Json(name = "description")
-    val description: Description? = null,
+    val description: Description1? = null,
 
     @Json(name = "ratings")
     val ratings: Ratings? = null,
