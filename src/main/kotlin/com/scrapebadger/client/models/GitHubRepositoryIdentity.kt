@@ -30,7 +30,7 @@ import com.squareup.moshi.JsonClass
  * @param fullName 
  * @param link 
  * @param owner 
- * @param isEmpty 
+ * @param repositoryEmpty 
  * @param id 
  * @param nodeId 
  * @param description 
@@ -124,7 +124,7 @@ data class GitHubRepositoryIdentity (
     val owner: GitHubRepositoryAccount,
 
     @Json(name = "is_empty")
-    val isEmpty: kotlin.Boolean,
+    val repositoryEmpty: kotlin.Boolean,
 
     @Json(name = "id")
     val id: kotlin.Int? = null,
