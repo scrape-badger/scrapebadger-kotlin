@@ -20,6 +20,7 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 
 import com.scrapebadger.client.models.GitHubProfileResponse
+import com.scrapebadger.client.models.GitHubRepositoryResponse
 import com.scrapebadger.client.models.HTTPValidationError
 
 import com.squareup.moshi.Json
@@ -154,6 +155,80 @@ class GitHubApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/github/profiles/{username}".replace("{"+"username"+"}", encodeURIComponent(username.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * Get repository
+     * Public default-branch repository detail, native README, files and latest commit.  Use owner.login and name from a profile repository summary. Root file and contributor previews are not exhaustive recursive trees or membership lists. No GitHub token, market, ref, search or pagination parameter is accepted.
+     * @param owner 
+     * @param repo 
+     * @return GitHubRepositoryResponse
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun githubGetRepository(owner: kotlin.String, repo: kotlin.String) : GitHubRepositoryResponse {
+        val localVarResponse = githubGetRepositoryWithHttpInfo(owner = owner, repo = repo)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GitHubRepositoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get repository
+     * Public default-branch repository detail, native README, files and latest commit.  Use owner.login and name from a profile repository summary. Root file and contributor previews are not exhaustive recursive trees or membership lists. No GitHub token, market, ref, search or pagination parameter is accepted.
+     * @param owner 
+     * @param repo 
+     * @return ApiResponse<GitHubRepositoryResponse?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun githubGetRepositoryWithHttpInfo(owner: kotlin.String, repo: kotlin.String) : ApiResponse<GitHubRepositoryResponse?> {
+        val localVariableConfig = githubGetRepositoryRequestConfig(owner = owner, repo = repo)
+
+        return request<Unit, GitHubRepositoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation githubGetRepository
+     *
+     * @param owner 
+     * @param repo 
+     * @return RequestConfig
+     */
+    fun githubGetRepositoryRequestConfig(owner: kotlin.String, repo: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/github/repositories/{owner}/{repo}".replace("{"+"owner"+"}", encodeURIComponent(owner.toString())).replace("{"+"repo"+"}", encodeURIComponent(repo.toString())),
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,

@@ -280,6 +280,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *GeminiApi* | [**geminiMeasureABrandSVisibilityInAGeminiAnswer**](docs/GeminiApi.md#geminimeasureabrandsvisibilityinageminianswer) | **GET** /v1/gemini/brand-visibility | Measure a brand's visibility in a Gemini answer |
 | *GeminiApi* | [**geminiMeasureABrandSVisibilityInAGeminiAnswerPost**](docs/GeminiApi.md#geminimeasureabrandsvisibilityinageminianswerpost) | **POST** /v1/gemini/brand-visibility | Measure a brand's visibility in a Gemini answer (POST) |
 | *GitHubApi* | [**githubGetProfile**](docs/GitHubApi.md#githubgetprofile) | **GET** /v1/github/profiles/{username} | Get profile |
+| *GitHubApi* | [**githubGetRepository**](docs/GitHubApi.md#githubgetrepository) | **GET** /v1/github/repositories/{owner}/{repo} | Get repository |
 | *GoogleApi* | [**googleGetAuthorCitationsPerYearChart**](docs/GoogleApi.md#googlegetauthorcitationsperyearchart) | **GET** /v1/google/scholar/author/citation | Get author citations-per-year chart |
 | *GoogleApi* | [**googleGetBusinessPosts**](docs/GoogleApi.md#googlegetbusinessposts) | **GET** /v1/google/maps/posts | Get business posts |
 | *GoogleApi* | [**googleGetCitationFormatsForAScholarPaper**](docs/GoogleApi.md#googlegetcitationformatsforascholarpaper) | **GET** /v1/google/scholar/cite | Get citation formats for a Scholar paper |
@@ -751,14 +752,31 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.GitHubActivityOverview](docs/GitHubActivityOverview.md)
  - [com.scrapebadger.client.models.GitHubActivityRow](docs/GitHubActivityRow.md)
  - [com.scrapebadger.client.models.GitHubCalendarDay](docs/GitHubCalendarDay.md)
+ - [com.scrapebadger.client.models.GitHubCommitActor](docs/GitHubCommitActor.md)
+ - [com.scrapebadger.client.models.GitHubCommitChecks](docs/GitHubCommitChecks.md)
+ - [com.scrapebadger.client.models.GitHubCommunityFile](docs/GitHubCommunityFile.md)
  - [com.scrapebadger.client.models.GitHubContributions](docs/GitHubContributions.md)
+ - [com.scrapebadger.client.models.GitHubForkComparison](docs/GitHubForkComparison.md)
+ - [com.scrapebadger.client.models.GitHubFundingLink](docs/GitHubFundingLink.md)
  - [com.scrapebadger.client.models.GitHubLanguage](docs/GitHubLanguage.md)
+ - [com.scrapebadger.client.models.GitHubLatestCommit](docs/GitHubLatestCommit.md)
  - [com.scrapebadger.client.models.GitHubNamedLink](docs/GitHubNamedLink.md)
  - [com.scrapebadger.client.models.GitHubPagination](docs/GitHubPagination.md)
  - [com.scrapebadger.client.models.GitHubProfile](docs/GitHubProfile.md)
  - [com.scrapebadger.client.models.GitHubProfileResponse](docs/GitHubProfileResponse.md)
  - [com.scrapebadger.client.models.GitHubReadme](docs/GitHubReadme.md)
+ - [com.scrapebadger.client.models.GitHubReadmeHeading](docs/GitHubReadmeHeading.md)
  - [com.scrapebadger.client.models.GitHubRepository](docs/GitHubRepository.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryAccount](docs/GitHubRepositoryAccount.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryFile](docs/GitHubRepositoryFile.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryFunding](docs/GitHubRepositoryFunding.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryIdentity](docs/GitHubRepositoryIdentity.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryLanguage](docs/GitHubRepositoryLanguage.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryLicense](docs/GitHubRepositoryLicense.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryReadme](docs/GitHubRepositoryReadme.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryReference](docs/GitHubRepositoryReference.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryRelease](docs/GitHubRepositoryRelease.md)
+ - [com.scrapebadger.client.models.GitHubRepositoryResponse](docs/GitHubRepositoryResponse.md)
  - [com.scrapebadger.client.models.GitHubSocialAccount](docs/GitHubSocialAccount.md)
  - [com.scrapebadger.client.models.GitHubStatus](docs/GitHubStatus.md)
  - [com.scrapebadger.client.models.GitHubTextLink](docs/GitHubTextLink.md)

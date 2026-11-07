@@ -20,6 +20,7 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.GitHubApi
 import com.scrapebadger.client.models.GitHubProfileResponse
+import com.scrapebadger.client.models.GitHubRepositoryResponse
 import com.scrapebadger.client.models.HTTPValidationError
 
 class GitHubApiTest : ShouldSpec() {
@@ -36,6 +37,15 @@ class GitHubApiTest : ShouldSpec() {
             //val page : kotlin.Int = 56 // kotlin.Int | Repositories only: page number, 30 rows per page
             //val nextPageToken : kotlin.String = nextPageToken_example // kotlin.String | Stars only: previous pagination.next_page_token
             //val result : GitHubProfileResponse = apiInstance.githubGetProfile(username, tab, year, page, nextPageToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test githubGetRepository
+        should("test githubGetRepository") {
+            // uncomment below to test githubGetRepository
+            //val owner : kotlin.String = owner_example // kotlin.String | 
+            //val repo : kotlin.String = repo_example // kotlin.String | 
+            //val result : GitHubRepositoryResponse = apiInstance.githubGetRepository(owner, repo)
             //result shouldBe ("TODO")
         }
 

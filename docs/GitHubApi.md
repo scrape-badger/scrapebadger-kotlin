@@ -5,6 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**githubGetProfile**](GitHubApi.md#githubGetProfile) | **GET** /v1/github/profiles/{username} | Get profile |
+| [**githubGetRepository**](GitHubApi.md#githubGetRepository) | **GET** /v1/github/repositories/{owner}/{repo} | Get repository |
 
 
 <a id="githubGetProfile"></a>
@@ -51,6 +52,57 @@ try {
 ### Return type
 
 [**GitHubProfileResponse**](GitHubProfileResponse.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="githubGetRepository"></a>
+# **githubGetRepository**
+> GitHubRepositoryResponse githubGetRepository(owner, repo)
+
+Get repository
+
+Public default-branch repository detail, native README, files and latest commit.  Use owner.login and name from a profile repository summary. Root file and contributor previews are not exhaustive recursive trees or membership lists. No GitHub token, market, ref, search or pagination parameter is accepted.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = GitHubApi()
+val owner : kotlin.String = owner_example // kotlin.String | 
+val repo : kotlin.String = repo_example // kotlin.String | 
+try {
+    val result : GitHubRepositoryResponse = apiInstance.githubGetRepository(owner, repo)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GitHubApi#githubGetRepository")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GitHubApi#githubGetRepository")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **owner** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **repo** | **kotlin.String**|  | |
+
+### Return type
+
+[**GitHubRepositoryResponse**](GitHubRepositoryResponse.md)
 
 ### Authorization
 
