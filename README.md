@@ -153,6 +153,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *AppStoreApi* | [**appStoreSearchApps**](docs/AppStoreApi.md#appstoresearchapps) | **GET** /v1/app-store/search | Search apps |
 | *AppStoreApi* | [**appStoreTopCharts**](docs/AppStoreApi.md#appstoretopcharts) | **GET** /v1/app-store/charts | Top charts |
 | *AutoScout24Api* | [**autoscout24CheckAutoscout24Health**](docs/AutoScout24Api.md#autoscout24checkautoscout24health) | **GET** /v1/autoscout24/health | Check AutoScout24 health |
+| *AutoScout24Api* | [**autoscout24GetListing**](docs/AutoScout24Api.md#autoscout24getlisting) | **GET** /v1/autoscout24/listing | Get listing |
 | *AutoScout24Api* | [**autoscout24ListMarkets**](docs/AutoScout24Api.md#autoscout24listmarkets) | **GET** /v1/autoscout24/markets | List markets |
 | *AutoScout24Api* | [**autoscout24ListSearchFilters**](docs/AutoScout24Api.md#autoscout24listsearchfilters) | **GET** /v1/autoscout24/filters | List search filters |
 | *AutoScout24Api* | [**autoscout24SearchVehicles**](docs/AutoScout24Api.md#autoscout24searchvehicles) | **GET** /v1/autoscout24/search | Search vehicles |
@@ -695,6 +696,8 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.Article](docs/Article.md)
  - [com.scrapebadger.client.models.AutoScout24FiltersResponse](docs/AutoScout24FiltersResponse.md)
  - [com.scrapebadger.client.models.AutoScout24Listing](docs/AutoScout24Listing.md)
+ - [com.scrapebadger.client.models.AutoScout24ListingDetail](docs/AutoScout24ListingDetail.md)
+ - [com.scrapebadger.client.models.AutoScout24ListingResponse](docs/AutoScout24ListingResponse.md)
  - [com.scrapebadger.client.models.AutoScout24Market](docs/AutoScout24Market.md)
  - [com.scrapebadger.client.models.AutoScout24MarketsResponse](docs/AutoScout24MarketsResponse.md)
  - [com.scrapebadger.client.models.AutoScout24SearchResponse](docs/AutoScout24SearchResponse.md)

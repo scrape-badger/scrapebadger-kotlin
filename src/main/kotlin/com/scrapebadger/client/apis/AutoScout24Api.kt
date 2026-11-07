@@ -20,6 +20,7 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 
 import com.scrapebadger.client.models.AutoScout24FiltersResponse
+import com.scrapebadger.client.models.AutoScout24ListingResponse
 import com.scrapebadger.client.models.AutoScout24MarketsResponse
 import com.scrapebadger.client.models.AutoScout24SearchResponse
 import com.scrapebadger.client.models.HTTPValidationError
@@ -109,6 +110,117 @@ class AutoScout24Api(basePath: kotlin.String = defaultBasePath, client: Call.Fac
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/autoscout24/health",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter market
+     */
+     enum class MarketAutoscout24GetListing(val value: kotlin.String) {
+         @Json(name = "de") de("de"),
+         @Json(name = "at") at("at"),
+         @Json(name = "be") be("be"),
+         @Json(name = "es") es("es"),
+         @Json(name = "fr") fr("fr"),
+         @Json(name = "it") `it`("it"),
+         @Json(name = "lu") lu("lu"),
+         @Json(name = "nl") nl("nl");
+
+        /**
+         * Override [toString()] to avoid using the enum variable name as the value, and instead use
+         * the actual value defined in the API spec file.
+         *
+         * This solves a problem when the variable name and its value are different, and ensures that
+         * the client sends the correct enum values to the server always.
+         */
+        override fun toString(): kotlin.String = "$value"
+     }
+
+    /**
+     * Get listing
+     * Full public vehicle specifications, equipment, photos, price and seller data.  Exactly one of url or listing_id is required. Supported markets match /markets. Successful detail costs 10 credits; removed or missing listings return an unbilled 404. Invalid inputs return 422 and source failures 503.
+     * @param url Full HTTPS listing URL from search results. Supply url or listing_id, not both. (optional)
+     * @param listingId Listing UUID from search results; requires no SEO slug. (optional)
+     * @param market Inferred from URL, otherwise de. Explicit market must match the URL host. (optional)
+     * @return AutoScout24ListingResponse
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun autoscout24GetListing(url: kotlin.String? = null, listingId: kotlin.String? = null, market: MarketAutoscout24GetListing? = null) : AutoScout24ListingResponse {
+        val localVarResponse = autoscout24GetListingWithHttpInfo(url = url, listingId = listingId, market = market)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AutoScout24ListingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get listing
+     * Full public vehicle specifications, equipment, photos, price and seller data.  Exactly one of url or listing_id is required. Supported markets match /markets. Successful detail costs 10 credits; removed or missing listings return an unbilled 404. Invalid inputs return 422 and source failures 503.
+     * @param url Full HTTPS listing URL from search results. Supply url or listing_id, not both. (optional)
+     * @param listingId Listing UUID from search results; requires no SEO slug. (optional)
+     * @param market Inferred from URL, otherwise de. Explicit market must match the URL host. (optional)
+     * @return ApiResponse<AutoScout24ListingResponse?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun autoscout24GetListingWithHttpInfo(url: kotlin.String?, listingId: kotlin.String?, market: MarketAutoscout24GetListing?) : ApiResponse<AutoScout24ListingResponse?> {
+        val localVariableConfig = autoscout24GetListingRequestConfig(url = url, listingId = listingId, market = market)
+
+        return request<Unit, AutoScout24ListingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation autoscout24GetListing
+     *
+     * @param url Full HTTPS listing URL from search results. Supply url or listing_id, not both. (optional)
+     * @param listingId Listing UUID from search results; requires no SEO slug. (optional)
+     * @param market Inferred from URL, otherwise de. Explicit market must match the URL host. (optional)
+     * @return RequestConfig
+     */
+    fun autoscout24GetListingRequestConfig(url: kotlin.String?, listingId: kotlin.String?, market: MarketAutoscout24GetListing?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (url != null) {
+                    put("url", listOf(url.toString()))
+                }
+                if (listingId != null) {
+                    put("listing_id", listOf(listingId.toString()))
+                }
+                if (market != null) {
+                    put("market", listOf(market.value))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/autoscout24/listing",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,
@@ -444,7 +556,7 @@ class AutoScout24Api(basePath: kotlin.String = defaultBasePath, client: Call.Fac
 
     /**
      * Search vehicles
-     * Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Listing detail is not included in this API.
+     * Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Pass a result&#39;s url or id to /listing for its full specifications and equipment.
      * @param market  (optional, default to de)
      * @param make Native make slug, e.g. volkswagen or bmw. (optional)
      * @param model Native model slug, e.g. golf. Requires make. (optional)
@@ -494,7 +606,7 @@ class AutoScout24Api(basePath: kotlin.String = defaultBasePath, client: Call.Fac
 
     /**
      * Search vehicles
-     * Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Listing detail is not included in this API.
+     * Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Pass a result&#39;s url or id to /listing for its full specifications and equipment.
      * @param market  (optional, default to de)
      * @param make Native make slug, e.g. volkswagen or bmw. (optional)
      * @param model Native model slug, e.g. golf. Requires make. (optional)

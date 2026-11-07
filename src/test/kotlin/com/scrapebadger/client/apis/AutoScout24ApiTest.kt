@@ -20,6 +20,7 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.AutoScout24Api
 import com.scrapebadger.client.models.AutoScout24FiltersResponse
+import com.scrapebadger.client.models.AutoScout24ListingResponse
 import com.scrapebadger.client.models.AutoScout24MarketsResponse
 import com.scrapebadger.client.models.AutoScout24SearchResponse
 import com.scrapebadger.client.models.HTTPValidationError
@@ -33,6 +34,16 @@ class AutoScout24ApiTest : ShouldSpec() {
         should("test autoscout24CheckAutoscout24Health") {
             // uncomment below to test autoscout24CheckAutoscout24Health
             //val result : kotlin.Any = apiInstance.autoscout24CheckAutoscout24Health()
+            //result shouldBe ("TODO")
+        }
+
+        // to test autoscout24GetListing
+        should("test autoscout24GetListing") {
+            // uncomment below to test autoscout24GetListing
+            //val url : kotlin.String = url_example // kotlin.String | Full HTTPS listing URL from search results. Supply url or listing_id, not both.
+            //val listingId : kotlin.String = listingId_example // kotlin.String | Listing UUID from search results; requires no SEO slug.
+            //val market : kotlin.String = market_example // kotlin.String | Inferred from URL, otherwise de. Explicit market must match the URL host.
+            //val result : AutoScout24ListingResponse = apiInstance.autoscout24GetListing(url, listingId, market)
             //result shouldBe ("TODO")
         }
 

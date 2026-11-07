@@ -15,6 +15,8 @@ docs/Article.md
 docs/AutoScout24Api.md
 docs/AutoScout24FiltersResponse.md
 docs/AutoScout24Listing.md
+docs/AutoScout24ListingDetail.md
+docs/AutoScout24ListingResponse.md
 docs/AutoScout24Market.md
 docs/AutoScout24MarketsResponse.md
 docs/AutoScout24SearchResponse.md
@@ -288,6 +290,8 @@ src/main/kotlin/com/scrapebadger/client/models/AgentTrialInfo.kt
 src/main/kotlin/com/scrapebadger/client/models/Article.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24FiltersResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24Listing.kt
+src/main/kotlin/com/scrapebadger/client/models/AutoScout24ListingDetail.kt
+src/main/kotlin/com/scrapebadger/client/models/AutoScout24ListingResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24Market.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24MarketsResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24SearchResponse.kt
@@ -494,6 +498,8 @@ src/test/kotlin/com/scrapebadger/client/models/AgeTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AgentTrialInfoTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ArticleTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24FiltersResponseTest.kt
+src/test/kotlin/com/scrapebadger/client/models/AutoScout24ListingDetailTest.kt
+src/test/kotlin/com/scrapebadger/client/models/AutoScout24ListingResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24ListingTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24MarketTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24MarketsResponseTest.kt

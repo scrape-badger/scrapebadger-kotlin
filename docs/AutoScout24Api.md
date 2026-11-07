@@ -5,6 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**autoscout24CheckAutoscout24Health**](AutoScout24Api.md#autoscout24CheckAutoscout24Health) | **GET** /v1/autoscout24/health | Check AutoScout24 health |
+| [**autoscout24GetListing**](AutoScout24Api.md#autoscout24GetListing) | **GET** /v1/autoscout24/listing | Get listing |
 | [**autoscout24ListMarkets**](AutoScout24Api.md#autoscout24ListMarkets) | **GET** /v1/autoscout24/markets | List markets |
 | [**autoscout24ListSearchFilters**](AutoScout24Api.md#autoscout24ListSearchFilters) | **GET** /v1/autoscout24/filters | List search filters |
 | [**autoscout24SearchVehicles**](AutoScout24Api.md#autoscout24SearchVehicles) | **GET** /v1/autoscout24/search | Search vehicles |
@@ -41,6 +42,59 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="autoscout24GetListing"></a>
+# **autoscout24GetListing**
+> AutoScout24ListingResponse autoscout24GetListing(url, listingId, market)
+
+Get listing
+
+Full public vehicle specifications, equipment, photos, price and seller data.  Exactly one of url or listing_id is required. Supported markets match /markets. Successful detail costs 10 credits; removed or missing listings return an unbilled 404. Invalid inputs return 422 and source failures 503.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = AutoScout24Api()
+val url : kotlin.String = url_example // kotlin.String | Full HTTPS listing URL from search results. Supply url or listing_id, not both.
+val listingId : kotlin.String = listingId_example // kotlin.String | Listing UUID from search results; requires no SEO slug.
+val market : kotlin.String = market_example // kotlin.String | Inferred from URL, otherwise de. Explicit market must match the URL host.
+try {
+    val result : AutoScout24ListingResponse = apiInstance.autoscout24GetListing(url, listingId, market)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AutoScout24Api#autoscout24GetListing")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AutoScout24Api#autoscout24GetListing")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **url** | **kotlin.String**| Full HTTPS listing URL from search results. Supply url or listing_id, not both. | [optional] |
+| **listingId** | **kotlin.String**| Listing UUID from search results; requires no SEO slug. | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **market** | **kotlin.String**| Inferred from URL, otherwise de. Explicit market must match the URL host. | [optional] [enum: de, at, be, es, fr, it, lu, nl] |
+
+### Return type
+
+[**AutoScout24ListingResponse**](AutoScout24ListingResponse.md)
 
 ### Authorization
 
@@ -157,7 +211,7 @@ Configure ApiKeyAuth:
 
 Search vehicles
 
-Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Listing detail is not included in this API.
+Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Pass a result&#39;s url or id to /listing for its full specifications and equipment.
 
 ### Example
 ```kotlin
