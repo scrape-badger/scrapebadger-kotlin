@@ -53,10 +53,10 @@ class GitHubRepositoryIdentityTest : ShouldSpec() {
             //modelInstance.owner shouldBe ("TODO")
         }
 
-        // to test the property `isEmpty`
-        should("test isEmpty") {
+        // to test the property `repositoryEmpty`
+        should("test repositoryEmpty") {
             // uncomment below to test the property
-            //modelInstance.isEmpty shouldBe ("TODO")
+            //modelInstance.repositoryEmpty shouldBe ("TODO")
         }
 
         // to test the property `id`

@@ -8,7 +8,7 @@
 | **fullName** | **kotlin.String** |  |  |
 | **link** | **kotlin.String** |  |  |
 | **owner** | [**GitHubRepositoryAccount**](GitHubRepositoryAccount.md) |  |  |
-| **isEmpty** | **kotlin.Boolean** |  |  |
+| **repositoryEmpty** | **kotlin.Boolean** |  |  |
 | **id** | **kotlin.Int** |  |  [optional] |
 | **nodeId** | **kotlin.String** |  |  [optional] |
 | **description** | **kotlin.String** |  |  [optional] |
