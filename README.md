@@ -637,6 +637,8 @@ All URIs are relative to *https://scrapebadger.com*
 | *YandexApi* | [**yandexWebSearch**](docs/YandexApi.md#yandexwebsearch) | **GET** /v1/yandex/search | Web search |
 | *YandexApi* | [**yandexYandexScraperHealthCheck**](docs/YandexApi.md#yandexyandexscraperhealthcheck) | **GET** /v1/yandex/health | Yandex scraper health check |
 | *YandexApi* | [**yandexYandexScraperHealthCheckHead**](docs/YandexApi.md#yandexyandexscraperhealthcheckhead) | **HEAD** /v1/yandex/health | Yandex scraper health check |
+| *YelpApi* | [**yelpListMarkets**](docs/YelpApi.md#yelplistmarkets) | **GET** /v1/yelp/markets | List markets |
+| *YelpApi* | [**yelpSearchBusinesses**](docs/YelpApi.md#yelpsearchbusinesses) | **GET** /v1/yelp/search | Search businesses |
 | *YouTubeApi* | [**youtubeBatchVideoDetail**](docs/YouTubeApi.md#youtubebatchvideodetail) | **POST** /v1/youtube/videos/batch | Batch video detail |
 | *YouTubeApi* | [**youtubeChannelAbout**](docs/YouTubeApi.md#youtubechannelabout) | **GET** /v1/youtube/channels/{channel_id}/about | Channel about |
 | *YouTubeApi* | [**youtubeChannelPlaylists**](docs/YouTubeApi.md#youtubechannelplaylists) | **GET** /v1/youtube/channels/{channel_id}/playlists | Channel playlists |
@@ -865,6 +867,16 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.WebhookSecret](docs/WebhookSecret.md)
  - [com.scrapebadger.client.models.WebhookTestRequest](docs/WebhookTestRequest.md)
  - [com.scrapebadger.client.models.WebhookTestResponse](docs/WebhookTestResponse.md)
+ - [com.scrapebadger.client.models.YelpBusiness](docs/YelpBusiness.md)
+ - [com.scrapebadger.client.models.YelpCategory](docs/YelpCategory.md)
+ - [com.scrapebadger.client.models.YelpFilterGroup](docs/YelpFilterGroup.md)
+ - [com.scrapebadger.client.models.YelpFilterOption](docs/YelpFilterOption.md)
+ - [com.scrapebadger.client.models.YelpHours](docs/YelpHours.md)
+ - [com.scrapebadger.client.models.YelpLink](docs/YelpLink.md)
+ - [com.scrapebadger.client.models.YelpMarket](docs/YelpMarket.md)
+ - [com.scrapebadger.client.models.YelpMarketsResponse](docs/YelpMarketsResponse.md)
+ - [com.scrapebadger.client.models.YelpResolvedLocation](docs/YelpResolvedLocation.md)
+ - [com.scrapebadger.client.models.YelpSearchResponse](docs/YelpSearchResponse.md)
 
 
 <a id="documentation-for-authorization"></a>
