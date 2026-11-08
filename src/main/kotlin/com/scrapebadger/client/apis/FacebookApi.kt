@@ -1578,7 +1578,7 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Search Marketplace
-     * Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.
+     * Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.  Set strict_filters&#x3D;true for locally enforced radius (always km) and age. Public price-range continuations are bounded to eight pages; sort the full collected set for newest-first monitoring. Coverage and freshness are partial.
      * @param query Search keywords
      * @param location Marketplace location slug or numeric place id (optional, default to "nyc")
      * @param minPrice  (optional)
@@ -1589,6 +1589,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param deliveryMethod  (optional)
      * @param radius Search radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
+     * @param strictFilters Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics (optional, default to false)
+     * @param includeDetails Enrich returned listings with full public descriptions and photos; enables verified search (optional, default to false)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1598,8 +1600,8 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun facebookSearchMarketplace(query: kotlin.String, location: kotlin.String? = "nyc", minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, daysSinceListed: kotlin.Int? = null, sortBy: kotlin.String? = null, itemCondition: kotlin.String? = null, deliveryMethod: kotlin.String? = null, radius: kotlin.Int? = null, after: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = facebookSearchMarketplaceWithHttpInfo(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, radius = radius, after = after)
+    fun facebookSearchMarketplace(query: kotlin.String, location: kotlin.String? = "nyc", minPrice: kotlin.Int? = null, maxPrice: kotlin.Int? = null, daysSinceListed: kotlin.Int? = null, sortBy: kotlin.String? = null, itemCondition: kotlin.String? = null, deliveryMethod: kotlin.String? = null, radius: kotlin.Int? = null, after: kotlin.String? = null, strictFilters: kotlin.Boolean? = false, includeDetails: kotlin.Boolean? = false) : kotlin.Any {
+        val localVarResponse = facebookSearchMarketplaceWithHttpInfo(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, radius = radius, after = after, strictFilters = strictFilters, includeDetails = includeDetails)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1618,7 +1620,7 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Search Marketplace
-     * Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.
+     * Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.  Set strict_filters&#x3D;true for locally enforced radius (always km) and age. Public price-range continuations are bounded to eight pages; sort the full collected set for newest-first monitoring. Coverage and freshness are partial.
      * @param query Search keywords
      * @param location Marketplace location slug or numeric place id (optional, default to "nyc")
      * @param minPrice  (optional)
@@ -1629,14 +1631,16 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param deliveryMethod  (optional)
      * @param radius Search radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
+     * @param strictFilters Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics (optional, default to false)
+     * @param includeDetails Enrich returned listings with full public descriptions and photos; enables verified search (optional, default to false)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun facebookSearchMarketplaceWithHttpInfo(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = facebookSearchMarketplaceRequestConfig(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, radius = radius, after = after)
+    fun facebookSearchMarketplaceWithHttpInfo(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?, strictFilters: kotlin.Boolean?, includeDetails: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = facebookSearchMarketplaceRequestConfig(query = query, location = location, minPrice = minPrice, maxPrice = maxPrice, daysSinceListed = daysSinceListed, sortBy = sortBy, itemCondition = itemCondition, deliveryMethod = deliveryMethod, radius = radius, after = after, strictFilters = strictFilters, includeDetails = includeDetails)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1656,9 +1660,11 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param deliveryMethod  (optional)
      * @param radius Search radius around the location (km, or miles in the US) (optional)
      * @param after  (optional)
+     * @param strictFilters Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics (optional, default to false)
+     * @param includeDetails Enrich returned listings with full public descriptions and photos; enables verified search (optional, default to false)
      * @return RequestConfig
      */
-    fun facebookSearchMarketplaceRequestConfig(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?) : RequestConfig<Unit> {
+    fun facebookSearchMarketplaceRequestConfig(query: kotlin.String, location: kotlin.String?, minPrice: kotlin.Int?, maxPrice: kotlin.Int?, daysSinceListed: kotlin.Int?, sortBy: kotlin.String?, itemCondition: kotlin.String?, deliveryMethod: kotlin.String?, radius: kotlin.Int?, after: kotlin.String?, strictFilters: kotlin.Boolean?, includeDetails: kotlin.Boolean?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1689,6 +1695,12 @@ class FacebookApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
                 }
                 if (after != null) {
                     put("after", listOf(after.toString()))
+                }
+                if (strictFilters != null) {
+                    put("strict_filters", listOf(strictFilters.toString()))
+                }
+                if (includeDetails != null) {
+                    put("include_details", listOf(includeDetails.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

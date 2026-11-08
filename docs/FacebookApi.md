@@ -1004,11 +1004,11 @@ Configure ApiKeyAuth:
 
 <a id="facebookSearchMarketplace"></a>
 # **facebookSearchMarketplace**
-> kotlin.Any facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after)
+> kotlin.Any facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after, strictFilters, includeDetails)
 
 Search Marketplace
 
-Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.
+Search Facebook Marketplace listings by keyword and location.  &#x60;&#x60;location&#x60;&#x60; must be a Facebook location slug (&#x60;&#x60;london&#x60;&#x60;, &#x60;&#x60;newcastleupontyne&#x60;&#x60;) or a numeric Facebook place id — the &#x60;&#x60;city_page_id&#x60;&#x60; on any listing is one. Human-readable names such as &#x60;&#x60;Durham, UK&#x60;&#x60; are rejected with a 400 rather than silently searching Facebook&#39;s San Francisco default.  Set strict_filters&#x3D;true for locally enforced radius (always km) and age. Public price-range continuations are bounded to eight pages; sort the full collected set for newest-first monitoring. Coverage and freshness are partial.
 
 ### Example
 ```kotlin
@@ -1027,8 +1027,10 @@ val itemCondition : kotlin.String = itemCondition_example // kotlin.String |
 val deliveryMethod : kotlin.String = deliveryMethod_example // kotlin.String | 
 val radius : kotlin.Int = 56 // kotlin.Int | Search radius around the location (km, or miles in the US)
 val after : kotlin.String = after_example // kotlin.String | 
+val strictFilters : kotlin.Boolean = true // kotlin.Boolean | Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics
+val includeDetails : kotlin.Boolean = true // kotlin.Boolean | Enrich returned listings with full public descriptions and photos; enables verified search
 try {
-    val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after)
+    val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after, strictFilters, includeDetails)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FacebookApi#facebookSearchMarketplace")
@@ -1049,9 +1051,11 @@ try {
 | **itemCondition** | **kotlin.String**|  | [optional] |
 | **deliveryMethod** | **kotlin.String**|  | [optional] |
 | **radius** | **kotlin.Int**| Search radius around the location (km, or miles in the US) | [optional] |
+| **after** | **kotlin.String**|  | [optional] |
+| **strictFilters** | **kotlin.Boolean**| Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics | [optional] [default to false] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **after** | **kotlin.String**|  | [optional] |
+| **includeDetails** | **kotlin.Boolean**| Enrich returned listings with full public descriptions and photos; enables verified search | [optional] [default to false] |
 
 ### Return type
 

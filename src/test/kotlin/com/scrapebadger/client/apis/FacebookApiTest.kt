@@ -212,7 +212,9 @@ class FacebookApiTest : ShouldSpec() {
             //val deliveryMethod : kotlin.String = deliveryMethod_example // kotlin.String | 
             //val radius : kotlin.Int = 56 // kotlin.Int | Search radius around the location (km, or miles in the US)
             //val after : kotlin.String = after_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after)
+            //val strictFilters : kotlin.Boolean = true // kotlin.Boolean | Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics
+            //val includeDetails : kotlin.Boolean = true // kotlin.Boolean | Enrich returned listings with full public descriptions and photos; enables verified search
+            //val result : kotlin.Any = apiInstance.facebookSearchMarketplace(query, location, minPrice, maxPrice, daysSinceListed, sortBy, itemCondition, deliveryMethod, radius, after, strictFilters, includeDetails)
             //result shouldBe ("TODO")
         }
 
