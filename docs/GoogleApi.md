@@ -832,7 +832,7 @@ val radius : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Location accu
 val colorScheme : kotlin.String = colorScheme_example // kotlin.String | Google color scheme.
 val tbm : kotlin.String = tbm_example // kotlin.String | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results.
 val udm : kotlin.String = udm_example // kotlin.String | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html.
-val noCache : kotlin.Boolean = true // kotlin.Boolean | Bypass result caches and request a fresh Google fetch.
+val noCache : kotlin.Boolean = true // kotlin.Boolean | Ignored: responses are never cached.
 val asDt : kotlin.String = asDt_example // kotlin.String | Site restriction mode: i includes, e excludes as_sitesearch.
 val asEpq : kotlin.String = asEpq_example // kotlin.String | Exact phrase.
 val asEq : kotlin.String = asEq_example // kotlin.String | Words to exclude.
@@ -890,7 +890,7 @@ try {
 | **colorScheme** | **kotlin.String**| Google color scheme. | [optional] [enum: light, dark] |
 | **tbm** | **kotlin.String**| Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. | [optional] [enum: isch, lcl, vid, nws, shop, pts, bks] |
 | **udm** | **kotlin.String**| Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. | [optional] |
-| **noCache** | **kotlin.Boolean**| Bypass result caches and request a fresh Google fetch. | [optional] [default to false] |
+| **noCache** | **kotlin.Boolean**| Ignored: responses are never cached. | [optional] [default to false] |
 | **asDt** | **kotlin.String**| Site restriction mode: i includes, e excludes as_sitesearch. | [optional] |
 | **asEpq** | **kotlin.String**| Exact phrase. | [optional] |
 | **asEq** | **kotlin.String**| Words to exclude. | [optional] |
@@ -1185,7 +1185,7 @@ val radius : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Location accu
 val colorScheme : kotlin.String = colorScheme_example // kotlin.String | Google color scheme.
 val tbm : kotlin.String = tbm_example // kotlin.String | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results.
 val udm : kotlin.String = udm_example // kotlin.String | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html.
-val noCache : kotlin.Boolean = true // kotlin.Boolean | Bypass result caches and request a fresh Google fetch.
+val noCache : kotlin.Boolean = true // kotlin.Boolean | Ignored: responses are never cached.
 val asDt : kotlin.String = asDt_example // kotlin.String | Site restriction mode: i includes, e excludes as_sitesearch.
 val asEpq : kotlin.String = asEpq_example // kotlin.String | Exact phrase.
 val asEq : kotlin.String = asEq_example // kotlin.String | Words to exclude.
@@ -1246,7 +1246,7 @@ try {
 | **colorScheme** | **kotlin.String**| Google color scheme. | [optional] [enum: light, dark] |
 | **tbm** | **kotlin.String**| Google search type. Use output&#x3D;html for verticals; dedicated APIs provide parsed vertical results. | [optional] [enum: isch, lcl, vid, nws, shop, pts, bks] |
 | **udm** | **kotlin.String**| Google result filter: web or 14 for web, 18 for forums. Other verticals require output&#x3D;html. | [optional] |
-| **noCache** | **kotlin.Boolean**| Bypass result caches and request a fresh Google fetch. | [optional] [default to false] |
+| **noCache** | **kotlin.Boolean**| Ignored: responses are never cached. | [optional] [default to false] |
 | **asDt** | **kotlin.String**| Site restriction mode: i includes, e excludes as_sitesearch. | [optional] |
 | **asEpq** | **kotlin.String**| Exact phrase. | [optional] |
 | **asEq** | **kotlin.String**| Words to exclude. | [optional] |
