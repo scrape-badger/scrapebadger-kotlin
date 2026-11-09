@@ -473,7 +473,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *RedfinApi* | [**redfinRegionAddressSuggestions**](docs/RedfinApi.md#redfinregionaddresssuggestions) | **GET** /v1/redfin/autocomplete | Region/address suggestions |
 | *RedfinApi* | [**redfinSearchProperties**](docs/RedfinApi.md#redfinsearchproperties) | **GET** /v1/redfin/search | Search properties |
 | *RequestsApi* | [**requestsPollAnAsyncRequest**](docs/RequestsApi.md#requestspollanasyncrequest) | **GET** /v1/requests/{request_id} | Poll an async request |
-| *ResultsApi* | [**resultsReReadAResult**](docs/ResultsApi.md#resultsrereadaresult) | **GET** /v1/results/{result_id} | Re-read a result |
+| *ResultsApi* | [**resultsReReadAResultRemoved**](docs/ResultsApi.md#resultsrereadaresultremoved) | **GET** /v1/results/{result_id} | Re-read a result (removed) |
 | *TargetApi* | [**targetBrowseACategory**](docs/TargetApi.md#targetbrowseacategory) | **GET** /v1/target/category | Browse a category |
 | *TargetApi* | [**targetFindNearbyStores**](docs/TargetApi.md#targetfindnearbystores) | **GET** /v1/target/stores | Find nearby stores |
 | *TargetApi* | [**targetGetCategories**](docs/TargetApi.md#targetgetcategories) | **GET** /v1/target/categories | Get categories |

@@ -46,8 +46,8 @@ class ResultsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
-     * Re-read a result
-     * Replay a billed result (X-Result-ID) for free for ~15 minutes, optionally trimmed with jq / fields / max_items / summary. Never re-run a paid call just to reshape it.
+     * Re-read a result (removed)
+     * Removed (SCR-396): ScrapeBadger no longer stores results, so there is nothing to re-read. Always 410. Narrow a call with _jq / _fields / _max_items instead.
      * @param resultId 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -58,8 +58,8 @@ class ResultsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun resultsReReadAResult(resultId: kotlin.String) : kotlin.Any {
-        val localVarResponse = resultsReReadAResultWithHttpInfo(resultId = resultId)
+    fun resultsReReadAResultRemoved(resultId: kotlin.String) : kotlin.Any {
+        val localVarResponse = resultsReReadAResultRemovedWithHttpInfo(resultId = resultId)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -77,8 +77,8 @@ class ResultsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
-     * Re-read a result
-     * Replay a billed result (X-Result-ID) for free for ~15 minutes, optionally trimmed with jq / fields / max_items / summary. Never re-run a paid call just to reshape it.
+     * Re-read a result (removed)
+     * Removed (SCR-396): ScrapeBadger no longer stores results, so there is nothing to re-read. Always 410. Narrow a call with _jq / _fields / _max_items instead.
      * @param resultId 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -86,8 +86,8 @@ class ResultsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun resultsReReadAResultWithHttpInfo(resultId: kotlin.String) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = resultsReReadAResultRequestConfig(resultId = resultId)
+    fun resultsReReadAResultRemovedWithHttpInfo(resultId: kotlin.String) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = resultsReReadAResultRemovedRequestConfig(resultId = resultId)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -95,12 +95,12 @@ class ResultsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
-     * To obtain the request config of the operation resultsReReadAResult
+     * To obtain the request config of the operation resultsReReadAResultRemoved
      *
      * @param resultId 
      * @return RequestConfig
      */
-    fun resultsReReadAResultRequestConfig(resultId: kotlin.String) : RequestConfig<Unit> {
+    fun resultsReReadAResultRemovedRequestConfig(resultId: kotlin.String) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

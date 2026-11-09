@@ -26,11 +26,11 @@ class ResultsApiTest : ShouldSpec() {
         // uncomment below to create an instance of ResultsApi
         //val apiInstance = ResultsApi()
 
-        // to test resultsReReadAResult
-        should("test resultsReReadAResult") {
-            // uncomment below to test resultsReReadAResult
+        // to test resultsReReadAResultRemoved
+        should("test resultsReReadAResultRemoved") {
+            // uncomment below to test resultsReReadAResultRemoved
             //val resultId : kotlin.String = resultId_example // kotlin.String | 
-            //val result : kotlin.Any = apiInstance.resultsReReadAResult(resultId)
+            //val result : kotlin.Any = apiInstance.resultsReReadAResultRemoved(resultId)
             //result shouldBe ("TODO")
         }
 
