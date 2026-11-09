@@ -21,7 +21,6 @@ import okhttp3.HttpUrl
 
 import com.scrapebadger.client.models.BillingLogListResponse
 import com.scrapebadger.client.models.FilterRuleCreate
-import com.scrapebadger.client.models.FilterRuleDeliveryLogListResponse
 import com.scrapebadger.client.models.FilterRuleListResponse
 import com.scrapebadger.client.models.FilterRuleResponse
 import com.scrapebadger.client.models.FilterRuleUpdate
@@ -33,7 +32,6 @@ import com.scrapebadger.client.models.StreamMonitorCreate
 import com.scrapebadger.client.models.StreamMonitorListResponse
 import com.scrapebadger.client.models.StreamMonitorResponse
 import com.scrapebadger.client.models.StreamMonitorUpdate
-import com.scrapebadger.client.models.TweetDeliveryLogListResponse
 import com.scrapebadger.client.models.WebhookCreate
 import com.scrapebadger.client.models.WebhookListResponse
 import com.scrapebadger.client.models.WebhookResponse
@@ -3004,45 +3002,24 @@ class TwitterApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
-     * enum for parameter sort
-     */
-     enum class SortTwitterListDeliveryLogsForAFilterRule(val value: kotlin.String) {
-         @Json(name = "asc") asc("asc"),
-         @Json(name = "desc") desc("desc");
-
-        /**
-         * Override [toString()] to avoid using the enum variable name as the value, and instead use
-         * the actual value defined in the API spec file.
-         *
-         * This solves a problem when the variable name and its value are different, and ensures that
-         * the client sends the correct enum values to the server always.
-         */
-        override fun toString(): kotlin.String = "$value"
-     }
-
-    /**
      * List delivery logs for a filter rule
-     * List tweet delivery logs for a specific filter rule.
+     * Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers &#x60;&#x60;410 Gone&#x60;&#x60; with &#x60;&#x60;error: delivery_logs_removed&#x60;&#x60;.
      * @param ruleId 
-     * @param deliveryStatus  (optional)
-     * @param authorUsername  (optional)
-     * @param page  (optional, default to 1)
-     * @param pageSize  (optional, default to 20)
-     * @param sort  (optional, default to desc)
-     * @return FilterRuleDeliveryLogListResponse
+     * @return void
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun twitterListDeliveryLogsForAFilterRule(ruleId: kotlin.String, deliveryStatus: kotlin.String? = null, authorUsername: kotlin.String? = null, page: kotlin.Int? = 1, pageSize: kotlin.Int? = 20, sort: SortTwitterListDeliveryLogsForAFilterRule? = SortTwitterListDeliveryLogsForAFilterRule.desc) : FilterRuleDeliveryLogListResponse {
-        val localVarResponse = twitterListDeliveryLogsForAFilterRuleWithHttpInfo(ruleId = ruleId, deliveryStatus = deliveryStatus, authorUsername = authorUsername, page = page, pageSize = pageSize, sort = sort)
+    @Deprecated(message = "This operation is deprecated.")
+    fun twitterListDeliveryLogsForAFilterRule(ruleId: kotlin.String) : Unit {
+        @Suppress("DEPRECATION")
+        val localVarResponse = twitterListDeliveryLogsForAFilterRuleWithHttpInfo(ruleId = ruleId)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as FilterRuleDeliveryLogListResponse
+            ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -3058,23 +3035,19 @@ class TwitterApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * List delivery logs for a filter rule
-     * List tweet delivery logs for a specific filter rule.
+     * Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers &#x60;&#x60;410 Gone&#x60;&#x60; with &#x60;&#x60;error: delivery_logs_removed&#x60;&#x60;.
      * @param ruleId 
-     * @param deliveryStatus  (optional)
-     * @param authorUsername  (optional)
-     * @param page  (optional, default to 1)
-     * @param pageSize  (optional, default to 20)
-     * @param sort  (optional, default to desc)
-     * @return ApiResponse<FilterRuleDeliveryLogListResponse?>
+     * @return ApiResponse<Unit?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
-    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun twitterListDeliveryLogsForAFilterRuleWithHttpInfo(ruleId: kotlin.String, deliveryStatus: kotlin.String?, authorUsername: kotlin.String?, page: kotlin.Int?, pageSize: kotlin.Int?, sort: SortTwitterListDeliveryLogsForAFilterRule?) : ApiResponse<FilterRuleDeliveryLogListResponse?> {
-        val localVariableConfig = twitterListDeliveryLogsForAFilterRuleRequestConfig(ruleId = ruleId, deliveryStatus = deliveryStatus, authorUsername = authorUsername, page = page, pageSize = pageSize, sort = sort)
+    @Deprecated(message = "This operation is deprecated.")
+    fun twitterListDeliveryLogsForAFilterRuleWithHttpInfo(ruleId: kotlin.String) : ApiResponse<Unit?> {
+        @Suppress("DEPRECATION")
+        val localVariableConfig = twitterListDeliveryLogsForAFilterRuleRequestConfig(ruleId = ruleId)
 
-        return request<Unit, FilterRuleDeliveryLogListResponse>(
+        return request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -3083,33 +3056,12 @@ class TwitterApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
      * To obtain the request config of the operation twitterListDeliveryLogsForAFilterRule
      *
      * @param ruleId 
-     * @param deliveryStatus  (optional)
-     * @param authorUsername  (optional)
-     * @param page  (optional, default to 1)
-     * @param pageSize  (optional, default to 20)
-     * @param sort  (optional, default to desc)
      * @return RequestConfig
      */
-    fun twitterListDeliveryLogsForAFilterRuleRequestConfig(ruleId: kotlin.String, deliveryStatus: kotlin.String?, authorUsername: kotlin.String?, page: kotlin.Int?, pageSize: kotlin.Int?, sort: SortTwitterListDeliveryLogsForAFilterRule?) : RequestConfig<Unit> {
+    @Deprecated(message = "This operation is deprecated.")
+    fun twitterListDeliveryLogsForAFilterRuleRequestConfig(ruleId: kotlin.String) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
-            .apply {
-                if (deliveryStatus != null) {
-                    put("delivery_status", listOf(deliveryStatus.toString()))
-                }
-                if (authorUsername != null) {
-                    put("author_username", listOf(authorUsername.toString()))
-                }
-                if (page != null) {
-                    put("page", listOf(page.toString()))
-                }
-                if (pageSize != null) {
-                    put("page_size", listOf(pageSize.toString()))
-                }
-                if (sort != null) {
-                    put("sort", listOf(sort.value))
-                }
-            }
+        val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -3300,45 +3252,23 @@ class TwitterApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     }
 
     /**
-     * enum for parameter sort
-     */
-     enum class SortTwitterListTweetDeliveryLogs(val value: kotlin.String) {
-         @Json(name = "asc") asc("asc"),
-         @Json(name = "desc") desc("desc");
-
-        /**
-         * Override [toString()] to avoid using the enum variable name as the value, and instead use
-         * the actual value defined in the API spec file.
-         *
-         * This solves a problem when the variable name and its value are different, and ensures that
-         * the client sends the correct enum values to the server always.
-         */
-        override fun toString(): kotlin.String = "$value"
-     }
-
-    /**
      * List tweet delivery logs
-     * List tweet delivery logs for the authenticated API key&#39;s monitors.
-     * @param monitorId  (optional)
-     * @param authorUsername  (optional)
-     * @param deliveryStatus  (optional)
-     * @param page  (optional, default to 1)
-     * @param pageSize  (optional, default to 20)
-     * @param sort  (optional, default to desc)
-     * @return TweetDeliveryLogListResponse
+     * Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers &#x60;&#x60;410 Gone&#x60;&#x60; with &#x60;&#x60;error: delivery_logs_removed&#x60;&#x60;. Each tweet is delivered to your webhook or WebSocket only; keep your own log there.
+     * @return void
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun twitterListTweetDeliveryLogs(monitorId: kotlin.String? = null, authorUsername: kotlin.String? = null, deliveryStatus: kotlin.String? = null, page: kotlin.Int? = 1, pageSize: kotlin.Int? = 20, sort: SortTwitterListTweetDeliveryLogs? = SortTwitterListTweetDeliveryLogs.desc) : TweetDeliveryLogListResponse {
-        val localVarResponse = twitterListTweetDeliveryLogsWithHttpInfo(monitorId = monitorId, authorUsername = authorUsername, deliveryStatus = deliveryStatus, page = page, pageSize = pageSize, sort = sort)
+    @Deprecated(message = "This operation is deprecated.")
+    fun twitterListTweetDeliveryLogs() : Unit {
+        @Suppress("DEPRECATION")
+        val localVarResponse = twitterListTweetDeliveryLogsWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as TweetDeliveryLogListResponse
+            ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -3354,23 +3284,18 @@ class TwitterApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
 
     /**
      * List tweet delivery logs
-     * List tweet delivery logs for the authenticated API key&#39;s monitors.
-     * @param monitorId  (optional)
-     * @param authorUsername  (optional)
-     * @param deliveryStatus  (optional)
-     * @param page  (optional, default to 1)
-     * @param pageSize  (optional, default to 20)
-     * @param sort  (optional, default to desc)
-     * @return ApiResponse<TweetDeliveryLogListResponse?>
+     * Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers &#x60;&#x60;410 Gone&#x60;&#x60; with &#x60;&#x60;error: delivery_logs_removed&#x60;&#x60;. Each tweet is delivered to your webhook or WebSocket only; keep your own log there.
+     * @return ApiResponse<Unit?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
-    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun twitterListTweetDeliveryLogsWithHttpInfo(monitorId: kotlin.String?, authorUsername: kotlin.String?, deliveryStatus: kotlin.String?, page: kotlin.Int?, pageSize: kotlin.Int?, sort: SortTwitterListTweetDeliveryLogs?) : ApiResponse<TweetDeliveryLogListResponse?> {
-        val localVariableConfig = twitterListTweetDeliveryLogsRequestConfig(monitorId = monitorId, authorUsername = authorUsername, deliveryStatus = deliveryStatus, page = page, pageSize = pageSize, sort = sort)
+    @Deprecated(message = "This operation is deprecated.")
+    fun twitterListTweetDeliveryLogsWithHttpInfo() : ApiResponse<Unit?> {
+        @Suppress("DEPRECATION")
+        val localVariableConfig = twitterListTweetDeliveryLogsRequestConfig()
 
-        return request<Unit, TweetDeliveryLogListResponse>(
+        return request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -3378,37 +3303,12 @@ class TwitterApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
     /**
      * To obtain the request config of the operation twitterListTweetDeliveryLogs
      *
-     * @param monitorId  (optional)
-     * @param authorUsername  (optional)
-     * @param deliveryStatus  (optional)
-     * @param page  (optional, default to 1)
-     * @param pageSize  (optional, default to 20)
-     * @param sort  (optional, default to desc)
      * @return RequestConfig
      */
-    fun twitterListTweetDeliveryLogsRequestConfig(monitorId: kotlin.String?, authorUsername: kotlin.String?, deliveryStatus: kotlin.String?, page: kotlin.Int?, pageSize: kotlin.Int?, sort: SortTwitterListTweetDeliveryLogs?) : RequestConfig<Unit> {
+    @Deprecated(message = "This operation is deprecated.")
+    fun twitterListTweetDeliveryLogsRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
-            .apply {
-                if (monitorId != null) {
-                    put("monitor_id", listOf(monitorId.toString()))
-                }
-                if (authorUsername != null) {
-                    put("author_username", listOf(authorUsername.toString()))
-                }
-                if (deliveryStatus != null) {
-                    put("delivery_status", listOf(deliveryStatus.toString()))
-                }
-                if (page != null) {
-                    put("page", listOf(page.toString()))
-                }
-                if (pageSize != null) {
-                    put("page_size", listOf(pageSize.toString()))
-                }
-                if (sort != null) {
-                    put("sort", listOf(sort.value))
-                }
-            }
+        val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 

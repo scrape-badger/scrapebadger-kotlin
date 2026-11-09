@@ -70,8 +70,6 @@ docs/Faq.md
 docs/FeedbackApi.md
 docs/FeedbackRequest.md
 docs/FilterRuleCreate.md
-docs/FilterRuleDeliveryLogListResponse.md
-docs/FilterRuleDeliveryLogResponse.md
 docs/FilterRuleListResponse.md
 docs/FilterRuleResponse.md
 docs/FilterRuleUpdate.md
@@ -188,8 +186,6 @@ docs/Subtype.md
 docs/TargetApi.md
 docs/Thumbnail.md
 docs/TikTokApi.md
-docs/TweetDeliveryLogListResponse.md
-docs/TweetDeliveryLogResponse.md
 docs/TwitterApi.md
 docs/Type.md
 docs/Url.md
@@ -360,8 +356,6 @@ src/main/kotlin/com/scrapebadger/client/models/FamilyFriendly.kt
 src/main/kotlin/com/scrapebadger/client/models/Faq.kt
 src/main/kotlin/com/scrapebadger/client/models/FeedbackRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleCreate.kt
-src/main/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogListResponse.kt
-src/main/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/FilterRuleUpdate.kt
@@ -457,8 +451,6 @@ src/main/kotlin/com/scrapebadger/client/models/StreamMonitorUpdate.kt
 src/main/kotlin/com/scrapebadger/client/models/SubscriptionInfo.kt
 src/main/kotlin/com/scrapebadger/client/models/Subtype.kt
 src/main/kotlin/com/scrapebadger/client/models/Thumbnail.kt
-src/main/kotlin/com/scrapebadger/client/models/TweetDeliveryLogListResponse.kt
-src/main/kotlin/com/scrapebadger/client/models/TweetDeliveryLogResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/Type.kt
 src/main/kotlin/com/scrapebadger/client/models/Url.kt
 src/main/kotlin/com/scrapebadger/client/models/UserItemsResponse.kt
@@ -597,8 +589,6 @@ src/test/kotlin/com/scrapebadger/client/models/FamilyFriendlyTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FaqTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FeedbackRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleCreateTest.kt
-src/test/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogListResponseTest.kt
-src/test/kotlin/com/scrapebadger/client/models/FilterRuleDeliveryLogResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleListResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/FilterRuleUpdateTest.kt
@@ -694,8 +684,6 @@ src/test/kotlin/com/scrapebadger/client/models/StreamMonitorUpdateTest.kt
 src/test/kotlin/com/scrapebadger/client/models/SubscriptionInfoTest.kt
 src/test/kotlin/com/scrapebadger/client/models/SubtypeTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ThumbnailTest.kt
-src/test/kotlin/com/scrapebadger/client/models/TweetDeliveryLogListResponseTest.kt
-src/test/kotlin/com/scrapebadger/client/models/TweetDeliveryLogResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/TypeTest.kt
 src/test/kotlin/com/scrapebadger/client/models/UrlTest.kt
 src/test/kotlin/com/scrapebadger/client/models/UserItemsResponseTest.kt

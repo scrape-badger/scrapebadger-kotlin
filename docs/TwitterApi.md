@@ -2011,11 +2011,11 @@ Configure ApiKeyAuth:
 
 <a id="twitterListDeliveryLogsForAFilterRule"></a>
 # **twitterListDeliveryLogsForAFilterRule**
-> FilterRuleDeliveryLogListResponse twitterListDeliveryLogsForAFilterRule(ruleId, deliveryStatus, authorUsername, page, pageSize, sort)
+> twitterListDeliveryLogsForAFilterRule(ruleId)
 
 List delivery logs for a filter rule
 
-List tweet delivery logs for a specific filter rule.
+Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers &#x60;&#x60;410 Gone&#x60;&#x60; with &#x60;&#x60;error: delivery_logs_removed&#x60;&#x60;.
 
 ### Example
 ```kotlin
@@ -2025,14 +2025,8 @@ List tweet delivery logs for a specific filter rule.
 
 val apiInstance = TwitterApi()
 val ruleId : kotlin.String = ruleId_example // kotlin.String | 
-val deliveryStatus : kotlin.String = deliveryStatus_example // kotlin.String | 
-val authorUsername : kotlin.String = authorUsername_example // kotlin.String | 
-val page : kotlin.Int = 56 // kotlin.Int | 
-val pageSize : kotlin.Int = 56 // kotlin.Int | 
-val sort : kotlin.String = sort_example // kotlin.String | 
 try {
-    val result : FilterRuleDeliveryLogListResponse = apiInstance.twitterListDeliveryLogsForAFilterRule(ruleId, deliveryStatus, authorUsername, page, pageSize, sort)
-    println(result)
+    apiInstance.twitterListDeliveryLogsForAFilterRule(ruleId)
 } catch (e: ClientException) {
     println("4xx response calling TwitterApi#twitterListDeliveryLogsForAFilterRule")
     e.printStackTrace()
@@ -2043,18 +2037,13 @@ try {
 ```
 
 ### Parameters
-| **ruleId** | **kotlin.String**|  | |
-| **deliveryStatus** | **kotlin.String**|  | [optional] |
-| **authorUsername** | **kotlin.String**|  | [optional] |
-| **page** | **kotlin.Int**|  | [optional] [default to 1] |
-| **pageSize** | **kotlin.Int**|  | [optional] [default to 20] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **sort** | **kotlin.String**|  | [optional] [default to desc] [enum: asc, desc] |
+| **ruleId** | **kotlin.String**|  | |
 
 ### Return type
 
-[**FilterRuleDeliveryLogListResponse**](FilterRuleDeliveryLogListResponse.md)
+null (empty response body)
 
 ### Authorization
 
@@ -2176,11 +2165,11 @@ Configure ApiKeyAuth:
 
 <a id="twitterListTweetDeliveryLogs"></a>
 # **twitterListTweetDeliveryLogs**
-> TweetDeliveryLogListResponse twitterListTweetDeliveryLogs(monitorId, authorUsername, deliveryStatus, page, pageSize, sort)
+> twitterListTweetDeliveryLogs()
 
 List tweet delivery logs
 
-List tweet delivery logs for the authenticated API key&#39;s monitors.
+Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers &#x60;&#x60;410 Gone&#x60;&#x60; with &#x60;&#x60;error: delivery_logs_removed&#x60;&#x60;. Each tweet is delivered to your webhook or WebSocket only; keep your own log there.
 
 ### Example
 ```kotlin
@@ -2189,15 +2178,8 @@ List tweet delivery logs for the authenticated API key&#39;s monitors.
 //import com.scrapebadger.client.models.*
 
 val apiInstance = TwitterApi()
-val monitorId : kotlin.String = monitorId_example // kotlin.String | 
-val authorUsername : kotlin.String = authorUsername_example // kotlin.String | 
-val deliveryStatus : kotlin.String = deliveryStatus_example // kotlin.String | 
-val page : kotlin.Int = 56 // kotlin.Int | 
-val pageSize : kotlin.Int = 56 // kotlin.Int | 
-val sort : kotlin.String = sort_example // kotlin.String | 
 try {
-    val result : TweetDeliveryLogListResponse = apiInstance.twitterListTweetDeliveryLogs(monitorId, authorUsername, deliveryStatus, page, pageSize, sort)
-    println(result)
+    apiInstance.twitterListTweetDeliveryLogs()
 } catch (e: ClientException) {
     println("4xx response calling TwitterApi#twitterListTweetDeliveryLogs")
     e.printStackTrace()
@@ -2208,18 +2190,11 @@ try {
 ```
 
 ### Parameters
-| **monitorId** | **kotlin.String**|  | [optional] |
-| **authorUsername** | **kotlin.String**|  | [optional] |
-| **deliveryStatus** | **kotlin.String**|  | [optional] |
-| **page** | **kotlin.Int**|  | [optional] [default to 1] |
-| **pageSize** | **kotlin.Int**|  | [optional] [default to 20] |
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **sort** | **kotlin.String**|  | [optional] [default to desc] [enum: asc, desc] |
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**TweetDeliveryLogListResponse**](TweetDeliveryLogListResponse.md)
+null (empty response body)
 
 ### Authorization
 

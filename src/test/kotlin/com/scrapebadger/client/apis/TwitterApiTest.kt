@@ -21,7 +21,6 @@ import io.kotlintest.specs.ShouldSpec
 import com.scrapebadger.client.apis.TwitterApi
 import com.scrapebadger.client.models.BillingLogListResponse
 import com.scrapebadger.client.models.FilterRuleCreate
-import com.scrapebadger.client.models.FilterRuleDeliveryLogListResponse
 import com.scrapebadger.client.models.FilterRuleListResponse
 import com.scrapebadger.client.models.FilterRuleResponse
 import com.scrapebadger.client.models.FilterRuleUpdate
@@ -33,7 +32,6 @@ import com.scrapebadger.client.models.StreamMonitorCreate
 import com.scrapebadger.client.models.StreamMonitorListResponse
 import com.scrapebadger.client.models.StreamMonitorResponse
 import com.scrapebadger.client.models.StreamMonitorUpdate
-import com.scrapebadger.client.models.TweetDeliveryLogListResponse
 import com.scrapebadger.client.models.WebhookCreate
 import com.scrapebadger.client.models.WebhookListResponse
 import com.scrapebadger.client.models.WebhookResponse
@@ -379,13 +377,7 @@ class TwitterApiTest : ShouldSpec() {
         should("test twitterListDeliveryLogsForAFilterRule") {
             // uncomment below to test twitterListDeliveryLogsForAFilterRule
             //val ruleId : kotlin.String = ruleId_example // kotlin.String | 
-            //val deliveryStatus : kotlin.String = deliveryStatus_example // kotlin.String | 
-            //val authorUsername : kotlin.String = authorUsername_example // kotlin.String | 
-            //val page : kotlin.Int = 56 // kotlin.Int | 
-            //val pageSize : kotlin.Int = 56 // kotlin.Int | 
-            //val sort : kotlin.String = sort_example // kotlin.String | 
-            //val result : FilterRuleDeliveryLogListResponse = apiInstance.twitterListDeliveryLogsForAFilterRule(ruleId, deliveryStatus, authorUsername, page, pageSize, sort)
-            //result shouldBe ("TODO")
+            //apiInstance.twitterListDeliveryLogsForAFilterRule(ruleId)
         }
 
         // to test twitterListFilterRules
@@ -411,14 +403,7 @@ class TwitterApiTest : ShouldSpec() {
         // to test twitterListTweetDeliveryLogs
         should("test twitterListTweetDeliveryLogs") {
             // uncomment below to test twitterListTweetDeliveryLogs
-            //val monitorId : kotlin.String = monitorId_example // kotlin.String | 
-            //val authorUsername : kotlin.String = authorUsername_example // kotlin.String | 
-            //val deliveryStatus : kotlin.String = deliveryStatus_example // kotlin.String | 
-            //val page : kotlin.Int = 56 // kotlin.Int | 
-            //val pageSize : kotlin.Int = 56 // kotlin.Int | 
-            //val sort : kotlin.String = sort_example // kotlin.String | 
-            //val result : TweetDeliveryLogListResponse = apiInstance.twitterListTweetDeliveryLogs(monitorId, authorUsername, deliveryStatus, page, pageSize, sort)
-            //result shouldBe ("TODO")
+            //apiInstance.twitterListTweetDeliveryLogs()
         }
 
         // to test twitterListWebhooks
