@@ -110,10 +110,14 @@ class GoogleApiTest : ShouldSpec() {
         should("test googleGoogleAiModeSearch") {
             // uncomment below to test googleGoogleAiModeSearch
             //val q : kotlin.String = q_example // kotlin.String | Search query for AI-generated response
-            //val gl : kotlin.String = gl_example // kotlin.String | Country code
+            //val gl : kotlin.String = gl_example // kotlin.String | Google country (market) code. It shapes the answer; it does not pick the exit IP's country. Defaults to the `location`'s country when `location` is set.
             //val hl : kotlin.String = hl_example // kotlin.String | Language code
             //val includeHtml : kotlin.Boolean = true // kotlin.Boolean | Include the raw `answer_html` (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured `text_blocks` + `markdown`.
-            //val result : kotlin.Any = apiInstance.googleGoogleAiModeSearch(q, gl, hl, includeHtml)
+            //val location : kotlin.String = location_example // kotlin.String | Answer as if the user were here: a Google canonical location name (e.g. `Wonju-si,Gangwon-do,South Korea`), a Google criteria ID, or an unambiguous short name within `gl`. Use only one of location, uule, or lat/lon.
+            //val uule : kotlin.String = uule_example // kotlin.String | A Google UULE value in its `w+` (canonical name) or `j+` (coordinates) form.
+            //val lat : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Latitude of the user's location (with lon).
+            //val lon : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Longitude of the user's location (with lat).
+            //val result : kotlin.Any = apiInstance.googleGoogleAiModeSearch(q, gl, hl, includeHtml, location, uule, lat, lon)
             //result shouldBe ("TODO")
         }
 

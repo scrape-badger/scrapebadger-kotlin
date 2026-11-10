@@ -737,11 +737,15 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Google AI Mode search
-     * Get AI-generated search results from Google AI Mode.  Returns the structured &#x60;text_blocks&#x60; (paragraphs, headings, comparison &#x60;table&#x60; blocks and lists), a flat &#x60;references&#x60; source list, a compact &#x60;markdown&#x60; rendering of the whole answer and — unless &#x60;include_html&#x60; is false — the raw &#x60;answer_html&#x60; body.
+     * Get AI-generated search results from Google AI Mode.  Returns the structured &#x60;text_blocks&#x60; (paragraphs, headings, comparison &#x60;table&#x60; blocks and lists), a flat &#x60;references&#x60; source list, a compact &#x60;markdown&#x60; rendering of the whole answer and — unless &#x60;include_html&#x60; is false — the raw &#x60;answer_html&#x60; body.  &#x60;location&#x60;, &#x60;uule&#x60; or &#x60;lat&#x60;/&#x60;lon&#x60; localise the answer (\&quot;near me\&quot;, local results) to that place, down to the city or district, wherever the request exits from. Located answers echo a &#x60;location&#x60; object.
      * @param q Search query for AI-generated response
-     * @param gl Country code (optional, default to "us")
+     * @param gl Google country (market) code. It shapes the answer; it does not pick the exit IP&#39;s country. Defaults to the &#x60;location&#x60;&#39;s country when &#x60;location&#x60; is set. (optional, default to "us")
      * @param hl Language code (optional, default to "en")
      * @param includeHtml Include the raw &#x60;answer_html&#x60; (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured &#x60;text_blocks&#x60; + &#x60;markdown&#x60;. (optional, default to true)
+     * @param location Answer as if the user were here: a Google canonical location name (e.g. &#x60;Wonju-si,Gangwon-do,South Korea&#x60;), a Google criteria ID, or an unambiguous short name within &#x60;gl&#x60;. Use only one of location, uule, or lat/lon. (optional)
+     * @param uule A Google UULE value in its &#x60;w+&#x60; (canonical name) or &#x60;j+&#x60; (coordinates) form. (optional)
+     * @param lat Latitude of the user&#39;s location (with lon). (optional)
+     * @param lon Longitude of the user&#39;s location (with lat). (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -751,8 +755,8 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun googleGoogleAiModeSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", includeHtml: kotlin.Boolean? = true) : kotlin.Any {
-        val localVarResponse = googleGoogleAiModeSearchWithHttpInfo(q = q, gl = gl, hl = hl, includeHtml = includeHtml)
+    fun googleGoogleAiModeSearch(q: kotlin.String, gl: kotlin.String? = "us", hl: kotlin.String? = "en", includeHtml: kotlin.Boolean? = true, location: kotlin.String? = null, uule: kotlin.String? = null, lat: java.math.BigDecimal? = null, lon: java.math.BigDecimal? = null) : kotlin.Any {
+        val localVarResponse = googleGoogleAiModeSearchWithHttpInfo(q = q, gl = gl, hl = hl, includeHtml = includeHtml, location = location, uule = uule, lat = lat, lon = lon)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -771,19 +775,23 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
 
     /**
      * Google AI Mode search
-     * Get AI-generated search results from Google AI Mode.  Returns the structured &#x60;text_blocks&#x60; (paragraphs, headings, comparison &#x60;table&#x60; blocks and lists), a flat &#x60;references&#x60; source list, a compact &#x60;markdown&#x60; rendering of the whole answer and — unless &#x60;include_html&#x60; is false — the raw &#x60;answer_html&#x60; body.
+     * Get AI-generated search results from Google AI Mode.  Returns the structured &#x60;text_blocks&#x60; (paragraphs, headings, comparison &#x60;table&#x60; blocks and lists), a flat &#x60;references&#x60; source list, a compact &#x60;markdown&#x60; rendering of the whole answer and — unless &#x60;include_html&#x60; is false — the raw &#x60;answer_html&#x60; body.  &#x60;location&#x60;, &#x60;uule&#x60; or &#x60;lat&#x60;/&#x60;lon&#x60; localise the answer (\&quot;near me\&quot;, local results) to that place, down to the city or district, wherever the request exits from. Located answers echo a &#x60;location&#x60; object.
      * @param q Search query for AI-generated response
-     * @param gl Country code (optional, default to "us")
+     * @param gl Google country (market) code. It shapes the answer; it does not pick the exit IP&#39;s country. Defaults to the &#x60;location&#x60;&#39;s country when &#x60;location&#x60; is set. (optional, default to "us")
      * @param hl Language code (optional, default to "en")
      * @param includeHtml Include the raw &#x60;answer_html&#x60; (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured &#x60;text_blocks&#x60; + &#x60;markdown&#x60;. (optional, default to true)
+     * @param location Answer as if the user were here: a Google canonical location name (e.g. &#x60;Wonju-si,Gangwon-do,South Korea&#x60;), a Google criteria ID, or an unambiguous short name within &#x60;gl&#x60;. Use only one of location, uule, or lat/lon. (optional)
+     * @param uule A Google UULE value in its &#x60;w+&#x60; (canonical name) or &#x60;j+&#x60; (coordinates) form. (optional)
+     * @param lat Latitude of the user&#39;s location (with lon). (optional)
+     * @param lon Longitude of the user&#39;s location (with lat). (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun googleGoogleAiModeSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, includeHtml: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = googleGoogleAiModeSearchRequestConfig(q = q, gl = gl, hl = hl, includeHtml = includeHtml)
+    fun googleGoogleAiModeSearchWithHttpInfo(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, includeHtml: kotlin.Boolean?, location: kotlin.String?, uule: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = googleGoogleAiModeSearchRequestConfig(q = q, gl = gl, hl = hl, includeHtml = includeHtml, location = location, uule = uule, lat = lat, lon = lon)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -794,12 +802,16 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
      * To obtain the request config of the operation googleGoogleAiModeSearch
      *
      * @param q Search query for AI-generated response
-     * @param gl Country code (optional, default to "us")
+     * @param gl Google country (market) code. It shapes the answer; it does not pick the exit IP&#39;s country. Defaults to the &#x60;location&#x60;&#39;s country when &#x60;location&#x60; is set. (optional, default to "us")
      * @param hl Language code (optional, default to "en")
      * @param includeHtml Include the raw &#x60;answer_html&#x60; (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured &#x60;text_blocks&#x60; + &#x60;markdown&#x60;. (optional, default to true)
+     * @param location Answer as if the user were here: a Google canonical location name (e.g. &#x60;Wonju-si,Gangwon-do,South Korea&#x60;), a Google criteria ID, or an unambiguous short name within &#x60;gl&#x60;. Use only one of location, uule, or lat/lon. (optional)
+     * @param uule A Google UULE value in its &#x60;w+&#x60; (canonical name) or &#x60;j+&#x60; (coordinates) form. (optional)
+     * @param lat Latitude of the user&#39;s location (with lon). (optional)
+     * @param lon Longitude of the user&#39;s location (with lat). (optional)
      * @return RequestConfig
      */
-    fun googleGoogleAiModeSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, includeHtml: kotlin.Boolean?) : RequestConfig<Unit> {
+    fun googleGoogleAiModeSearchRequestConfig(q: kotlin.String, gl: kotlin.String?, hl: kotlin.String?, includeHtml: kotlin.Boolean?, location: kotlin.String?, uule: kotlin.String?, lat: java.math.BigDecimal?, lon: java.math.BigDecimal?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -812,6 +824,18 @@ class GoogleApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory 
                 }
                 if (includeHtml != null) {
                     put("include_html", listOf(includeHtml.toString()))
+                }
+                if (location != null) {
+                    put("location", listOf(location.toString()))
+                }
+                if (uule != null) {
+                    put("uule", listOf(uule.toString()))
+                }
+                if (lat != null) {
+                    put("lat", listOf(lat.toString()))
+                }
+                if (lon != null) {
+                    put("lon", listOf(lon.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

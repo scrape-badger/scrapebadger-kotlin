@@ -464,11 +464,11 @@ Configure ApiKeyAuth:
 
 <a id="googleGoogleAiModeSearch"></a>
 # **googleGoogleAiModeSearch**
-> kotlin.Any googleGoogleAiModeSearch(q, gl, hl, includeHtml)
+> kotlin.Any googleGoogleAiModeSearch(q, gl, hl, includeHtml, location, uule, lat, lon)
 
 Google AI Mode search
 
-Get AI-generated search results from Google AI Mode.  Returns the structured &#x60;text_blocks&#x60; (paragraphs, headings, comparison &#x60;table&#x60; blocks and lists), a flat &#x60;references&#x60; source list, a compact &#x60;markdown&#x60; rendering of the whole answer and — unless &#x60;include_html&#x60; is false — the raw &#x60;answer_html&#x60; body.
+Get AI-generated search results from Google AI Mode.  Returns the structured &#x60;text_blocks&#x60; (paragraphs, headings, comparison &#x60;table&#x60; blocks and lists), a flat &#x60;references&#x60; source list, a compact &#x60;markdown&#x60; rendering of the whole answer and — unless &#x60;include_html&#x60; is false — the raw &#x60;answer_html&#x60; body.  &#x60;location&#x60;, &#x60;uule&#x60; or &#x60;lat&#x60;/&#x60;lon&#x60; localise the answer (\&quot;near me\&quot;, local results) to that place, down to the city or district, wherever the request exits from. Located answers echo a &#x60;location&#x60; object.
 
 ### Example
 ```kotlin
@@ -478,11 +478,15 @@ Get AI-generated search results from Google AI Mode.  Returns the structured &#x
 
 val apiInstance = GoogleApi()
 val q : kotlin.String = q_example // kotlin.String | Search query for AI-generated response
-val gl : kotlin.String = gl_example // kotlin.String | Country code
+val gl : kotlin.String = gl_example // kotlin.String | Google country (market) code. It shapes the answer; it does not pick the exit IP's country. Defaults to the `location`'s country when `location` is set.
 val hl : kotlin.String = hl_example // kotlin.String | Language code
 val includeHtml : kotlin.Boolean = true // kotlin.Boolean | Include the raw `answer_html` (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured `text_blocks` + `markdown`.
+val location : kotlin.String = location_example // kotlin.String | Answer as if the user were here: a Google canonical location name (e.g. `Wonju-si,Gangwon-do,South Korea`), a Google criteria ID, or an unambiguous short name within `gl`. Use only one of location, uule, or lat/lon.
+val uule : kotlin.String = uule_example // kotlin.String | A Google UULE value in its `w+` (canonical name) or `j+` (coordinates) form.
+val lat : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Latitude of the user's location (with lon).
+val lon : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Longitude of the user's location (with lat).
 try {
-    val result : kotlin.Any = apiInstance.googleGoogleAiModeSearch(q, gl, hl, includeHtml)
+    val result : kotlin.Any = apiInstance.googleGoogleAiModeSearch(q, gl, hl, includeHtml, location, uule, lat, lon)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GoogleApi#googleGoogleAiModeSearch")
@@ -495,11 +499,15 @@ try {
 
 ### Parameters
 | **q** | **kotlin.String**| Search query for AI-generated response | |
-| **gl** | **kotlin.String**| Country code | [optional] [default to &quot;us&quot;] |
+| **gl** | **kotlin.String**| Google country (market) code. It shapes the answer; it does not pick the exit IP&#39;s country. Defaults to the &#x60;location&#x60;&#39;s country when &#x60;location&#x60; is set. | [optional] [default to &quot;us&quot;] |
 | **hl** | **kotlin.String**| Language code | [optional] [default to &quot;en&quot;] |
+| **includeHtml** | **kotlin.Boolean**| Include the raw &#x60;answer_html&#x60; (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured &#x60;text_blocks&#x60; + &#x60;markdown&#x60;. | [optional] [default to true] |
+| **location** | **kotlin.String**| Answer as if the user were here: a Google canonical location name (e.g. &#x60;Wonju-si,Gangwon-do,South Korea&#x60;), a Google criteria ID, or an unambiguous short name within &#x60;gl&#x60;. Use only one of location, uule, or lat/lon. | [optional] |
+| **uule** | **kotlin.String**| A Google UULE value in its &#x60;w+&#x60; (canonical name) or &#x60;j+&#x60; (coordinates) form. | [optional] |
+| **lat** | **java.math.BigDecimal**| Latitude of the user&#39;s location (with lon). | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **includeHtml** | **kotlin.Boolean**| Include the raw &#x60;answer_html&#x60; (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured &#x60;text_blocks&#x60; + &#x60;markdown&#x60;. | [optional] [default to true] |
+| **lon** | **java.math.BigDecimal**| Longitude of the user&#39;s location (with lat). | [optional] |
 
 ### Return type
 
