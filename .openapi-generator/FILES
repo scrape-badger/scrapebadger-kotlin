@@ -131,6 +131,7 @@ docs/LinkedInApi.md
 docs/Location.md
 docs/LoopNetApi.md
 docs/MarketsResponse.md
+docs/MetaAiApi.md
 docs/MetaUrl.md
 docs/NaverApi.md
 docs/NextOffset.md
@@ -272,6 +273,7 @@ src/main/kotlin/com/scrapebadger/client/apis/InstagramApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/LeboncoinApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/LinkedInApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/LoopNetApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/MetaAiApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/NaverApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/PerplexityApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/QuoteApi.kt
@@ -522,6 +524,7 @@ src/test/kotlin/com/scrapebadger/client/apis/InstagramApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/LeboncoinApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/LinkedInApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/LoopNetApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/MetaAiApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/NaverApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/PerplexityApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/QuoteApiTest.kt

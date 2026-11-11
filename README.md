@@ -416,6 +416,11 @@ All URIs are relative to *https://scrapebadger.com*
 | *LoopNetApi* | [**loopnetLoopnetScraperHealthCheck**](docs/LoopNetApi.md#loopnetloopnetscraperhealthcheck) | **GET** /v1/loopnet/health | LoopNet scraper health check |
 | *LoopNetApi* | [**loopnetLoopnetScraperHealthCheckHead**](docs/LoopNetApi.md#loopnetloopnetscraperhealthcheckhead) | **HEAD** /v1/loopnet/health | LoopNet scraper health check |
 | *LoopNetApi* | [**loopnetSearchCommercialRealEstate**](docs/LoopNetApi.md#loopnetsearchcommercialrealestate) | **GET** /v1/loopnet/search | Search commercial real estate |
+| *MetaAiApi* | [**metaAiAskMetaAiAQuestion**](docs/MetaAiApi.md#metaaiaskmetaaiaquestion) | **GET** /v1/meta-ai/ask | Ask Meta AI a question |
+| *MetaAiApi* | [**metaAiAskMetaAiAQuestionPost**](docs/MetaAiApi.md#metaaiaskmetaaiaquestionpost) | **POST** /v1/meta-ai/ask | Ask Meta AI a question (POST) |
+| *MetaAiApi* | [**metaAiListMetaAiAssistantModes**](docs/MetaAiApi.md#metaailistmetaaiassistantmodes) | **GET** /v1/meta-ai/models | List Meta AI assistant modes |
+| *MetaAiApi* | [**metaAiMetaAiScraperHealthCheck**](docs/MetaAiApi.md#metaaimetaaiscraperhealthcheck) | **GET** /v1/meta-ai/health | Meta AI scraper health check |
+| *MetaAiApi* | [**metaAiMetaAiScraperHealthCheckHead**](docs/MetaAiApi.md#metaaimetaaiscraperhealthcheckhead) | **HEAD** /v1/meta-ai/health | Meta AI scraper health check |
 | *NaverApi* | [**naverNaverBlogSearch**](docs/NaverApi.md#navernaverblogsearch) | **GET** /v1/naver/blog | Naver blog search |
 | *NaverApi* | [**naverNaverDatalabShoppingKeywordInsight**](docs/NaverApi.md#navernaverdatalabshoppingkeywordinsight) | **GET** /v1/naver/shopping/insight | Naver DataLab shopping keyword insight |
 | *NaverApi* | [**naverNaverNewsSearch**](docs/NaverApi.md#navernavernewssearch) | **GET** /v1/naver/news | Naver news search |
