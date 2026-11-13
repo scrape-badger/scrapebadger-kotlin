@@ -114,6 +114,7 @@ docs/GitHubStatus.md
 docs/GitHubTextLink.md
 docs/GoogleApi.md
 docs/GooglePlayApi.md
+docs/GrokApi.md
 docs/GumtreeApi.md
 docs/HTTPValidationError.md
 docs/IdealistaApi.md
@@ -266,6 +267,7 @@ src/main/kotlin/com/scrapebadger/client/apis/GeminiApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GitHubApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GoogleApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GooglePlayApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/GrokApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/GumtreeApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/IdealistaApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ImmobiliareApi.kt
@@ -517,6 +519,7 @@ src/test/kotlin/com/scrapebadger/client/apis/GeminiApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GitHubApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GoogleApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GooglePlayApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/GrokApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/GumtreeApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/IdealistaApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ImmobiliareApiTest.kt

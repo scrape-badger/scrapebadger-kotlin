@@ -9,6 +9,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**linkedinGetAPublicArticle**](LinkedInApi.md#linkedinGetAPublicArticle) | **GET** /v1/linkedin/articles/{article_slug} | Get a public article |
 | [**linkedinGetAPublicPost**](LinkedInApi.md#linkedinGetAPublicPost) | **GET** /v1/linkedin/posts/{post_slug} | Get a public post |
 | [**linkedinGetCompany**](LinkedInApi.md#linkedinGetCompany) | **GET** /v1/linkedin/companies/{universal_name} | Get company |
+| [**linkedinGetFullProfileThroughTheAuthenticatedProjection**](LinkedInApi.md#linkedinGetFullProfileThroughTheAuthenticatedProjection) | **GET** /v1/linkedin/profiles/{public_id}/full | Get full profile through the authenticated projection |
 | [**linkedinGetJobDetail**](LinkedInApi.md#linkedinGetJobDetail) | **GET** /v1/linkedin/jobs/{job_id} | Get job detail |
 | [**linkedinGetPublicProfile**](LinkedInApi.md#linkedinGetPublicProfile) | **GET** /v1/linkedin/profiles/{public_id} | Get public profile |
 | [**linkedinGetSchool**](LinkedInApi.md#linkedinGetSchool) | **GET** /v1/linkedin/schools/{universal_name} | Get school |
@@ -255,6 +256,57 @@ try {
 
 ### Parameters
 | **universalName** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **country** | **kotlin.String**| Residential proxy country | [optional] [default to &quot;us&quot;] |
+
+### Return type
+
+[**kotlin.Any**](kotlin.Any.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="linkedinGetFullProfileThroughTheAuthenticatedProjection"></a>
+# **linkedinGetFullProfileThroughTheAuthenticatedProjection**
+> kotlin.Any linkedinGetFullProfileThroughTheAuthenticatedProjection(publicId, country)
+
+Get full profile through the authenticated projection
+
+Full profile using the server-owned authenticated LinkedIn session.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = LinkedInApi()
+val publicId : kotlin.String = publicId_example // kotlin.String | 
+val country : kotlin.String = country_example // kotlin.String | Residential proxy country
+try {
+    val result : kotlin.Any = apiInstance.linkedinGetFullProfileThroughTheAuthenticatedProjection(publicId, country)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling LinkedInApi#linkedinGetFullProfileThroughTheAuthenticatedProjection")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling LinkedInApi#linkedinGetFullProfileThroughTheAuthenticatedProjection")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **publicId** | **kotlin.String**|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **country** | **kotlin.String**| Residential proxy country | [optional] [default to &quot;us&quot;] |

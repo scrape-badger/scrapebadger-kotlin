@@ -331,6 +331,14 @@ All URIs are relative to *https://scrapebadger.com*
 | *GooglePlayApi* | [**googlePlayListMarkets**](docs/GooglePlayApi.md#googleplaylistmarkets) | **GET** /v1/google-play/markets | List markets |
 | *GooglePlayApi* | [**googlePlaySearchApps**](docs/GooglePlayApi.md#googleplaysearchapps) | **GET** /v1/google-play/search | Search apps |
 | *GooglePlayApi* | [**googlePlayTopCharts**](docs/GooglePlayApi.md#googleplaytopcharts) | **GET** /v1/google-play/collections/{collection} | Top charts |
+| *GrokApi* | [**grokAskGrokAQuestion**](docs/GrokApi.md#grokaskgrokaquestion) | **GET** /v1/grok/ask | Ask Grok a question |
+| *GrokApi* | [**grokAskGrokAQuestionPost**](docs/GrokApi.md#grokaskgrokaquestionpost) | **POST** /v1/grok/ask | Ask Grok a question (POST) |
+| *GrokApi* | [**grokGetAGrokConversation**](docs/GrokApi.md#grokgetagrokconversation) | **GET** /v1/grok/conversations/{conversation_id} | Get a Grok conversation |
+| *GrokApi* | [**grokGrokScraperHealthCheck**](docs/GrokApi.md#grokgrokscraperhealthcheck) | **GET** /v1/grok/health | Grok scraper health check |
+| *GrokApi* | [**grokGrokScraperHealthCheckHead**](docs/GrokApi.md#grokgrokscraperhealthcheckhead) | **HEAD** /v1/grok/health | Grok scraper health check |
+| *GrokApi* | [**grokListGrokAssistantModes**](docs/GrokApi.md#groklistgrokassistantmodes) | **GET** /v1/grok/models | List Grok assistant modes |
+| *GrokApi* | [**grokMeasureBrandVisibilityInGrok**](docs/GrokApi.md#grokmeasurebrandvisibilityingrok) | **GET** /v1/grok/brand-visibility | Measure brand visibility in Grok |
+| *GrokApi* | [**grokMeasureBrandVisibilityInGrokPost**](docs/GrokApi.md#grokmeasurebrandvisibilityingrokpost) | **POST** /v1/grok/brand-visibility | Measure brand visibility in Grok (POST) |
 | *GumtreeApi* | [**gumtreeGetListing**](docs/GumtreeApi.md#gumtreegetlisting) | **GET** /v1/gumtree/listings/{listing_id} | Get listing |
 | *GumtreeApi* | [**gumtreeGetSearchFilters**](docs/GumtreeApi.md#gumtreegetsearchfilters) | **GET** /v1/gumtree/search/filters | Get search filters |
 | *GumtreeApi* | [**gumtreeGetSellerListings**](docs/GumtreeApi.md#gumtreegetsellerlistings) | **GET** /v1/gumtree/listings/{listing_id}/seller-listings | Get seller listings |
@@ -402,6 +410,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *LinkedInApi* | [**linkedinGetAPublicArticle**](docs/LinkedInApi.md#linkedingetapublicarticle) | **GET** /v1/linkedin/articles/{article_slug} | Get a public article |
 | *LinkedInApi* | [**linkedinGetAPublicPost**](docs/LinkedInApi.md#linkedingetapublicpost) | **GET** /v1/linkedin/posts/{post_slug} | Get a public post |
 | *LinkedInApi* | [**linkedinGetCompany**](docs/LinkedInApi.md#linkedingetcompany) | **GET** /v1/linkedin/companies/{universal_name} | Get company |
+| *LinkedInApi* | [**linkedinGetFullProfileThroughTheAuthenticatedProjection**](docs/LinkedInApi.md#linkedingetfullprofilethroughtheauthenticatedprojection) | **GET** /v1/linkedin/profiles/{public_id}/full | Get full profile through the authenticated projection |
 | *LinkedInApi* | [**linkedinGetJobDetail**](docs/LinkedInApi.md#linkedingetjobdetail) | **GET** /v1/linkedin/jobs/{job_id} | Get job detail |
 | *LinkedInApi* | [**linkedinGetPublicProfile**](docs/LinkedInApi.md#linkedingetpublicprofile) | **GET** /v1/linkedin/profiles/{public_id} | Get public profile |
 | *LinkedInApi* | [**linkedinGetSchool**](docs/LinkedInApi.md#linkedingetschool) | **GET** /v1/linkedin/schools/{universal_name} | Get school |

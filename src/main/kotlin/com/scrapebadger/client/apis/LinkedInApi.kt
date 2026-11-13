@@ -447,6 +447,85 @@ class LinkedInApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     }
 
     /**
+     * Get full profile through the authenticated projection
+     * Full profile using the server-owned authenticated LinkedIn session.
+     * @param publicId 
+     * @param country Residential proxy country (optional, default to "us")
+     * @return kotlin.Any
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun linkedinGetFullProfileThroughTheAuthenticatedProjection(publicId: kotlin.String, country: kotlin.String? = "us") : kotlin.Any {
+        val localVarResponse = linkedinGetFullProfileThroughTheAuthenticatedProjectionWithHttpInfo(publicId = publicId, country = country)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get full profile through the authenticated projection
+     * Full profile using the server-owned authenticated LinkedIn session.
+     * @param publicId 
+     * @param country Residential proxy country (optional, default to "us")
+     * @return ApiResponse<kotlin.Any?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun linkedinGetFullProfileThroughTheAuthenticatedProjectionWithHttpInfo(publicId: kotlin.String, country: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = linkedinGetFullProfileThroughTheAuthenticatedProjectionRequestConfig(publicId = publicId, country = country)
+
+        return request<Unit, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation linkedinGetFullProfileThroughTheAuthenticatedProjection
+     *
+     * @param publicId 
+     * @param country Residential proxy country (optional, default to "us")
+     * @return RequestConfig
+     */
+    fun linkedinGetFullProfileThroughTheAuthenticatedProjectionRequestConfig(publicId: kotlin.String, country: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (country != null) {
+                    put("country", listOf(country.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/linkedin/profiles/{public_id}/full".replace("{"+"public_id"+"}", encodeURIComponent(publicId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Get job detail
      * Full detail for one job posting (guest API, no login).
      * @param jobId 

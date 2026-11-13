@@ -72,6 +72,15 @@ class LinkedInApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test linkedinGetFullProfileThroughTheAuthenticatedProjection
+        should("test linkedinGetFullProfileThroughTheAuthenticatedProjection") {
+            // uncomment below to test linkedinGetFullProfileThroughTheAuthenticatedProjection
+            //val publicId : kotlin.String = publicId_example // kotlin.String | 
+            //val country : kotlin.String = country_example // kotlin.String | Residential proxy country
+            //val result : kotlin.Any = apiInstance.linkedinGetFullProfileThroughTheAuthenticatedProjection(publicId, country)
+            //result shouldBe ("TODO")
+        }
+
         // to test linkedinGetJobDetail
         should("test linkedinGetJobDetail") {
             // uncomment below to test linkedinGetJobDetail
