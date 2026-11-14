@@ -170,6 +170,8 @@ docs/RedfinApi.md
 docs/RequestsApi.md
 docs/ResultsApi.md
 docs/Review.md
+docs/RufusApi.md
+docs/RufusAskRequest.md
 docs/ScreenshotRequest.md
 docs/Searchterm.md
 docs/SiteName.md
@@ -284,6 +286,7 @@ src/main/kotlin/com/scrapebadger/client/apis/RedditApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/RedfinApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/RequestsApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/ResultsApi.kt
+src/main/kotlin/com/scrapebadger/client/apis/RufusApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/TargetApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/TikTokApi.kt
 src/main/kotlin/com/scrapebadger/client/apis/TwitterApi.kt
@@ -439,6 +442,7 @@ src/main/kotlin/com/scrapebadger/client/models/Rating.kt
 src/main/kotlin/com/scrapebadger/client/models/Ratings.kt
 src/main/kotlin/com/scrapebadger/client/models/Recipe.kt
 src/main/kotlin/com/scrapebadger/client/models/Review.kt
+src/main/kotlin/com/scrapebadger/client/models/RufusAskRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/ScreenshotRequest.kt
 src/main/kotlin/com/scrapebadger/client/models/Searchterm.kt
 src/main/kotlin/com/scrapebadger/client/models/SiteName.kt
@@ -536,6 +540,7 @@ src/test/kotlin/com/scrapebadger/client/apis/RedditApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/RedfinApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/RequestsApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ResultsApiTest.kt
+src/test/kotlin/com/scrapebadger/client/apis/RufusApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/TargetApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/TikTokApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/TwitterApiTest.kt
@@ -674,6 +679,7 @@ src/test/kotlin/com/scrapebadger/client/models/RatingTest.kt
 src/test/kotlin/com/scrapebadger/client/models/RatingsTest.kt
 src/test/kotlin/com/scrapebadger/client/models/RecipeTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ReviewTest.kt
+src/test/kotlin/com/scrapebadger/client/models/RufusAskRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ScreenshotRequestTest.kt
 src/test/kotlin/com/scrapebadger/client/models/SearchtermTest.kt
 src/test/kotlin/com/scrapebadger/client/models/SiteNameTest.kt

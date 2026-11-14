@@ -488,6 +488,11 @@ All URIs are relative to *https://scrapebadger.com*
 | *RedfinApi* | [**redfinSearchProperties**](docs/RedfinApi.md#redfinsearchproperties) | **GET** /v1/redfin/search | Search properties |
 | *RequestsApi* | [**requestsPollAnAsyncRequest**](docs/RequestsApi.md#requestspollanasyncrequest) | **GET** /v1/requests/{request_id} | Poll an async request |
 | *ResultsApi* | [**resultsReReadAResultRemoved**](docs/ResultsApi.md#resultsrereadaresultremoved) | **GET** /v1/results/{result_id} | Re-read a result (removed) |
+| *RufusApi* | [**rufusAmazonRufusScraperHealthCheck**](docs/RufusApi.md#rufusamazonrufusscraperhealthcheck) | **GET** /v1/rufus/health | Amazon Rufus scraper health check |
+| *RufusApi* | [**rufusAmazonRufusScraperHealthCheckHead**](docs/RufusApi.md#rufusamazonrufusscraperhealthcheckhead) | **HEAD** /v1/rufus/health | Amazon Rufus scraper health check |
+| *RufusApi* | [**rufusAskAmazonRufusAQuestion**](docs/RufusApi.md#rufusaskamazonrufusaquestion) | **GET** /v1/rufus/ask | Ask Amazon Rufus a question |
+| *RufusApi* | [**rufusAskAmazonRufusAQuestionPost**](docs/RufusApi.md#rufusaskamazonrufusaquestionpost) | **POST** /v1/rufus/ask | Ask Amazon Rufus a question (POST) |
+| *RufusApi* | [**rufusListAmazonRufusModels**](docs/RufusApi.md#rufuslistamazonrufusmodels) | **GET** /v1/rufus/models | List Amazon Rufus models |
 | *TargetApi* | [**targetBrowseACategory**](docs/TargetApi.md#targetbrowseacategory) | **GET** /v1/target/category | Browse a category |
 | *TargetApi* | [**targetFindNearbyStores**](docs/TargetApi.md#targetfindnearbystores) | **GET** /v1/target/stores | Find nearby stores |
 | *TargetApi* | [**targetGetCategories**](docs/TargetApi.md#targetgetcategories) | **GET** /v1/target/categories | Get categories |
@@ -833,6 +838,7 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.Ratings](docs/Ratings.md)
  - [com.scrapebadger.client.models.Recipe](docs/Recipe.md)
  - [com.scrapebadger.client.models.Review](docs/Review.md)
+ - [com.scrapebadger.client.models.RufusAskRequest](docs/RufusAskRequest.md)
  - [com.scrapebadger.client.models.ScreenshotRequest](docs/ScreenshotRequest.md)
  - [com.scrapebadger.client.models.Searchterm](docs/Searchterm.md)
  - [com.scrapebadger.client.models.SiteName](docs/SiteName.md)
