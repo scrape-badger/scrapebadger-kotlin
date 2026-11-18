@@ -20,6 +20,8 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.AccountApi
 import com.scrapebadger.client.models.AccountInfo
+import com.scrapebadger.client.models.AccountWebhookDeliveries403Response
+import com.scrapebadger.client.models.WebhookDeliveries
 import com.scrapebadger.client.models.WebhookSecret
 
 class AccountApiTest : ShouldSpec() {
@@ -45,6 +47,14 @@ class AccountApiTest : ShouldSpec() {
         should("test accountRotateTheWebhookSigningSecret") {
             // uncomment below to test accountRotateTheWebhookSigningSecret
             //val result : WebhookSecret = apiInstance.accountRotateTheWebhookSigningSecret()
+            //result shouldBe ("TODO")
+        }
+
+        // to test accountWebhookDeliveries
+        should("test accountWebhookDeliveries") {
+            // uncomment below to test accountWebhookDeliveries
+            //val limit : kotlin.Int = 56 // kotlin.Int | How many deliveries to return (1-200).
+            //val result : WebhookDeliveries = apiInstance.accountWebhookDeliveries(limit)
             //result shouldBe ("TODO")
         }
 

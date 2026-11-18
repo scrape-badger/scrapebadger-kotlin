@@ -19,6 +19,7 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.AsyncAccepted
 import com.scrapebadger.client.models.HTTPValidationError
 
 import com.squareup.moshi.Json
@@ -51,6 +52,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -60,8 +68,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetCategories(country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetCategoriesWithHttpInfo(country = country, currency = currency, language = language)
+    fun etsyGetCategories(country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetCategoriesWithHttpInfo(country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -84,14 +92,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetCategoriesWithHttpInfo(country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetCategoriesRequestConfig(country = country, currency = currency, language = language)
+    fun etsyGetCategoriesWithHttpInfo(country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetCategoriesRequestConfig(country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -104,9 +119,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetCategoriesRequestConfig(country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetCategoriesRequestConfig(country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -119,8 +141,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -140,6 +177,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -149,8 +193,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetListingDetail(listingId: kotlin.String, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetListingDetailWithHttpInfo(listingId = listingId, country = country, currency = currency, language = language)
+    fun etsyGetListingDetail(listingId: kotlin.String, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetListingDetailWithHttpInfo(listingId = listingId, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -174,14 +218,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetListingDetailWithHttpInfo(listingId: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetListingDetailRequestConfig(listingId = listingId, country = country, currency = currency, language = language)
+    fun etsyGetListingDetailWithHttpInfo(listingId: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetListingDetailRequestConfig(listingId = listingId, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -195,9 +246,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetListingDetailRequestConfig(listingId: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetListingDetailRequestConfig(listingId: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -210,8 +268,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -252,6 +325,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -261,8 +341,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetListingReviews(listingId: kotlin.String, page: kotlin.Int? = 1, sort: SortEtsyGetListingReviews? = SortEtsyGetListingReviews.Relevancy, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetListingReviewsWithHttpInfo(listingId = listingId, page = page, sort = sort, country = country, currency = currency, language = language)
+    fun etsyGetListingReviews(listingId: kotlin.String, page: kotlin.Int? = 1, sort: SortEtsyGetListingReviews? = SortEtsyGetListingReviews.Relevancy, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetListingReviewsWithHttpInfo(listingId = listingId, page = page, sort = sort, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -288,14 +368,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetListingReviewsWithHttpInfo(listingId: kotlin.String, page: kotlin.Int?, sort: SortEtsyGetListingReviews?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetListingReviewsRequestConfig(listingId = listingId, page = page, sort = sort, country = country, currency = currency, language = language)
+    fun etsyGetListingReviewsWithHttpInfo(listingId: kotlin.String, page: kotlin.Int?, sort: SortEtsyGetListingReviews?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetListingReviewsRequestConfig(listingId = listingId, page = page, sort = sort, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -311,9 +398,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetListingReviewsRequestConfig(listingId: kotlin.String, page: kotlin.Int?, sort: SortEtsyGetListingReviews?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetListingReviewsRequestConfig(listingId: kotlin.String, page: kotlin.Int?, sort: SortEtsyGetListingReviews?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -332,8 +426,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -353,6 +462,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -362,8 +478,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetSearchSuggestions(query: kotlin.String, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetSearchSuggestionsWithHttpInfo(query = query, country = country, currency = currency, language = language)
+    fun etsyGetSearchSuggestions(query: kotlin.String, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetSearchSuggestionsWithHttpInfo(query = query, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -387,14 +503,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetSearchSuggestionsWithHttpInfo(query: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetSearchSuggestionsRequestConfig(query = query, country = country, currency = currency, language = language)
+    fun etsyGetSearchSuggestionsWithHttpInfo(query: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetSearchSuggestionsRequestConfig(query = query, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -408,9 +531,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetSearchSuggestionsRequestConfig(query: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetSearchSuggestionsRequestConfig(query: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -424,8 +554,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -446,6 +591,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -455,8 +607,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetShopListings(shopName: kotlin.String, page: kotlin.Int? = 1, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetShopListingsWithHttpInfo(shopName = shopName, page = page, country = country, currency = currency, language = language)
+    fun etsyGetShopListings(shopName: kotlin.String, page: kotlin.Int? = 1, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetShopListingsWithHttpInfo(shopName = shopName, page = page, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -481,14 +633,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetShopListingsWithHttpInfo(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetShopListingsRequestConfig(shopName = shopName, page = page, country = country, currency = currency, language = language)
+    fun etsyGetShopListingsWithHttpInfo(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetShopListingsRequestConfig(shopName = shopName, page = page, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -503,9 +662,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetShopListingsRequestConfig(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetShopListingsRequestConfig(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -521,8 +687,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -542,6 +723,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -551,8 +739,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetShopProfile(shopName: kotlin.String, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetShopProfileWithHttpInfo(shopName = shopName, country = country, currency = currency, language = language)
+    fun etsyGetShopProfile(shopName: kotlin.String, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetShopProfileWithHttpInfo(shopName = shopName, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -576,14 +764,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetShopProfileWithHttpInfo(shopName: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetShopProfileRequestConfig(shopName = shopName, country = country, currency = currency, language = language)
+    fun etsyGetShopProfileWithHttpInfo(shopName: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetShopProfileRequestConfig(shopName = shopName, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -597,9 +792,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetShopProfileRequestConfig(shopName: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetShopProfileRequestConfig(shopName: kotlin.String, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -612,8 +814,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -634,6 +851,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -643,8 +867,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsyGetShopReviews(shopName: kotlin.String, page: kotlin.Int? = 1, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US") : kotlin.Any {
-        val localVarResponse = etsyGetShopReviewsWithHttpInfo(shopName = shopName, page = page, country = country, currency = currency, language = language)
+    fun etsyGetShopReviews(shopName: kotlin.String, page: kotlin.Int? = 1, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsyGetShopReviewsWithHttpInfo(shopName = shopName, page = page, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -669,14 +893,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsyGetShopReviewsWithHttpInfo(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsyGetShopReviewsRequestConfig(shopName = shopName, page = page, country = country, currency = currency, language = language)
+    fun etsyGetShopReviewsWithHttpInfo(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsyGetShopReviewsRequestConfig(shopName = shopName, page = page, country = country, currency = currency, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -691,9 +922,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param country  (optional, default to "US")
      * @param currency  (optional, default to "USD")
      * @param language  (optional, default to "en-US")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsyGetShopReviewsRequestConfig(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun etsyGetShopReviewsRequestConfig(shopName: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -709,8 +947,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -753,6 +1006,13 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param sort  (optional, default to most_relevant)
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -762,8 +1022,8 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun etsySearchListings(query: kotlin.String, page: kotlin.Int? = 1, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", sort: SortEtsySearchListings? = SortEtsySearchListings.most_relevant, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null) : kotlin.Any {
-        val localVarResponse = etsySearchListingsWithHttpInfo(query = query, page = page, country = country, currency = currency, language = language, sort = sort, minPrice = minPrice, maxPrice = maxPrice)
+    fun etsySearchListings(query: kotlin.String, page: kotlin.Int? = 1, country: kotlin.String? = "US", currency: kotlin.String? = "USD", language: kotlin.String? = "en-US", sort: SortEtsySearchListings? = SortEtsySearchListings.most_relevant, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = etsySearchListingsWithHttpInfo(query = query, page = page, country = country, currency = currency, language = language, sort = sort, minPrice = minPrice, maxPrice = maxPrice, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -791,14 +1051,21 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param sort  (optional, default to most_relevant)
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun etsySearchListingsWithHttpInfo(query: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, sort: SortEtsySearchListings?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = etsySearchListingsRequestConfig(query = query, page = page, country = country, currency = currency, language = language, sort = sort, minPrice = minPrice, maxPrice = maxPrice)
+    fun etsySearchListingsWithHttpInfo(query: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, sort: SortEtsySearchListings?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = etsySearchListingsRequestConfig(query = query, page = page, country = country, currency = currency, language = language, sort = sort, minPrice = minPrice, maxPrice = maxPrice, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -816,9 +1083,16 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param sort  (optional, default to most_relevant)
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun etsySearchListingsRequestConfig(query: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, sort: SortEtsySearchListings?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : RequestConfig<Unit> {
+    fun etsySearchListingsRequestConfig(query: kotlin.String, page: kotlin.Int?, country: kotlin.String?, currency: kotlin.String?, language: kotlin.String?, sort: SortEtsySearchListings?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -844,8 +1118,23 @@ class EtsyApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (maxPrice != null) {
                     put("max_price", listOf(maxPrice.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(

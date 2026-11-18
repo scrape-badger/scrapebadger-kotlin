@@ -19,6 +19,7 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.AsyncAccepted
 import com.scrapebadger.client.models.HTTPValidationError
 
 import com.squareup.moshi.Json
@@ -55,6 +56,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param sortBy best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low (optional, default to "best_match")
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -64,8 +72,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayBrowseACategory(categoryId: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null) : kotlin.Any {
-        val localVarResponse = ebayBrowseACategoryWithHttpInfo(categoryId = categoryId, domain = domain, page = page, perPage = perPage, sortBy = sortBy, minPrice = minPrice, maxPrice = maxPrice)
+    fun ebayBrowseACategory(categoryId: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayBrowseACategoryWithHttpInfo(categoryId = categoryId, domain = domain, page = page, perPage = perPage, sortBy = sortBy, minPrice = minPrice, maxPrice = maxPrice, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -92,14 +100,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param sortBy best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low (optional, default to "best_match")
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayBrowseACategoryWithHttpInfo(categoryId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayBrowseACategoryRequestConfig(categoryId = categoryId, domain = domain, page = page, perPage = perPage, sortBy = sortBy, minPrice = minPrice, maxPrice = maxPrice)
+    fun ebayBrowseACategoryWithHttpInfo(categoryId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayBrowseACategoryRequestConfig(categoryId = categoryId, domain = domain, page = page, perPage = perPage, sortBy = sortBy, minPrice = minPrice, maxPrice = maxPrice, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -116,9 +131,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param sortBy best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low (optional, default to "best_match")
      * @param minPrice  (optional)
      * @param maxPrice  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayBrowseACategoryRequestConfig(categoryId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?) : RequestConfig<Unit> {
+    fun ebayBrowseACategoryRequestConfig(categoryId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -140,8 +162,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (maxPrice != null) {
                     put("max_price", listOf(maxPrice.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -169,6 +206,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @param location domestic|worldwide (optional)
      * @param language english|japanese|chinese|korean (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -178,8 +222,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayCompletedSoldListings(query: kotlin.String? = null, seller: kotlin.String? = null, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, location: kotlin.String? = null, language: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = ebayCompletedSoldListingsWithHttpInfo(query = query, seller = seller, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location, language = language)
+    fun ebayCompletedSoldListings(query: kotlin.String? = null, seller: kotlin.String? = null, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, location: kotlin.String? = null, language: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayCompletedSoldListingsWithHttpInfo(query = query, seller = seller, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -211,14 +255,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @param location domestic|worldwide (optional)
      * @param language english|japanese|chinese|korean (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayCompletedSoldListingsWithHttpInfo(query: kotlin.String?, seller: kotlin.String?, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayCompletedSoldListingsRequestConfig(query = query, seller = seller, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location, language = language)
+    fun ebayCompletedSoldListingsWithHttpInfo(query: kotlin.String?, seller: kotlin.String?, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayCompletedSoldListingsRequestConfig(query = query, seller = seller, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, minPrice = minPrice, maxPrice = maxPrice, location = location, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -240,9 +291,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param maxPrice  (optional)
      * @param location domestic|worldwide (optional)
      * @param language english|japanese|chinese|korean (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayCompletedSoldListingsRequestConfig(query: kotlin.String?, seller: kotlin.String?, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun ebayCompletedSoldListingsRequestConfig(query: kotlin.String?, seller: kotlin.String?, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, location: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -282,8 +340,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -437,6 +510,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Get a single eBay listing&#39;s full detail.  &#x60;&#x60;price&#x60;&#x60; is the price the listing&#39;s buy box shows. On a closed listing, &#x60;&#x60;is_sold&#x60;&#x60; says it carries eBay&#39;s \&quot;Sold\&quot; label rather than \&quot;Ended\&quot;, and &#x60;&#x60;best_offer_accepted&#x60;&#x60; says it sold through an accepted Best Offer. eBay publishes the accepted amount on most such listings: then &#x60;&#x60;price&#x60;&#x60; is that amount, and &#x60;&#x60;original_price&#x60;&#x60; and &#x60;&#x60;buy_it_now_price&#x60;&#x60; are the listed price it was accepted against. Where eBay only strikes the listed price through, &#x60;&#x60;price&#x60;&#x60; stays the listed price and &#x60;&#x60;original_price&#x60;&#x60; is null, so &#x60;&#x60;best_offer_accepted&#x60;&#x60; with a null &#x60;&#x60;original_price&#x60;&#x60; means \&quot;sold below &#x60;&#x60;price&#x60;&#x60;, amount not published on this read\&quot;. On a listing from another eBay site the accepted amount is converted to the marketplace&#39;s currency at the rate eBay applied to the listed price on the same page; &#x60;&#x60;price.raw&#x60;&#x60; keeps it as eBay rendered it (\&quot;US $300.00\&quot;).
      * @param itemId 
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -446,8 +526,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayGetItemDetail(itemId: kotlin.String, domain: kotlin.String? = "com") : kotlin.Any {
-        val localVarResponse = ebayGetItemDetailWithHttpInfo(itemId = itemId, domain = domain)
+    fun ebayGetItemDetail(itemId: kotlin.String, domain: kotlin.String? = "com", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayGetItemDetailWithHttpInfo(itemId = itemId, domain = domain, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -469,14 +549,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Get a single eBay listing&#39;s full detail.  &#x60;&#x60;price&#x60;&#x60; is the price the listing&#39;s buy box shows. On a closed listing, &#x60;&#x60;is_sold&#x60;&#x60; says it carries eBay&#39;s \&quot;Sold\&quot; label rather than \&quot;Ended\&quot;, and &#x60;&#x60;best_offer_accepted&#x60;&#x60; says it sold through an accepted Best Offer. eBay publishes the accepted amount on most such listings: then &#x60;&#x60;price&#x60;&#x60; is that amount, and &#x60;&#x60;original_price&#x60;&#x60; and &#x60;&#x60;buy_it_now_price&#x60;&#x60; are the listed price it was accepted against. Where eBay only strikes the listed price through, &#x60;&#x60;price&#x60;&#x60; stays the listed price and &#x60;&#x60;original_price&#x60;&#x60; is null, so &#x60;&#x60;best_offer_accepted&#x60;&#x60; with a null &#x60;&#x60;original_price&#x60;&#x60; means \&quot;sold below &#x60;&#x60;price&#x60;&#x60;, amount not published on this read\&quot;. On a listing from another eBay site the accepted amount is converted to the marketplace&#39;s currency at the rate eBay applied to the listed price on the same page; &#x60;&#x60;price.raw&#x60;&#x60; keeps it as eBay rendered it (\&quot;US $300.00\&quot;).
      * @param itemId 
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayGetItemDetailWithHttpInfo(itemId: kotlin.String, domain: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayGetItemDetailRequestConfig(itemId = itemId, domain = domain)
+    fun ebayGetItemDetailWithHttpInfo(itemId: kotlin.String, domain: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayGetItemDetailRequestConfig(itemId = itemId, domain = domain, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -488,17 +575,39 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      *
      * @param itemId 
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayGetItemDetailRequestConfig(itemId: kotlin.String, domain: kotlin.String?) : RequestConfig<Unit> {
+    fun ebayGetItemDetailRequestConfig(itemId: kotlin.String, domain: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (domain != null) {
                     put("domain", listOf(domain.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -517,6 +626,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param itemId 
      * @param domain  (optional, default to "com")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -526,8 +642,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayGetItemReviews(itemId: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = ebayGetItemReviewsWithHttpInfo(itemId = itemId, domain = domain, page = page)
+    fun ebayGetItemReviews(itemId: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayGetItemReviewsWithHttpInfo(itemId = itemId, domain = domain, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -550,14 +666,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param itemId 
      * @param domain  (optional, default to "com")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayGetItemReviewsWithHttpInfo(itemId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayGetItemReviewsRequestConfig(itemId = itemId, domain = domain, page = page)
+    fun ebayGetItemReviewsWithHttpInfo(itemId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayGetItemReviewsRequestConfig(itemId = itemId, domain = domain, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -570,9 +693,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param itemId 
      * @param domain  (optional, default to "com")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayGetItemReviewsRequestConfig(itemId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?) : RequestConfig<Unit> {
+    fun ebayGetItemReviewsRequestConfig(itemId: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -582,8 +712,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (page != null) {
                     put("page", listOf(page.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -602,6 +747,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param username 
      * @param domain  (optional, default to "com")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -611,8 +763,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayGetSellerFeedback(username: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = ebayGetSellerFeedbackWithHttpInfo(username = username, domain = domain, page = page)
+    fun ebayGetSellerFeedback(username: kotlin.String, domain: kotlin.String? = "com", page: kotlin.Int? = 1, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayGetSellerFeedbackWithHttpInfo(username = username, domain = domain, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -635,14 +787,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param username 
      * @param domain  (optional, default to "com")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayGetSellerFeedbackWithHttpInfo(username: kotlin.String, domain: kotlin.String?, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayGetSellerFeedbackRequestConfig(username = username, domain = domain, page = page)
+    fun ebayGetSellerFeedbackWithHttpInfo(username: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayGetSellerFeedbackRequestConfig(username = username, domain = domain, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -655,9 +814,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param username 
      * @param domain  (optional, default to "com")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayGetSellerFeedbackRequestConfig(username: kotlin.String, domain: kotlin.String?, page: kotlin.Int?) : RequestConfig<Unit> {
+    fun ebayGetSellerFeedbackRequestConfig(username: kotlin.String, domain: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -667,8 +833,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (page != null) {
                     put("page", listOf(page.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -689,6 +870,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param query  (optional)
      * @param page  (optional, default to 1)
      * @param perPage  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -698,8 +886,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayGetSellerListings(username: kotlin.String, domain: kotlin.String? = "com", query: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null) : kotlin.Any {
-        val localVarResponse = ebayGetSellerListingsWithHttpInfo(username = username, domain = domain, query = query, page = page, perPage = perPage)
+    fun ebayGetSellerListings(username: kotlin.String, domain: kotlin.String? = "com", query: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayGetSellerListingsWithHttpInfo(username = username, domain = domain, query = query, page = page, perPage = perPage, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -724,14 +912,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param query  (optional)
      * @param page  (optional, default to 1)
      * @param perPage  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayGetSellerListingsWithHttpInfo(username: kotlin.String, domain: kotlin.String?, query: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayGetSellerListingsRequestConfig(username = username, domain = domain, query = query, page = page, perPage = perPage)
+    fun ebayGetSellerListingsWithHttpInfo(username: kotlin.String, domain: kotlin.String?, query: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayGetSellerListingsRequestConfig(username = username, domain = domain, query = query, page = page, perPage = perPage, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -746,9 +941,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param query  (optional)
      * @param page  (optional, default to 1)
      * @param perPage  (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayGetSellerListingsRequestConfig(username: kotlin.String, domain: kotlin.String?, query: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?) : RequestConfig<Unit> {
+    fun ebayGetSellerListingsRequestConfig(username: kotlin.String, domain: kotlin.String?, query: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -764,8 +966,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (perPage != null) {
                     put("per_page", listOf(perPage.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -783,6 +1000,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Get an eBay seller&#39;s public profile.
      * @param username 
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -792,8 +1016,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayGetSellerProfile(username: kotlin.String, domain: kotlin.String? = "com") : kotlin.Any {
-        val localVarResponse = ebayGetSellerProfileWithHttpInfo(username = username, domain = domain)
+    fun ebayGetSellerProfile(username: kotlin.String, domain: kotlin.String? = "com", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayGetSellerProfileWithHttpInfo(username = username, domain = domain, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -815,14 +1039,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Get an eBay seller&#39;s public profile.
      * @param username 
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayGetSellerProfileWithHttpInfo(username: kotlin.String, domain: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayGetSellerProfileRequestConfig(username = username, domain = domain)
+    fun ebayGetSellerProfileWithHttpInfo(username: kotlin.String, domain: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayGetSellerProfileRequestConfig(username = username, domain = domain, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -834,17 +1065,39 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      *
      * @param username 
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayGetSellerProfileRequestConfig(username: kotlin.String, domain: kotlin.String?) : RequestConfig<Unit> {
+    fun ebayGetSellerProfileRequestConfig(username: kotlin.String, domain: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (domain != null) {
                     put("domain", listOf(domain.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -862,6 +1115,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Return eBay keyword autocomplete suggestions.
      * @param query Partial query prefix
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -871,8 +1131,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayKeywordSuggestions(query: kotlin.String, domain: kotlin.String? = "com") : kotlin.Any {
-        val localVarResponse = ebayKeywordSuggestionsWithHttpInfo(query = query, domain = domain)
+    fun ebayKeywordSuggestions(query: kotlin.String, domain: kotlin.String? = "com", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayKeywordSuggestionsWithHttpInfo(query = query, domain = domain, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -894,14 +1154,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Return eBay keyword autocomplete suggestions.
      * @param query Partial query prefix
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayKeywordSuggestionsWithHttpInfo(query: kotlin.String, domain: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayKeywordSuggestionsRequestConfig(query = query, domain = domain)
+    fun ebayKeywordSuggestionsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayKeywordSuggestionsRequestConfig(query = query, domain = domain, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -913,9 +1180,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      *
      * @param query Partial query prefix
      * @param domain  (optional, default to "com")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayKeywordSuggestionsRequestConfig(query: kotlin.String, domain: kotlin.String?) : RequestConfig<Unit> {
+    fun ebayKeywordSuggestionsRequestConfig(query: kotlin.String, domain: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -923,8 +1197,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (domain != null) {
                     put("domain", listOf(domain.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -940,6 +1229,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     /**
      * List categories
      * List eBay&#39;s top-level category ids.
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -949,8 +1245,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayListCategories() : kotlin.Any {
-        val localVarResponse = ebayListCategoriesWithHttpInfo()
+    fun ebayListCategories(prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayListCategoriesWithHttpInfo(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -970,14 +1266,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     /**
      * List categories
      * List eBay&#39;s top-level category ids.
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayListCategoriesWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayListCategoriesRequestConfig()
+    fun ebayListCategoriesWithHttpInfo(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayListCategoriesRequestConfig(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -987,12 +1290,36 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     /**
      * To obtain the request config of the operation ebayListCategories
      *
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayListCategoriesRequestConfig() : RequestConfig<Unit> {
+    fun ebayListCategoriesRequestConfig(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -1008,6 +1335,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     /**
      * List markets
      * List all supported eBay marketplaces.
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1017,8 +1351,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebayListMarkets() : kotlin.Any {
-        val localVarResponse = ebayListMarketsWithHttpInfo()
+    fun ebayListMarkets(prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebayListMarketsWithHttpInfo(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1038,14 +1372,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     /**
      * List markets
      * List all supported eBay marketplaces.
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebayListMarketsWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebayListMarketsRequestConfig()
+    fun ebayListMarketsWithHttpInfo(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebayListMarketsRequestConfig(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1055,12 +1396,36 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
     /**
      * To obtain the request config of the operation ebayListMarkets
      *
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebayListMarketsRequestConfig() : RequestConfig<Unit> {
+    fun ebayListMarketsRequestConfig(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -1077,6 +1442,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Search by image
      * Search active listings by image, the way eBay&#39;s camera icon does.  No &#x60;&#x60;sort_by&#x60;&#x60;: eBay ignores it on a visual results page.
      * @param requestBody 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1086,8 +1458,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebaySearchByImage(requestBody: kotlin.collections.Map<kotlin.String, kotlin.Any>) : kotlin.Any {
-        val localVarResponse = ebaySearchByImageWithHttpInfo(requestBody = requestBody)
+    fun ebaySearchByImage(requestBody: kotlin.collections.Map<kotlin.String, kotlin.Any>, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebaySearchByImageWithHttpInfo(requestBody = requestBody, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1108,14 +1480,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * Search by image
      * Search active listings by image, the way eBay&#39;s camera icon does.  No &#x60;&#x60;sort_by&#x60;&#x60;: eBay ignores it on a visual results page.
      * @param requestBody 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebaySearchByImageWithHttpInfo(requestBody: kotlin.collections.Map<kotlin.String, kotlin.Any>) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebaySearchByImageRequestConfig(requestBody = requestBody)
+    fun ebaySearchByImageWithHttpInfo(requestBody: kotlin.collections.Map<kotlin.String, kotlin.Any>, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebaySearchByImageRequestConfig(requestBody = requestBody, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<kotlin.collections.Map<kotlin.String, kotlin.Any>, kotlin.Any>(
             localVariableConfig
@@ -1126,12 +1505,36 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * To obtain the request config of the operation ebaySearchByImage
      *
      * @param requestBody 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebaySearchByImageRequestConfig(requestBody: kotlin.collections.Map<kotlin.String, kotlin.Any>) : RequestConfig<kotlin.collections.Map<kotlin.String, kotlin.Any>> {
+    fun ebaySearchByImageRequestConfig(requestBody: kotlin.collections.Map<kotlin.String, kotlin.Any>, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<kotlin.collections.Map<kotlin.String, kotlin.Any>> {
         val localVariableBody = requestBody
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "application/json"
 
@@ -1161,6 +1564,13 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param freeShipping  (optional, default to false)
      * @param location domestic|worldwide (optional)
      * @param language english|japanese|chinese|korean (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -1170,8 +1580,8 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun ebaySearchListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, buyingFormat: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, freeShipping: kotlin.Boolean? = false, location: kotlin.String? = null, language: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = ebaySearchListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location, language = language)
+    fun ebaySearchListings(query: kotlin.String, domain: kotlin.String? = "com", categoryId: kotlin.String? = null, page: kotlin.Int? = 1, perPage: kotlin.Int? = null, sortBy: kotlin.String? = "best_match", condition: kotlin.String? = null, buyingFormat: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, freeShipping: kotlin.Boolean? = false, location: kotlin.String? = null, language: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = ebaySearchListingsWithHttpInfo(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1204,14 +1614,21 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param freeShipping  (optional, default to false)
      * @param location domestic|worldwide (optional)
      * @param language english|japanese|chinese|korean (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun ebaySearchListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?, language: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = ebaySearchListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location, language = language)
+    fun ebaySearchListingsWithHttpInfo(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ebaySearchListingsRequestConfig(query = query, domain = domain, categoryId = categoryId, page = page, perPage = perPage, sortBy = sortBy, condition = condition, buyingFormat = buyingFormat, minPrice = minPrice, maxPrice = maxPrice, freeShipping = freeShipping, location = location, language = language, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1234,9 +1651,16 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
      * @param freeShipping  (optional, default to false)
      * @param location domestic|worldwide (optional)
      * @param language english|japanese|chinese|korean (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun ebaySearchListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?, language: kotlin.String?) : RequestConfig<Unit> {
+    fun ebaySearchListingsRequestConfig(query: kotlin.String, domain: kotlin.String?, categoryId: kotlin.String?, page: kotlin.Int?, perPage: kotlin.Int?, sortBy: kotlin.String?, condition: kotlin.String?, buyingFormat: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, freeShipping: kotlin.Boolean?, location: kotlin.String?, language: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1277,8 +1701,23 @@ class EBayApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = 
                 if (language != null) {
                     put("language", listOf(language.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(

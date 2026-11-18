@@ -19,6 +19,7 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.AsyncAccepted
 import com.scrapebadger.client.models.HTTPValidationError
 
 import com.squareup.moshi.Json
@@ -50,6 +51,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * Public agency/advertiser profile.
      * @param agencyId 
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -59,8 +67,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareGetAgencyProfile(agencyId: kotlin.Int, market: kotlin.String? = "it") : kotlin.Any {
-        val localVarResponse = immobiliareGetAgencyProfileWithHttpInfo(agencyId = agencyId, market = market)
+    fun immobiliareGetAgencyProfile(agencyId: kotlin.Int, market: kotlin.String? = "it", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareGetAgencyProfileWithHttpInfo(agencyId = agencyId, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -82,14 +90,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * Public agency/advertiser profile.
      * @param agencyId 
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareGetAgencyProfileWithHttpInfo(agencyId: kotlin.Int, market: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareGetAgencyProfileRequestConfig(agencyId = agencyId, market = market)
+    fun immobiliareGetAgencyProfileWithHttpInfo(agencyId: kotlin.Int, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareGetAgencyProfileRequestConfig(agencyId = agencyId, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -101,17 +116,39 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      *
      * @param agencyId 
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareGetAgencyProfileRequestConfig(agencyId: kotlin.Int, market: kotlin.String?) : RequestConfig<Unit> {
+    fun immobiliareGetAgencyProfileRequestConfig(agencyId: kotlin.Int, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (market != null) {
                     put("market", listOf(market.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -131,6 +168,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param market it | es | gr | lu (optional, default to "it")
      * @param `contract` sale | rent (optional, default to "sale")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -140,8 +184,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareGetAnAgencySListings(agencyId: kotlin.Int, market: kotlin.String? = "it", `contract`: kotlin.String? = "sale", page: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = immobiliareGetAnAgencySListingsWithHttpInfo(agencyId = agencyId, market = market, `contract` = `contract`, page = page)
+    fun immobiliareGetAnAgencySListings(agencyId: kotlin.Int, market: kotlin.String? = "it", `contract`: kotlin.String? = "sale", page: kotlin.Int? = 1, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareGetAnAgencySListingsWithHttpInfo(agencyId = agencyId, market = market, `contract` = `contract`, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -165,14 +209,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param market it | es | gr | lu (optional, default to "it")
      * @param `contract` sale | rent (optional, default to "sale")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareGetAnAgencySListingsWithHttpInfo(agencyId: kotlin.Int, market: kotlin.String?, `contract`: kotlin.String?, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareGetAnAgencySListingsRequestConfig(agencyId = agencyId, market = market, `contract` = `contract`, page = page)
+    fun immobiliareGetAnAgencySListingsWithHttpInfo(agencyId: kotlin.Int, market: kotlin.String?, `contract`: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareGetAnAgencySListingsRequestConfig(agencyId = agencyId, market = market, `contract` = `contract`, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -186,9 +237,16 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param market it | es | gr | lu (optional, default to "it")
      * @param `contract` sale | rent (optional, default to "sale")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareGetAnAgencySListingsRequestConfig(agencyId: kotlin.Int, market: kotlin.String?, `contract`: kotlin.String?, page: kotlin.Int?) : RequestConfig<Unit> {
+    fun immobiliareGetAnAgencySListingsRequestConfig(agencyId: kotlin.Int, market: kotlin.String?, `contract`: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -201,8 +259,23 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
                 if (page != null) {
                     put("page", listOf(page.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -220,6 +293,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * Full detail for a single listing.
      * @param listingId 
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -229,8 +309,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareGetListingDetail(listingId: kotlin.Int, market: kotlin.String? = "it") : kotlin.Any {
-        val localVarResponse = immobiliareGetListingDetailWithHttpInfo(listingId = listingId, market = market)
+    fun immobiliareGetListingDetail(listingId: kotlin.Int, market: kotlin.String? = "it", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareGetListingDetailWithHttpInfo(listingId = listingId, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -252,14 +332,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * Full detail for a single listing.
      * @param listingId 
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareGetListingDetailWithHttpInfo(listingId: kotlin.Int, market: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareGetListingDetailRequestConfig(listingId = listingId, market = market)
+    fun immobiliareGetListingDetailWithHttpInfo(listingId: kotlin.Int, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareGetListingDetailRequestConfig(listingId = listingId, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -271,17 +358,39 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      *
      * @param listingId 
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareGetListingDetailRequestConfig(listingId: kotlin.Int, market: kotlin.String?) : RequestConfig<Unit> {
+    fun immobiliareGetListingDetailRequestConfig(listingId: kotlin.Int, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (market != null) {
                     put("market", listOf(market.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -433,6 +542,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
     /**
      * List filter enums
      * 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -442,8 +558,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareListFilterEnums() : kotlin.Any {
-        val localVarResponse = immobiliareListFilterEnumsWithHttpInfo()
+    fun immobiliareListFilterEnums(prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareListFilterEnumsWithHttpInfo(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -463,14 +579,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
     /**
      * List filter enums
      * 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareListFilterEnumsWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareListFilterEnumsRequestConfig()
+    fun immobiliareListFilterEnumsWithHttpInfo(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareListFilterEnumsRequestConfig(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -480,12 +603,36 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
     /**
      * To obtain the request config of the operation immobiliareListFilterEnums
      *
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareListFilterEnumsRequestConfig() : RequestConfig<Unit> {
+    fun immobiliareListFilterEnumsRequestConfig(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -501,6 +648,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
     /**
      * List markets
      * 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -510,8 +664,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareListMarkets() : kotlin.Any {
-        val localVarResponse = immobiliareListMarketsWithHttpInfo()
+    fun immobiliareListMarkets(prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareListMarketsWithHttpInfo(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -531,14 +685,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
     /**
      * List markets
      * 
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareListMarketsWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareListMarketsRequestConfig()
+    fun immobiliareListMarketsWithHttpInfo(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareListMarketsRequestConfig(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -548,12 +709,36 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
     /**
      * To obtain the request config of the operation immobiliareListMarkets
      *
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareListMarketsRequestConfig() : RequestConfig<Unit> {
+    fun immobiliareListMarketsRequestConfig(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -571,6 +756,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * Resolve a place name to region/province/city ids usable in search.
      * @param query Free-text place name, e.g. &#39;Milano&#39;
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -580,8 +772,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareLocationAutocomplete(query: kotlin.String, market: kotlin.String? = "it") : kotlin.Any {
-        val localVarResponse = immobiliareLocationAutocompleteWithHttpInfo(query = query, market = market)
+    fun immobiliareLocationAutocomplete(query: kotlin.String, market: kotlin.String? = "it", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareLocationAutocompleteWithHttpInfo(query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -603,14 +795,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * Resolve a place name to region/province/city ids usable in search.
      * @param query Free-text place name, e.g. &#39;Milano&#39;
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareLocationAutocompleteWithHttpInfo(query: kotlin.String, market: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareLocationAutocompleteRequestConfig(query = query, market = market)
+    fun immobiliareLocationAutocompleteWithHttpInfo(query: kotlin.String, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareLocationAutocompleteRequestConfig(query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -622,9 +821,16 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      *
      * @param query Free-text place name, e.g. &#39;Milano&#39;
      * @param market it | es | gr | lu (optional, default to "it")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareLocationAutocompleteRequestConfig(query: kotlin.String, market: kotlin.String?) : RequestConfig<Unit> {
+    fun immobiliareLocationAutocompleteRequestConfig(query: kotlin.String, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -632,8 +838,23 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
                 if (market != null) {
                     put("market", listOf(market.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -654,6 +875,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param provinceId Province id, e.g. &#39;MI&#39; (optional)
      * @param cityId City id (idComune) (optional)
      * @param `contract` sale | rent (optional, default to "sale")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -663,8 +891,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliarePriceMTimeSeries(regionId: kotlin.String, market: kotlin.String? = "it", provinceId: kotlin.String? = null, cityId: kotlin.String? = null, `contract`: kotlin.String? = "sale") : kotlin.Any {
-        val localVarResponse = immobiliarePriceMTimeSeriesWithHttpInfo(regionId = regionId, market = market, provinceId = provinceId, cityId = cityId, `contract` = `contract`)
+    fun immobiliarePriceMTimeSeries(regionId: kotlin.String, market: kotlin.String? = "it", provinceId: kotlin.String? = null, cityId: kotlin.String? = null, `contract`: kotlin.String? = "sale", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliarePriceMTimeSeriesWithHttpInfo(regionId = regionId, market = market, provinceId = provinceId, cityId = cityId, `contract` = `contract`, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -689,14 +917,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param provinceId Province id, e.g. &#39;MI&#39; (optional)
      * @param cityId City id (idComune) (optional)
      * @param `contract` sale | rent (optional, default to "sale")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliarePriceMTimeSeriesWithHttpInfo(regionId: kotlin.String, market: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliarePriceMTimeSeriesRequestConfig(regionId = regionId, market = market, provinceId = provinceId, cityId = cityId, `contract` = `contract`)
+    fun immobiliarePriceMTimeSeriesWithHttpInfo(regionId: kotlin.String, market: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliarePriceMTimeSeriesRequestConfig(regionId = regionId, market = market, provinceId = provinceId, cityId = cityId, `contract` = `contract`, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -711,9 +946,16 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param provinceId Province id, e.g. &#39;MI&#39; (optional)
      * @param cityId City id (idComune) (optional)
      * @param `contract` sale | rent (optional, default to "sale")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliarePriceMTimeSeriesRequestConfig(regionId: kotlin.String, market: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?) : RequestConfig<Unit> {
+    fun immobiliarePriceMTimeSeriesRequestConfig(regionId: kotlin.String, market: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -730,8 +972,23 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
                 if (`contract` != null) {
                     put("contract", listOf(`contract`.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -763,6 +1020,13 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param bathroomsMin  (optional)
      * @param sort see /reference (optional, default to "relevance")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -772,8 +1036,8 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun immobiliareSearchListings(market: kotlin.String? = "it", location: kotlin.String? = null, regionId: kotlin.String? = null, provinceId: kotlin.String? = null, cityId: kotlin.String? = null, `contract`: kotlin.String? = "sale", category: kotlin.String? = "residential", priceMin: kotlin.Int? = null, priceMax: kotlin.Int? = null, surfaceMin: kotlin.Int? = null, surfaceMax: kotlin.Int? = null, roomsMin: kotlin.Int? = null, roomsMax: kotlin.Int? = null, bathroomsMin: kotlin.Int? = null, sort: kotlin.String? = "relevance", page: kotlin.Int? = 1) : kotlin.Any {
-        val localVarResponse = immobiliareSearchListingsWithHttpInfo(market = market, location = location, regionId = regionId, provinceId = provinceId, cityId = cityId, `contract` = `contract`, category = category, priceMin = priceMin, priceMax = priceMax, surfaceMin = surfaceMin, surfaceMax = surfaceMax, roomsMin = roomsMin, roomsMax = roomsMax, bathroomsMin = bathroomsMin, sort = sort, page = page)
+    fun immobiliareSearchListings(market: kotlin.String? = "it", location: kotlin.String? = null, regionId: kotlin.String? = null, provinceId: kotlin.String? = null, cityId: kotlin.String? = null, `contract`: kotlin.String? = "sale", category: kotlin.String? = "residential", priceMin: kotlin.Int? = null, priceMax: kotlin.Int? = null, surfaceMin: kotlin.Int? = null, surfaceMax: kotlin.Int? = null, roomsMin: kotlin.Int? = null, roomsMax: kotlin.Int? = null, bathroomsMin: kotlin.Int? = null, sort: kotlin.String? = "relevance", page: kotlin.Int? = 1, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = immobiliareSearchListingsWithHttpInfo(market = market, location = location, regionId = regionId, provinceId = provinceId, cityId = cityId, `contract` = `contract`, category = category, priceMin = priceMin, priceMax = priceMax, surfaceMin = surfaceMin, surfaceMax = surfaceMax, roomsMin = roomsMin, roomsMax = roomsMax, bathroomsMin = bathroomsMin, sort = sort, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -809,14 +1073,21 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param bathroomsMin  (optional)
      * @param sort see /reference (optional, default to "relevance")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun immobiliareSearchListingsWithHttpInfo(market: kotlin.String?, location: kotlin.String?, regionId: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?, category: kotlin.String?, priceMin: kotlin.Int?, priceMax: kotlin.Int?, surfaceMin: kotlin.Int?, surfaceMax: kotlin.Int?, roomsMin: kotlin.Int?, roomsMax: kotlin.Int?, bathroomsMin: kotlin.Int?, sort: kotlin.String?, page: kotlin.Int?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = immobiliareSearchListingsRequestConfig(market = market, location = location, regionId = regionId, provinceId = provinceId, cityId = cityId, `contract` = `contract`, category = category, priceMin = priceMin, priceMax = priceMax, surfaceMin = surfaceMin, surfaceMax = surfaceMax, roomsMin = roomsMin, roomsMax = roomsMax, bathroomsMin = bathroomsMin, sort = sort, page = page)
+    fun immobiliareSearchListingsWithHttpInfo(market: kotlin.String?, location: kotlin.String?, regionId: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?, category: kotlin.String?, priceMin: kotlin.Int?, priceMax: kotlin.Int?, surfaceMin: kotlin.Int?, surfaceMax: kotlin.Int?, roomsMin: kotlin.Int?, roomsMax: kotlin.Int?, bathroomsMin: kotlin.Int?, sort: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = immobiliareSearchListingsRequestConfig(market = market, location = location, regionId = regionId, provinceId = provinceId, cityId = cityId, `contract` = `contract`, category = category, priceMin = priceMin, priceMax = priceMax, surfaceMin = surfaceMin, surfaceMax = surfaceMax, roomsMin = roomsMin, roomsMax = roomsMax, bathroomsMin = bathroomsMin, sort = sort, page = page, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -842,9 +1113,16 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
      * @param bathroomsMin  (optional)
      * @param sort see /reference (optional, default to "relevance")
      * @param page  (optional, default to 1)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun immobiliareSearchListingsRequestConfig(market: kotlin.String?, location: kotlin.String?, regionId: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?, category: kotlin.String?, priceMin: kotlin.Int?, priceMax: kotlin.Int?, surfaceMin: kotlin.Int?, surfaceMax: kotlin.Int?, roomsMin: kotlin.Int?, roomsMax: kotlin.Int?, bathroomsMin: kotlin.Int?, sort: kotlin.String?, page: kotlin.Int?) : RequestConfig<Unit> {
+    fun immobiliareSearchListingsRequestConfig(market: kotlin.String?, location: kotlin.String?, regionId: kotlin.String?, provinceId: kotlin.String?, cityId: kotlin.String?, `contract`: kotlin.String?, category: kotlin.String?, priceMin: kotlin.Int?, priceMax: kotlin.Int?, surfaceMin: kotlin.Int?, surfaceMax: kotlin.Int?, roomsMin: kotlin.Int?, roomsMax: kotlin.Int?, bathroomsMin: kotlin.Int?, sort: kotlin.String?, page: kotlin.Int?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -896,8 +1174,23 @@ class ImmobiliareApi(basePath: kotlin.String = defaultBasePath, client: Call.Fac
                 if (page != null) {
                     put("page", listOf(page.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(

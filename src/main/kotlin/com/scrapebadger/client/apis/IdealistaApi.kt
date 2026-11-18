@@ -19,6 +19,7 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.AsyncAccepted
 import com.scrapebadger.client.models.HTTPValidationError
 
 import com.squareup.moshi.Json
@@ -55,6 +56,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param page  (optional, default to 1)
      * @param maxItems  (optional, default to 30)
      * @param includeListings  (optional, default to true)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -64,8 +72,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaAgencyByPhone(phone: kotlin.String, market: kotlin.String? = "es", operation: kotlin.String? = null, propertyType: kotlin.String? = null, page: kotlin.Int? = 1, maxItems: kotlin.Int? = 30, includeListings: kotlin.Boolean? = true) : kotlin.Any {
-        val localVarResponse = idealistaAgencyByPhoneWithHttpInfo(phone = phone, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings)
+    fun idealistaAgencyByPhone(phone: kotlin.String, market: kotlin.String? = "es", operation: kotlin.String? = null, propertyType: kotlin.String? = null, page: kotlin.Int? = 1, maxItems: kotlin.Int? = 30, includeListings: kotlin.Boolean? = true, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaAgencyByPhoneWithHttpInfo(phone = phone, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -92,14 +100,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param page  (optional, default to 1)
      * @param maxItems  (optional, default to 30)
      * @param includeListings  (optional, default to true)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaAgencyByPhoneWithHttpInfo(phone: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaAgencyByPhoneRequestConfig(phone = phone, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings)
+    fun idealistaAgencyByPhoneWithHttpInfo(phone: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaAgencyByPhoneRequestConfig(phone = phone, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -116,9 +131,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param page  (optional, default to 1)
      * @param maxItems  (optional, default to 30)
      * @param includeListings  (optional, default to true)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaAgencyByPhoneRequestConfig(phone: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?) : RequestConfig<Unit> {
+    fun idealistaAgencyByPhoneRequestConfig(phone: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -140,8 +162,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (includeListings != null) {
                     put("include_listings", listOf(includeListings.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -164,6 +201,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param page  (optional, default to 1)
      * @param maxItems  (optional, default to 30)
      * @param includeListings  (optional, default to true)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -173,8 +217,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaAgencyProfileListings(shortName: kotlin.String, market: kotlin.String? = "es", operation: kotlin.String? = null, propertyType: kotlin.String? = null, page: kotlin.Int? = 1, maxItems: kotlin.Int? = 30, includeListings: kotlin.Boolean? = true) : kotlin.Any {
-        val localVarResponse = idealistaAgencyProfileListingsWithHttpInfo(shortName = shortName, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings)
+    fun idealistaAgencyProfileListings(shortName: kotlin.String, market: kotlin.String? = "es", operation: kotlin.String? = null, propertyType: kotlin.String? = null, page: kotlin.Int? = 1, maxItems: kotlin.Int? = 30, includeListings: kotlin.Boolean? = true, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaAgencyProfileListingsWithHttpInfo(shortName = shortName, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -201,14 +245,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param page  (optional, default to 1)
      * @param maxItems  (optional, default to 30)
      * @param includeListings  (optional, default to true)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaAgencyProfileListingsWithHttpInfo(shortName: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaAgencyProfileListingsRequestConfig(shortName = shortName, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings)
+    fun idealistaAgencyProfileListingsWithHttpInfo(shortName: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaAgencyProfileListingsRequestConfig(shortName = shortName, market = market, operation = operation, propertyType = propertyType, page = page, maxItems = maxItems, includeListings = includeListings, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -225,9 +276,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param page  (optional, default to 1)
      * @param maxItems  (optional, default to 30)
      * @param includeListings  (optional, default to true)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaAgencyProfileListingsRequestConfig(shortName: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?) : RequestConfig<Unit> {
+    fun idealistaAgencyProfileListingsRequestConfig(shortName: kotlin.String, market: kotlin.String?, operation: kotlin.String?, propertyType: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, includeListings: kotlin.Boolean?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -249,8 +307,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (includeListings != null) {
                     put("include_listings", listOf(includeListings.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -269,6 +342,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyCode 
      * @param market es|it|pt (optional, default to "es")
      * @param locale Language for stat labels (optional, default to "en")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -278,8 +358,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaGetListingEngagementStats(propertyCode: kotlin.String, market: kotlin.String? = "es", locale: kotlin.String? = "en") : kotlin.Any {
-        val localVarResponse = idealistaGetListingEngagementStatsWithHttpInfo(propertyCode = propertyCode, market = market, locale = locale)
+    fun idealistaGetListingEngagementStats(propertyCode: kotlin.String, market: kotlin.String? = "es", locale: kotlin.String? = "en", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaGetListingEngagementStatsWithHttpInfo(propertyCode = propertyCode, market = market, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -302,14 +382,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyCode 
      * @param market es|it|pt (optional, default to "es")
      * @param locale Language for stat labels (optional, default to "en")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaGetListingEngagementStatsWithHttpInfo(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaGetListingEngagementStatsRequestConfig(propertyCode = propertyCode, market = market, locale = locale)
+    fun idealistaGetListingEngagementStatsWithHttpInfo(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaGetListingEngagementStatsRequestConfig(propertyCode = propertyCode, market = market, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -322,9 +409,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyCode 
      * @param market es|it|pt (optional, default to "es")
      * @param locale Language for stat labels (optional, default to "en")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaGetListingEngagementStatsRequestConfig(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?) : RequestConfig<Unit> {
+    fun idealistaGetListingEngagementStatsRequestConfig(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -334,8 +428,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (locale != null) {
                     put("locale", listOf(locale.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -354,6 +463,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyCode 
      * @param market es|it|pt (optional, default to "es")
      * @param locale Response language (en, es, it, pt) (optional, default to "en")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -363,8 +479,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaGetPropertyDetail(propertyCode: kotlin.String, market: kotlin.String? = "es", locale: kotlin.String? = "en") : kotlin.Any {
-        val localVarResponse = idealistaGetPropertyDetailWithHttpInfo(propertyCode = propertyCode, market = market, locale = locale)
+    fun idealistaGetPropertyDetail(propertyCode: kotlin.String, market: kotlin.String? = "es", locale: kotlin.String? = "en", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaGetPropertyDetailWithHttpInfo(propertyCode = propertyCode, market = market, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -387,14 +503,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyCode 
      * @param market es|it|pt (optional, default to "es")
      * @param locale Response language (en, es, it, pt) (optional, default to "en")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaGetPropertyDetailWithHttpInfo(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaGetPropertyDetailRequestConfig(propertyCode = propertyCode, market = market, locale = locale)
+    fun idealistaGetPropertyDetailWithHttpInfo(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaGetPropertyDetailRequestConfig(propertyCode = propertyCode, market = market, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -407,9 +530,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyCode 
      * @param market es|it|pt (optional, default to "es")
      * @param locale Response language (en, es, it, pt) (optional, default to "en")
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaGetPropertyDetailRequestConfig(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?) : RequestConfig<Unit> {
+    fun idealistaGetPropertyDetailRequestConfig(propertyCode: kotlin.String, market: kotlin.String?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -419,8 +549,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (locale != null) {
                     put("locale", listOf(locale.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -572,6 +717,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
     /**
      * List markets
      * List supported Idealista markets (ES, IT, PT).
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -581,8 +733,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaListMarkets() : kotlin.Any {
-        val localVarResponse = idealistaListMarketsWithHttpInfo()
+    fun idealistaListMarkets(prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaListMarketsWithHttpInfo(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -602,14 +754,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
     /**
      * List markets
      * List supported Idealista markets (ES, IT, PT).
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaListMarketsWithHttpInfo() : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaListMarketsRequestConfig()
+    fun idealistaListMarketsWithHttpInfo(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaListMarketsRequestConfig(prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -619,12 +778,36 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
     /**
      * To obtain the request config of the operation idealistaListMarkets
      *
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaListMarketsRequestConfig() : RequestConfig<Unit> {
+    fun idealistaListMarketsRequestConfig(prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -645,6 +828,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyType homes|offices|premises|garages|newDevelopments|lands|storageRooms|buildings|bedrooms (optional, default to "homes")
      * @param market es|it|pt (optional, default to "es")
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -654,8 +844,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaResolveLocations(query: kotlin.String, operation: kotlin.String? = "sale", propertyType: kotlin.String? = "homes", market: kotlin.String? = "es", locale: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = idealistaResolveLocationsWithHttpInfo(query = query, operation = operation, propertyType = propertyType, market = market, locale = locale)
+    fun idealistaResolveLocations(query: kotlin.String, operation: kotlin.String? = "sale", propertyType: kotlin.String? = "homes", market: kotlin.String? = "es", locale: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaResolveLocationsWithHttpInfo(query = query, operation = operation, propertyType = propertyType, market = market, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -680,14 +870,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyType homes|offices|premises|garages|newDevelopments|lands|storageRooms|buildings|bedrooms (optional, default to "homes")
      * @param market es|it|pt (optional, default to "es")
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaResolveLocationsWithHttpInfo(query: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, locale: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaResolveLocationsRequestConfig(query = query, operation = operation, propertyType = propertyType, market = market, locale = locale)
+    fun idealistaResolveLocationsWithHttpInfo(query: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaResolveLocationsRequestConfig(query = query, operation = operation, propertyType = propertyType, market = market, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -702,9 +899,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param propertyType homes|offices|premises|garages|newDevelopments|lands|storageRooms|buildings|bedrooms (optional, default to "homes")
      * @param market es|it|pt (optional, default to "es")
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaResolveLocationsRequestConfig(query: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, locale: kotlin.String?) : RequestConfig<Unit> {
+    fun idealistaResolveLocationsRequestConfig(query: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -721,8 +925,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (locale != null) {
                     put("locale", listOf(locale.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -750,6 +969,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param minRooms  (optional)
      * @param maxRooms  (optional)
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -759,8 +985,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaSearchAllBeatsResultCap(location: kotlin.String, operation: kotlin.String? = "sale", propertyType: kotlin.String? = "homes", market: kotlin.String? = "es", maxResults: kotlin.Int? = 500, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, minSize: java.math.BigDecimal? = null, maxSize: java.math.BigDecimal? = null, minRooms: kotlin.Int? = null, maxRooms: kotlin.Int? = null, locale: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = idealistaSearchAllBeatsResultCapWithHttpInfo(location = location, operation = operation, propertyType = propertyType, market = market, maxResults = maxResults, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale)
+    fun idealistaSearchAllBeatsResultCap(location: kotlin.String, operation: kotlin.String? = "sale", propertyType: kotlin.String? = "homes", market: kotlin.String? = "es", maxResults: kotlin.Int? = 500, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, minSize: java.math.BigDecimal? = null, maxSize: java.math.BigDecimal? = null, minRooms: kotlin.Int? = null, maxRooms: kotlin.Int? = null, locale: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaSearchAllBeatsResultCapWithHttpInfo(location = location, operation = operation, propertyType = propertyType, market = market, maxResults = maxResults, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -792,14 +1018,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param minRooms  (optional)
      * @param maxRooms  (optional)
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaSearchAllBeatsResultCapWithHttpInfo(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, maxResults: kotlin.Int?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaSearchAllBeatsResultCapRequestConfig(location = location, operation = operation, propertyType = propertyType, market = market, maxResults = maxResults, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale)
+    fun idealistaSearchAllBeatsResultCapWithHttpInfo(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, maxResults: kotlin.Int?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaSearchAllBeatsResultCapRequestConfig(location = location, operation = operation, propertyType = propertyType, market = market, maxResults = maxResults, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -821,9 +1054,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param minRooms  (optional)
      * @param maxRooms  (optional)
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaSearchAllBeatsResultCapRequestConfig(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, maxResults: kotlin.Int?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?) : RequestConfig<Unit> {
+    fun idealistaSearchAllBeatsResultCapRequestConfig(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, maxResults: kotlin.Int?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -861,8 +1101,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (locale != null) {
                     put("locale", listOf(locale.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
@@ -893,6 +1148,13 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param minRooms  (optional)
      * @param maxRooms  (optional)
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -902,8 +1164,8 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun idealistaSearchListings(location: kotlin.String, operation: kotlin.String? = "sale", propertyType: kotlin.String? = "homes", market: kotlin.String? = "es", page: kotlin.Int? = 1, maxItems: kotlin.Int? = 30, sortBy: kotlin.String? = null, sortOrder: kotlin.String? = "desc", minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, minSize: java.math.BigDecimal? = null, maxSize: java.math.BigDecimal? = null, minRooms: kotlin.Int? = null, maxRooms: kotlin.Int? = null, locale: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = idealistaSearchListingsWithHttpInfo(location = location, operation = operation, propertyType = propertyType, market = market, page = page, maxItems = maxItems, sortBy = sortBy, sortOrder = sortOrder, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale)
+    fun idealistaSearchListings(location: kotlin.String, operation: kotlin.String? = "sale", propertyType: kotlin.String? = "homes", market: kotlin.String? = "es", page: kotlin.Int? = 1, maxItems: kotlin.Int? = 30, sortBy: kotlin.String? = null, sortOrder: kotlin.String? = "desc", minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, minSize: java.math.BigDecimal? = null, maxSize: java.math.BigDecimal? = null, minRooms: kotlin.Int? = null, maxRooms: kotlin.Int? = null, locale: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = idealistaSearchListingsWithHttpInfo(location = location, operation = operation, propertyType = propertyType, market = market, page = page, maxItems = maxItems, sortBy = sortBy, sortOrder = sortOrder, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -938,14 +1200,21 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param minRooms  (optional)
      * @param maxRooms  (optional)
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun idealistaSearchListingsWithHttpInfo(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, sortBy: kotlin.String?, sortOrder: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = idealistaSearchListingsRequestConfig(location = location, operation = operation, propertyType = propertyType, market = market, page = page, maxItems = maxItems, sortBy = sortBy, sortOrder = sortOrder, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale)
+    fun idealistaSearchListingsWithHttpInfo(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, sortBy: kotlin.String?, sortOrder: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = idealistaSearchListingsRequestConfig(location = location, operation = operation, propertyType = propertyType, market = market, page = page, maxItems = maxItems, sortBy = sortBy, sortOrder = sortOrder, minPrice = minPrice, maxPrice = maxPrice, minSize = minSize, maxSize = maxSize, minRooms = minRooms, maxRooms = maxRooms, locale = locale, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -970,9 +1239,16 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
      * @param minRooms  (optional)
      * @param maxRooms  (optional)
      * @param locale Response language (en, es, it, pt) (optional)
+     * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
+     * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
+     * @param idempotencyKey 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call&#39;s current state (&#x60;Idempotent-Replayed: true&#x60;) without running or billing it again; on a different call it is &#x60;409 idempotency_key_reused&#x60;. Applies to async calls only; on a synchronous call it is ignored. Wins over &#x60;idempotency_key&#x60;. (optional)
+     * @param async Query form of &#x60;Prefer: respond-async&#x60;: &#x60;true&#x60; or &#x60;1&#x60; (also &#x60;yes&#x60;, &#x60;on&#x60;; &#x60;false&#x60;, &#x60;0&#x60;, &#x60;no&#x60;, &#x60;off&#x60; leave the call synchronous). Waits 25 s unless &#x60;async_wait&#x60; is given. Not sent to the scraper. (optional)
+     * @param asyncWait Seconds (0-120; values outside are clamped) to wait for the result before answering &#x60;202&#x60;. Implies async. Not sent to the scraper. (optional)
+     * @param callbackUrl Query form of &#x60;X-Callback-URL&#x60; (URL-encode it). Implies async; on its own the answer is an immediate &#x60;202&#x60; (wait 0). Not sent to the scraper. (optional)
+     * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun idealistaSearchListingsRequestConfig(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, sortBy: kotlin.String?, sortOrder: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?) : RequestConfig<Unit> {
+    fun idealistaSearchListingsRequestConfig(location: kotlin.String, operation: kotlin.String?, propertyType: kotlin.String?, market: kotlin.String?, page: kotlin.Int?, maxItems: kotlin.Int?, sortBy: kotlin.String?, sortOrder: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, minSize: java.math.BigDecimal?, maxSize: java.math.BigDecimal?, minRooms: kotlin.Int?, maxRooms: kotlin.Int?, locale: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1019,8 +1295,23 @@ class IdealistaApi(basePath: kotlin.String = defaultBasePath, client: Call.Facto
                 if (locale != null) {
                     put("locale", listOf(locale.toString()))
                 }
+                if (async != null) {
+                    put("async", listOf(async.toString()))
+                }
+                if (asyncWait != null) {
+                    put("async_wait", listOf(asyncWait.toString()))
+                }
+                if (callbackUrl != null) {
+                    put("callback_url", listOf(callbackUrl.toString()))
+                }
+                if (idempotencyKey2 != null) {
+                    put("idempotency_key", listOf(idempotencyKey2.toString()))
+                }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        prefer?.apply { localVariableHeaders["Prefer"] = this.toString() }
+        xCallbackURL?.apply { localVariableHeaders["X-Callback-URL"] = this.toString() }
+        idempotencyKey?.apply { localVariableHeaders["Idempotency-Key"] = this.toString() }
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(

@@ -7,6 +7,7 @@ All URIs are relative to *https://scrapebadger.com*
 | [**accountGetAccountInfo**](AccountApi.md#accountGetAccountInfo) | **GET** /v1/account/me | Get account info |
 | [**accountGetTheWebhookSigningSecret**](AccountApi.md#accountGetTheWebhookSigningSecret) | **GET** /v1/account/webhook-secret | Get the webhook signing secret |
 | [**accountRotateTheWebhookSigningSecret**](AccountApi.md#accountRotateTheWebhookSigningSecret) | **POST** /v1/account/webhook-secret/rotate | Rotate the webhook signing secret |
+| [**accountWebhookDeliveries**](AccountApi.md#accountWebhookDeliveries) | **GET** /v1/account/webhook-deliveries | Webhook deliveries |
 
 
 <a id="accountGetAccountInfo"></a>
@@ -134,6 +135,55 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**WebhookSecret**](WebhookSecret.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["X-API-Key"] = ""
+    ApiClient.apiKeyPrefix["X-API-Key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="accountWebhookDeliveries"></a>
+# **accountWebhookDeliveries**
+> WebhookDeliveries accountWebhookDeliveries(limit)
+
+Webhook deliveries
+
+This account&#39;s async-request webhook deliveries of the last 24 h, newest first. Free. Needs a full-access API key, like the webhook secret: a trial key gets &#x60;403 trial_not_allowed&#x60;, a key restricted to some APIs &#x60;403 full_access_required&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import com.scrapebadger.client.infrastructure.*
+//import com.scrapebadger.client.models.*
+
+val apiInstance = AccountApi()
+val limit : kotlin.Int = 56 // kotlin.Int | How many deliveries to return (1-200).
+try {
+    val result : WebhookDeliveries = apiInstance.accountWebhookDeliveries(limit)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountApi#accountWebhookDeliveries")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountApi#accountWebhookDeliveries")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **limit** | **kotlin.Int**| How many deliveries to return (1-200). | [optional] [default to 50] |
+
+### Return type
+
+[**WebhookDeliveries**](WebhookDeliveries.md)
 
 ### Authorization
 

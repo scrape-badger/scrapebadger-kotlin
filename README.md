@@ -108,6 +108,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *AccountApi* | [**accountGetAccountInfo**](docs/AccountApi.md#accountgetaccountinfo) | **GET** /v1/account/me | Get account info |
 | *AccountApi* | [**accountGetTheWebhookSigningSecret**](docs/AccountApi.md#accountgetthewebhooksigningsecret) | **GET** /v1/account/webhook-secret | Get the webhook signing secret |
 | *AccountApi* | [**accountRotateTheWebhookSigningSecret**](docs/AccountApi.md#accountrotatethewebhooksigningsecret) | **POST** /v1/account/webhook-secret/rotate | Rotate the webhook signing secret |
+| *AccountApi* | [**accountWebhookDeliveries**](docs/AccountApi.md#accountwebhookdeliveries) | **GET** /v1/account/webhook-deliveries | Webhook deliveries |
 | *AirbnbApi* | [**airbnbAirbnbScraperHealthCheck**](docs/AirbnbApi.md#airbnbairbnbscraperhealthcheck) | **GET** /v1/airbnb/health | Airbnb scraper health check |
 | *AirbnbApi* | [**airbnbAirbnbScraperHealthCheckHead**](docs/AirbnbApi.md#airbnbairbnbscraperhealthcheckhead) | **HEAD** /v1/airbnb/health | Airbnb scraper health check |
 | *AirbnbApi* | [**airbnbGetAvailabilityCalendar**](docs/AirbnbApi.md#airbnbgetavailabilitycalendar) | **GET** /v1/airbnb/listings/{room_id}/calendar | Get availability calendar |
@@ -486,6 +487,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *RedfinApi* | [**redfinRedfinScraperHealthCheckHead**](docs/RedfinApi.md#redfinredfinscraperhealthcheckhead) | **HEAD** /v1/redfin/health | Redfin scraper health check |
 | *RedfinApi* | [**redfinRegionAddressSuggestions**](docs/RedfinApi.md#redfinregionaddresssuggestions) | **GET** /v1/redfin/autocomplete | Region/address suggestions |
 | *RedfinApi* | [**redfinSearchProperties**](docs/RedfinApi.md#redfinsearchproperties) | **GET** /v1/redfin/search | Search properties |
+| *RequestsApi* | [**requestsCallbackStatus**](docs/RequestsApi.md#requestscallbackstatus) | **GET** /v1/requests/{request_id}/callback | Callback status |
 | *RequestsApi* | [**requestsPollAnAsyncRequest**](docs/RequestsApi.md#requestspollanasyncrequest) | **GET** /v1/requests/{request_id} | Poll an async request |
 | *ResultsApi* | [**resultsReReadAResultRemoved**](docs/ResultsApi.md#resultsrereadaresultremoved) | **GET** /v1/results/{result_id} | Re-read a result (removed) |
 | *RufusApi* | [**rufusAmazonRufusScraperHealthCheck**](docs/RufusApi.md#rufusamazonrufusscraperhealthcheck) | **GET** /v1/rufus/health | Amazon Rufus scraper health check |
@@ -713,9 +715,13 @@ All URIs are relative to *https://scrapebadger.com*
 ## Documentation for Models
 
  - [com.scrapebadger.client.models.AccountInfo](docs/AccountInfo.md)
+ - [com.scrapebadger.client.models.AccountWebhookDeliveries403Response](docs/AccountWebhookDeliveries403Response.md)
  - [com.scrapebadger.client.models.Age](docs/Age.md)
  - [com.scrapebadger.client.models.AgentTrialInfo](docs/AgentTrialInfo.md)
  - [com.scrapebadger.client.models.Article](docs/Article.md)
+ - [com.scrapebadger.client.models.AsyncAccepted](docs/AsyncAccepted.md)
+ - [com.scrapebadger.client.models.AsyncAcceptedNextAction](docs/AsyncAcceptedNextAction.md)
+ - [com.scrapebadger.client.models.AsyncCallbackStatus](docs/AsyncCallbackStatus.md)
  - [com.scrapebadger.client.models.AutoScout24FiltersResponse](docs/AutoScout24FiltersResponse.md)
  - [com.scrapebadger.client.models.AutoScout24Listing](docs/AutoScout24Listing.md)
  - [com.scrapebadger.client.models.AutoScout24ListingDetail](docs/AutoScout24ListingDetail.md)
@@ -877,6 +883,9 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.VintedUserProfile](docs/VintedUserProfile.md)
  - [com.scrapebadger.client.models.VintedUserSummary](docs/VintedUserSummary.md)
  - [com.scrapebadger.client.models.WebhookCreate](docs/WebhookCreate.md)
+ - [com.scrapebadger.client.models.WebhookDeliveries](docs/WebhookDeliveries.md)
+ - [com.scrapebadger.client.models.WebhookDelivery](docs/WebhookDelivery.md)
+ - [com.scrapebadger.client.models.WebhookEvent](docs/WebhookEvent.md)
  - [com.scrapebadger.client.models.WebhookListItem](docs/WebhookListItem.md)
  - [com.scrapebadger.client.models.WebhookListResponse](docs/WebhookListResponse.md)
  - [com.scrapebadger.client.models.WebhookResponse](docs/WebhookResponse.md)

@@ -20,6 +20,8 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 
 import com.scrapebadger.client.models.AccountInfo
+import com.scrapebadger.client.models.AccountWebhookDeliveries403Response
+import com.scrapebadger.client.models.WebhookDeliveries
 import com.scrapebadger.client.models.WebhookSecret
 
 import com.squareup.moshi.Json
@@ -243,6 +245,82 @@ class AccountApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/account/webhook-secret/rotate",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * Webhook deliveries
+     * This account&#39;s async-request webhook deliveries of the last 24 h, newest first. Free. Needs a full-access API key, like the webhook secret: a trial key gets &#x60;403 trial_not_allowed&#x60;, a key restricted to some APIs &#x60;403 full_access_required&#x60;.
+     * @param limit How many deliveries to return (1-200). (optional, default to 50)
+     * @return WebhookDeliveries
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun accountWebhookDeliveries(limit: kotlin.Int? = 50) : WebhookDeliveries {
+        val localVarResponse = accountWebhookDeliveriesWithHttpInfo(limit = limit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as WebhookDeliveries
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Webhook deliveries
+     * This account&#39;s async-request webhook deliveries of the last 24 h, newest first. Free. Needs a full-access API key, like the webhook secret: a trial key gets &#x60;403 trial_not_allowed&#x60;, a key restricted to some APIs &#x60;403 full_access_required&#x60;.
+     * @param limit How many deliveries to return (1-200). (optional, default to 50)
+     * @return ApiResponse<WebhookDeliveries?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun accountWebhookDeliveriesWithHttpInfo(limit: kotlin.Int?) : ApiResponse<WebhookDeliveries?> {
+        val localVariableConfig = accountWebhookDeliveriesRequestConfig(limit = limit)
+
+        return request<Unit, WebhookDeliveries>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation accountWebhookDeliveries
+     *
+     * @param limit How many deliveries to return (1-200). (optional, default to 50)
+     * @return RequestConfig
+     */
+    fun accountWebhookDeliveriesRequestConfig(limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/account/webhook-deliveries",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,

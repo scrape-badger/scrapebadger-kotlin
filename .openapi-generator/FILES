@@ -4,6 +4,7 @@ build.gradle
 docs/ASOSApi.md
 docs/AccountApi.md
 docs/AccountInfo.md
+docs/AccountWebhookDeliveries403Response.md
 docs/Age.md
 docs/AgentTrialInfo.md
 docs/AirbnbApi.md
@@ -12,6 +13,9 @@ docs/AmazonApi.md
 docs/ApartmentsApi.md
 docs/AppStoreApi.md
 docs/Article.md
+docs/AsyncAccepted.md
+docs/AsyncAcceptedNextAction.md
+docs/AsyncCallbackStatus.md
 docs/AutoScout24Api.md
 docs/AutoScout24FiltersResponse.md
 docs/AutoScout24Listing.md
@@ -217,6 +221,9 @@ docs/WallapopApi.md
 docs/WalmartApi.md
 docs/WebApi.md
 docs/WebhookCreate.md
+docs/WebhookDeliveries.md
+docs/WebhookDelivery.md
+docs/WebhookEvent.md
 docs/WebhookListItem.md
 docs/WebhookListResponse.md
 docs/WebhookResponse.md
@@ -317,9 +324,13 @@ src/main/kotlin/com/scrapebadger/client/infrastructure/Serializer.kt
 src/main/kotlin/com/scrapebadger/client/infrastructure/URIAdapter.kt
 src/main/kotlin/com/scrapebadger/client/infrastructure/UUIDAdapter.kt
 src/main/kotlin/com/scrapebadger/client/models/AccountInfo.kt
+src/main/kotlin/com/scrapebadger/client/models/AccountWebhookDeliveries403Response.kt
 src/main/kotlin/com/scrapebadger/client/models/Age.kt
 src/main/kotlin/com/scrapebadger/client/models/AgentTrialInfo.kt
 src/main/kotlin/com/scrapebadger/client/models/Article.kt
+src/main/kotlin/com/scrapebadger/client/models/AsyncAccepted.kt
+src/main/kotlin/com/scrapebadger/client/models/AsyncAcceptedNextAction.kt
+src/main/kotlin/com/scrapebadger/client/models/AsyncCallbackStatus.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24FiltersResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24Listing.kt
 src/main/kotlin/com/scrapebadger/client/models/AutoScout24ListingDetail.kt
@@ -481,6 +492,9 @@ src/main/kotlin/com/scrapebadger/client/models/VintedStatus.kt
 src/main/kotlin/com/scrapebadger/client/models/VintedUserProfile.kt
 src/main/kotlin/com/scrapebadger/client/models/VintedUserSummary.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookCreate.kt
+src/main/kotlin/com/scrapebadger/client/models/WebhookDeliveries.kt
+src/main/kotlin/com/scrapebadger/client/models/WebhookDelivery.kt
+src/main/kotlin/com/scrapebadger/client/models/WebhookEvent.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookListItem.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookListResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/WebhookResponse.kt
@@ -554,9 +568,13 @@ src/test/kotlin/com/scrapebadger/client/apis/YelpApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/YouTubeApiTest.kt
 src/test/kotlin/com/scrapebadger/client/apis/ZillowApiTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AccountInfoTest.kt
+src/test/kotlin/com/scrapebadger/client/models/AccountWebhookDeliveries403ResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AgeTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AgentTrialInfoTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ArticleTest.kt
+src/test/kotlin/com/scrapebadger/client/models/AsyncAcceptedNextActionTest.kt
+src/test/kotlin/com/scrapebadger/client/models/AsyncAcceptedTest.kt
+src/test/kotlin/com/scrapebadger/client/models/AsyncCallbackStatusTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24FiltersResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24ListingDetailTest.kt
 src/test/kotlin/com/scrapebadger/client/models/AutoScout24ListingResponseTest.kt
@@ -718,6 +736,9 @@ src/test/kotlin/com/scrapebadger/client/models/VintedStatusTest.kt
 src/test/kotlin/com/scrapebadger/client/models/VintedUserProfileTest.kt
 src/test/kotlin/com/scrapebadger/client/models/VintedUserSummaryTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookCreateTest.kt
+src/test/kotlin/com/scrapebadger/client/models/WebhookDeliveriesTest.kt
+src/test/kotlin/com/scrapebadger/client/models/WebhookDeliveryTest.kt
+src/test/kotlin/com/scrapebadger/client/models/WebhookEventTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookListItemTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookListResponseTest.kt
 src/test/kotlin/com/scrapebadger/client/models/WebhookResponseTest.kt

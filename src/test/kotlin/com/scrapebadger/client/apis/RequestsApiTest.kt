@@ -19,12 +19,23 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.RequestsApi
+import com.scrapebadger.client.models.AccountWebhookDeliveries403Response
+import com.scrapebadger.client.models.AsyncAccepted
+import com.scrapebadger.client.models.AsyncCallbackStatus
 import com.scrapebadger.client.models.HTTPValidationError
 
 class RequestsApiTest : ShouldSpec() {
     init {
         // uncomment below to create an instance of RequestsApi
         //val apiInstance = RequestsApi()
+
+        // to test requestsCallbackStatus
+        should("test requestsCallbackStatus") {
+            // uncomment below to test requestsCallbackStatus
+            //val requestId : kotlin.String = requestId_example // kotlin.String | 
+            //val result : AsyncCallbackStatus = apiInstance.requestsCallbackStatus(requestId)
+            //result shouldBe ("TODO")
+        }
 
         // to test requestsPollAnAsyncRequest
         should("test requestsPollAnAsyncRequest") {

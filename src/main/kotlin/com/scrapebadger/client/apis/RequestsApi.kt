@@ -19,6 +19,9 @@ import java.io.IOException
 import okhttp3.Call
 import okhttp3.HttpUrl
 
+import com.scrapebadger.client.models.AccountWebhookDeliveries403Response
+import com.scrapebadger.client.models.AsyncAccepted
+import com.scrapebadger.client.models.AsyncCallbackStatus
 import com.scrapebadger.client.models.HTTPValidationError
 
 import com.squareup.moshi.Json
@@ -46,8 +49,79 @@ class RequestsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     }
 
     /**
+     * Callback status
+     * Webhook delivery state of a call submitted with &#x60;X-Callback-URL&#x60; / &#x60;callback_url&#x60;: kept for 24 h. Free. &#x60;404 callback_not_found&#x60; for a request without a callback, of another account, or older than 24 h.
+     * @param requestId 
+     * @return AsyncCallbackStatus
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun requestsCallbackStatus(requestId: kotlin.String) : AsyncCallbackStatus {
+        val localVarResponse = requestsCallbackStatusWithHttpInfo(requestId = requestId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AsyncCallbackStatus
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Callback status
+     * Webhook delivery state of a call submitted with &#x60;X-Callback-URL&#x60; / &#x60;callback_url&#x60;: kept for 24 h. Free. &#x60;404 callback_not_found&#x60; for a request without a callback, of another account, or older than 24 h.
+     * @param requestId 
+     * @return ApiResponse<AsyncCallbackStatus?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun requestsCallbackStatusWithHttpInfo(requestId: kotlin.String) : ApiResponse<AsyncCallbackStatus?> {
+        val localVariableConfig = requestsCallbackStatusRequestConfig(requestId = requestId)
+
+        return request<Unit, AsyncCallbackStatus>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation requestsCallbackStatus
+     *
+     * @param requestId 
+     * @return RequestConfig
+     */
+    fun requestsCallbackStatusRequestConfig(requestId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/requests/{request_id}/callback".replace("{"+"request_id"+"}", encodeURIComponent(requestId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Poll an async request
-     * Status or final response of a call made with &#x60;&#x60;Prefer: respond-async&#x60;&#x60;. While it runs: 202. When done: the original status, headers and body.
+     * Status or final response of a call made with &#x60;&#x60;Prefer: respond-async&#x60;&#x60;. While it runs: 202. When done: the original status, headers and body.  The final response carries &#x60;X-Callback-Status&#x60;, &#x60;X-Callback-Attempts&#x60; and &#x60;X-Callback-Error&#x60; for a call submitted with a callback; while it runs, the &#x60;202&#x60; body has a &#x60;callback&#x60; object. Full delivery state: &#x60;GET /v1/requests/{request_id}/callback&#x60;.
      * @param requestId 
      * @return kotlin.Any
      * @throws IllegalStateException If the request is not correctly configured
@@ -78,7 +152,7 @@ class RequestsApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Poll an async request
-     * Status or final response of a call made with &#x60;&#x60;Prefer: respond-async&#x60;&#x60;. While it runs: 202. When done: the original status, headers and body.
+     * Status or final response of a call made with &#x60;&#x60;Prefer: respond-async&#x60;&#x60;. While it runs: 202. When done: the original status, headers and body.  The final response carries &#x60;X-Callback-Status&#x60;, &#x60;X-Callback-Attempts&#x60; and &#x60;X-Callback-Error&#x60; for a call submitted with a callback; while it runs, the &#x60;202&#x60; body has a &#x60;callback&#x60; object. Full delivery state: &#x60;GET /v1/requests/{request_id}/callback&#x60;.
      * @param requestId 
      * @return ApiResponse<kotlin.Any?>
      * @throws IllegalStateException If the request is not correctly configured
