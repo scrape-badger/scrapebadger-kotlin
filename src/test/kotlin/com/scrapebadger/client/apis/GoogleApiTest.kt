@@ -20,6 +20,8 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.scrapebadger.client.apis.GoogleApi
 import com.scrapebadger.client.models.AsyncAccepted
+import com.scrapebadger.client.models.GoogleResolveRequest
+import com.scrapebadger.client.models.GoogleResolveResponse
 import com.scrapebadger.client.models.HTTPValidationError
 
 class GoogleApiTest : ShouldSpec() {
@@ -596,6 +598,14 @@ class GoogleApiTest : ShouldSpec() {
             //val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
             //val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
             //val result : kotlin.Any = apiInstance.googleRelatedTopicsQueries(q, geo, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+            //result shouldBe ("TODO")
+        }
+
+        // to test googleResolve
+        should("test googleResolve") {
+            // uncomment below to test googleResolve
+            //val googleResolveRequest : GoogleResolveRequest =  // GoogleResolveRequest | 
+            //val result : GoogleResolveResponse = apiInstance.googleResolve(googleResolveRequest)
             //result shouldBe ("TODO")
         }
 

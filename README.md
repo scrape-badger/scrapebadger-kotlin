@@ -309,6 +309,7 @@ All URIs are relative to *https://scrapebadger.com*
 | *GoogleApi* | [**googleNewsByTopic**](docs/GoogleApi.md#googlenewsbytopic) | **GET** /v1/google/news/topics | News by topic |
 | *GoogleApi* | [**googlePatentDetails**](docs/GoogleApi.md#googlepatentdetails) | **GET** /v1/google/patents/detail | Patent details |
 | *GoogleApi* | [**googleRelatedTopicsQueries**](docs/GoogleApi.md#googlerelatedtopicsqueries) | **GET** /v1/google/trends/related | Related topics & queries |
+| *GoogleApi* | [**googleResolve**](docs/GoogleApi.md#googleresolve) | **POST** /v1/google/resolve | Resolve |
 | *GoogleApi* | [**googleSearchGoogleImages**](docs/GoogleApi.md#googlesearchgoogleimages) | **GET** /v1/google/images/search | Search Google Images |
 | *GoogleApi* | [**googleSearchGoogleJobs**](docs/GoogleApi.md#googlesearchgooglejobs) | **GET** /v1/google/jobs/search | Search Google Jobs |
 | *GoogleApi* | [**googleSearchGoogleMapsPlaces**](docs/GoogleApi.md#googlesearchgooglemapsplaces) | **GET** /v1/google/maps/search | Search Google Maps places |
@@ -805,6 +806,10 @@ All URIs are relative to *https://scrapebadger.com*
  - [com.scrapebadger.client.models.GitHubSocialAccount](docs/GitHubSocialAccount.md)
  - [com.scrapebadger.client.models.GitHubStatus](docs/GitHubStatus.md)
  - [com.scrapebadger.client.models.GitHubTextLink](docs/GitHubTextLink.md)
+ - [com.scrapebadger.client.models.GoogleResolveItem](docs/GoogleResolveItem.md)
+ - [com.scrapebadger.client.models.GoogleResolveRequest](docs/GoogleResolveRequest.md)
+ - [com.scrapebadger.client.models.GoogleResolveResponse](docs/GoogleResolveResponse.md)
+ - [com.scrapebadger.client.models.GoogleResolveRow](docs/GoogleResolveRow.md)
  - [com.scrapebadger.client.models.HTTPValidationError](docs/HTTPValidationError.md)
  - [com.scrapebadger.client.models.Imageurl](docs/Imageurl.md)
  - [com.scrapebadger.client.models.IsLive](docs/IsLive.md)

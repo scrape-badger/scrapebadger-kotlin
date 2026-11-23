@@ -118,6 +118,10 @@ docs/GitHubStatus.md
 docs/GitHubTextLink.md
 docs/GoogleApi.md
 docs/GooglePlayApi.md
+docs/GoogleResolveItem.md
+docs/GoogleResolveRequest.md
+docs/GoogleResolveResponse.md
+docs/GoogleResolveRow.md
 docs/GrokApi.md
 docs/GumtreeApi.md
 docs/HTTPValidationError.md
@@ -414,6 +418,10 @@ src/main/kotlin/com/scrapebadger/client/models/GitHubRepositoryResponse.kt
 src/main/kotlin/com/scrapebadger/client/models/GitHubSocialAccount.kt
 src/main/kotlin/com/scrapebadger/client/models/GitHubStatus.kt
 src/main/kotlin/com/scrapebadger/client/models/GitHubTextLink.kt
+src/main/kotlin/com/scrapebadger/client/models/GoogleResolveItem.kt
+src/main/kotlin/com/scrapebadger/client/models/GoogleResolveRequest.kt
+src/main/kotlin/com/scrapebadger/client/models/GoogleResolveResponse.kt
+src/main/kotlin/com/scrapebadger/client/models/GoogleResolveRow.kt
 src/main/kotlin/com/scrapebadger/client/models/HTTPValidationError.kt
 src/main/kotlin/com/scrapebadger/client/models/Imageurl.kt
 src/main/kotlin/com/scrapebadger/client/models/IsLive.kt
@@ -658,6 +666,10 @@ src/test/kotlin/com/scrapebadger/client/models/GitHubRepositoryTest.kt
 src/test/kotlin/com/scrapebadger/client/models/GitHubSocialAccountTest.kt
 src/test/kotlin/com/scrapebadger/client/models/GitHubStatusTest.kt
 src/test/kotlin/com/scrapebadger/client/models/GitHubTextLinkTest.kt
+src/test/kotlin/com/scrapebadger/client/models/GoogleResolveItemTest.kt
+src/test/kotlin/com/scrapebadger/client/models/GoogleResolveRequestTest.kt
+src/test/kotlin/com/scrapebadger/client/models/GoogleResolveResponseTest.kt
+src/test/kotlin/com/scrapebadger/client/models/GoogleResolveRowTest.kt
 src/test/kotlin/com/scrapebadger/client/models/HTTPValidationErrorTest.kt
 src/test/kotlin/com/scrapebadger/client/models/ImageurlTest.kt
 src/test/kotlin/com/scrapebadger/client/models/IsLiveTest.kt
