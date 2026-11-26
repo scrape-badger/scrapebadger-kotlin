@@ -427,7 +427,7 @@ Long option lists (e.g. brand, model) for filters flagged options_endpoint.
 val apiInstance = WallapopApi()
 val filterId : kotlin.String = filterId_example // kotlin.String | 
 val categoryId : kotlin.Int = 56 // kotlin.Int | Category to scope options to
-val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids to scope options to
+val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids (needs their category_id)
 val query : kotlin.String = query_example // kotlin.String | Search text to scope options to
 val market : kotlin.String = market_example // kotlin.String | Market: es (Spain), it (Italy), pt (Portugal)
 val prefer : kotlin.String = respond-async, wait=25 // kotlin.String | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait.
@@ -452,7 +452,7 @@ try {
 ### Parameters
 | **filterId** | **kotlin.String**|  | |
 | **categoryId** | **kotlin.Int**| Category to scope options to | [optional] |
-| **subcategoryIds** | **kotlin.String**| Comma-separated subcategory ids to scope options to | [optional] |
+| **subcategoryIds** | **kotlin.String**| Comma-separated subcategory ids (needs their category_id) | [optional] |
 | **query** | **kotlin.String**| Search text to scope options to | [optional] |
 | **market** | **kotlin.String**| Market: es (Spain), it (Italy), pt (Portugal) | [optional] [default to &quot;es&quot;] |
 | **prefer** | **kotlin.String**| &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. | [optional] |
@@ -558,7 +558,7 @@ The filters Wallapop offers for a category or query, with option ids.
 
 val apiInstance = WallapopApi()
 val categoryId : kotlin.Int = 56 // kotlin.Int | Category the filters apply to
-val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids the filters apply to
+val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids (needs their category_id)
 val query : kotlin.String = query_example // kotlin.String | Search text the filters apply to
 val market : kotlin.String = market_example // kotlin.String | Market: es (Spain), it (Italy), pt (Portugal)
 val prefer : kotlin.String = respond-async, wait=25 // kotlin.String | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait.
@@ -582,7 +582,7 @@ try {
 
 ### Parameters
 | **categoryId** | **kotlin.Int**| Category the filters apply to | [optional] |
-| **subcategoryIds** | **kotlin.String**| Comma-separated subcategory ids the filters apply to | [optional] |
+| **subcategoryIds** | **kotlin.String**| Comma-separated subcategory ids (needs their category_id) | [optional] |
 | **query** | **kotlin.String**| Search text the filters apply to | [optional] |
 | **market** | **kotlin.String**| Market: es (Spain), it (Italy), pt (Portugal) | [optional] [default to &quot;es&quot;] |
 | **prefer** | **kotlin.String**| &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. | [optional] |

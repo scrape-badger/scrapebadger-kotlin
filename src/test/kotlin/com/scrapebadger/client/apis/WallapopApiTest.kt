@@ -129,7 +129,7 @@ class WallapopApiTest : ShouldSpec() {
             // uncomment below to test wallapopListFilterOptions
             //val filterId : kotlin.String = filterId_example // kotlin.String | 
             //val categoryId : kotlin.Int = 56 // kotlin.Int | Category to scope options to
-            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids to scope options to
+            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids (needs their category_id)
             //val query : kotlin.String = query_example // kotlin.String | Search text to scope options to
             //val market : kotlin.String = market_example // kotlin.String | Market: es (Spain), it (Italy), pt (Portugal)
             //val prefer : kotlin.String = respond-async, wait=25 // kotlin.String | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait.
@@ -161,7 +161,7 @@ class WallapopApiTest : ShouldSpec() {
         should("test wallapopListSearchFilters") {
             // uncomment below to test wallapopListSearchFilters
             //val categoryId : kotlin.Int = 56 // kotlin.Int | Category the filters apply to
-            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids the filters apply to
+            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids (needs their category_id)
             //val query : kotlin.String = query_example // kotlin.String | Search text the filters apply to
             //val market : kotlin.String = market_example // kotlin.String | Market: es (Spain), it (Italy), pt (Portugal)
             //val prefer : kotlin.String = respond-async, wait=25 // kotlin.String | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait.
