@@ -636,7 +636,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * List categories
-     * The full category tree; ids are usable as the search category_id.
+     * The full category tree; top-level ids are the search category_id, nested subcategory ids go in subcategory_ids.
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
      * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
@@ -674,7 +674,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * List categories
-     * The full category tree; ids are usable as the search category_id.
+     * The full category tree; top-level ids are the search category_id, nested subcategory ids go in subcategory_ids.
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
      * @param xCallbackURL An &#x60;https&#x60; URL that receives the signed &#x60;request.completed&#x60; webhook when the call finishes. Implies async: on its own (no &#x60;Prefer&#x60;, &#x60;async&#x60; or &#x60;async_wait&#x60;) the answer is an immediate &#x60;202&#x60;; with &#x60;Prefer: respond-async&#x60; or &#x60;async&#x3D;true&#x60; the call still waits 25 s unless a wait is given. Wins over &#x60;callback_url&#x60;. (optional)
@@ -751,6 +751,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * Long option lists (e.g. brand, model) for filters flagged options_endpoint.
      * @param filterId 
      * @param categoryId Category to scope options to (optional)
+     * @param subcategoryIds Comma-separated subcategory ids to scope options to (optional)
      * @param query Search text to scope options to (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
@@ -769,8 +770,8 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun wallapopListFilterOptions(filterId: kotlin.String, categoryId: kotlin.Int? = null, query: kotlin.String? = null, market: kotlin.String? = "es", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = wallapopListFilterOptionsWithHttpInfo(filterId = filterId, categoryId = categoryId, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
+    fun wallapopListFilterOptions(filterId: kotlin.String, categoryId: kotlin.Int? = null, subcategoryIds: kotlin.String? = null, query: kotlin.String? = null, market: kotlin.String? = "es", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = wallapopListFilterOptionsWithHttpInfo(filterId = filterId, categoryId = categoryId, subcategoryIds = subcategoryIds, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -792,6 +793,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * Long option lists (e.g. brand, model) for filters flagged options_endpoint.
      * @param filterId 
      * @param categoryId Category to scope options to (optional)
+     * @param subcategoryIds Comma-separated subcategory ids to scope options to (optional)
      * @param query Search text to scope options to (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
@@ -807,8 +809,8 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun wallapopListFilterOptionsWithHttpInfo(filterId: kotlin.String, categoryId: kotlin.Int?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = wallapopListFilterOptionsRequestConfig(filterId = filterId, categoryId = categoryId, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
+    fun wallapopListFilterOptionsWithHttpInfo(filterId: kotlin.String, categoryId: kotlin.Int?, subcategoryIds: kotlin.String?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = wallapopListFilterOptionsRequestConfig(filterId = filterId, categoryId = categoryId, subcategoryIds = subcategoryIds, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -820,6 +822,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      *
      * @param filterId 
      * @param categoryId Category to scope options to (optional)
+     * @param subcategoryIds Comma-separated subcategory ids to scope options to (optional)
      * @param query Search text to scope options to (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
@@ -831,12 +834,15 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun wallapopListFilterOptionsRequestConfig(filterId: kotlin.String, categoryId: kotlin.Int?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
+    fun wallapopListFilterOptionsRequestConfig(filterId: kotlin.String, categoryId: kotlin.Int?, subcategoryIds: kotlin.String?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (categoryId != null) {
                     put("category_id", listOf(categoryId.toString()))
+                }
+                if (subcategoryIds != null) {
+                    put("subcategory_ids", listOf(subcategoryIds.toString()))
                 }
                 if (query != null) {
                     put("query", listOf(query.toString()))
@@ -983,6 +989,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * List search filters
      * The filters Wallapop offers for a category or query, with option ids.
      * @param categoryId Category the filters apply to (optional)
+     * @param subcategoryIds Comma-separated subcategory ids the filters apply to (optional)
      * @param query Search text the filters apply to (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
@@ -1001,8 +1008,8 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun wallapopListSearchFilters(categoryId: kotlin.Int? = null, query: kotlin.String? = null, market: kotlin.String? = "es", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = wallapopListSearchFiltersWithHttpInfo(categoryId = categoryId, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
+    fun wallapopListSearchFilters(categoryId: kotlin.Int? = null, subcategoryIds: kotlin.String? = null, query: kotlin.String? = null, market: kotlin.String? = "es", prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = wallapopListSearchFiltersWithHttpInfo(categoryId = categoryId, subcategoryIds = subcategoryIds, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1023,6 +1030,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * List search filters
      * The filters Wallapop offers for a category or query, with option ids.
      * @param categoryId Category the filters apply to (optional)
+     * @param subcategoryIds Comma-separated subcategory ids the filters apply to (optional)
      * @param query Search text the filters apply to (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
@@ -1038,8 +1046,8 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun wallapopListSearchFiltersWithHttpInfo(categoryId: kotlin.Int?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = wallapopListSearchFiltersRequestConfig(categoryId = categoryId, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
+    fun wallapopListSearchFiltersWithHttpInfo(categoryId: kotlin.Int?, subcategoryIds: kotlin.String?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = wallapopListSearchFiltersRequestConfig(categoryId = categoryId, subcategoryIds = subcategoryIds, query = query, market = market, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1050,6 +1058,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * To obtain the request config of the operation wallapopListSearchFilters
      *
      * @param categoryId Category the filters apply to (optional)
+     * @param subcategoryIds Comma-separated subcategory ids the filters apply to (optional)
      * @param query Search text the filters apply to (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param prefer &#x60;respond-async[, wait&#x3D;N]&#x60; (RFC 7240): run the call async. If it has not finished after &#x60;wait&#x60; seconds (0-120, default 25) the answer is &#x60;202&#x60; with a &#x60;request_id&#x60;; poll &#x60;GET /v1/requests/{request_id}&#x60;. Its &#x60;wait&#x3D;&#x60; wins over &#x60;async_wait&#x60;; without one, &#x60;async_wait&#x60; sets the wait. (optional)
@@ -1061,12 +1070,15 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun wallapopListSearchFiltersRequestConfig(categoryId: kotlin.Int?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
+    fun wallapopListSearchFiltersRequestConfig(categoryId: kotlin.Int?, subcategoryIds: kotlin.String?, query: kotlin.String?, market: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (categoryId != null) {
                     put("category_id", listOf(categoryId.toString()))
+                }
+                if (subcategoryIds != null) {
+                    put("subcategory_ids", listOf(subcategoryIds.toString()))
                 }
                 if (query != null) {
                     put("query", listOf(query.toString()))
@@ -1160,13 +1172,14 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Search listings
-     * Search Wallapop listings (40 per page). Needs a query, a category_id, or both.
+     * Search Wallapop listings (40 per page). Needs a query, a category_id, subcategory_ids, or a combination.
      * @param query Search text, e.g. &#39;iphone 14&#39; (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param latitude Search centre latitude (defaults to the market capital) (optional)
      * @param longitude Search centre longitude (optional)
      * @param distanceKm Search radius (optional)
      * @param categoryId Category id from /categories (optional)
+     * @param subcategoryIds Comma-separated subcategory ids from /categories (any level of the tree), e.g. 9447 (Smartphones) or 9447,10310 (optional)
      * @param minPrice Minimum price (EUR) (optional)
      * @param maxPrice Maximum price (EUR) (optional)
      * @param condition Comma-separated: un_opened, in_box, new, as_good_as_new, good, fair, has_given_it_all (optional)
@@ -1202,8 +1215,8 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun wallapopSearchListings(query: kotlin.String? = null, market: kotlin.String? = "es", latitude: java.math.BigDecimal? = null, longitude: java.math.BigDecimal? = null, distanceKm: kotlin.Int? = null, categoryId: kotlin.Int? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, condition: kotlin.String? = null, brand: kotlin.String? = null, model: kotlin.String? = null, color: kotlin.String? = null, timeFilter: TimeFilterWallapopSearchListings? = null, shippable: kotlin.Boolean? = false, hasWarranty: kotlin.Boolean? = false, refurbished: kotlin.Boolean? = false, minYear: kotlin.Int? = null, maxYear: kotlin.Int? = null, minKm: kotlin.Int? = null, maxKm: kotlin.Int? = null, gearbox: GearboxWallapopSearchListings? = null, minHorsepower: kotlin.Int? = null, maxHorsepower: kotlin.Int? = null, orderBy: OrderByWallapopSearchListings? = OrderByWallapopSearchListings.most_relevance, nextPage: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
-        val localVarResponse = wallapopSearchListingsWithHttpInfo(query = query, market = market, latitude = latitude, longitude = longitude, distanceKm = distanceKm, categoryId = categoryId, minPrice = minPrice, maxPrice = maxPrice, condition = condition, brand = brand, model = model, color = color, timeFilter = timeFilter, shippable = shippable, hasWarranty = hasWarranty, refurbished = refurbished, minYear = minYear, maxYear = maxYear, minKm = minKm, maxKm = maxKm, gearbox = gearbox, minHorsepower = minHorsepower, maxHorsepower = maxHorsepower, orderBy = orderBy, nextPage = nextPage, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
+    fun wallapopSearchListings(query: kotlin.String? = null, market: kotlin.String? = "es", latitude: java.math.BigDecimal? = null, longitude: java.math.BigDecimal? = null, distanceKm: kotlin.Int? = null, categoryId: kotlin.Int? = null, subcategoryIds: kotlin.String? = null, minPrice: java.math.BigDecimal? = null, maxPrice: java.math.BigDecimal? = null, condition: kotlin.String? = null, brand: kotlin.String? = null, model: kotlin.String? = null, color: kotlin.String? = null, timeFilter: TimeFilterWallapopSearchListings? = null, shippable: kotlin.Boolean? = false, hasWarranty: kotlin.Boolean? = false, refurbished: kotlin.Boolean? = false, minYear: kotlin.Int? = null, maxYear: kotlin.Int? = null, minKm: kotlin.Int? = null, maxKm: kotlin.Int? = null, gearbox: GearboxWallapopSearchListings? = null, minHorsepower: kotlin.Int? = null, maxHorsepower: kotlin.Int? = null, orderBy: OrderByWallapopSearchListings? = OrderByWallapopSearchListings.most_relevance, nextPage: kotlin.String? = null, prefer: kotlin.String? = null, xCallbackURL: java.net.URI? = null, idempotencyKey: kotlin.String? = null, async: kotlin.Boolean? = null, asyncWait: kotlin.Int? = null, callbackUrl: java.net.URI? = null, idempotencyKey2: kotlin.String? = null) : kotlin.Any {
+        val localVarResponse = wallapopSearchListingsWithHttpInfo(query = query, market = market, latitude = latitude, longitude = longitude, distanceKm = distanceKm, categoryId = categoryId, subcategoryIds = subcategoryIds, minPrice = minPrice, maxPrice = maxPrice, condition = condition, brand = brand, model = model, color = color, timeFilter = timeFilter, shippable = shippable, hasWarranty = hasWarranty, refurbished = refurbished, minYear = minYear, maxYear = maxYear, minKm = minKm, maxKm = maxKm, gearbox = gearbox, minHorsepower = minHorsepower, maxHorsepower = maxHorsepower, orderBy = orderBy, nextPage = nextPage, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -1222,13 +1235,14 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
 
     /**
      * Search listings
-     * Search Wallapop listings (40 per page). Needs a query, a category_id, or both.
+     * Search Wallapop listings (40 per page). Needs a query, a category_id, subcategory_ids, or a combination.
      * @param query Search text, e.g. &#39;iphone 14&#39; (optional)
      * @param market Market: es (Spain), it (Italy), pt (Portugal) (optional, default to "es")
      * @param latitude Search centre latitude (defaults to the market capital) (optional)
      * @param longitude Search centre longitude (optional)
      * @param distanceKm Search radius (optional)
      * @param categoryId Category id from /categories (optional)
+     * @param subcategoryIds Comma-separated subcategory ids from /categories (any level of the tree), e.g. 9447 (Smartphones) or 9447,10310 (optional)
      * @param minPrice Minimum price (EUR) (optional)
      * @param maxPrice Maximum price (EUR) (optional)
      * @param condition Comma-separated: un_opened, in_box, new, as_good_as_new, good, fair, has_given_it_all (optional)
@@ -1261,8 +1275,8 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun wallapopSearchListingsWithHttpInfo(query: kotlin.String?, market: kotlin.String?, latitude: java.math.BigDecimal?, longitude: java.math.BigDecimal?, distanceKm: kotlin.Int?, categoryId: kotlin.Int?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, condition: kotlin.String?, brand: kotlin.String?, model: kotlin.String?, color: kotlin.String?, timeFilter: TimeFilterWallapopSearchListings?, shippable: kotlin.Boolean?, hasWarranty: kotlin.Boolean?, refurbished: kotlin.Boolean?, minYear: kotlin.Int?, maxYear: kotlin.Int?, minKm: kotlin.Int?, maxKm: kotlin.Int?, gearbox: GearboxWallapopSearchListings?, minHorsepower: kotlin.Int?, maxHorsepower: kotlin.Int?, orderBy: OrderByWallapopSearchListings?, nextPage: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
-        val localVariableConfig = wallapopSearchListingsRequestConfig(query = query, market = market, latitude = latitude, longitude = longitude, distanceKm = distanceKm, categoryId = categoryId, minPrice = minPrice, maxPrice = maxPrice, condition = condition, brand = brand, model = model, color = color, timeFilter = timeFilter, shippable = shippable, hasWarranty = hasWarranty, refurbished = refurbished, minYear = minYear, maxYear = maxYear, minKm = minKm, maxKm = maxKm, gearbox = gearbox, minHorsepower = minHorsepower, maxHorsepower = maxHorsepower, orderBy = orderBy, nextPage = nextPage, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
+    fun wallapopSearchListingsWithHttpInfo(query: kotlin.String?, market: kotlin.String?, latitude: java.math.BigDecimal?, longitude: java.math.BigDecimal?, distanceKm: kotlin.Int?, categoryId: kotlin.Int?, subcategoryIds: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, condition: kotlin.String?, brand: kotlin.String?, model: kotlin.String?, color: kotlin.String?, timeFilter: TimeFilterWallapopSearchListings?, shippable: kotlin.Boolean?, hasWarranty: kotlin.Boolean?, refurbished: kotlin.Boolean?, minYear: kotlin.Int?, maxYear: kotlin.Int?, minKm: kotlin.Int?, maxKm: kotlin.Int?, gearbox: GearboxWallapopSearchListings?, minHorsepower: kotlin.Int?, maxHorsepower: kotlin.Int?, orderBy: OrderByWallapopSearchListings?, nextPage: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = wallapopSearchListingsRequestConfig(query = query, market = market, latitude = latitude, longitude = longitude, distanceKm = distanceKm, categoryId = categoryId, subcategoryIds = subcategoryIds, minPrice = minPrice, maxPrice = maxPrice, condition = condition, brand = brand, model = model, color = color, timeFilter = timeFilter, shippable = shippable, hasWarranty = hasWarranty, refurbished = refurbished, minYear = minYear, maxYear = maxYear, minKm = minKm, maxKm = maxKm, gearbox = gearbox, minHorsepower = minHorsepower, maxHorsepower = maxHorsepower, orderBy = orderBy, nextPage = nextPage, prefer = prefer, xCallbackURL = xCallbackURL, idempotencyKey = idempotencyKey, async = async, asyncWait = asyncWait, callbackUrl = callbackUrl, idempotencyKey2 = idempotencyKey2)
 
         return request<Unit, kotlin.Any>(
             localVariableConfig
@@ -1278,6 +1292,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param longitude Search centre longitude (optional)
      * @param distanceKm Search radius (optional)
      * @param categoryId Category id from /categories (optional)
+     * @param subcategoryIds Comma-separated subcategory ids from /categories (any level of the tree), e.g. 9447 (Smartphones) or 9447,10310 (optional)
      * @param minPrice Minimum price (EUR) (optional)
      * @param maxPrice Maximum price (EUR) (optional)
      * @param condition Comma-separated: un_opened, in_box, new, as_good_as_new, good, fair, has_given_it_all (optional)
@@ -1306,7 +1321,7 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param idempotencyKey2 Query form of &#x60;Idempotency-Key&#x60;. Not sent to the scraper. (optional)
      * @return RequestConfig
      */
-    fun wallapopSearchListingsRequestConfig(query: kotlin.String?, market: kotlin.String?, latitude: java.math.BigDecimal?, longitude: java.math.BigDecimal?, distanceKm: kotlin.Int?, categoryId: kotlin.Int?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, condition: kotlin.String?, brand: kotlin.String?, model: kotlin.String?, color: kotlin.String?, timeFilter: TimeFilterWallapopSearchListings?, shippable: kotlin.Boolean?, hasWarranty: kotlin.Boolean?, refurbished: kotlin.Boolean?, minYear: kotlin.Int?, maxYear: kotlin.Int?, minKm: kotlin.Int?, maxKm: kotlin.Int?, gearbox: GearboxWallapopSearchListings?, minHorsepower: kotlin.Int?, maxHorsepower: kotlin.Int?, orderBy: OrderByWallapopSearchListings?, nextPage: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
+    fun wallapopSearchListingsRequestConfig(query: kotlin.String?, market: kotlin.String?, latitude: java.math.BigDecimal?, longitude: java.math.BigDecimal?, distanceKm: kotlin.Int?, categoryId: kotlin.Int?, subcategoryIds: kotlin.String?, minPrice: java.math.BigDecimal?, maxPrice: java.math.BigDecimal?, condition: kotlin.String?, brand: kotlin.String?, model: kotlin.String?, color: kotlin.String?, timeFilter: TimeFilterWallapopSearchListings?, shippable: kotlin.Boolean?, hasWarranty: kotlin.Boolean?, refurbished: kotlin.Boolean?, minYear: kotlin.Int?, maxYear: kotlin.Int?, minKm: kotlin.Int?, maxKm: kotlin.Int?, gearbox: GearboxWallapopSearchListings?, minHorsepower: kotlin.Int?, maxHorsepower: kotlin.Int?, orderBy: OrderByWallapopSearchListings?, nextPage: kotlin.String?, prefer: kotlin.String?, xCallbackURL: java.net.URI?, idempotencyKey: kotlin.String?, async: kotlin.Boolean?, asyncWait: kotlin.Int?, callbackUrl: java.net.URI?, idempotencyKey2: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1327,6 +1342,9 @@ class WallapopApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
                 }
                 if (categoryId != null) {
                     put("category_id", listOf(categoryId.toString()))
+                }
+                if (subcategoryIds != null) {
+                    put("subcategory_ids", listOf(subcategoryIds.toString()))
                 }
                 if (minPrice != null) {
                     put("min_price", listOf(minPrice.toString()))

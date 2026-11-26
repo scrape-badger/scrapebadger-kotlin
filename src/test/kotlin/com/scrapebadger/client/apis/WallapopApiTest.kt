@@ -129,6 +129,7 @@ class WallapopApiTest : ShouldSpec() {
             // uncomment below to test wallapopListFilterOptions
             //val filterId : kotlin.String = filterId_example // kotlin.String | 
             //val categoryId : kotlin.Int = 56 // kotlin.Int | Category to scope options to
+            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids to scope options to
             //val query : kotlin.String = query_example // kotlin.String | Search text to scope options to
             //val market : kotlin.String = market_example // kotlin.String | Market: es (Spain), it (Italy), pt (Portugal)
             //val prefer : kotlin.String = respond-async, wait=25 // kotlin.String | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait.
@@ -138,7 +139,7 @@ class WallapopApiTest : ShouldSpec() {
             //val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper.
             //val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
             //val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
-            //val result : kotlin.Any = apiInstance.wallapopListFilterOptions(filterId, categoryId, query, market, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+            //val result : kotlin.Any = apiInstance.wallapopListFilterOptions(filterId, categoryId, subcategoryIds, query, market, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
             //result shouldBe ("TODO")
         }
 
@@ -160,6 +161,7 @@ class WallapopApiTest : ShouldSpec() {
         should("test wallapopListSearchFilters") {
             // uncomment below to test wallapopListSearchFilters
             //val categoryId : kotlin.Int = 56 // kotlin.Int | Category the filters apply to
+            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids the filters apply to
             //val query : kotlin.String = query_example // kotlin.String | Search text the filters apply to
             //val market : kotlin.String = market_example // kotlin.String | Market: es (Spain), it (Italy), pt (Portugal)
             //val prefer : kotlin.String = respond-async, wait=25 // kotlin.String | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait.
@@ -169,7 +171,7 @@ class WallapopApiTest : ShouldSpec() {
             //val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper.
             //val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
             //val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
-            //val result : kotlin.Any = apiInstance.wallapopListSearchFilters(categoryId, query, market, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+            //val result : kotlin.Any = apiInstance.wallapopListSearchFilters(categoryId, subcategoryIds, query, market, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
             //result shouldBe ("TODO")
         }
 
@@ -182,6 +184,7 @@ class WallapopApiTest : ShouldSpec() {
             //val longitude : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Search centre longitude
             //val distanceKm : kotlin.Int = 56 // kotlin.Int | Search radius
             //val categoryId : kotlin.Int = 56 // kotlin.Int | Category id from /categories
+            //val subcategoryIds : kotlin.String = subcategoryIds_example // kotlin.String | Comma-separated subcategory ids from /categories (any level of the tree), e.g. 9447 (Smartphones) or 9447,10310
             //val minPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Minimum price (EUR)
             //val maxPrice : java.math.BigDecimal = 8.14 // java.math.BigDecimal | Maximum price (EUR)
             //val condition : kotlin.String = condition_example // kotlin.String | Comma-separated: un_opened, in_box, new, as_good_as_new, good, fair, has_given_it_all
@@ -208,7 +211,7 @@ class WallapopApiTest : ShouldSpec() {
             //val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper.
             //val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
             //val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
-            //val result : kotlin.Any = apiInstance.wallapopSearchListings(query, market, latitude, longitude, distanceKm, categoryId, minPrice, maxPrice, condition, brand, model, color, timeFilter, shippable, hasWarranty, refurbished, minYear, maxYear, minKm, maxKm, gearbox, minHorsepower, maxHorsepower, orderBy, nextPage, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+            //val result : kotlin.Any = apiInstance.wallapopSearchListings(query, market, latitude, longitude, distanceKm, categoryId, subcategoryIds, minPrice, maxPrice, condition, brand, model, color, timeFilter, shippable, hasWarranty, refurbished, minYear, maxYear, minKm, maxKm, gearbox, minHorsepower, maxHorsepower, orderBy, nextPage, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
             //result shouldBe ("TODO")
         }
 
