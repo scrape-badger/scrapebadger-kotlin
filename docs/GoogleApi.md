@@ -986,7 +986,7 @@ Configure ApiKeyAuth:
 
 <a id="googleGoogleLightWebSearch"></a>
 # **googleGoogleLightWebSearch**
-> kotlin.Any googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+> kotlin.Any googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, requireResolvedLinks, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
 
 Google Light web search
 
@@ -1012,6 +1012,7 @@ val tbs : kotlin.String = tbs_example // kotlin.String | Time filter (e.g. qdr:d
 val safe : kotlin.String = safe_example // kotlin.String | Safe search: off or active
 val filter : kotlin.Int = 56 // kotlin.Int | 
 val nfpr : kotlin.Int = 56 // kotlin.Int | Disable auto-correction
+val requireResolvedLinks : kotlin.Boolean = true // kotlin.Boolean | Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full).
 val output : kotlin.String = output_example // kotlin.String | 
 val oq : kotlin.String = oq_example // kotlin.String | Original query sent to Google. Defaults to q; an empty string omits it.
 val sourceid : kotlin.String = sourceid_example // kotlin.String | Google source identifier. Defaults to chrome; an empty string omits it.
@@ -1052,7 +1053,7 @@ val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside a
 val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
 val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
 try {
-    val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+    val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, requireResolvedLinks, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GoogleApi#googleGoogleLightWebSearch")
@@ -1077,6 +1078,7 @@ try {
 | **safe** | **kotlin.String**| Safe search: off or active | [optional] [default to &quot;off&quot;] |
 | **filter** | **kotlin.Int**|  | [optional] |
 | **nfpr** | **kotlin.Int**| Disable auto-correction | [optional] [default to 0] |
+| **requireResolvedLinks** | **kotlin.Boolean**| Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full). | [optional] [default to false] |
 | **output** | **kotlin.String**|  | [optional] [default to json] [enum: json, html] |
 | **oq** | **kotlin.String**| Original query sent to Google. Defaults to q; an empty string omits it. | [optional] |
 | **sourceid** | **kotlin.String**| Google source identifier. Defaults to chrome; an empty string omits it. | [optional] |
@@ -1369,7 +1371,7 @@ Configure ApiKeyAuth:
 
 <a id="googleGoogleWebSearch"></a>
 # **googleGoogleWebSearch**
-> kotlin.Any googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+> kotlin.Any googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, requireResolvedLinks, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
 
 Google web search
 
@@ -1390,6 +1392,7 @@ val start : kotlin.Int = 56 // kotlin.Int | Page offset (0, 10, 20...)
 val domain : kotlin.String = domain_example // kotlin.String | Google domain
 val device : kotlin.String = device_example // kotlin.String | Device target: desktop, mobile, iphone, android, tablet
 val userAgent : kotlin.String = userAgent_example // kotlin.String | Custom User-Agent (overrides device)
+val requireResolvedLinks : kotlin.Boolean = true // kotlin.Boolean | Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full).
 val output : kotlin.String = output_example // kotlin.String | Response format: json (parsed) or html (raw SERP)
 val location : kotlin.String = location_example // kotlin.String | City-level geo-targeting
 val lr : kotlin.String = lr_example // kotlin.String | Language restrict (e.g. lang_en)
@@ -1438,7 +1441,7 @@ val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside a
 val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
 val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
 try {
-    val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+    val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, requireResolvedLinks, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GoogleApi#googleGoogleWebSearch")
@@ -1458,6 +1461,7 @@ try {
 | **domain** | **kotlin.String**| Google domain | [optional] [default to &quot;google.com&quot;] |
 | **device** | **kotlin.String**| Device target: desktop, mobile, iphone, android, tablet | [optional] [default to desktop] [enum: desktop, mobile, iphone, android, tablet] |
 | **userAgent** | **kotlin.String**| Custom User-Agent (overrides device) | [optional] |
+| **requireResolvedLinks** | **kotlin.Boolean**| Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full). | [optional] [default to false] |
 | **output** | **kotlin.String**| Response format: json (parsed) or html (raw SERP) | [optional] [default to json] [enum: json, html] |
 | **location** | **kotlin.String**| City-level geo-targeting | [optional] |
 | **lr** | **kotlin.String**| Language restrict (e.g. lang_en) | [optional] |

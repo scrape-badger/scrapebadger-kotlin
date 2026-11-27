@@ -303,6 +303,7 @@ class GoogleApiTest : ShouldSpec() {
             //val safe : kotlin.String = safe_example // kotlin.String | Safe search: off or active
             //val filter : kotlin.Int = 56 // kotlin.Int | 
             //val nfpr : kotlin.Int = 56 // kotlin.Int | Disable auto-correction
+            //val requireResolvedLinks : kotlin.Boolean = true // kotlin.Boolean | Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full).
             //val output : kotlin.String = output_example // kotlin.String | 
             //val oq : kotlin.String = oq_example // kotlin.String | Original query sent to Google. Defaults to q; an empty string omits it.
             //val sourceid : kotlin.String = sourceid_example // kotlin.String | Google source identifier. Defaults to chrome; an empty string omits it.
@@ -342,7 +343,7 @@ class GoogleApiTest : ShouldSpec() {
             //val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper.
             //val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
             //val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
-            //val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+            //val result : kotlin.Any = apiInstance.googleGoogleLightWebSearch(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, requireResolvedLinks, output, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, device, userAgent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
             //result shouldBe ("TODO")
         }
 
@@ -408,6 +409,7 @@ class GoogleApiTest : ShouldSpec() {
             //val domain : kotlin.String = domain_example // kotlin.String | Google domain
             //val device : kotlin.String = device_example // kotlin.String | Device target: desktop, mobile, iphone, android, tablet
             //val userAgent : kotlin.String = userAgent_example // kotlin.String | Custom User-Agent (overrides device)
+            //val requireResolvedLinks : kotlin.Boolean = true // kotlin.Boolean | Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full).
             //val output : kotlin.String = output_example // kotlin.String | Response format: json (parsed) or html (raw SERP)
             //val location : kotlin.String = location_example // kotlin.String | City-level geo-targeting
             //val lr : kotlin.String = lr_example // kotlin.String | Language restrict (e.g. lang_en)
@@ -455,7 +457,7 @@ class GoogleApiTest : ShouldSpec() {
             //val asyncWait : kotlin.Int = 56 // kotlin.Int | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper.
             //val callbackUrl : java.net.URI = callbackUrl_example // java.net.URI | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper.
             //val idempotencyKey2 : kotlin.String = idempotencyKey_example // kotlin.String | Query form of `Idempotency-Key`. Not sent to the scraper.
-            //val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
+            //val result : kotlin.Any = apiInstance.googleGoogleWebSearch(q, gl, hl, num, start, domain, device, userAgent, requireResolvedLinks, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, aiOverview, mode, expandRelatedQuestions, oq, sourceid, ie, googleDomain, lat, lon, radius, colorScheme, tbm, udm, noCache, asDt, asEpq, asEq, asLq, asNlo, asNhi, asOq, asQ, asQdr, asRq, asSitesearch, prefer, xCallbackURL, idempotencyKey, async, asyncWait, callbackUrl, idempotencyKey2)
             //result shouldBe ("TODO")
         }
 
